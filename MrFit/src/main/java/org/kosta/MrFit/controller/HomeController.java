@@ -19,7 +19,7 @@ public class HomeController {
 		System.out.println("      HomeController/home()/시작");
 		System.out.println("      HomeController/home()/진행");
 		System.out.println("      HomeController/home()/종료");
-		return null;
+		return "home.tiles";
 	}
 	
 	

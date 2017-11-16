@@ -1,5 +1,7 @@
 package org.kosta.MrFit.model;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -17,10 +19,19 @@ public class MemberServiceImpl implements MemberService {
 	 *  
 	 * @return
 	 */
-	public String findMemberById(){
+	
+	@Override
+	public MemberVO findMemberById(String id){
 		System.out.println("            MemberServiceImpl/findMemberById()/시작");
 		System.out.println("    		MemberServiceImpl/findMemberById()/진행");
 		System.out.println("      		MemberServiceImpl/findMemberById()/종료");
 		return null;
 	}
+
+	@Override
+	public List<Authority> selectAuthorityByUsername(String id) {
+		return null;
+	}
+	
+	
 }
