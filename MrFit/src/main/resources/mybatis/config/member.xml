@@ -4,11 +4,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
- 	<sql id="">
- 	
+ 	<sql id="selectall">
+ 		
  	</sql>
+ 	<select id="findMemberById" parameterType="string" resultType="memberVO">
  	
+ 	</select>
+ 	<select id="selectAuthorityById" parameterType="string" resultType="authority">
  	
+ 	</select>
 </mapper>
 
 
