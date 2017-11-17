@@ -8,4 +8,7 @@ public interface MemberService {
 
 	List<Authority> selectAuthorityById(String id);
 	
+	void registerMember(MemberVO vo);
+	
+	String idcheck(String id);
 }

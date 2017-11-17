@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.ProductService;
+import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberVO;
+//github.com/ho7371/MrFit.git
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,4 +28,14 @@ public class UnitTest {
 	  System.out.println(pservice.findProductByName("청바지"));
 	 }
 	 
+	private MemberService memberService;
+	
+	@Test
+
+	public void findMemberById(){
+		System.out.println(memberService);
+		MemberVO member = memberService.findMemberById("mrfit");
+		System.out.println(member);
+	}
+
 }

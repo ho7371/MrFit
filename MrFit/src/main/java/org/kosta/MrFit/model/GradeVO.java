@@ -1,24 +1,16 @@
 package org.kosta.MrFit.model;
 
 public class GradeVO {
-	private String gno;
 	private String grade;
 	private double percent;
 	public GradeVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public GradeVO(String gno, String grade, double percent) {
+	public GradeVO(String grade, double percent) {
 		super();
-		this.gno = gno;
 		this.grade = grade;
 		this.percent = percent;
-	}
-	public String getGno() {
-		return gno;
-	}
-	public void setGno(String gno) {
-		this.gno = gno;
 	}
 	public String getGrade() {
 		return grade;
@@ -34,7 +26,7 @@ public class GradeVO {
 	}
 	@Override
 	public String toString() {
-		return "GradeVO [gno=" + gno + ", grade=" + grade + ", percent=" + percent + "]";
+		return "GradeVO [grade=" + grade + ", percent=" + percent + "]";
 	}
 	
 

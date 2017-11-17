@@ -17,7 +17,7 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("아이디 : "+id);
 		System.out.println("                  MemberDAOImpl/findMemberById()/시작");
 		MemberVO vo=template.selectOne("member.findMemberById",id);
-		System.out.println(vo);
+		System.out.println("daoimpl "+vo);
 		return template.selectOne("member.findMemberById",id);
 	}
 
@@ -26,6 +26,21 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		System.out.println("                  MemberDAOImpl/selectAuthorityById()/시작");
 		return template.selectList("member.selectAuthorityById",id);
+	}
+	
+	@Override
+	public void registerMember(MemberVO vo) {
+		template.insert("member.registerMember",vo);			
+	}
+	
+	@Override	
+	public void registerRole(Authority authority){
+		template.insert("member.registerRole",authority);
+	}
+	
+	@Override
+	public int idcheck(String id) {
+		return template.selectOne("member.idcheck",id);				
 	}
 	
 	// 주석샘플

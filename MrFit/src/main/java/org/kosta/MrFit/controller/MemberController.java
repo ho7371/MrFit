@@ -3,23 +3,26 @@ package org.kosta.MrFit.controller;
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
 public class MemberController {
-	@Resource
+	@Resource 		
 	private MemberService memberService;
 	
-	@Resource
+	@Resource 		
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
-		return "member/login_fail";
+		return "main/member/login_fail";
 	}
 
 	/** 코드 작성 규칙
@@ -37,9 +40,7 @@ public class MemberController {
 		}
 	 * @return
 	 */
-	
-	
-	
+
 	@RequestMapping("findMemberById.do")
 	public ModelAndView findMemberById(String id) {
 		System.out.println("   	MemberController/findMemberById()/시작");
@@ -47,4 +48,47 @@ public class MemberController {
 		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
 	}
+	
+	@RequestMapping("loginForm.do")
+	public String loginForm() {
+		System.out.println("   	MemberController/loginForm()/시작");
+		System.out.println("    MemberController/loginForm()/진행");
+		System.out.println("    MemberController/loginForm()/종료");
+		return "loginForm.tiles";
+	}
+	
+	
+	
+	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
+	public String register(MemberVO vo) {
+		memberService.registerMember(vo);
+		return "redirect:registerResultView.do?id=" + vo.getId();
+	}
+	
+	@RequestMapping("registerResultView.do")
+	public ModelAndView registerResultView(String id) {
+		MemberVO vo = memberService.findMemberById(id);
+		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
+	}
+	
+	@RequestMapping("idcheckAjax.do")
+	@ResponseBody
+	public String idcheckAjax(String id) {
+		return memberService.idcheck(id);
+	}
+
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+

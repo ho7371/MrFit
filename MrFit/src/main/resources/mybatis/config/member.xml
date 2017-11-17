@@ -7,16 +7,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<sql id="selectall">
  		select id,password,name,phone,address,email,gno,point,totalspent,status from member
  	</sql>
-	
- 	<select id="findMemberById" parameterType="string" resultType="memberVO">
- 		<include refid="selectall"/>
-		WHERE 	id=#{value}
+ 	
+ 	<resultMap type="memberVO" id="MRM">
+ 		<result column="grade" property="gradeVO.grade"/>
+ 		<result column="percent" property="gradeVO.percent"/>
+ 	</resultMap>
+ 	<select id="findMemberById" parameterType="string" resultMap="MRM" resultType="memberVO">
+ 		SELECT	m.id,	m.password,  m.name, m.phone, m.address, m.email, m.grade, g.percent, m.point, 
+		m.totalspent, m.status
+		FROM	member m, GRADE g
+		WHERE 	m.grade=g.grade and id=#{value}	and status='1'
  	</select>
+ 	
  	<select id="selectAuthorityById" parameterType="string" resultType="authority">
- 		SELECT	id,auth
-		FROM	auth
+ 		SELECT	id,auth 
+		FROM	auth 
 		WHERE	id=#{value}
  	</select>
+ 	
+ 	<insert id="registerMember" parameterType="memberVO">
+		insert into member(id,	password,  name, phone, address, email, grade, point, totalspent, status)
+		values(#{id},#{password},#{name},#{phone},#{address},#{email},'브론즈',0,0,'1')
+	</insert>
+ 	
+ 	<insert id="registerRole" parameterType="authority">
+		insert into auth (id,auth) values(#{id},#{auth})
+	</insert>
+ 	
+ 	<select id="idcheck" parameterType="string" resultType="int">
+		select count(*) from member where id=#{value}
+	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
 </mapper>
 
 
