@@ -15,7 +15,7 @@
 		<!-- <put-attribute name="left" value="/WEB-INF/views/templates/left.jsp" /> -->
 	</definition>	
 	<!-- {디렉토리명}/{view이름} -->
-	<definition name="*/*.tiles" extends="home.tiles">
+	<definition name="*/*.tiles" extends="*.tiles">
         <put-attribute name="main" value="/WEB-INF/views/main/{1}/{2}.jsp" />        
         <put-attribute name="title" value="{2}" />
     </definition>   
