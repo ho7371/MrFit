@@ -5,13 +5,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
  	<sql id="selectall">
- 		
+ 		select id,password,name,phone,address,email,gno,point,totalspent,status from member
  	</sql>
+	
  	<select id="findMemberById" parameterType="string" resultType="memberVO">
- 	
+ 		<include refid="selectall"/>
+		WHERE 	id=#{value}
  	</select>
  	<select id="selectAuthorityById" parameterType="string" resultType="authority">
- 	
+ 		SELECT	id,auth
+		FROM	auth
+		WHERE	id=#{value}
  	</select>
 </mapper>
 

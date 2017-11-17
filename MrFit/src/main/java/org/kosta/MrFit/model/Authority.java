@@ -5,35 +5,37 @@ import java.io.Serializable;
 public class Authority implements Serializable {
 
 	private static final long serialVersionUID = -4113136543947339799L;
-	private String username;
-	private String authority;
-	
-	public Authority(){}
-
-	public Authority(String username, String authority) {
-		this.username = username;
-		this.authority = authority;
+	private String id;
+	private String auth;
+	public Authority() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-  
-	public String getUsername() {
-		return username;
+	public Authority(String id, String auth) {
+		super();
+		this.id = id;
+		this.auth = auth;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public String getId() {
+		return id;
 	}
-
-	public String getAuthority() {
-		return authority;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public String getAuth() {
+		return auth;
 	}
-
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public String toString() {
-		return "Authority [username=" + username + ", authority=" + authority
-				+ "]";
-	}	
+		return "Authority [id=" + id + ", auth=" + auth + "]";
+	}
+	
+	
+	
 }

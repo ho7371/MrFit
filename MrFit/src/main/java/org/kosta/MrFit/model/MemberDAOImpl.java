@@ -14,13 +14,17 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO findMemberById(String id) {
-		// TODO Auto-generated method stub
+		System.out.println("아이디 : "+id);
+		System.out.println("                  MemberDAOImpl/findMemberById()/시작");
+		MemberVO vo=template.selectOne("member.findMemberById",id);
+		System.out.println(vo);
 		return template.selectOne("member.findMemberById",id);
 	}
 
 	@Override
 	public List<Authority> selectAuthorityById(String id) {
 		// TODO Auto-generated method stub
+		System.out.println("                  MemberDAOImpl/selectAuthorityById()/시작");
 		return template.selectList("member.selectAuthorityById",id);
 	}
 	
