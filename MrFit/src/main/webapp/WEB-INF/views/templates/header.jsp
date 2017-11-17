@@ -33,6 +33,12 @@
 						</sec:authorize>
 					<sec:authorize
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
+						<sec:authentication property="principal.name" />님 <br>
+					</sec:authorize>
+						<p>
+							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
+							<sec:authorize
+						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<script type="text/javascript">
 							$(document).ready(function() {
 								$("#logoutAction").click(function() {
@@ -40,16 +46,13 @@
 								});
 							});
 						</script>
-						<sec:authentication property="principal.name" />님 <br>
-						<a href="#" id="logoutAction">로그아웃</a>
+						&nbsp; <a href="#" id="logoutAction">로그아웃</a>
 						<form id="logoutForm"
 							action="${pageContext.request.contextPath}/logout.do"
 							method="post" style="display: none">
 							<sec:csrfInput />
 						</form>
 					</sec:authorize>
-						<p>
-							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
 						</p>
 						<div class="clearfix"></div>
 					</div>

@@ -19,7 +19,7 @@ public class MemberController {
 
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
-		return "member/login_fail";
+		return "main/member/login_fail";
 	}
 
 	/** 코드 작성 규칙
