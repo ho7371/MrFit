@@ -1,32 +1,35 @@
 package org.kosta.MrFit.model;
 
+import java.util.List;
+
 public class ProductDetailVO {
-	private String pdetail_no;
+	private String pdno;
 	private String size;
 	private String color;
 	private String inventory;
-	private String psize_no;
+	private String psno;
 	private String pno;
+	private List<ProductSizeVO> sizeList;
 	public ProductDetailVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public ProductDetailVO(String pdetail_no, String size, String color, String inventory, String psize_no,
-			String pno) {
+	public ProductDetailVO(String pdno, String size, String color, String inventory, String psno, String pno,
+			List<ProductSizeVO> sizeList) {
 		super();
-		this.pdetail_no = pdetail_no;
+		this.pdno = pdno;
 		this.size = size;
 		this.color = color;
 		this.inventory = inventory;
-		this.psize_no = psize_no;
+		this.psno = psno;
 		this.pno = pno;
+		this.sizeList = sizeList;
 	}
-	
-	
-	public String getPdetail_no() {
-		return pdetail_no;
+	public String getPdno() {
+		return pdno;
 	}
-	public void setPdetail_no(String pdetail_no) {
-		this.pdetail_no = pdetail_no;
+	public void setPdno(String pdno) {
+		this.pdno = pdno;
 	}
 	public String getSize() {
 		return size;
@@ -46,11 +49,11 @@ public class ProductDetailVO {
 	public void setInventory(String inventory) {
 		this.inventory = inventory;
 	}
-	public String getPsize_no() {
-		return psize_no;
+	public String getPsno() {
+		return psno;
 	}
-	public void setPsize_no(String psize_no) {
-		this.psize_no = psize_no;
+	public void setPsno(String psno) {
+		this.psno = psno;
 	}
 	public String getPno() {
 		return pno;
@@ -58,10 +61,16 @@ public class ProductDetailVO {
 	public void setPno(String pno) {
 		this.pno = pno;
 	}
+	public List<ProductSizeVO> getSizeList() {
+		return sizeList;
+	}
+	public void setSizeList(List<ProductSizeVO> sizeList) {
+		this.sizeList = sizeList;
+	}
 	@Override
 	public String toString() {
-		return "ProductDetailVO [pdetail_no=" + pdetail_no + ", size=" + size + ", color=" + color + ", inventory="
-				+ inventory + ", psize_no=" + psize_no + ", pno=" + pno + "]";
+		return "ProductDetailVO [pdno=" + pdno + ", size=" + size + ", color=" + color + ", inventory=" + inventory
+				+ ", psno=" + psno + ", pno=" + pno + ", sizeList=" + sizeList + "]";
 	}
 	
 }

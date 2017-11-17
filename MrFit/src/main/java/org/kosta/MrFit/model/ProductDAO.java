@@ -2,12 +2,11 @@ package org.kosta.MrFit.model;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductDAO {
 
-	List<ProductVO> findProductByName(String keyword);
 
 	ProductVO findProductDtailByPno(String pno);
 
-	
+	List<ProductVO> findProductByName(String keyword);
 
 }
