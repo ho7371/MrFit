@@ -14,7 +14,7 @@ public class ReportAspect {
 	private Log log = LogFactory.getLog(getClass());
 
 	@SuppressWarnings("rawtypes")
-	@Around("execution(public java.util.List org.kosta.springmvc10.model.*Service.find*List*(..))")
+	@Around("execution(public java.util.List org.kosta.MrFit.*Service.find*List*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
 
 		try {

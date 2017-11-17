@@ -30,8 +30,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 			return null;
 		}
 		//2.사용자 정보 디비로 부터 조회
-		String id = authentication.getName();		
+		String id = authentication.getName();
+		System.out.println(id);
 		MemberVO member = memberService.findMemberById(id);
+		System.out.println(member);
 		if(member == null){
 			throw new UsernameNotFoundException("회원 아이디가 존재하지 않습니다");
 		}
@@ -49,7 +51,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 		for(Authority au : list){
-			authorities.add(new SimpleGrantedAuthority(au.getAuthority()));
+			authorities.add(new SimpleGrantedAuthority(au.getAuth()));
 		}
 		/****************************************
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴

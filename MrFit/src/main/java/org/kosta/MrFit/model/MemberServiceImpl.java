@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Authority> selectAuthorityById(String id) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/selectAuthorityById()/시작");
 		return memberDAO.selectAuthorityById(id);
 	}
 	
@@ -31,13 +31,8 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("            MemberServiceImpl/findMemberById()/시작");
 		System.out.println("    		MemberServiceImpl/findMemberById()/진행");
 		System.out.println("      		MemberServiceImpl/findMemberById()/종료");
-		return null;
+		return memberDAO.findMemberById(id);
 	}
 
-	@Override
-	public List<Authority> selectAuthorityByUsername(String id) {
-		return null;
-	}
-	
 	
 }

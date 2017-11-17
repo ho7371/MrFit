@@ -8,6 +8,4 @@ public interface MemberService {
 
 	List<Authority> selectAuthorityById(String id);
 	
-	List<Authority> selectAuthorityByUsername(String id);
-	
 }

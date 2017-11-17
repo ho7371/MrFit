@@ -10,14 +10,14 @@ public class MemberVO {
 	private GradeVO gradeVO;
 	private int point;
 	private int totalSpent;
-	private String auth;
+	private String status;
 	
 	public MemberVO() {
 		super();
 	}
 
 	public MemberVO(String id, String password, String name, String phone, String address, String email,
-			GradeVO gradeVO, int point, int totalSpent, String auth) {
+			GradeVO gradeVO, int point, int totalSpent, String status) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -28,7 +28,7 @@ public class MemberVO {
 		this.gradeVO = gradeVO;
 		this.point = point;
 		this.totalSpent = totalSpent;
-		this.auth = auth;
+		this.status = status;
 	}
 
 	public String getId() {
@@ -103,18 +103,18 @@ public class MemberVO {
 		this.totalSpent = totalSpent;
 	}
 
-	public String getAuth() {
-		return auth;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setAuth(String auth) {
-		this.auth = auth;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone + ", address="
 				+ address + ", email=" + email + ", gradeVO=" + gradeVO + ", point=" + point + ", totalSpent="
-				+ totalSpent + ", auth=" + auth + "]";
+				+ totalSpent + ", status=" + status + "]";
 	}
 }

@@ -3,7 +3,6 @@ package org.kosta.MrFit.controller;
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberService;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,13 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
-	@Resource
+	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
 	private MemberService memberService;
 	
-	@Resource
+	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Secured("")
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
 		return "member/login_fail";
