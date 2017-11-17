@@ -25,10 +25,10 @@ public class UnitTest {
 	 @Test
 	 public void unitTest() {
 	  //System.out.println(memberDAO.findMemberById("java"));
-	  System.out.println(pservice.findProductByName("청바지"));
+	  System.out.println(pservice.findProductDtailByPno("7"));
 	 }
 	 
-	private MemberService memberService;
+/*	private MemberService memberService;
 	
 	@Test
 
@@ -36,6 +36,6 @@ public class UnitTest {
 		System.out.println(memberService);
 		MemberVO member = memberService.findMemberById("mrfit");
 		System.out.println(member);
-	}
+	}*/
 
 }

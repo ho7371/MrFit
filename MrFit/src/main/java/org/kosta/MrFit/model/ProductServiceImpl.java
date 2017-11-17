@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Resource
-	private ProductDAO productdDAO;
+	private ProductDAO productDAO;
 	
 	// 주석샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -28,9 +28,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductVO> findProductByName(String keyword) {
-		return productdDAO.findProductByName(keyword);
+		return productDAO.findProductByName(keyword);
 	}
-		
+	@Override
+	public ProductVO findProductDtailByPno(String pno) {	
+
+		return productDAO.findProductDtailByPno(pno);
+	}
 		
 		
 }

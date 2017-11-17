@@ -17,10 +17,16 @@ public class ProductDAOImpl implements ProductDAO {
 	 */
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
-		//ProductVO template.selectOne("product.findProductDtail", pno);
-		//List<ProductDetailVO> pdList=template.selectList("", pno);
-		//List<ProductSizeVO psList=template.selectList("",pno);
-		return new ProductVO();
+		ProductVO pvo=null;
+		ProductDetailVO pdvo=new ProductDetailVO();
+		pvo=template.selectOne("product.findProductDetail", pno);
+		List<ProductDetailVO> pdList=template.selectList("product.findProductDetailList", pno);
+		List<ProductSizeVO> psList=template.selectList("product.findProductSizeList",pno);
+		List<ImageVO> iList=template.selectList("product.findProductImageList",pno);
+		pdvo.setSizeList(psList);
+		pvo.setProductDetailList(pdList);
+		pvo.setImageList(iList);
+		return pvo;
 	}
 	@Override
 	public List<ProductVO> findProductByName(String keyword) {
