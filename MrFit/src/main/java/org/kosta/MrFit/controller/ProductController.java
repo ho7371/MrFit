@@ -1,5 +1,7 @@
 package org.kosta.MrFit.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,6 +40,22 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/진행");
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
+	}
+	
+	@RequestMapping("findProductByName.do")
+	public ModelAndView findProductByName(String keyword){
+		System.out.println("   	ProductController/registerProduct()/시작");
+		ModelAndView mv = new ModelAndView();
+		List<ProductVO> list = productService.findProductByName(keyword);
+		System.out.println("    ProductController/registerProduct()/진행");
+		if(!list.isEmpty()) {
+			mv.setViewName("product/findProductByName_ok");
+			mv.addObject("list", list);
+		}else {
+			mv.setViewName("prodcut/findProductByName_fail");
+		}
+		System.out.println("    ProductController/registerProduct()/종료");
+		return mv;
 	}
 }
 

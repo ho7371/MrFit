@@ -1,10 +1,15 @@
 package org.kosta.MrFit.model;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	
+	@Resource
+	private ProductDAO productdDAO;
 	
 	// 주석샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -19,6 +24,11 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("    		ProductServiceImpl/findProductById()/진행");
 		System.out.println("      		ProductServiceImpl/findProductById()/종료");
 		return null;
+	}
+
+	@Override
+	public List<ProductVO> findProductByName(String keyword) {
+		return productdDAO.findProductByName(keyword);
 	}
 		
 		
