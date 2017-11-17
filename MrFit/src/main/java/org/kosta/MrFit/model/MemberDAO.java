@@ -7,5 +7,4 @@ public interface MemberDAO {
 	MemberVO findMemberById(String id);
 
 	List<Authority> selectAuthorityById(String id);
-
 }

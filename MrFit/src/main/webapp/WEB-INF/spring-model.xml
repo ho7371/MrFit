@@ -13,12 +13,11 @@
 <!-- Spring Security를 위해 ServletContextListener 를 이용해 로딩하므로 
 	  컨트롤러측은 제외하고 dbcp mybatis model 쪽만 빈을 생성하도록 설정한다 
  -->		
-<context:component-scan base-package="org.kosta.MrFit">
-	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-</context:component-scan>
+<context:component-scan base-package="org.kosta.MrFit.model">
+<!-- 		<context:exclude-filter type="annotation" 
+		expression="org.springframework.stereotype.Controller"/> -->
+	</context:component-scan>
 <!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
-
-
 <!-- dataSource -->
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
  <property name="driverClassName">
@@ -28,17 +27,15 @@
   <value>jdbc:oracle:thin:@127.0.0.1:1521:xe</value>  
  </property>
  <property name="username">
-  <value>scott</value>
+  <value>mrfit</value>
  </property>
  <property name="password">
-  <value>tiger</value>
+  <value>hotsix</value>
  </property>
  <property name="maxActive">
   <value>30</value>
  </property>
 </bean>
-
-
 <!-- MyBatis 연동 설정 -->
 <bean id="sqlSessionFactory" 
 class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -49,15 +46,12 @@ class="org.mybatis.spring.SqlSessionFactoryBean">
 <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
  <constructor-arg ref="sqlSessionFactory"></constructor-arg>
 </bean>
-
-
 <!-- transation 설정  -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />	
-	
 </beans>
 
 

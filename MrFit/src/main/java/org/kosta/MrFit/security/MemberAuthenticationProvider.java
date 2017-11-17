@@ -65,6 +65,4 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		
 		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
-	
-	
 }
