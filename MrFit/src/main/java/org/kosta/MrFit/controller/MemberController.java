@@ -77,13 +77,6 @@ public class MemberController {
 		return memberService.idcheck(id);
 	}
 
-	
-	
-	
-	
-	
-	
-	
 }
 
 

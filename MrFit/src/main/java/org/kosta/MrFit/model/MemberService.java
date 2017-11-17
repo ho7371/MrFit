@@ -7,9 +7,8 @@ public interface MemberService {
 	MemberVO findMemberById(String id);
 
 	List<Authority> selectAuthorityById(String id);
-
-	void registerMember(MemberVO vo);
 	
+	void registerMember(MemberVO vo);
 	
 	String idcheck(String id);
 }
