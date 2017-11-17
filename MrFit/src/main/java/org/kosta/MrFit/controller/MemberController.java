@@ -11,10 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
-	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
+	@Resource 		
 	private MemberService memberService;
 	
-	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
+	@Resource 		
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("login_fail.do")
@@ -53,4 +53,5 @@ public class MemberController {
 		System.out.println("    MemberController/loginForm()/종료");
 		return "loginForm.tiles";
 	}
+
 }
