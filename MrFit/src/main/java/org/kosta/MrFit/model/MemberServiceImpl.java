@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberDAO memberDAO;
+	
+	@Resource
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public List<Authority> selectAuthorityById(String id) {
@@ -32,6 +36,23 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("    		MemberServiceImpl/findMemberById()/진행");
 		System.out.println("      		MemberServiceImpl/findMemberById()/종료");
 		return memberDAO.findMemberById(id);
+	}
+	
+	@Override
+	public void registerMember(MemberVO vo) {
+		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
+		String encodedPwd = passwordEncoder.encode(vo.getPassword());
+		vo.setPassword(encodedPwd);
+		memberDAO.registerMember(vo);
+		// 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
+		Authority authority = new Authority(vo.getId(), "ROLE_MEMBER");
+		memberDAO.registerRole(authority);
+	}
+	
+	@Override
+	public String idcheck(String id) {
+		int count = memberDAO.idcheck(id);
+		return (count == 0) ? "ok" : "fail";
 	}
 
 	

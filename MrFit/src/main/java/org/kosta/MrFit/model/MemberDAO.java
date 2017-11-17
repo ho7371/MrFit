@@ -7,4 +7,11 @@ public interface MemberDAO {
 	MemberVO findMemberById(String id);
 
 	List<Authority> selectAuthorityById(String id);
+	
+	void registerMember(MemberVO vo);
+
+	void registerRole(Authority authority);
+	
+	int idcheck(String id);
+	
 }

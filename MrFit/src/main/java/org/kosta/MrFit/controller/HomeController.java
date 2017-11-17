@@ -1,6 +1,7 @@
 package org.kosta.MrFit.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,6 +22,16 @@ public class HomeController {
 		System.out.println("      HomeController/home()/종료");
 		return "home.tiles";
 	}
+	
+	@RequestMapping("{viewName}.do")
+	public String showView(@PathVariable String viewName){
+		return viewName+".tiles";
+	}
+	
+	@RequestMapping("{dirName}/{viewName}.do")
+	public String showView(@PathVariable String dirName,@PathVariable String viewName){
+		return dirName+"/"+viewName+".tiles";
+	}	
 	
 	
 	
