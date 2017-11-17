@@ -11,10 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
-	@Resource
+	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
 	private MemberService memberService;
 	
-	@Resource
+	//@Resource 		// 객체주입때문에 서버 구동이 안되서 일단 주석처리합니다 - 진호
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping("login_fail.do")
@@ -37,14 +37,20 @@ public class MemberController {
 		}
 	 * @return
 	 */
-	
-	
-	
+
 	@RequestMapping("findMemberById.do")
 	public ModelAndView findMemberById(String id) {
 		System.out.println("   	MemberController/findMemberById()/시작");
 		System.out.println("    MemberController/findMemberById()/진행");
 		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
+	}
+	
+	@RequestMapping("loginForm.do")
+	public String loginForm() {
+		System.out.println("   	MemberController/loginForm()/시작");
+		System.out.println("    MemberController/loginForm()/진행");
+		System.out.println("    MemberController/loginForm()/종료");
+		return "loginForm.tiles";
 	}
 }

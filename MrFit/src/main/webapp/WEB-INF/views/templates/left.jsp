@@ -46,7 +46,7 @@
 </sec:authorize>
 		
  --%>
-<sec:authorize access="!hasRole('ROLE_MEMBER')">
+<sec:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_MEMBER')">
 	<br>
 	<form action="${pageContext.request.contextPath}/login.do"
 		method="post" id="loginForm">
@@ -62,7 +62,7 @@
 	<a href="${pageContext.request.contextPath}/member/registerForm.do">회원가입</a>
 	<br>
 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_MEMBER')">
+<sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 	<%-- 
 Spring Security를 이용하면 Authentication Bean 이 생성
 로그인 한 사용자의 정보는 Authentication 객체의 principal 에 저장된다 

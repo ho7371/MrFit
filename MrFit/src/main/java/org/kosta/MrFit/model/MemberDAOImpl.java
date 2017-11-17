@@ -17,7 +17,7 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("아이디 : "+id);
 		System.out.println("                  MemberDAOImpl/findMemberById()/시작");
 		MemberVO vo=template.selectOne("member.findMemberById",id);
-		System.out.println(vo);
+		System.out.println("daoimpl "+vo);
 		return template.selectOne("member.findMemberById",id);
 	}
 
