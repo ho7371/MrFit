@@ -13,5 +13,19 @@ public interface MemberDAO {
 	void registerRole(Authority authority);
 	
 	int idcheck(String id);
+
+	String findIdByEmailAndName(MemberVO memberVO);
+
+	String findQnaByIdNameEmail(MemberVO memberVO);
+
+	MemberVO findMemberByQna(MemberVO memberVO);
+
+	void updatePasswordById(MemberVO memberVO);
+
+	void registerMemberSize(MemberSizeVO msizeVO);
+
+	void updateMemberSize(MemberSizeVO msizeVO);
+
+	List<QuestionVO> findQuestionList();
 	
 }

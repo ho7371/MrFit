@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -38,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.findMemberById(id);
 	}
 	
+	@Transactional
 	@Override
 	public void registerMember(MemberVO vo) {
 		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
@@ -53,6 +55,49 @@ public class MemberServiceImpl implements MemberService {
 	public String idcheck(String id) {
 		int count = memberDAO.idcheck(id);
 		return (count == 0) ? "ok" : "fail";
+	}
+
+	@Override
+	public String findIdByEmailAndName(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findIdByEmailAndName(memberVO);
+	}
+
+	@Override
+	public String findQnaByIdNameEmail(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findQnaByIdNameEmail(memberVO);
+	}
+
+	@Override
+	public MemberVO findMemberByQna(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findMemberByQna(memberVO);
+	}
+
+	@Transactional
+	@Override
+	public void updatePasswordById(MemberVO memberVO) {
+		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
+		memberVO.setPassword(encodedPwd);
+		memberDAO.updatePasswordById(memberVO);
+	}
+
+	@Transactional
+	@Override
+	public void registerMemberSize(MemberSizeVO msizeVO) {
+		memberDAO.registerMemberSize(msizeVO);
+	}
+
+	@Override
+	public void updateMemberSize(MemberSizeVO msizeVO) {
+		memberDAO.updateMemberSize(msizeVO);
+
+	}
+	
+	public List<QuestionVO> findQuestionList(){
+		return memberDAO.findQuestionList();
+
 	}
 
 	

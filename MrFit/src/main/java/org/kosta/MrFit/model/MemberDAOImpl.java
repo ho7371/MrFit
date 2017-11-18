@@ -42,7 +42,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int idcheck(String id) {
 		return template.selectOne("member.idcheck",id);				
 	}
-	
+
+	@Override
+	public List<QuestionVO> findQuestionList(){
+		return template.selectList("member.findQuestionList");
+	}
 	// 주석샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
 	 *  2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.
@@ -56,6 +60,42 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("    		      MemberDAOImpl/findProductById()/진행");
 		System.out.println("      		      MemberDAOImpl/findProductById()/종료");
 		return null;
+	}
+
+	@Override
+	public String findIdByEmailAndName(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findIdByEmailAndName",memberVO);
+	}
+
+	@Override
+	public String findQnaByIdNameEmail(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findQnaByIdNameEmail",memberVO);
+	}
+
+	@Override
+	public MemberVO findMemberByQna(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findMemberByQna",memberVO);
+	}
+
+	@Override
+	public void updatePasswordById(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		template.update("updatePasswordById", memberVO);
+	}
+
+	@Override
+	public void registerMemberSize(MemberSizeVO msizeVO) {
+		template.insert("member.registerMemberSize", msizeVO);
+		
+	}
+
+	@Override
+	public void updateMemberSize(MemberSizeVO msizeVO) {
+		template.update("member.updateMemberSize", msizeVO);
+		
 	}
 }
 

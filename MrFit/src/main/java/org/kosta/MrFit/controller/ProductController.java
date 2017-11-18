@@ -41,18 +41,25 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
 	}
-	
+	/**[현민][상품검색]
+	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 
+	 * 찾는 기능 
+	 * 키워드에 해당하는 상품이 있는 경우 해당 상품을 보여주고
+	 * 키워드에 해당하는 상품이 없는 경우 검색 실패 메세지를 보여주는 jsp로 보낸다.
+	 * @param keyword
+	 * @return
+	 */
 	@RequestMapping("findProductByName.do")
 	public ModelAndView findProductByName(String keyword){
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
 		System.out.println("    ProductController/registerProduct()/진행");
-		if(!list.isEmpty()) {
-			mv.setViewName("product/findProductByName_ok");
+		if(list!= null) {
+			mv.setViewName("product/findProductByName_ok.tiles");
 			mv.addObject("list", list);
 		}else {
-			mv.setViewName("prodcut/findProductByName_fail");
+			mv.setViewName("main/product/findProductByName_fail");
 		}
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;

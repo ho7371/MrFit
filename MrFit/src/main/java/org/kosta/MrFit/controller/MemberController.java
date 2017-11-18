@@ -1,9 +1,13 @@
 package org.kosta.MrFit.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,12 +61,69 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
+
+	@RequestMapping("findIdPasswordForm.do")
+	public String findIdPasswordForm() {
+		System.out.println("   	MemberController/findId()/시작");
+		System.out.println("    MemberController/findId()/종료");
+		return "member/findIdPasswordForm.tiles";
+	}
+	
+	@RequestMapping("findIdByEmailAndName.do")
+	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
+			System.out.println("   	MemberController/findIdByEmailAndName()/시작");
+		String id= memberService.findIdByEmailAndName(memberVO);
+			System.out.println("    MemberController/findIdByEmailAndName()/종료");
+		return new ModelAndView("member/findId_ok.tiles","lostid",id);
+
+	}
+	
+	@RequestMapping("findQnaByIdNameEmail.do")
+	public ModelAndView findQnaByIdNameEmail(MemberVO memberVO) {
+			System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
+		ModelAndView mv=new ModelAndView();
+		String question=memberService.findQnaByIdNameEmail(memberVO);
+		if (question == null) {
+			mv.setViewName("main/member/findid_fail");
+			return mv;
+		}
+		mv.addObject("question", question);
+		mv.addObject("memberVO", memberVO);
+		mv.setViewName("member/findAnswer.tiles");
+			System.out.println("    MemberController/findQnaByIdNameEmail()/종료");
+		return mv;
+	}
+	
+	@RequestMapping("findMemberByQna.do")
+	public ModelAndView findMemberByQna(MemberVO memberVO) {
+			System.out.println("   	MemberController/findPassword()/시작");
+		MemberVO mvo=memberService.findMemberByQna(memberVO);
+			System.out.println("    MemberController/findPassword()/종료");
+		// match answer
+		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
+	}
+	
+	@RequestMapping("updatePasswordById.do")
+	public String updatePasswordById(MemberVO memberVO) {
+			System.out.println("   	MemberController/updatePasswordById()/시작");
+			System.out.println("    MemberController/updatePasswordById()/종료");
+		memberService.updatePasswordById(memberVO);
+		// updatePasswordById
+		return "redirect:updatePassword_ok.do";
+	}
+	
+	@RequestMapping("updatePassword_ok.do")
+	public String updatePassword_ok() {
+			System.out.println("   	MemberController/updatePasswordById()/시작");
+			System.out.println("    MemberController/updatePasswordById()/종료");
+		// updatePasswordById
+		return "member/updatePassword_ok.tiles";
+	}
+
 	@RequestMapping("registerForm.do")
-	public String registerForm() {
-		System.out.println("   	MemberController/registerForm()/시작");
-		System.out.println("    MemberController/registerForm()/진행");
-		System.out.println("    MemberController/registerForm()/종료");
-		return "member/registerForm.tiles";
+	public ModelAndView findQuestionList() {
+		List<QuestionVO> list = memberService.findQuestionList(); 
+		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
@@ -82,7 +143,21 @@ public class MemberController {
 	public String idcheckAjax(String id) {
 		return memberService.idcheck(id);
 	}
+		
+	
+	@RequestMapping(value = "registerMemberSize.do", method = RequestMethod.POST)
+	public String registerMemberSize(MemberSizeVO msizeVO) {
+		memberService.registerMemberSize(msizeVO);
+		return "redirect:registerMsize_ok.do";
+	}
+	
+	@RequestMapping(value = "updateMemberSize.do", method = RequestMethod.POST)
+	public String updateMemberSize(MemberSizeVO msizeVO) {
+		memberService.updateMemberSize(msizeVO);
+		return "redirect:updateMsize_ok.do";
+	}
 
+	
 }
 
 

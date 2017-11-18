@@ -30,9 +30,9 @@ public class ProductServiceImpl implements ProductService {
 	 * @see org.kosta.MrFit.model.ProductService#ProductList()
 	 */
 	@Override
-	public List<ProductVO> ProductList() {
+	public List<ProductVO> ProductList(PagingBean pb) {
 		System.out.println("            ProductServiceImpl/ProductList()/시작");
-		List<ProductVO> ProductList=productDAO.ProductList();
+		List<ProductVO> ProductList=productDAO.ProductList(pb);
 		System.out.println("    		ProductServiceImpl/ProductList()/진행"+ProductList);
 		
 		System.out.println("      		ProductServiceImpl/ProductList()/종료");
@@ -40,20 +40,7 @@ public class ProductServiceImpl implements ProductService {
 		return ProductList;
 	}
 	
-	/*
-	 * [유정현][2017.11.17][findByMainImage생성]
-	 * @see org.kosta.MrFit.model.ProductService#findByMainImage()
-	 */
-	@Override
-	public List<ImageVO> findProductImageList(String pno) {
-		System.out.println("      		ProductServiceImpl/findProductImageList()/시작");		
-		System.out.println("      		ProductServiceImpl/findProductImageList()/진행");
-		List<ImageVO> image=productDAO.findProductImageList(pno);
-		System.out.println("      		ProductServiceImpl/findProductImageList()/종료");
-		// TODO Auto-generated method stub
-		return image;
-		
-	}
+	
 
 	@Override
 	public List<ProductVO> findProductByName(String keyword) {
@@ -61,8 +48,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
-
 		return productDAO.findProductDtailByPno(pno);
+	}
+	@Override
+	public int getTotalProductCount() {		
+		return productDAO.getTotalProductCount();
 	}
 		
 		
