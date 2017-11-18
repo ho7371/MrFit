@@ -28,13 +28,7 @@ public class HomeController {
 	public String home(Model model){
 		System.out.println("      HomeController/home()/시작");
 		List<ProductVO> ProductList=productService.ProductList();		
-		System.out.println("      HomeController/home()/진행"+ProductList);
-		for(int i=0;i<ProductList.size();i++) {			
-			List<ImageVO> ivo=productService.findProductImageList(ProductList.get(i).getPno());
-			if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
-				ProductList.get(i).setImageList(ivo);
-			}
-		}
+		System.out.println("      HomeController/home()/진행"+ProductList);		
 		if(ProductList!=null&&!ProductList.isEmpty()) {
 			model.addAttribute("ProductList",ProductList);
 			System.out.println("      HomeController/home()/종료");

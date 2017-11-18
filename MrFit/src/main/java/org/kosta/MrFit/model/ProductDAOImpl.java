@@ -53,8 +53,14 @@ public class ProductDAOImpl implements ProductDAO {
 		System.out.println("      		      ProductDAOImpl/ProductList()/시작");
 		List<ProductVO> ProductList=template.selectList("product.ProductList");
 		for(int i=0;i<ProductList.size();i++) {
+			
+			List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+			if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+				ProductList.get(i).setImageList(ivo);
+			}
 			System.out.println("      		      ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
 		}		
+		
 		System.out.println("      		      ProductDAOImpl/ProductList()/종료");		
 		return ProductList;
 	}
