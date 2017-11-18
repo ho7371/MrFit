@@ -64,7 +64,8 @@
 						 <input type="password" name="password" size="10">
 					</div>
 					<div class="address">
-						<a class="forgot" href="#">Forgot Your Password?</a>
+						<a class="forgot" href="#">아이디 찾기</a> &nbsp;|&nbsp; 
+						<a class="forgot" href="#">비밀번호 찾기</a>
 						<input type="submit" value="Login">
 					</div>
 					</form>
