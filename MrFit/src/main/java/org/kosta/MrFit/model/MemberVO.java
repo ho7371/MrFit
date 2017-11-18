@@ -13,6 +13,7 @@ public class MemberVO {
    private String status;
    private String answer;
    private String qno;
+   
    public MemberVO() {
       super();
    }
@@ -197,3 +198,4 @@ public class MemberVO {
    
    
 }
+

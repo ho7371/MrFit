@@ -12,6 +12,7 @@ public interface MemberService {
 	
 	String idcheck(String id);
 
+
 	String findIdByEmailAndName(MemberVO memberVO);
 
 	String findQnaByIdNameEmail(MemberVO memberVO);
@@ -23,4 +24,6 @@ public interface MemberService {
 	void registerMemberSize(MemberSizeVO msizeVO);
 
 	void updateMemberSize(MemberSizeVO msizeVO);
+	
+	List<QuestionVO> findQuestionList();
 }

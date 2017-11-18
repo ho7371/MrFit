@@ -4,13 +4,14 @@ import java.util.List;
 
 public interface ProductService {
 	
-	List<ProductVO> ProductList();
+	List<ProductVO> ProductList(PagingBean pb);
 
-	List<ImageVO> findProductImageList(String pno);
 
 	List<ProductVO> findProductByName(String keyword);
 
 	ProductVO findProductDtailByPno(String pno);
+	
+	int getTotalProductCount();
 
 	
 

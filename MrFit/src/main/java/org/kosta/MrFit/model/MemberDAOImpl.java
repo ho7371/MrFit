@@ -42,7 +42,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int idcheck(String id) {
 		return template.selectOne("member.idcheck",id);				
 	}
-	
+
+	@Override
+	public List<QuestionVO> findQuestionList(){
+		return template.selectList("member.findQuestionList");
+	}
 	// 주석샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
 	 *  2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.

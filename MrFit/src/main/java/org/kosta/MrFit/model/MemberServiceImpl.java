@@ -92,6 +92,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
 		memberDAO.updateMemberSize(msizeVO);
+
+	}
+	
+	public List<QuestionVO> findQuestionList(){
+		return memberDAO.findQuestionList();
+
 	}
 
 	

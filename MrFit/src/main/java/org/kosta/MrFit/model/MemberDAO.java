@@ -25,5 +25,7 @@ public interface MemberDAO {
 	void registerMemberSize(MemberSizeVO msizeVO);
 
 	void updateMemberSize(MemberSizeVO msizeVO);
+
+	List<QuestionVO> findQuestionList();
 	
 }
