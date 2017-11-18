@@ -1,7 +1,7 @@
 package org.kosta.MrFit.model;
 
 public class ImageVO {
-	private String image_no;
+	private String ino;
 	private String pno;
 	private String url;
 	public ImageVO() {
@@ -9,15 +9,15 @@ public class ImageVO {
 	}
 	public ImageVO(String image_no, String pno, String url) {
 		super();
-		this.image_no = image_no;
+		this.ino = image_no;
 		this.pno = pno;
 		this.url = url;
 	}
 	public String getImage_no() {
-		return image_no;
+		return ino;
 	}
 	public void setImage_no(String image_no) {
-		this.image_no = image_no;
+		this.ino = image_no;
 	}
 	public String getPno() {
 		return pno;
@@ -33,6 +33,6 @@ public class ImageVO {
 	}
 	@Override
 	public String toString() {
-		return "ImageVO [image_no=" + image_no + ", pno=" + pno + ", url=" + url + "]";
+		return "ImageVO [ino=" + ino + ", pno=" + pno + ", url=" + url + "]";
 	}
 }
