@@ -39,7 +39,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("{viewName}.do")
+	/*@RequestMapping("{viewName}.do")
 	public String showView(@PathVariable String viewName){
 		return viewName+".tiles";
 	}
@@ -47,7 +47,7 @@ public class HomeController {
 	@RequestMapping("{dirName}/{viewName}.do")
 	public String showView(@PathVariable String dirName,@PathVariable String viewName){
 		return dirName+"/"+viewName+".tiles";
-	}	
+	}	*/
 	
 	@RequestMapping("contact.do")
 	public String contact(){

@@ -71,6 +71,18 @@ insert into grade(gno, grade, percent)
  values (gno_seq.nextval, '실버', 7);
 insert into grade(gno, grade, percent)
  values (gno_seq.nextval, '골드', 10);
+ 
+  -- 비밀번호확인질문
+ insert into question(qno,question)
+ values (qno_seq.nextval,'사용자의 태어난 곳');
+  insert into question(qno,question)
+ values (qno_seq.nextval,'출신 초등학교는 어디입니까?');
+  insert into question(qno,question)
+ values (qno_seq.nextval,'첫사랑의 이름은?');
+  insert into question(qno,question)
+ values (qno_seq.nextval,'자신의 보물 1호는?');
+  insert into question(qno,question)
+ values (qno_seq.nextval,'좋아하는 음료는?');
 
 --회원
 insert into member(id, password, name, phone, address, email, point, totalspent, status, gno)
