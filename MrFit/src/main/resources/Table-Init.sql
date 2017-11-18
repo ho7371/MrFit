@@ -17,7 +17,6 @@ select * from reply;
 
 -- 시퀀스 생성
 create sequence point_no_seq;
-create sequence gno_seq;
 create sequence msno_seq;
 create sequence ono_seq;
 create sequence bno_seq;
@@ -28,10 +27,10 @@ create sequence ino_seq;
 create sequence pno_seq;
 create sequence mbno_seq;
 create sequence mrno_seq;
+create sequence qno_seq;
 
 --시퀀스 삭제
 drop sequence point_no_seq;
-drop sequence gno_seq;
 drop sequence msno_seq;
 drop sequence ono_seq;
 drop sequence bno_seq;
@@ -42,6 +41,8 @@ drop sequence ino_seq;
 drop sequence pno_seq;
 drop sequence mbno_seq;
 drop sequence mrno_seq;
+drop sequence qno_seq;
+
 
 ----------------------------------------------------------------------------------------------------------
 
@@ -102,74 +103,80 @@ values(msno_seq.nextval, 44,53,64,24,72,39,26,25,15,92,'spring');
 
 ---------------------------------------------------------------------------------------------------------------------
 
---상품 치수
-	--상의
-insert into product_size(psno,size1,size2,size3,size4,size5)
-values(pdno_seq.nextval,42,51,63,23,71);
-insert into product_size(psno,size1,size2,size3,size4,size5)
-values(pdno_seq.nextval,44,53,64,24,72);
-	--하의
-insert into product_size(psno,size1,size2,size3,size4,size5)
-values(pdno_seq.nextval,37,25,23,14,91);
-insert into product_size(psno,size1,size2,size3,size4,size5)
-values(pdno_seq.nextval,39,26,25,15,92);
-
 -- 상품등록
 insert into product(pno,name,price,content,category)
 values(pno_seq.nextval,'맨투맨',15000,'맨투맨입니다','상의');
-
-insert into product(pno,name,price,content,category)
-values(pno_seq.nextval,'청바지',25000,'청바지입니다','하의');
-
-
 -- 이미지 등록
 insert into image(ino,pno,url)
 values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\nana.jpg');
 insert into image(ino,pno,url)
 values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\kosta.jpg');
 
--- 상품상세
-	-- 라지 사이즈는 미듐 치수와 동일하게 적용했습니다. 알아두시면 될거 같습니다.
+-- 상의 맨투맨 노랑색 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'노랑',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',150,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',100,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',125,pdno_seq.currval);
+-- 상의 맨투맨 빨강 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'빨강',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',99,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',98,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',101,pdno_seq.currval);
+-- 상의 맨투맨 검정 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'검정',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',30,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',50,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',60,pdno_seq.currval);
 
-	-- 상의 맨투맨 노랑색 사이즈 S/M/L
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'s','노랑',100,1,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'m','노랑',100,2,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'l','노랑',100,2,1);
 
-	-- 상의 맨투맨 빨강 사이즈 S/M/L
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'s','빨강',280,1,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'m','빨강',280,2,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'l','빨강',280,2,1);
+-- 상품등록
+insert into product(pno,name,price,content,category)
+values(pno_seq.nextval,'청바지',15000,'청바지입니다','하의');
+-- 이미지 등록
+insert into image(ino,pno,url)
+values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\nana.jpg');
+insert into image(ino,pno,url)
+values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\kosta.jpg');
 
-	-- 상의 맨투맨 검정 사이즈 S/M/L
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'s','검정',180,1,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'m','검정',180,2,1);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'l','검정',180,2,1);
-
-	-- 하의 청바지 진청 사이즈 S/M/L
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'s','진청',380,3,2);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'m','진청',380,4,2);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'l','진청',380,4,2);
-
-	-- 하의 청바지 청청 사이즈 S/M/L
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'s','청청',480,3,2);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'m','청청',480,4,2);
-insert into product_detail(pdno,size_type,color,inventory,psno,pno)
-values(pdno_seq.nextval,'l','청청',480,4,2);
+-- 상의 맨투맨 노랑색 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'청청',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',50,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',50,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',40,pdno_seq.currval);
+-- 상의 맨투맨 빨강 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'진청',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',60,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',70,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',80,pdno_seq.currval);
+-- 상의 맨투맨 검정 사이즈 S/M/L
+insert into product_detail(pdno,color,pno)
+values(pdno_seq.nextval,'검정',pno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,42,51,63,23,71,'s',90,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'m',89,pdno_seq.currval);
+insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
+values(psno_seq.nextval,44,53,64,24,72,'l',111,pdno_seq.currval);
 
 -----------------------------------------------------------------------------------------------
 

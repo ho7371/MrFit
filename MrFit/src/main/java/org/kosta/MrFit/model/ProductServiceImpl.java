@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
-
 		return productDAO.findProductDtailByPno(pno);
 	}
 		

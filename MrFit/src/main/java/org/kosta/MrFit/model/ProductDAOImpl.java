@@ -13,7 +13,7 @@ public class ProductDAOImpl implements ProductDAO {
 	SqlSessionTemplate template;
 	/*
 	 * @see org.kosta.MrFit.model.ProductDAO#findProductDtail(java.lang.String)
-	 * 삼풍 상세보기
+	 * 상품 상세보기
 	 */
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
@@ -28,20 +28,17 @@ public class ProductDAOImpl implements ProductDAO {
 		pvo.setImageList(iList);
 		return pvo;
 	}
+	/**[현민][상품검색]
+	 * 검색한 키워드를 찾아 리스트에 담은 후 
+	 * 하나하나 상품에 해당하는 이미지를 리스트로 불러와
+	 * 리턴한다.
+	 */
 	@Override
 	public List<ProductVO> findProductByName(String keyword) {
 		List<ProductVO> list = template.selectList("product.findProductByName",keyword);
 		if(!list.isEmpty()) {
 			for (int i = 0; i < list.size(); i++) {
-				List<ProductDetailVO> pdList=template.selectList("product.findProductDetailList", list.get(i).getPno());
-				for (int k = 0; k < pdList.size(); k++) {					
-					List<ProductSizeVO> psList=template.selectList("product.findProductSizeList",list.get(i).getPno());
-				}
 			    List<ImageVO> iList=template.selectList("product.findProductImageList",list.get(i).getPno());
-			    for (int j = 0; j < pdList.size(); j++) {
-				//	pdList.get(j).setSizeList(psList);
-				}
-			    list.get(i).setProductDetailList(pdList);
 			    list.get(i).setImageList(iList);
 			}
 			return list;

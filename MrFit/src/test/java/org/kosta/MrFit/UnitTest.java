@@ -25,7 +25,12 @@ public class UnitTest {
 	 @Test
 	 public void unitTest() {
 	  //System.out.println(memberDAO.findMemberById("java"));
-	  System.out.println(pservice.findProductDtailByPno("7"));
+	  /*System.out.println(pservice.findProductDtailByPno("3"));
+	  System.out.println("*******************************");
+	  System.out.println(pservice.findProductDtailByPno("3").getProductDetailList());
+	  System.out.println("*******************************");
+	  System.out.println(pservice.findProductDtailByPno("3").getImageList());*/
+	  System.out.println(pservice.findProductByName("맨투맨"));
 	 }
 	 
 /*	private MemberService memberService;
