@@ -37,8 +37,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from product_size ps, product_detail pd, product p
 		where pd.pno=p.pno and pd.psno=ps.psno and p.pno= #{value}
     </select>
-    <select id="ProductList" resultType="productVO">
-      <include refid="selectall"/>   order by pno desc    
+    
+    <select id="ProductList" parameterType="pagingBean" resultType="productVO">
+       SELECT  pno, name, price, content, category 
+		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content from Product)
+		product
+		where rnum between #{startRowNumber} and #{endRowNumber}
+		ORDER BY pno DESC   
+    </select>
+    <select id="getTotalProductCount" resultType="int">
+    	select count(*) from product
     </select>
 </mapper>
 

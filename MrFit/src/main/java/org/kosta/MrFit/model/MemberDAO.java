@@ -13,5 +13,7 @@ public interface MemberDAO {
 	void registerRole(Authority authority);
 	
 	int idcheck(String id);
+
+	List<QuestionVO> findQuestionList();
 	
 }

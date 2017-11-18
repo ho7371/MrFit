@@ -1,9 +1,12 @@
 package org.kosta.MrFit.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,11 +61,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("registerForm.do")
-	public String registerForm() {
-		System.out.println("   	MemberController/registerForm()/시작");
-		System.out.println("    MemberController/registerForm()/진행");
-		System.out.println("    MemberController/registerForm()/종료");
-		return "member/registerForm.tiles";
+	public ModelAndView findQuestionList() {
+		List<QuestionVO> list = memberService.findQuestionList(); 
+		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
@@ -83,6 +84,14 @@ public class MemberController {
 		return memberService.idcheck(id);
 	}
 
+
+
+	
+	
+	
+	
+	
+	
 }
 
 

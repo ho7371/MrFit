@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</resultMap>
  	<select id="findMemberById" parameterType="string" resultMap="MRM" resultType="memberVO">
  		SELECT	m.id,	m.password,  m.name, m.phone, m.address, m.email, m.grade, g.percent, m.point, 
-		m.totalspent, m.status
+		m.totalspent, m.status, m.answer, m.qno
 		FROM	member m, GRADE g
 		WHERE 	m.grade=g.grade and id=#{value}	and status='1'
  	</select>
@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	
  	<insert id="registerMember" parameterType="memberVO">
-		insert into member(id,	password,  name, phone, address, email, grade, point, totalspent, status)
-		values(#{id},#{password},#{name},#{phone},#{address},#{email},'브론즈',0,0,'1')
+		insert into member(id,	password,  name, phone, address, email, point, totalspent, status, answer, qno, grade)
+		values(#{id},#{password},#{name},#{phone},#{address},#{email},0,0,'1',#{answer},#{qno},'브론즈')
 	</insert>
  	
  	<insert id="registerRole" parameterType="authority">
@@ -38,7 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where id=#{value}
 	</select>
  	
- 	
+ 	<select id="findQuestionList" resultType="questionVO">
+		select qno,question
+		from question
+	</select>
  	
  	
  	

@@ -45,12 +45,12 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return null;
 	}
+	
 	@Override
-	public List<ProductVO> ProductList() {
+	public List<ProductVO> ProductList(PagingBean pb) {
 		System.out.println("      		      ProductDAOImpl/ProductList()/시작");
-		List<ProductVO> ProductList=template.selectList("product.ProductList");
-		for(int i=0;i<ProductList.size();i++) {
-			
+		List<ProductVO> ProductList=template.selectList("product.ProductList",pb);
+		for(int i=0;i<ProductList.size();i++) {			
 			List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
 			if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
 				ProductList.get(i).setImageList(ivo);
@@ -70,7 +70,14 @@ public class ProductDAOImpl implements ProductDAO {
 		System.out.println("      		      ProductDAOImpl/findProductImageList(pno)/종료");
 		return iList;
 	}
-
+	@Override
+	public int getTotalProductCount() {
+		System.out.println("      		      ProductDAOImpl/getTotalProductCount()/시작");
+		int pc=template.selectOne("product.getTotalProductCount");
+		System.out.println("      		      ProductDAOImpl/getTotalProductCount()/진행"+pc);		
+		System.out.println("      		      ProductDAOImpl/getTotalProductCount()/종료");
+		return pc;
+	}
 /*	@Override
 	public ProductVO findProductDtailByPno(String pno) {   
 	   ProductVO pvo=null;
