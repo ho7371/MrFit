@@ -61,6 +61,42 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("      		      MemberDAOImpl/findProductById()/종료");
 		return null;
 	}
+
+	@Override
+	public String findIdByEmailAndName(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findIdByEmailAndName",memberVO);
+	}
+
+	@Override
+	public String findQnaByIdNameEmail(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findQnaByIdNameEmail",memberVO);
+	}
+
+	@Override
+	public MemberVO findMemberByQna(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findMemberByQna",memberVO);
+	}
+
+	@Override
+	public void updatePasswordById(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		template.update("updatePasswordById", memberVO);
+	}
+
+	@Override
+	public void registerMemberSize(MemberSizeVO msizeVO) {
+		template.insert("member.registerMemberSize", msizeVO);
+		
+	}
+
+	@Override
+	public void updateMemberSize(MemberSizeVO msizeVO) {
+		template.update("member.updateMemberSize", msizeVO);
+		
+	}
 }
 
 

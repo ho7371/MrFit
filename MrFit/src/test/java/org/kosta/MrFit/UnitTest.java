@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UnitTest {
 	@Resource
 	 private MemberDAO memberDAO;
-	 /*@Resource
-	 private MemberService ms;*/
+	 @Resource
+	 private MemberService memberService;
 	@Resource
 	private ProductService pservice;
 	
@@ -31,16 +31,13 @@ public class UnitTest {
 	  System.out.println("*******************************");
 	  System.out.println(pservice.findProductDtailByPno("3").getImageList());*/
 	  System.out.println(pservice.findProductByName("청바지"));
+		 	MemberVO memberVO=new MemberVO();
+		 	memberVO.setId("mrfit");
+		 	memberVO.setPassword("hot6");
+		   memberService.updatePasswordById(memberVO);
+		 System.out.println(memberService.findMemberById("mrfit"));
+		 	
 	 }
 	 
-/*	private MemberService memberService;
-	
-	@Test
-
-	public void findMemberById(){
-		System.out.println(memberService);
-		MemberVO member = memberService.findMemberById("mrfit");
-		System.out.println(member);
-	}*/
 
 }
