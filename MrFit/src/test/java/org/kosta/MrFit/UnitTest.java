@@ -30,7 +30,7 @@ public class UnitTest {
 	  System.out.println(pservice.findProductDtailByPno("3").getProductDetailList());
 	  System.out.println("*******************************");
 	  System.out.println(pservice.findProductDtailByPno("3").getImageList());*/
-	  System.out.println(pservice.findProductByName("맨투맨"));
+	  System.out.println(pservice.findProductByName("청바지"));
 	 }
 	 
 /*	private MemberService memberService;
