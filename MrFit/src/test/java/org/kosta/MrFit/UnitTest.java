@@ -17,25 +17,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UnitTest {
 	@Resource
 	 private MemberDAO memberDAO;
-	 /*@Resource
-	 private MemberService ms;*/
+	 @Resource
+	 private MemberService memberService;
 	@Resource
 	private ProductService pservice;
 	
 	 @Test
 	 public void unitTest() {
-	  //System.out.println(memberDAO.findMemberById("java"));
-	  System.out.println(pservice.findProductDtailByPno("7"));
+		 	MemberVO memberVO=new MemberVO();
+		 	memberVO.setId("mrfit");
+		 	memberVO.setName("hotsix");
+		 	memberVO.setEmail("mrfit@gmail.com");
+		 
+		 System.out.println(memberService.findMemberByQna(memberVO));
+		 	
 	 }
 	 
-/*	private MemberService memberService;
-	
-	@Test
-
-	public void findMemberById(){
-		System.out.println(memberService);
-		MemberVO member = memberService.findMemberById("mrfit");
-		System.out.println(member);
-	}*/
 
 }

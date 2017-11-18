@@ -57,43 +57,59 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
-	@RequestMapping("findId.do")
-	public ModelAndView findId() {
+	@RequestMapping("findIdPasswordForm.do")
+	public String findIdPasswordForm() {
 		System.out.println("   	MemberController/findId()/시작");
-		System.out.println("    MemberController/findId()/진행");
 		System.out.println("    MemberController/findId()/종료");
-		// email
-		//findIdByEmail
-		return new ModelAndView("findId_ok");
+		return "member/findIdPasswordForm.tiles";
 	}
 	
-	@RequestMapping("findPasswordForm.do")
-	public ModelAndView findPasswordForm() {
-		System.out.println("   	MemberController/findPasswordForm()/시작");
-		System.out.println("    MemberController/findPasswordForm()/진행");
-		System.out.println("    MemberController/findPasswordForm()/종료");
-		//findQnaById
-		return new ModelAndView("findPassword_ok");
+	@RequestMapping("findIdByEmailAndName.do")
+	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
+			System.out.println("   	MemberController/findIdByEmailAndName()/시작");
+		String id= memberService.findIdByEmailAndName(memberVO);
+			System.out.println("    MemberController/findIdByEmailAndName()/종료");
+		return new ModelAndView("findId_ok","lostid",id);
 	}
 	
-	@RequestMapping("findPassword.do")
-	public ModelAndView findpassword() {
-		System.out.println("   	MemberController/findPassword()/시작");
-		System.out.println("    MemberController/findPassword()/진행");
-		System.out.println("    MemberController/findPassword()/종료");
+	@RequestMapping("findQnaByIdNameEmail.do")
+	public ModelAndView findQnaByIdNameEmail(MemberVO memberVO) {
+			System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
+		ModelAndView mv=new ModelAndView();
+		String question=memberService.findQnaByIdNameEmail(memberVO);
+		mv.addObject("question", question);
+		mv.addObject("memberVO", memberVO);
+		mv.setViewName("checkAnswer.do");
+			System.out.println("    MemberController/findQnaByIdNameEmail()/종료");
+		return mv;
+	}
+	
+	@RequestMapping("findMemberByQna.do")
+	public ModelAndView findMemberByQna(MemberVO memberVO) {
+			System.out.println("   	MemberController/findPassword()/시작");
+		MemberVO mvo=memberService.findMemberByQna(memberVO);
+			System.out.println("    MemberController/findPassword()/종료");
 		// match answer
-		return new ModelAndView("updatePasswordForm.do");
+		return new ModelAndView("updatePasswordForm.do","upid",mvo.getId());
 	}
 	
 	@RequestMapping("updatePasswordById.do")
-	public String updatePasswordById() {
-		System.out.println("   	MemberController/updatePasswordById()/시작");
-		System.out.println("    MemberController/updatePasswordById()/진행");
-		System.out.println("    MemberController/updatePasswordById()/종료");
+	public String updatePasswordById(MemberVO memberVO) {
+			System.out.println("   	MemberController/updatePasswordById()/시작");
+			System.out.println("    MemberController/updatePasswordById()/종료");
+		memberService.updatePasswordById(memberVO);
 		// updatePasswordById
-		return "home.do";
+		return "redirect:home.do";
 	}
 
+	
+	@RequestMapping("registerForm.do")
+	public String registerForm() {
+		System.out.println("   	MemberController/registerForm()/시작");
+		System.out.println("    MemberController/registerForm()/진행");
+		System.out.println("    MemberController/registerForm()/종료");
+		return "member/registerForm.tiles";
+	}
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String register(MemberVO vo) {
 		memberService.registerMember(vo);

@@ -55,5 +55,30 @@ public class MemberServiceImpl implements MemberService {
 		return (count == 0) ? "ok" : "fail";
 	}
 
+	@Override
+	public String findIdByEmailAndName(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findIdByEmailAndName(memberVO);
+	}
+
+	@Override
+	public String findQnaByIdNameEmail(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findQnaByIdNameEmail(memberVO);
+	}
+
+	@Override
+	public MemberVO findMemberByQna(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return memberDAO.findMemberByQna(memberVO);
+	}
+
+	@Override
+	public void updatePasswordById(MemberVO memberVO) {
+		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
+		memberVO.setPassword(encodedPwd);
+		memberDAO.updatePasswordById(memberVO);
+	}
+
 	
 }

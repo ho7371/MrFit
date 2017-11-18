@@ -38,12 +38,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where id=#{value}
 	</select>
  	
+ 	<select id="findIdByEmailAndName" parameterType="memberVO" resultType="string">
+ 		select id from member where email=#{email} and name=#{name}
+ 	</select>
  	
+ 	<select id="findQnaByIdNameEmail" parameterType="memberVO" resultType="string">
+ 		select question from question q where q.qno=(select qno from member where id=#{id} and name=#{name} and email=#{email})
+ 	</select>
  	
+ 	<select id="findMemberByQna" parameterType="memberVO" resultType="memberVO">
+ 		select id, name from member where id=#{id} and name=#{name} and email=#{email} and answer=#{answer}
+ 	</select>
  	
- 	
- 	
- 	
+ 	<update id="updatePasswordById" parameterType="memberVO">
+ 		update member set password=#{password} where id=#{id}
+ 	</update>
 </mapper>
 
 
