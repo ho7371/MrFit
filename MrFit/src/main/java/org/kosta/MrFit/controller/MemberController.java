@@ -22,7 +22,7 @@ public class MemberController {
 
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
-		return "main/member/login_fail";
+		return "member/login_fail";
 	}
 
 	/** 코드 작성 규칙
@@ -54,7 +54,7 @@ public class MemberController {
 		System.out.println("   	MemberController/loginForm()/시작");
 		System.out.println("    MemberController/loginForm()/진행");
 		System.out.println("    MemberController/loginForm()/종료");
-		return "loginForm.tiles";
+		return "member/loginForm.tiles";
 	}
 	
 	
