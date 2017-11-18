@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
  	<sql id="selectall">
- 		select id,password,name,phone,address,email,gno,point,totalspent,status from member
+ 		select id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade from member
  	</sql>
  	
  	<resultMap type="memberVO" id="MRM">
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
  	
  	<insert id="registerRole" parameterType="authority">
-		insert into auth (id,auth) values(#{id},#{auth})
+		insert into auth (auth,id) values(#{auth},#{id})
 	</insert>
  	
  	<select id="idcheck" parameterType="string" resultType="int">
@@ -53,6 +53,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="updatePasswordById" parameterType="memberVO">
  		update member set password=#{password} where id=#{id}
  	</update>
+ 	
+ 	<insert id="registerMemberSize" parameterType="memberSizeVO">
+ 		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 
+ 		values(#{id}, #{shoulder}, #{chest}, #{sleeve}, #{armhole}, #{toplength}, #{waist}, #{crotch}, #{thigh}, #{hem}, #{bottomlength})
+ 	</insert>
+ 	
+ 	<update id="updateMemberSize" parameterType="memberSizeVO">
+ 		update member_size 
+ 		set shoulder=#{shoulder}, chest=#{chest}, sleeeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
+ 		where id=#{id}
+ 	</update>
+ 	
+ 	
 </mapper>
 
 

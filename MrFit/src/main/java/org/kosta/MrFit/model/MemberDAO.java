@@ -21,5 +21,9 @@ public interface MemberDAO {
 	MemberVO findMemberByQna(MemberVO memberVO);
 
 	void updatePasswordById(MemberVO memberVO);
+
+	void registerMemberSize(MemberSizeVO msizeVO);
+
+	void updateMemberSize(MemberSizeVO msizeVO);
 	
 }

@@ -81,6 +81,18 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		template.update("updatePasswordById", memberVO);
 	}
+
+	@Override
+	public void registerMemberSize(MemberSizeVO msizeVO) {
+		template.insert("member.registerMemberSize", msizeVO);
+		
+	}
+
+	@Override
+	public void updateMemberSize(MemberSizeVO msizeVO) {
+		template.update("member.updateMemberSize", msizeVO);
+		
+	}
 }
 
 

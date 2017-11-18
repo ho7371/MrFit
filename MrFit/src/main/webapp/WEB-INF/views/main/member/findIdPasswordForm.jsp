@@ -54,11 +54,11 @@
 					</div>
 					<div class="address">
 						<span>Name</span>
-						<input type="text" name="id" size="10">
+						<input type="text" name="name" size="10">
 					</div>
 					<div class="address">
 						<span>E-mail</span>
-						<input type="text" name="id" size="10">
+						<input type="text" name="email" size="10">
 					</div>
 					<div class="address">
 						<input type="submit" value="비밀번호 찾기">

@@ -26,10 +26,9 @@ public class UnitTest {
 	 public void unitTest() {
 		 	MemberVO memberVO=new MemberVO();
 		 	memberVO.setId("mrfit");
-		 	memberVO.setName("hotsix");
-		 	memberVO.setEmail("mrfit@gmail.com");
-		 
-		 System.out.println(memberService.findMemberByQna(memberVO));
+		 	memberVO.setPassword("hot6");
+		   memberService.updatePasswordById(memberVO);
+		 System.out.println(memberService.findMemberById("mrfit"));
 		 	
 	 }
 	 

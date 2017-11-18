@@ -5,9 +5,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#findForm").submit(function() {
-			if ($("#findForm :input[name=id]").val() == "") {
-				alert("아이디를 입력하세요!");
+		$("#PupdateForm").submit(function() {
+			if ($("#pw1").val() != $("#pw2").val()) {
+				alert("비밀번호가 일치하지 않습니다");
+				$("#pw1").val("");
+				$("#pw2").val("");
 				return false;
 			}
 		});
@@ -21,24 +23,26 @@
 					<div style="width: 500px; height: 250px; background-color: gray;"></div>
 				</div>
 				<div class="col-md-6 account-left">
-					<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm">
-					<%-- Spring Security에서는 해킹방지를 위해 post방식 정보전송일때는 반드시 csrf 토큰을 삽입해야 전송이 된다
-					 		아래 security tag를 쓰면 hidden tag 가 자동 생성된다 --%>
+					<form action="${pageContext.request.contextPath}/updatePasswordById.do" method="post" id="PupdateForm">
+					<input type="hidden" name="id" value="${upid.id }">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
 					<div class="account-top heading">
-						<h3>LOGIN CUSTOMER</h3>
+						<h3>Password Reset</h3>
 					</div>
 					<div class="address">
-						<span>아이디</span>
-						<input type="text" name="id" size="10">
+						<span>Name</span>
+						${upid.name} 님 어서오세요!
 					</div>
 					<div class="address">
-						<span>패스워드</span>
-						 <input type="password" name="password" size="10">
+						<span>Password</span>
+						 <input type="password" name="password" size="10" id="pw1" required="required">
 					</div>
 					<div class="address">
-						<a class="forgot" href="findIdPasswordForm.do">아이디|비밀번호 찾기</a> 
-						<input type="submit" value="Login">
+						<span>Password 재입력</span> 
+						<input type="password" size="10" id="pw2" required="required">
+					</div>
+					<div class="address">
+						<input type="submit" value="등록">
 					</div>
 					</form>
 				</div>

@@ -19,4 +19,8 @@ public interface MemberService {
 	MemberVO findMemberByQna(MemberVO memberVO);
 
 	void updatePasswordById(MemberVO memberVO);
+
+	void registerMemberSize(MemberSizeVO msizeVO);
+
+	void updateMemberSize(MemberSizeVO msizeVO);
 }
