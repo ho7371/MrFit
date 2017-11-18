@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#findForm").submit(function() {
@@ -21,7 +19,7 @@
 				<div class="col-md-6 account-left">
 					<form>
 					<div class="account-top heading">
-						<h3>NEW CUSTOMERS</h3>
+						<h3>REGISTER CUSTOMER</h3>
 					</div>
 					<div class="address">
 						<span>First Name</span>
@@ -49,34 +47,14 @@
 					</form>
 				</div>
 				<div class="col-md-6 account-left">
-					<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm">
-					<%-- Spring Security에서는 해킹방지를 위해 post방식 정보전송일때는 반드시 csrf 토큰을 삽입해야 전송이 된다
-					 		아래 security tag를 쓰면 hidden tag 가 자동 생성된다 --%>
-					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="account-top heading">
-						<h3>REGISTERED CUSTOMERS</h3>
-					</div>
-					<div class="address">
-						<span>아이디</span>
-						<input type="text" name="id" size="10">
-					</div>
-					<div class="address">
-						<span>패스워드</span>
-						 <input type="password" name="password" size="10">
-					</div>
-					<div class="address">
-						<a class="forgot" href="#">Forgot Your Password?</a>
-						<input type="submit" value="Login">
-					</div>
-					</form>
+					
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
 	<!--end-account-->
-=======
-    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		var checkResultId="";		
@@ -132,8 +110,10 @@
 		});//keyup
 	});//ready
 </script>
+
+<%-- 	위에 있는 REGISTER CUSTOMER 부분에 적용시킬 것 - 진호 
 <form method="post" action="${pageContext.request.contextPath}/registerMember.do" id="regForm">
-<sec:csrfInput/><%-- csrf 토큰 --%>
+<sec:csrfInput/>csrf 토큰
 아이디 <input type="text" name="id" id="memberId"><span id="idCheckView"></span><br>
 비밀번호 <input type="password" name="password"><br>
 이름 <input type="text" name="name"><br>
@@ -142,6 +122,8 @@
 이메일 <input type="text" name="email"><br>
 <input type="submit" value="가입하기">
 </form>
+ --%>
+
 <%--	  register.jsp -- MemberController
 								|
 								register_result.jsp 
@@ -152,14 +134,3 @@
 		 --%>
 
 
-
-
-
-
-
-
-
-
-
-
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
