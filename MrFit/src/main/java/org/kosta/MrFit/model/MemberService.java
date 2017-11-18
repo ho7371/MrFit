@@ -11,4 +11,6 @@ public interface MemberService {
 	void registerMember(MemberVO vo);
 	
 	String idcheck(String id);
+
+	List<QuestionVO> findQuestionList();
 }

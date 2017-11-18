@@ -55,5 +55,10 @@ public class MemberServiceImpl implements MemberService {
 		return (count == 0) ? "ok" : "fail";
 	}
 
+	@Override
+	public List<QuestionVO> findQuestionList(){
+		return memberDAO.findQuestionList();
+	}
+
 	
 }

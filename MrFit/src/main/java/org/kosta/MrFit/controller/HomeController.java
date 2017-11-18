@@ -52,7 +52,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("{viewName}.do")
+	/*@RequestMapping("{viewName}.do")
 	public String showView(@PathVariable String viewName){
 		return viewName+".tiles";
 	}
@@ -60,8 +60,22 @@ public class HomeController {
 	@RequestMapping("{dirName}/{viewName}.do")
 	public String showView(@PathVariable String dirName,@PathVariable String viewName){
 		return dirName+"/"+viewName+".tiles";
-	}	
+	}	*/
 	
+	@RequestMapping("contact.do")
+	public String contact(){
+		System.out.println("      HomeController/contact()/시작");
+		System.out.println("      HomeController/contact()/진행");
+		System.out.println("      HomeController/contact()/종료");
+		return "contact.tiles";
+	}
 	
+	@RequestMapping("notice.do")
+	public String notice(){
+		System.out.println("      HomeController/notice()/시작");
+		System.out.println("      HomeController/notice()/진행");
+		System.out.println("      HomeController/notice()/종료");
+		return "notice.tiles";
+	}
 	
 }
