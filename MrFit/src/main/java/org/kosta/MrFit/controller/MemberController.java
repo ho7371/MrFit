@@ -57,7 +57,13 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
-	
+	@RequestMapping("registerForm.do")
+	public String registerForm() {
+		System.out.println("   	MemberController/registerForm()/시작");
+		System.out.println("    MemberController/registerForm()/진행");
+		System.out.println("    MemberController/registerForm()/종료");
+		return "member/registerForm.tiles";
+	}
 	
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String register(MemberVO vo) {

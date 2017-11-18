@@ -30,6 +30,8 @@
 						</a>
 						<sec:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_MEMBER')">
 						<a href="loginForm.do">로그인</a>
+						&nbsp;|&nbsp;
+						<a href="registerForm.do">회원가입</a>
 						</sec:authorize>
 					<sec:authorize
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">

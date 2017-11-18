@@ -53,7 +53,7 @@
 					 		아래 security tag를 쓰면 hidden tag 가 자동 생성된다 --%>
 					<sec:csrfInput/><%-- csrf 토큰 --%>
 					<div class="account-top heading">
-						<h3>REGISTERED CUSTOMERS</h3>
+						<h3>LOGIN CUSTOMER</h3>
 					</div>
 					<div class="address">
 						<span>아이디</span>
