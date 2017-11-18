@@ -101,7 +101,10 @@ select * from reply;
 
 -- 시퀀스 생성
 create sequence point_no_seq;
+<<<<<<< HEAD
 create sequence qno_seq;
+=======
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 create sequence msno_seq;
 create sequence ono_seq;
 create sequence bno_seq;
@@ -112,10 +115,14 @@ create sequence ino_seq;
 create sequence pno_seq;
 create sequence mbno_seq;
 create sequence mrno_seq;
+create sequence qno_seq;
 
 --시퀀스 삭제
 drop sequence point_no_seq;
+<<<<<<< HEAD
 drop sequence qno_seq;
+=======
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 drop sequence msno_seq;
 drop sequence ono_seq;
 drop sequence bno_seq;
@@ -126,6 +133,8 @@ drop sequence ino_seq;
 drop sequence pno_seq;
 drop sequence mbno_seq;
 drop sequence mrno_seq;
+drop sequence qno_seq;
+
 
 ----------------------------------------------------------------------------------------------------------
 

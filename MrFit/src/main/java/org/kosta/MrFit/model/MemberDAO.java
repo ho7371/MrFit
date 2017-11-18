@@ -13,7 +13,7 @@ public interface MemberDAO {
 	void registerRole(Authority authority);
 	
 	int idcheck(String id);
-
+	
 	String findIdByEmailAndName(MemberVO memberVO);
 
 	String findQnaByIdNameEmail(MemberVO memberVO);

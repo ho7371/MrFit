@@ -13,6 +13,6 @@ public interface ProductService {
 	
 	int getTotalProductCount();
 
-	
+	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
 
 }

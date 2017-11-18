@@ -3,13 +3,13 @@ package org.kosta.MrFit.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.ProductService;
+import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -63,6 +63,28 @@ public class ProductController {
 		}
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
+	}
+	/*
+	 * 상품 번호로 상품의 상세정보 페이지 이동
+	 */
+	@RequestMapping("findProductDetailByPno.do")
+	public ModelAndView findProductDetailByPno(String pno) {
+		ModelAndView mv=new ModelAndView();
+		ProductVO pvo=productService.findProductDtailByPno(pno);
+			mv.setViewName("product/productDetail.tiles");
+			mv.addObject("pvo", pvo);	
+		return mv;
+	}
+	/*
+	 * 상품 디테일 page에서 pdno를 조건으로 
+	 * 색상별 size를 JSON 형식으로 통신한다
+	 */
+	
+	@RequestMapping("findProductDetailByColorAjax.do")
+	@ResponseBody
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdno);
+		return sizeList;
 	}
 }
 

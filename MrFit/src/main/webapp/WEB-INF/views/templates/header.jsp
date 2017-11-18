@@ -2,7 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#searchProductBtn").click(function() {
+			location.href="findProductByName.do?keyword="+$("#searchProduct").val();
+		});// click
+	});// ready
+</script>
 	<!--top-header-->
 	<div class="top-header">
 		<div class="container">
@@ -10,8 +17,8 @@
 				<div class="col-md-4 top-header-left">
 					<div class="search-bar">
 						<input type="text" value="Search" onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Search';}">
-						<input type="submit" value="">
+							onblur="if (this.value == '') {this.value = 'Search';}" id = "searchProduct">
+						<input type="submit" value="" id = "searchProductBtn">
 					</div>
 				</div>
 				<div class="col-md-4 top-header-middle">
