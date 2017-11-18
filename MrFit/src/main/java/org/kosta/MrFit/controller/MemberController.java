@@ -3,9 +3,12 @@ package org.kosta.MrFit.controller;
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -53,5 +56,67 @@ public class MemberController {
 		System.out.println("    MemberController/loginForm()/종료");
 		return "loginForm.tiles";
 	}
+	
+	@RequestMapping("findId.do")
+	public ModelAndView findId() {
+		System.out.println("   	MemberController/findId()/시작");
+		System.out.println("    MemberController/findId()/진행");
+		System.out.println("    MemberController/findId()/종료");
+		// email
+		//findIdByEmail
+		return new ModelAndView("findId_ok");
+	}
+	
+	@RequestMapping("findPasswordForm.do")
+	public ModelAndView findPasswordForm() {
+		System.out.println("   	MemberController/findPasswordForm()/시작");
+		System.out.println("    MemberController/findPasswordForm()/진행");
+		System.out.println("    MemberController/findPasswordForm()/종료");
+		//findQnaById
+		return new ModelAndView("findPassword_ok");
+	}
+	
+	@RequestMapping("findPassword.do")
+	public ModelAndView findpassword() {
+		System.out.println("   	MemberController/findPassword()/시작");
+		System.out.println("    MemberController/findPassword()/진행");
+		System.out.println("    MemberController/findPassword()/종료");
+		// match answer
+		return new ModelAndView("updatePasswordForm.do");
+	}
+	
+	@RequestMapping("updatePasswordById.do")
+	public String updatePasswordById() {
+		System.out.println("   	MemberController/updatePasswordById()/시작");
+		System.out.println("    MemberController/updatePasswordById()/진행");
+		System.out.println("    MemberController/updatePasswordById()/종료");
+		// updatePasswordById
+		return "home.do";
+	}
+
+	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
+	public String register(MemberVO vo) {
+		memberService.registerMember(vo);
+		return "redirect:registerResultView.do?id=" + vo.getId();
+	}
+	
+	@RequestMapping("registerResultView.do")
+	public ModelAndView registerResultView(String id) {
+		MemberVO vo = memberService.findMemberById(id);
+		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
+	}
+	
+	@RequestMapping("idcheckAjax.do")
+	@ResponseBody
+	public String idcheckAjax(String id) {
+		return memberService.idcheck(id);
+	}
 
 }
+
+
+
+
+
+
+
