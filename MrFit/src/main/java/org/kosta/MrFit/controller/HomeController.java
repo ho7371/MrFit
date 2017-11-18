@@ -24,7 +24,6 @@ public class HomeController {
 	 *  
 	 * @return
 	 */
-	
 	@RequestMapping("home.do")
 	public String home(Model model){
 		System.out.println("      HomeController/home()/시작");
