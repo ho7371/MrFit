@@ -37,6 +37,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from product_size ps, product_detail pd, product p
 		where pd.pno=p.pno and pd.psno=ps.psno and p.pno= #{value}
     </select>
+    <select id="ProductList" resultType="productVO">
+      <include refid="selectall"/>   order by pno desc    
+    </select>
 </mapper>
 
 

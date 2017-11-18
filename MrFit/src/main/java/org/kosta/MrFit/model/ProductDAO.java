@@ -4,6 +4,9 @@ import java.util.List;
 
 public interface ProductDAO {
 
+	List<ProductVO> ProductList();
+
+	List<ImageVO> findProductImageList(String pno);
 
 	ProductVO findProductDtailByPno(String pno);
 
