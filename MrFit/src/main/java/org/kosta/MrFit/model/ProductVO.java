@@ -1,6 +1,6 @@
 package org.kosta.MrFit.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductVO {
 	private String pno;
@@ -8,13 +8,14 @@ public class ProductVO {
 	private int price;
 	private String content;
 	private String category;
-	private ArrayList<ProductDetailVO> productDetailList;
-	private ArrayList<ImageVO> imageList;
+	private List<ProductDetailVO> productDetailList;
+	private List<ImageVO> imageList;
 	public ProductVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	public ProductVO(String pno, String name, int price, String content, String category,
-			ArrayList<ProductDetailVO> productDetailList, ArrayList<ImageVO> imageList) {
+			List<ProductDetailVO> productDetailList, List<ImageVO> imageList) {
 		super();
 		this.pno = pno;
 		this.name = name;
@@ -54,16 +55,16 @@ public class ProductVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public ArrayList<ProductDetailVO> getProductDetailList() {
+	public List<ProductDetailVO> getProductDetailList() {
 		return productDetailList;
 	}
-	public void setProductDetailList(ArrayList<ProductDetailVO> productDetailList) {
+	public void setProductDetailList(List<ProductDetailVO> productDetailList) {
 		this.productDetailList = productDetailList;
 	}
-	public ArrayList<ImageVO> getImageList() {
+	public List<ImageVO> getImageList() {
 		return imageList;
 	}
-	public void setImageList(ArrayList<ImageVO> imageList) {
+	public void setImageList(List<ImageVO> imageList) {
 		this.imageList = imageList;
 	}
 	@Override
@@ -71,15 +72,7 @@ public class ProductVO {
 		return "ProductVO [pno=" + pno + ", name=" + name + ", price=" + price + ", content=" + content + ", category="
 				+ category + ", productDetailList=" + productDetailList + ", imageList=" + imageList + "]";
 	}
+	
+
 
 }
-
-
-
-
-
-
-
-
-
-

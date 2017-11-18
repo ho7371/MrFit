@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+ 	<sql id="selectall">
+ 		select pno, name, price, content, category from product
+ 	</sql>
+ 	
+	<!-- 상품 검색 -->
+	<select id="findProductByName" parameterType="string" resultType="productVO">
+		<include refid="selectall"/>
+		where name like '%' || #{value} || '%'
+	</select>
+	
+	<!-- 상품상세정보 중 상품값-->
+    <select id="findProductDetail" parameterType="string" resultType="productVO">
+    	select pno,name,price,content,category from product where pno=#{value}
+    </select>
+    
+    <!--  상품상세정보 중 productDetail List값   -->
+    <select id="findProductDetailList" parameterType="string" resultType="productDetailVO">
+    	SELECT pd.pdno, pd.size_type, pd.color, pd.inventory, pd.psno, pd.pno
+		FROM product_size ps, product p, product_detail pd
+		WHERE pd.psno=ps.psno and pd.pno=p.pno and p.pno=#{value}
+    </select>
+    <!--  상품상세정보 중 ImageVO List값 -->
+    <select id="findProductImageList" parameterType="string" resultType="imageVO">
+    	SELECT i.ino,i.url, i.pno
+		FROM  product p, image i
+		WHERE i.pno=p.pno and p.pno=#{value}
+    </select>
+    <!-- 상품상세정보 중 SizeVO List값 -->
+    <select id="findProductSizeList" parameterType="string" resultType="productSizeVO">
+    	SELECT ps.psno,ps.size1,ps.size2,ps.size3,ps.size4,ps.size5
+		from product_size ps, product_detail pd, product p
+		where pd.pno=p.pno and pd.psno=ps.psno and p.pno= #{value}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
