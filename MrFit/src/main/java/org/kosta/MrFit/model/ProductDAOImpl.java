@@ -48,6 +48,31 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return null;
 	}
+	@Override
+	public List<ProductVO> ProductList() {
+		System.out.println("      		      ProductDAOImpl/ProductList()/시작");
+		List<ProductVO> ProductList=template.selectList("product.ProductList");
+		for(int i=0;i<ProductList.size();i++) {
+			
+			List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+			if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+				ProductList.get(i).setImageList(ivo);
+			}
+			System.out.println("      		      ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
+		}		
+		
+		System.out.println("      		      ProductDAOImpl/ProductList()/종료");		
+		return ProductList;
+	}
+
+	@Override
+	public List<ImageVO> findProductImageList(String pno) {
+		System.out.println("      		      ProductDAOImpl/findProductImageList(pno)/시작");
+		List<ImageVO> iList=template.selectList("product.findProductImageList",pno);
+		System.out.println("      		      ProductDAOImpl/findProductImageList(pno)/진행"+iList);		
+		System.out.println("      		      ProductDAOImpl/findProductImageList(pno)/종료");
+		return iList;
+	}
 
 /*	@Override
 	public ProductVO findProductDtailByPno(String pno) {   

@@ -7,7 +7,7 @@
 			<div class="col-md-3 footer-left">
 				<h3>ABOUT US</h3>
 				<ul>
-					<li><a href="#">Who We Are</a></li>
+					<li><a href="${pageContext.request.contextPath}/contact.do">Who We Are</a></li>
 					<li><a href="contact.html">Contact Us</a></li>
 					<li><a href="#">Our Sites</a></li>
 					<li><a href="#">In The News</a></li>
