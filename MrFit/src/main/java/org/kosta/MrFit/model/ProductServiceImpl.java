@@ -54,6 +54,10 @@ public class ProductServiceImpl implements ProductService {
 	public int getTotalProductCount() {		
 		return productDAO.getTotalProductCount();
 	}
-		
+	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
+	@Override
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+		return productDAO.findProductDetailByColorAjax(pdno);
+	}	
 		
 }

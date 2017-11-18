@@ -30,12 +30,13 @@ public class UnitTest {
 	  System.out.println(pservice.findProductDtailByPno("3").getProductDetailList());
 	  System.out.println("*******************************");
 	  System.out.println(pservice.findProductDtailByPno("3").getImageList());*/
-	  System.out.println(pservice.findProductByName("청바지"));
-		 	MemberVO memberVO=new MemberVO();
+	  //System.out.println(pservice.findProductByName("청바지"));
+		 /*	MemberVO memberVO=new MemberVO();
 		 	memberVO.setId("mrfit");
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
-		 System.out.println(memberService.findMemberById("mrfit"));
+		 System.out.println(memberService.findMemberById("mrfit"));*/
+		  System.out.println(pservice.findProductDtailByPno("11"));
 		 	
 	 }
 	 

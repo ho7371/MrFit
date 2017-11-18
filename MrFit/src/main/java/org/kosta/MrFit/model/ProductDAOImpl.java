@@ -13,20 +13,20 @@ public class ProductDAOImpl implements ProductDAO {
 	SqlSessionTemplate template;
 	/*
 	 * @see org.kosta.MrFit.model.ProductDAO#findProductDtail(java.lang.String)
-	 * 상품 상세보기
+	 * 상품 상세보기 메서드(상품번호로 검색)
 	 */
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
-		ProductVO pvo=null;
-		ProductDetailVO pdvo=new ProductDetailVO();
-		pvo=template.selectOne("product.findProductDetail", pno);
-		List<ProductDetailVO> pdList=template.selectList("product.findProductDetailList", pno);
-		List<ProductSizeVO> psList=template.selectList("product.findProductSizeList",pno);
-		List<ImageVO> iList=template.selectList("product.findProductImageList",pno);
-		pdvo.setSizeList(psList);
-		pvo.setProductDetailList(pdList);
-		pvo.setImageList(iList);
-		return pvo;
+		  ProductVO pvo = template.selectOne("product.findProductDetail",pno);
+	         List<ProductDetailVO> pdList=template.selectList("product.findProductDetailList", pno);
+	         for (int k = 0; k < pdList.size(); k++) {               
+	            List<ProductSizeVO> psList=template.selectList("product.findProductSizeList",pdList.get(k).getPdno());
+	            pdList.get(k).setSizeList(psList);
+	         }
+	          List<ImageVO> iList=template.selectList("product.findProductImageList",pvo.getPno());
+	          pvo.setProductDetailList(pdList);
+	          pvo.setImageList(iList);
+	          return pvo;	
 	}
 	/**[현민][상품검색]
 	 * 검색한 키워드를 찾아 리스트에 담은 후 
@@ -77,6 +77,11 @@ public class ProductDAOImpl implements ProductDAO {
 		System.out.println("      		      ProductDAOImpl/getTotalProductCount()/진행"+pc);		
 		System.out.println("      		      ProductDAOImpl/getTotalProductCount()/종료");
 		return pc;
+	}
+	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
+	@Override
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+		return template.selectList("product.findProductSizeList", pdno);
 	}
 /*	@Override
 	public ProductVO findProductDtailByPno(String pno) {   

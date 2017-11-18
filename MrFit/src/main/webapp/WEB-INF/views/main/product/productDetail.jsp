@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+${pvo}
 <!--start-single-->
 	<div class="single contact">
 		<div class="container">
@@ -27,8 +28,31 @@
 <!-- FlexSlider -->
   <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-
-	<script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
+	$("#colorCheck").change(function() {
+		//alert($(this).val());
+					$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath}/findProductDetailByColorAjax.do",
+				dataType:"json",
+				data:"pdno="+$(this).val(),
+				success:function(data){	
+					//alert(data); 
+			 		for(var i=0;i<data.length;i++){						
+					alert(data[i].productSizeVO.size1);
+					}  
+			/* 		if(data.message=="fail")
+						$("#memberInfo").html("검색결과없음");
+					else	
+						$("#memberInfo").html(data.name+" "+data.address); */
+				}
+			});//ajax
+	});//change
+});//ready
+</script>
+<script>
 // Can also be used with $(document).ready()
 $(window).load(function() {
   $('.flexslider').flexslider({
@@ -40,42 +64,35 @@ $(window).load(function() {
 				</div>	
 				<div class="col-md-7 single-top-right">
 					<div class="details-left-info simpleCart_shelfItem">
-						<h3>Accessories Latest</h3>
+						<h3>${requestScope.pvo.name}</h3>
 						<p class="availability">Availability: <span class="color">In stock</span></p>
 						<div class="price_single">
-							<span class="reducedfrom">$800.00</span>
-							<span class="actual item_price">$600.00</span><a href="#">click for offer</a>
+							<%-- <span class="reducedfrom">${requestScope.pvo.price}</span> --%>
+							<span class="actual item_price">${requestScope.pvo.price}</span><a href="#">click for offer</a>
 						</div>
-						<h2 class="quick">Quick Overview:</h2>
-						<p class="quick_desc"> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p>
+						<h2 class="quick">상품설명:</h2>
+						<p class="quick_desc">${requestScope.pvo.content}</p>
 						<ul class="product-colors">
-							<h3>available Colors ::</h3>
-							<li><a class="color1" href="#"><span> </span></a></li>
-							<li><a class="color2" href="#"><span> </span></a></li>
-							<li><a class="color3" href="#"><span> </span></a></li>
-							<li><a class="color4" href="#"><span> </span></a></li>
-							<li><a class="color5" href="#"><span> </span></a></li>
-							<li><a class="color6" href="#"><span> </span></a></li>
-							<li><a class="color7" href="#"><span> </span></a></li>
-							<li><a class="color8" href="#"><span> </span></a></li>
+							<h3>색상 </h3>
+									<select id="colorCheck">
+									<option>-[필수] 옵션을 선택해주세요-</option>
+									<option>-----------------------------------------</option>
+									<c:forEach items="${requestScope.pvo.productDetailList}" var="colorList">
+									<option value="${colorList.pdno}">${colorList.color}</option>
+									</c:forEach>
+								</select> 
 							<div class="clear"> </div>
 						</ul>
 						<ul class="size">
-							<h3>Length</h3>
+							<h3>size</h3>
 							<li><a href="#">7</a></li>
 							<li><a href="#">6</a></li>
 						</ul>
 						<div class="quantity_box">
 							<ul class="product-qty">
-								<span>Quantity:</span>
-								<select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-								</select>
+								<span>주문수량:</span>
+								<!-- quantity 주문갯수 -->
+								<input type="number" name="quantity" min="0">
 							</ul>
 						</div>
 					<div class="clearfix"> </div>

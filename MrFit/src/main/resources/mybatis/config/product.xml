@@ -21,9 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!--  상품상세정보 중 productDetail List값   -->
     <select id="findProductDetailList" parameterType="string" resultType="productDetailVO">
-    	SELECT pd.pdno, pd.size_type, pd.color, pd.inventory, pd.psno, pd.pno
-		FROM product_size ps, product p, product_detail pd
-		WHERE pd.psno=ps.psno and pd.pno=p.pno and p.pno=#{value}
+    	SELECT pd.pdno, pd.color, pd.pno
+		FROM  product p, product_detail pd
+		WHERE pd.pno=p.pno and p.pno=#{value}
     </select>
     <!--  상품상세정보 중 ImageVO List값 -->
     <select id="findProductImageList" parameterType="string" resultType="imageVO">
@@ -33,9 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     <!-- 상품상세정보 중 SizeVO List값 -->
     <select id="findProductSizeList" parameterType="string" resultType="productSizeVO">
-    	SELECT ps.psno,ps.size1,ps.size2,ps.size3,ps.size4,ps.size5
-		from product_size ps, product_detail pd, product p
-		where pd.pno=p.pno and pd.psno=ps.psno and p.pno= #{value}
+    	SELECT ps.psno, ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,ps.size_type,ps.inventory,ps.pdno
+		FROM product_size ps, product_detail pd
+		WHERE pd.pdno=ps.pdno and pd.pdno=#{value}
     </select>
     
     <select id="ProductList" parameterType="pagingBean" resultType="productVO">

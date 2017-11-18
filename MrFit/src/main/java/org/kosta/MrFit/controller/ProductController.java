@@ -3,13 +3,13 @@ package org.kosta.MrFit.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.ProductService;
+import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -41,28 +41,43 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
 	}
-	/**[현민][상품검색]
-	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 
-	 * 찾는 기능 
-	 * 키워드에 해당하는 상품이 있는 경우 해당 상품을 보여주고
-	 * 키워드에 해당하는 상품이 없는 경우 검색 실패 메세지를 보여주는 jsp로 보낸다.
-	 * @param keyword
-	 * @return
-	 */
+	
 	@RequestMapping("findProductByName.do")
 	public ModelAndView findProductByName(String keyword){
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
 		System.out.println("    ProductController/registerProduct()/진행");
-		if(list!= null) {
-			mv.setViewName("product/findProductByName_ok.tiles");
+		if(!list.isEmpty()) {
+			mv.setViewName("product/findProductByName_ok");
 			mv.addObject("list", list);
 		}else {
-			mv.setViewName("main/product/findProductByName_fail");
+			mv.setViewName("prodcut/findProductByName_fail");
 		}
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
+	}
+	/*
+	 * 상품 번호로 상품의 상세정보 페이지 이동
+	 */
+	@RequestMapping("findProductDetailByPno.do")
+	public ModelAndView findProductDetailByPno(String pno) {
+		ModelAndView mv=new ModelAndView();
+		ProductVO pvo=productService.findProductDtailByPno(pno);
+			mv.setViewName("product/productDetail.tiles");
+			mv.addObject("pvo", pvo);	
+		return mv;
+	}
+	/*
+	 * 상품 디테일 page에서 pdno를 조건으로 
+	 * 색상별 size를 JSON 형식으로 통신한다
+	 */
+	
+	@RequestMapping("findProductDetailByColorAjax.do")
+	@ResponseBody
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdno);
+		return sizeList;
 	}
 }
 
