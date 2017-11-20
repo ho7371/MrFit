@@ -80,7 +80,7 @@
 					<li class="grid"><a href="#">BOTTOM</a></li>
 					<li class="grid"><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
 					<li class="grid"><a href="#">고객문의</a></li>
-					<li class="grid"><a href="#">마이페이지</a></li>
+					<li class="grid"><a href="${pageContext.request.contextPath}/myPage.do">마이페이지</a></li>
 					<li class="grid"><a href="#">쪽지함</a></li>
 				</ul>
 			</div>
