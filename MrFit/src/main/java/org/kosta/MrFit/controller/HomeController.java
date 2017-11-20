@@ -10,7 +10,6 @@ import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -40,7 +39,7 @@ public class HomeController {
 		}
 		
 		List<ProductVO> ProductList=productService.ProductList(pb);
-		System.out.println("      HomeController/home()/진행"+pno+" 리스"+ProductList);		
+		System.out.println("      HomeController/home()/진행 - pno:"+pno+", 상품목록:"+ProductList);		
 		if(ProductList!=null&&!ProductList.isEmpty()) {
 			model.addAttribute("ProductList",ProductList);
 			model.addAttribute("pb",pb);
@@ -78,9 +77,16 @@ public class HomeController {
 	
 	@RequestMapping("inquiry.do")
 	public String inquiry(){
-		System.out.println("      HomeController/notice()/시작");
-		System.out.println("      HomeController/notice()/종료");
+		System.out.println("      HomeController/inquiry()/시작");
+		System.out.println("      HomeController/inquiry()/종료");
 		return "board/inquiry.tiles";
+	}
+	
+	@RequestMapping("note.do")
+	public String note(){
+		System.out.println("      HomeController/note()/시작");
+		System.out.println("      HomeController/note()/종료");
+		return "board/note.tiles";
 	}
 	
 }

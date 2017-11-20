@@ -8,6 +8,9 @@
 		$("#searchProductBtn").click(function() {
 			location.href="findProductByName.do?keyword="+$("#searchProduct").val();
 		});// click
+		$("#logoutAction").click(function() {
+			$("#logoutForm").submit();
+		});
 	});// ready
 </script>
 	<!--top-header-->
@@ -46,11 +49,16 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<p>
-							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
-							<a href="${pageContext.request.contextPath}/myPage.do">마이페이지</a>&nbsp;
-							<a href="#">쪽지함</a>&nbsp; 
-							<a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a> <a
+								href="${pageContext.request.contextPath}/myPage.do">마이페이지</a>&nbsp;
+							<a href="${pageContext.request.contextPath}/note.do">쪽지함</a>&nbsp;
 						</p>
+						
+						<a href="#" id="logoutAction">로그아웃</a>
+						<form action="${pageContext.request.contextPath}/logout.do"
+							id="logoutForm" method="post" style="display: none;">
+							<sec:csrfInput />
+						</form>
 					</sec:authorize>
 						<div class="clearfix"></div>
 					</div>

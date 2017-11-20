@@ -1,7 +1,10 @@
 package org.kosta.MrFit.model;
 
-public class MemberVO {
-   private String id;
+import java.io.Serializable;
+
+public class MemberVO implements Serializable{
+private static final long serialVersionUID = -6261729269876457951L;
+private String id;
    private String password;
    private String name;
    private String phone;
