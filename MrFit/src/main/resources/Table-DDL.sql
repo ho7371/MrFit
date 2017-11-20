@@ -9,6 +9,7 @@ drop sequence rno_seq;
 drop sequence pno_seq;
 drop sequence pbno_seq;
 drop sequence mrno_seq;
+drop sequence irno_seq;
 drop sequence ino_seq;
 drop sequence ono_seq;
 drop sequence pcno_seq;
@@ -29,10 +30,10 @@ drop table PRODUCT_BOARD;
 drop table PRODUCT;
 drop table INQUIRY_REPLY;
 drop table INQUIRY;
-drop table MEMBER_SIZE;
 drop table AUTH;
 drop table POINT; 
 drop table MEMBER;
+drop table MEMBER_SIZE;
 drop table QUESTION;
 drop table GRADE;
 	
@@ -54,6 +55,7 @@ create sequence pno_seq;
 create sequence pbno_seq;
 create sequence mrno_seq;
 create sequence ino_seq;
+create sequence irno_seq;
 create sequence ono_seq;
 create sequence pcno_seq;
 create sequence pdno_seq;
@@ -68,9 +70,26 @@ CREATE TABLE grade (
 
 /* 비밀번호 찾기 질문 */  
 CREATE TABLE question (
-	qno VARCHAR2(100) PRIMARY KEY, 
+	qno NUMBER PRIMARY KEY, 
 	question VARCHAR2(100) NOT NULL 
 );
+
+/* 회원치수 */
+CREATE TABLE member_size (
+	id VARCHAR2(100) NOT NULL,
+	shoulder NUMBER, 
+	chest NUMBER, 
+	sleeve NUMBER, 
+	armhole NUMBER,
+	toplength NUMBER, 
+	waist NUMBER,
+	crotch NUMBER, 
+	thigh NUMBER, 
+	hem NUMBER, 
+	bottomlength NUMBER,
+);
+CREATE INDEX member_size_unique ON member_size(id);
+
 
 /* 회원 */
 CREATE TABLE member (
@@ -84,15 +103,15 @@ CREATE TABLE member (
 	totalspent NUMBER default 0,
 	status VARCHAR2(100) default 1, 
 	answer VARCHAR2(100) NOT NULL, 
-	qno VARCHAR2(100) NOT NULL, 
+	qno NUMBER NOT NULL, 
 	grade VARCHAR2(100) default '브론즈',
 	constraint fk_qno_in_member foreign key(qno) references question(qno),
-	constraint fk_grade_in_member foreign key(grade) references grade(grade)
+	constraint fk_grade_in_member foreign key(grade) references grade(grade), 
 );
 
 /* 포인트 */
 CREATE TABLE point (
-	point_no VARCHAR2(100) PRIMARY KEY, 
+	point_no NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL, 
 	updown NUMBER NOT NULL,
 	change_date date NOT NULL,
@@ -107,26 +126,10 @@ CREATE TABLE auth (
 	constraint pk_auth primary key(id, auth)
 );
 
-/* 회원치수 */
-CREATE TABLE member_size (
-	msno VARCHAR2(100) PRIMARY KEY,
-	id VARCHAR2(100) NOT NULL, 
-	shoulder NUMBER, 
-	chest NUMBER, 
-	sleeve NUMBER, 
-	armhole NUMBER,
-	toplength NUMBER, 
-	waist NUMBER,
-	crotch NUMBER, 
-	thigh NUMBER, 
-	hem NUMBER, 
-	bottomlength NUMBER,
-	constraint fk_id_in_member_size foreign key(id) references member(id)
-);
 
 /* 고객문의 게시판 */
 CREATE TABLE inquiry (
-	inquiry_no VARCHAR2(100) PRIMARY KEY, 
+	inquiry_no NUMBER PRIMARY KEY, 
 	content CLOB NOT NULL, 
 	regdate DATE NOT NULL, 
 	security VARCHAR2(100) NOT NULL, 
