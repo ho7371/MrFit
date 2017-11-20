@@ -31,7 +31,7 @@ public class MemberController {
 	public String loginFail() {
 		System.out.println("   	MemberController/loginFail()/시작");
 		System.out.println("    MemberController/loginFail()/종료");
-		return "member/login_fail";
+		return "main/member/login_fail";
 	}
 
 	/** 코드 작성 규칙
