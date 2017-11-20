@@ -82,23 +82,23 @@ insert into auth(id, auth) values('kosta','관리자');
 
 --------------- 회원치수
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 42,51,63,23,71,37,25,23,14,91,'java');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(42,51,63,23,71,37,25,23,14,91,'java');
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 44,53,64,24,72,39,26,25,15,92,'spring');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(44,53,64,24,72,39,26,25,15,92,'spring');
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 45,54,65,25,73,40,27,26,16,93,'jquery');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(45,54,65,25,73,40,27,26,16,93,'jquery');
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 46,55,66,26,74,41,28,27,17,94,'mybatis');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(46,55,66,26,74,41,28,27,17,94,'mybatis');
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 47,56,67,27,75,42,29,28,18,95,'html');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(47,56,67,27,75,42,29,28,18,95,'html');
 
-insert into member_size(msno,shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(msno_seq.nextval, 48,57,68,28,76,43,30,29,19,96,'css');
+insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
+values(48,57,68,28,76,43,30,29,19,96,'css');
 
 ------------------------------- 진호 : [11/19][01:22]
 
@@ -374,28 +374,28 @@ values(psno_seq.nextval,44,53,64,24,72,'l',111,pdno_seq.currval);
 --------------- 주문
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,60000,sysdate,'장바구니','java');
+values(1,60000,sysdate,'장바구니','java');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,12000,sysdate,'장바구니','spring');
+values(2,12000,sysdate,'장바구니','spring');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,20000,sysdate,'입금대기','java');
+values(3,20000,sysdate,'입금대기','java');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,16000,sysdate,'입금대기','spring');
+values(4,16000,sysdate,'입금대기','spring');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,30000,sysdate,'배송중','java');
+values(5,30000,sysdate,'배송중','java');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,23000,sysdate,'배송중','spring');
+values(6,23000,sysdate,'배송중','spring');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,40000,sysdate,'배송완료','java');
+values(7,40000,sysdate,'배송완료','java');
 
 insert into orders(ono,totalprice,ordertime,status,id) 
-values(ono_seq.nextval,64000,sysdate,'배송완료','spring');
+values(8,64000,sysdate,'배송완료','spring');
 
 
 --- [주문상품] 수정한 테이블  (수정자:현진호)
