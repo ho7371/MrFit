@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,7 +22,6 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	public String findProductById(){
 		System.out.println("            ProductServiceImpl/findProductById()/시작");
-		System.out.println("    		ProductServiceImpl/findProductById()/진행");
 		System.out.println("      		ProductServiceImpl/findProductById()/종료");
 		return null;
 	}
@@ -33,31 +33,57 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> ProductList(PagingBean pb) {
 		System.out.println("            ProductServiceImpl/ProductList()/시작");
 		List<ProductVO> ProductList=productDAO.ProductList(pb);
-		System.out.println("    		ProductServiceImpl/ProductList()/진행"+ProductList);
-		
-		System.out.println("      		ProductServiceImpl/ProductList()/종료");
-		// TODO Auto-generated method stub
+		System.out.println("      		ProductServiceImpl/ProductList()/종료 - ProductList:"+ProductList);
 		return ProductList;
 	}
 	
-	
-
 	@Override
 	public List<ProductVO> findProductByName(String keyword) {
+		System.out.println("            ProductServiceImpl/findProductByName()/시작");
 		return productDAO.findProductByName(keyword);
 	}
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {	
+		System.out.println("            ProductServiceImpl/findProductDtailByPno()/시작");
 		return productDAO.findProductDtailByPno(pno);
 	}
 	@Override
-	public int getTotalProductCount() {		
+	public int getTotalProductCount() {	
+		System.out.println("            ProductServiceImpl/getTotalProductCount()/시작");
 		return productDAO.getTotalProductCount();
 	}
 	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
-	@Override
+
+	/*@Override
 	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
 		return productDAO.findProductDetailByColorAjax(pdno);
-	}
+	}*/
+	@Override
+		public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+			return productDAO.findProductDetailByColorAjax(pdno);
+	}	
+	@Override
+	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
+		System.out.println("            ProductServiceImpl/ProductList()/시작");
+		List<ProductVO> ProductList=productDAO.findProductByCategory(map);
+		System.out.println("    		ProductServiceImpl/ProductList()/진행"+ProductList);
 		
+		System.out.println("      		ProductServiceImpl/ProductList()/종료");
+		return ProductList;
+	}
+	
+	@Override
+	public int getCategoryProductCount(String category) {
+		// TODO Auto-generated method stub
+		return productDAO.getCategoryProductCount(category);
+	}	
+	/* [2017.11.20][김석환
+	 * 상세정보 컬러 값가져가기
+	 * (non-Javadoc)
+	 * @see org.kosta.MrFit.model.ProductDAO#findProductColorBypno(java.lang.String)
+	 */
+	@Override
+	public List<ProductDetailVO> findProductColorBypno(String pno) {
+		return productDAO.findProductColorBypno(pno);
+	}
 }

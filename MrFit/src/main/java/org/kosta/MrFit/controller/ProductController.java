@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
@@ -74,7 +75,9 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
+     	List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
 			mv.setViewName("product/productDetail.tiles");
+			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 		return mv;
 	}
@@ -84,9 +87,16 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
-	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdno);
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pcno){
+ 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pcno);
 		return sizeList;
+	}
+	@RequestMapping("findProductDetailBySizeAjax.do")
+	@ResponseBody
+	public Object findProductDetailBySizeAjax(String psno,String pcno) {
+		System.out.println("pnco :"+pcno);
+		System.out.println("psno :"+psno);
+		return null;
 	}
 }
 

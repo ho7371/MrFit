@@ -1,169 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--start-product--> 
-	<div class="product">
-		<div class="container">
-			<div class="product-main">
-				<div class="col-md-9 p-left">
-				<div class="product-one">
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-1.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
+<div class="shoes">
+	<div class="container">
+		
+		<div class="product-one">
+		
+		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
+		<c:if test="${cnt.count<5}">
+			<div class="col-md-3 product-left">
+				<div class="p-one simpleCart_shelfItem">
+					<a href="home.do"> <img src="${pvo.imageList[0].url}" alt="" />
+						<div class="mask">
+							<span>Quick View</span>
+						</div>
+					</a>
+					<h4>${pvo.name}</h4>
+					<p>
+						<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
+					</p>
+
 				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-2.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
+			</div>	
+		</c:if>		
+		</c:forEach>
+		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
+		<c:if test="${cnt.count>4}">
+			<div class="col-md-3 product-left">
+				<div class="p-one simpleCart_shelfItem">
+					<a href="home.do"> <img src="${pvo.imageList[0].url}" alt="" />
+						<div class="mask">
+							<span>Quick View</span>
+						</div>
+					</a>
+					<h4>Aenean placerat </h4>
+					<p>
+						<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
+					</p>
+
 				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-3.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="product-one">
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-5.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
-				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-6.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
-				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-7.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
-				</div>
-			<div class="clearfix"> </div>
-			</div>
-			<div class="product-one">
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-15.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-						
-					</div>
-				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-10.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-						
-					</div>
-				</div>
-				<div class="col-md-4 product-left single-left"> 
-					<div class="p-one simpleCart_shelfItem">
-						<a href="single.html">
-								<img src="images/shoes-11.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-						<h4>Aenean placerat</h4>
-						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			</div>
-			<div class="col-md-3 p-right single-right">
-				<h3>Categories</h3>
-					<ul class="product-categories">
-						<li><a href="#">Blucher Shoe</a> <span class="count">(14)</span></li>
-						<li><a href="#">Clog Shoe</a> <span class="count">(2)</span></li>
-						<li><a href="#">Snow Boot Shoe</a> <span class="count">(2)</span></li>
-						<li><a href="#">Galesh Shoe</a> <span class="count">(11)</span></li>
-						<li><a href="#">pataugas Shoe</a> <span class="count">(3)</span></li>
-						<li><a href="#">Jazz Shoe</a> <span class="count">(3)</span></li>
-					</ul>
-					<h3>Colors</h3>
-					<ul class="product-categories">
-						<li><a href="#">Green</a> <span class="count">(14)</span></li>
-						<li><a href="#">Blue</a> <span class="count">(2)</span></li>
-						<li><a href="#">Red</a> <span class="count">(2)</span></li>
-						<li><a href="#">Gray</a> <span class="count">(8)</span></li>
-						<li><a href="#">Green</a> <span class="count">(11)</span></li>
-						<li><a href="#">Yellow</a> <span class="count">(2)</span></li>
-					</ul>
-					<h3>Sizes</h3>
-					<ul class="product-categories">
-						<li><a href="#">5.5</a> <span class="count">(14)</span></li>
-						<li><a href="#">6</a> <span class="count">(2)</span></li>
-						<li><a href="#">6.5</a> <span class="count">(2)</span></li>
-						<li><a href="#">7</a> <span class="count">(8)</span></li>
-						<li><a href="#">7.5</a> <span class="count">(11)</span></li>
-					</ul>
-					<h3>Price</h3>
-					<ul class="product-categories p1">
-						<li><a href="#">600$-700$</a> <span class="count">(14)</span></li>
-						<li><a href="#">700$-800$</a> <span class="count">(2)</span></li>
-						<li><a href="#">800$-900$</a> <span class="count">(2)</span></li>
-						<li><a href="#">900$-1000$</a> <span class="count">(8)</span></li>
-						<li><a href="#">1000$-1100$</a> <span class="count">(11)</span></li>
-					</ul>
-			</div>
-			<div class="clearfix"> </div>
+			</div>	
+		</c:if>		
+		</c:forEach>	
+			
+			<div class="clearfix"></div>
 		</div>
 	</div>
-	</div>
-	<!--end-product-->
+</div>
+
+
+<!--end-shoes-->
+<!-- pagingBean -->
+<div class="pagingInfo" align="center">
+	<ul class="pagination">
+		<c:if test="${pb.previousPageGroup}">	
+			<li><a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+		</c:if>
+	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
+	end="${pb.endPageOfPageGroup}">
+		<c:choose>
+			<c:when test="${pb.nowPage!=i}">
+				<li><a href="home.do?pageNo=${i}">${i}</a></li> 
+			</c:when>
+			<c:otherwise>
+				<li class="active"><a href="#" >${i}</a></li>
+			</c:otherwise>
+		</c:choose>
+		&nbsp;
+	</c:forEach>
+	<c:if test="${pb.nextPageGroup}">	
+	<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+	</c:if>
+	</ul>	 		
+	</div> 	

@@ -73,6 +73,4 @@ public class ProductVO {
 				+ category + ", productDetailList=" + productDetailList + ", imageList=" + imageList + "]";
 	}
 	
-
-
 }

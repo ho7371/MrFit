@@ -59,18 +59,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update member set password=#{password} where id=#{id}
  	</update>
  	
- 	<insert id="registerMemberSize" parameterType="memberSizeVO">
+ 	<select id="findMemberSizeById" parameterType="string" resultType="memberSizeVO">
+ 		select shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength from member_size where id=#{value}
+ 	</select>
+ 	
+ 	<insert id="registerMemberSize" parameterType="string">
  		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 
- 		values(#{id}, #{shoulder}, #{chest}, #{sleeve}, #{armhole}, #{toplength}, #{waist}, #{crotch}, #{thigh}, #{hem}, #{bottomlength})
+ 		values(#{id},0,0,0,0,0,0,0,0,0,0)
  	</insert>
  	
  	<update id="updateMemberSize" parameterType="memberSizeVO">
  		update member_size 
- 		set shoulder=#{shoulder}, chest=#{chest}, sleeeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
+ 		set shoulder=#{shoulder}, chest=#{chest}, sleeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
  		where id=#{id}
  	</update>
- 	
- 	
+
+ 	<update id="updateMember" parameterType="memberVO">
+		update member set password=#{password},name=#{name},address=#{address},email=#{email}
+		where id=#{id}
+	</update>
+
 </mapper>
 
 
