@@ -22,4 +22,6 @@ public interface ProductService {
 
 	int getCategoryProductCount(String category);
 
+	List<ProductDetailVO> findProductColorBypno(String pno);
+
 }

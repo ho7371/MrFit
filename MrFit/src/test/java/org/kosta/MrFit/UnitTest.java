@@ -5,9 +5,8 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.MemberDAO;
-import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.MemberService;
-import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.ProductService;
 //github.com/ho7371/MrFit.git
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,8 +35,8 @@ public class UnitTest {
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
 		 System.out.println(memberService.findMemberById("mrfit"));*/
-		  System.out.println(pservice.findProductDtailByPno("11"));
-		 	
+		//  System.out.println(pservice.findProductColorBypno("1"));
+		 System.out.println(pservice.findProductDetailByColorAjax("1"));	
 	 }
 	 
 

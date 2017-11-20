@@ -53,11 +53,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.getTotalProductCount();
 	}
 	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
-	@Override
-	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-		System.out.println("            ProductServiceImpl/findProductDetailByColorAjax()/시작");
-		return productDAO.findProductDetailByColorAjax(pdno);
-	}
+		@Override
+		public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+			return productDAO.findProductDetailByColorAjax(pdno);
+	}	
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
 		System.out.println("            ProductServiceImpl/ProductList()/시작");
@@ -73,5 +72,13 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.getCategoryProductCount(category);
 	}	
-		
+	/* [2017.11.20][김석환
+	 * 상세정보 컬러 값가져가기
+	 * (non-Javadoc)
+	 * @see org.kosta.MrFit.model.ProductDAO#findProductColorBypno(java.lang.String)
+	 */
+	@Override
+	public List<ProductDetailVO> findProductColorBypno(String pno) {
+		return productDAO.findProductColorBypno(pno);
+	}
 }
