@@ -83,9 +83,10 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updatePasswordById(memberVO);
 	}
 
-
+	@Transactional
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
+		
 		memberDAO.updateMemberSize(msizeVO);
 
 	}

@@ -6,7 +6,7 @@
 <br>
 <hr>
 <br>
-<a href="${pageContext.request.contextPath}/myPageInfo.do">my Fit</a>
+<a href="${pageContext.request.contextPath}/findMemberSizeById.do">my Fit</a>
 <br>
 <hr>
 <br>

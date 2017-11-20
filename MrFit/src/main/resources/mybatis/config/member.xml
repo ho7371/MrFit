@@ -70,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<update id="updateMemberSize" parameterType="memberSizeVO">
  		update member_size 
- 		set shoulder=#{shoulder}, chest=#{chest}, sleeeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
+ 		set shoulder=#{shoulder}, chest=#{chest}, sleeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
  		where id=#{id}
  	</update>
 

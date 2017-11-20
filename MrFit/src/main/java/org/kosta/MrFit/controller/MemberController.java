@@ -167,7 +167,10 @@ public class MemberController {
 	public String updateMemberSize(MemberSizeVO msizeVO) {
 			System.out.println("   	MemberController/updateMemberSize()/시작");
 		memberService.updateMemberSize(msizeVO);
-		return "redirect:updateMsize_ok.do";
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		pvo.setMsvo(msizeVO);
+		System.out.println("   	MemberController/updateMemberSize()/종료");
+		return "ok";
 	}
 	
 	
