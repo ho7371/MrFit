@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.Authority;
 import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -59,6 +60,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		/****************************************
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴
 		 ***************************************/
+		MemberSizeVO msvo=memberService.findMemberSizeById(id);
+		member.setMsvo(msvo);
 		
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
 		System.out.println("로그인 OK~"+auth);

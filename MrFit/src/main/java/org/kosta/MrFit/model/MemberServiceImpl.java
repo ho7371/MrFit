@@ -100,5 +100,11 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public MemberSizeVO findMemberSizeById(String id) {
+		// TODO Auto-generated method stub
+		return memberDAO.findMemberSizeById(id);
+	}
+
 	
 }

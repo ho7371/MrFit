@@ -97,6 +97,12 @@ public class MemberDAOImpl implements MemberDAO {
 		template.update("member.updateMemberSize", msizeVO);
 		
 	}
+
+	@Override
+	public MemberSizeVO findMemberSizeById(String id) {
+		// TODO Auto-generated method stub
+		return template.selectOne("member.findMemberSizeById", id);
+	}
 }
 
 

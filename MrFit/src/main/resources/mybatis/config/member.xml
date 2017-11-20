@@ -59,6 +59,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update member set password=#{password} where id=#{id}
  	</update>
  	
+ 	<select id="findMemberSizeById" parameterType="string" resultType="memberSizeVO">
+ 		select shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength from member_size where id=#{value}
+ 	</select>
+ 	
  	<insert id="registerMemberSize" parameterType="memberSizeVO">
  		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 
  		values(#{id}, #{shoulder}, #{chest}, #{sleeve}, #{armhole}, #{toplength}, #{waist}, #{crotch}, #{thigh}, #{hem}, #{bottomlength})
@@ -69,7 +73,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		set shoulder=#{shoulder}, chest=#{chest}, sleeeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
  		where id=#{id}
  	</update>
- 	
  	
 </mapper>
 

@@ -3,7 +3,6 @@
 ------------ 시퀀스 삭제
 drop sequence qno_seq;
 drop sequence point_no_seq;
-drop sequence msno_seq;
 drop sequence mbno_seq;
 drop sequence rno_seq;
 drop sequence pno_seq;
@@ -32,8 +31,8 @@ drop table INQUIRY_REPLY;
 drop table INQUIRY;
 drop table AUTH;
 drop table POINT; 
-drop table MEMBER;
 drop table MEMBER_SIZE;
+drop table MEMBER;
 drop table QUESTION;
 drop table GRADE;
 	
@@ -48,7 +47,6 @@ drop table GRADE;
 /* 시퀀스 생성 */
 create sequence qno_seq;
 create sequence point_no_seq;
-create sequence msno_seq;
 create sequence mbno_seq;
 create sequence rno_seq;
 create sequence pno_seq;
@@ -74,6 +72,24 @@ CREATE TABLE question (
 	question VARCHAR2(100) NOT NULL 
 );
 
+/* 회원 */
+CREATE TABLE member (
+	id VARCHAR2(100) PRIMARY KEY,
+	password VARCHAR2(100) NOT NULL, 
+	name VARCHAR2(100) NOT NULL, 
+	phone VARCHAR2(100) NOT NULL,
+	address VARCHAR2(100) NOT NULL, 
+	email VARCHAR2(100) NOT NULL,
+	point NUMBER default 0, 
+	totalspent NUMBER default 0,
+	status VARCHAR2(100) default 1, 
+	answer VARCHAR2(100) NOT NULL, 
+	qno NUMBER NOT NULL, 
+	grade VARCHAR2(100) default '브론즈',
+	constraint fk_qno_in_member foreign key(qno) references question(qno),
+	constraint fk_grade_in_member foreign key(grade) references grade(grade)
+);
+
 /* 회원치수 */
 CREATE TABLE member_size (
 	id VARCHAR2(100) NOT NULL,
@@ -92,25 +108,7 @@ CREATE TABLE member_size (
 CREATE INDEX member_size_unique ON member_size(id);
 
 
-/* 회원 */
-CREATE TABLE member (
-	id VARCHAR2(100) PRIMARY KEY,
-	password VARCHAR2(100) NOT NULL, 
-	name VARCHAR2(100) NOT NULL, 
-	phone VARCHAR2(100) NOT NULL,
-	address VARCHAR2(100) NOT NULL, 
-	email VARCHAR2(100) NOT NULL,
-	point NUMBER default 0, 
-	totalspent NUMBER default 0,
-	status VARCHAR2(100) default 1, 
-	answer VARCHAR2(100) NOT NULL, 
-	qno NUMBER NOT NULL, 
-	grade VARCHAR2(100) default '브론즈',
-	msno NUMBER,
-	constraint fk_qno_in_member foreign key(qno) references question(qno),
-	constraint fk_grade_in_member foreign key(grade) references grade(grade),
-	constraint fk_msno_in_member foreign key(msno) references member_size(msno)
-);
+
 
 /* 포인트 */
 CREATE TABLE point (
