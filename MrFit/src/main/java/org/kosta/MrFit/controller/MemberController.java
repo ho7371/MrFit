@@ -85,12 +85,11 @@ public class MemberController {
 			mv.addObject("lostid", id);
 			System.out.println("    MemberController/findIdByEmailAndName()/종료");
 		return mv;
-
 	}
 	
 	@RequestMapping("findQnaByIdNameEmail.do")
 	public ModelAndView findQnaByIdNameEmail(MemberVO memberVO) {
-			System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
+		System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
 		ModelAndView mv=new ModelAndView();
 		String question=memberService.findQnaByIdNameEmail(memberVO);
 		if (question == null) {
@@ -100,15 +99,15 @@ public class MemberController {
 		mv.addObject("question", question);
 		mv.addObject("memberVO", memberVO);
 		mv.setViewName("member/findAnswer.tiles");
-			System.out.println("    MemberController/findQnaByIdNameEmail()/종료");
+		System.out.println("    MemberController/findQnaByIdNameEmail()/종료");
 		return mv;
 	}
 	
 	@RequestMapping("findMemberByQna.do")
 	public ModelAndView findMemberByQna(MemberVO memberVO) {
-			System.out.println("   	MemberController/findPassword()/시작");
+		System.out.println("   	MemberController/findPassword()/시작");
 		MemberVO mvo=memberService.findMemberByQna(memberVO);
-			System.out.println("    MemberController/findPassword()/종료");
+		System.out.println("    MemberController/findPassword()/종료");
 		// match answer
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
@@ -124,8 +123,8 @@ public class MemberController {
 	
 	@RequestMapping("updatePassword_ok.do")
 	public String updatePassword_ok() {
-			System.out.println("   	MemberController/updatePasswordById()/시작");
-			System.out.println("    MemberController/updatePasswordById()/종료");
+		System.out.println("   	MemberController/updatePasswordById()/시작");
+		System.out.println("    MemberController/updatePasswordById()/종료");
 		// updatePasswordById
 		return "member/updatePassword_ok.tiles";
 	}
@@ -143,6 +142,7 @@ public class MemberController {
 		System.out.println("   	MemberController/register()/시작");
 		memberService.registerMember(vo);
 		memberService.registerMemberSize(vo.getId());
+
 		System.out.println("    MemberController/register()/종료");
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}

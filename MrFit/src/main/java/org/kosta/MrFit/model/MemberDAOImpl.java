@@ -97,10 +97,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
+
 	public void registerMemberSize(String id) {
 		System.out.println("                  MemberDAOImpl/registerMemberSize()/시작");
 		System.out.println("      		      MemberDAOImpl/registerMemberSize()/종료");
 		template.insert("member.registerMemberSize", id);
+
 		
 	}
 

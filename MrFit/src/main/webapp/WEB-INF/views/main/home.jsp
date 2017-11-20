@@ -120,7 +120,7 @@
 							<span>Quick View</span>
 						</div>
 					</a>
-					<h4>Aenean placerat </h4>
+					<h4>${pvo.name} </h4>
 					<p>
 						<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
 					</p>
@@ -138,22 +138,22 @@
 
 <!--end-shoes-->
 <!-- pagingBean -->
-<div class="pagingInfo">
+<div class="pagingInfo" align="center">
 	<ul class="pagination">
-	<c:if test="${pb.previousPageGroup}">	
-		<li><a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
-	</c:if>
+		<c:if test="${pb.previousPageGroup}">	
+			<li><a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+		</c:if>
 	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
 	end="${pb.endPageOfPageGroup}">
-	<c:choose>
-	<c:when test="${pb.nowPage!=i}">
-	<li><a href="home.do?pageNo=${i}">${i}</a></li> 
-	</c:when>
-	<c:otherwise>
-	<li class="active"><a href="#" >${i}</a></li>
-	</c:otherwise>
-	</c:choose>
-	&nbsp;
+		<c:choose>
+			<c:when test="${pb.nowPage!=i}">
+				<li><a href="home.do?pageNo=${i}">${i}</a></li> 
+			</c:when>
+			<c:otherwise>
+				<li class="active"><a href="#" >${i}</a></li>
+			</c:otherwise>
+		</c:choose>
+		&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
 	<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>

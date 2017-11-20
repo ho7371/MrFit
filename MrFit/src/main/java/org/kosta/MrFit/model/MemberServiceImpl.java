@@ -62,19 +62,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String findIdByEmailAndName(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findIdByEmailAndName()/시작");
 		return memberDAO.findIdByEmailAndName(memberVO);
 	}
 
 	@Override
 	public String findQnaByIdNameEmail(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findIdByEmailAndName()/시작");
 		return memberDAO.findQnaByIdNameEmail(memberVO);
 	}
 
 	@Override
 	public MemberVO findMemberByQna(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findMemberByQna()/시작");
 		return memberDAO.findMemberByQna(memberVO);
 	}
 
@@ -90,11 +90,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
-	public void updateMemberSize(MemberSizeVO msizeVO) {
-		
+	public void updateMemberSize(MemberSizeVO msizeVO) {	
 		System.out.println("            MemberServiceImpl/updateMemberSize()/시작");
 		memberDAO.updateMemberSize(msizeVO);
-
 	}
 	
 	@Override

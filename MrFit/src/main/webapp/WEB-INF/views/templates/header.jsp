@@ -44,24 +44,14 @@
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<sec:authentication property="principal.name" />님 <br>
 					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<p>
 							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
-							<sec:authorize
-						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
-						<script type="text/javascript">
-							$(document).ready(function() {
-								$("#logoutAction").click(function() {
-									$("#logoutForm").submit();
-								});
-							});
-						</script>
-						&nbsp; <a href="#" id="logoutAction">로그아웃</a>
-						<form action="${pageContext.request.contextPath}/logout.do"
-						 	id="logoutForm" method="post" style="display: none">
-							<sec:csrfInput />
-						</form>
-					</sec:authorize>
+							<a href="${pageContext.request.contextPath}/myPage.do">마이페이지</a>&nbsp;
+							<a href="#">쪽지함</a>&nbsp; 
+							<a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
 						</p>
+					</sec:authorize>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -80,8 +70,6 @@
 					<li class="grid"><a href="#">BOTTOM</a></li>
 					<li class="grid"><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
 					<li class="grid"><a href="${pageContext.request.contextPath}/inquiry.do">고객문의</a></li>
-					<li class="grid"><a href="${pageContext.request.contextPath}/myPage.do">마이페이지</a></li>
-					<li class="grid"><a href="#">쪽지함</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"></div>

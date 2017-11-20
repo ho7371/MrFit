@@ -65,7 +65,6 @@ public class HomeController {
 	@RequestMapping("contact.do")
 	public String contact(){
 		System.out.println("      HomeController/contact()/시작");
-		System.out.println("      HomeController/contact()/진행");
 		System.out.println("      HomeController/contact()/종료");
 		return "contact.tiles";
 	}
@@ -73,7 +72,6 @@ public class HomeController {
 	@RequestMapping("notice.do")
 	public String notice(){
 		System.out.println("      HomeController/notice()/시작");
-		System.out.println("      HomeController/notice()/진행");
 		System.out.println("      HomeController/notice()/종료");
 		return "board/notice.tiles";
 	}
@@ -81,7 +79,6 @@ public class HomeController {
 	@RequestMapping("inquiry.do")
 	public String inquiry(){
 		System.out.println("      HomeController/notice()/시작");
-		System.out.println("      HomeController/notice()/진행");
 		System.out.println("      HomeController/notice()/종료");
 		return "board/inquiry.tiles";
 	}
