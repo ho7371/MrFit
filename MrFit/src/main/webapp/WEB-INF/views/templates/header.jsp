@@ -76,8 +76,9 @@
 			<div class="top-nav">
 				<ul class="memenu skyblue">
 					<li class="active"><a href="${pageContext.request.contextPath}/home.do">Home</a></li>
-					<li class="grid"><a href="#">TOP</a></li>
-					<li class="grid"><a href="#">BOTTOM</a></li>
+					<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=상의">TOP</a></li>
+					<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=하의">BOTTOM</a></li>
+					<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=아우터">OUTER</a></li>
 					<li class="grid"><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
 					<li class="grid"><a href="#">고객문의</a></li>
 					<li class="grid"><a href="#">마이페이지</a></li>

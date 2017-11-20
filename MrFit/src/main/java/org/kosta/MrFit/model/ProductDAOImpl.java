@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -92,4 +93,28 @@ public class ProductDAOImpl implements ProductDAO {
 	   
 	   return pvo;
 	}*/
+	@Override
+	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
+		
+		System.out.println("      		      ProductDAOImpl/ProductList()/시작");
+		List<ProductVO> ProductList=template.selectList("product.findProductByCategory",map);
+		for(int i=0;i<ProductList.size();i++) {			
+			List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+			if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+				ProductList.get(i).setImageList(ivo);
+			}
+			System.out.println("      		      ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
+		}		
+		
+		System.out.println("      		      ProductDAOImpl/ProductList()/종료");		
+		return ProductList;
+	}
+	@Override
+	public int getCategoryProductCount(String category) {
+		System.out.println("      		      ProductDAOImpl/getCategoryProductCount()/시작");
+		int pc=template.selectOne("product.getCategoryProductCount",category);
+		System.out.println("      		      ProductDAOImpl/getCategoryProductCount()/진행"+pc);		
+		System.out.println("      		      ProductDAOImpl/getCategoryProductCount()/종료");
+		return pc;
+	}
 }
