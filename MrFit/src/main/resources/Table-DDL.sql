@@ -9,6 +9,7 @@ drop sequence rno_seq;
 drop sequence pno_seq;
 drop sequence pbno_seq;
 drop sequence mrno_seq;
+drop sequence irno_seq;
 drop sequence ino_seq;
 drop sequence ono_seq;
 drop sequence pcno_seq;
@@ -29,10 +30,10 @@ drop table PRODUCT_BOARD;
 drop table PRODUCT;
 drop table INQUIRY_REPLY;
 drop table INQUIRY;
-drop table MEMBER_SIZE;
 drop table AUTH;
 drop table POINT; 
 drop table MEMBER;
+drop table MEMBER_SIZE;
 drop table QUESTION;
 drop table GRADE;
 	
@@ -54,6 +55,7 @@ create sequence pno_seq;
 create sequence pbno_seq;
 create sequence mrno_seq;
 create sequence ino_seq;
+create sequence irno_seq;
 create sequence ono_seq;
 create sequence pcno_seq;
 create sequence pdno_seq;
@@ -68,9 +70,27 @@ CREATE TABLE grade (
 
 /* 비밀번호 찾기 질문 */  
 CREATE TABLE question (
-	qno VARCHAR2(100) PRIMARY KEY, 
+	qno NUMBER PRIMARY KEY, 
 	question VARCHAR2(100) NOT NULL 
 );
+
+/* 회원치수 */
+CREATE TABLE member_size (
+	id VARCHAR2(100) NOT NULL,
+	shoulder NUMBER, 
+	chest NUMBER, 
+	sleeve NUMBER, 
+	armhole NUMBER,
+	toplength NUMBER, 
+	waist NUMBER,
+	crotch NUMBER, 
+	thigh NUMBER, 
+	hem NUMBER, 
+	bottomlength NUMBER,
+	constraint fk_id_in_member foreign key(id) references member(id)
+);
+CREATE INDEX member_size_unique ON member_size(id);
+
 
 /* 회원 */
 CREATE TABLE member (
@@ -84,15 +104,17 @@ CREATE TABLE member (
 	totalspent NUMBER default 0,
 	status VARCHAR2(100) default 1, 
 	answer VARCHAR2(100) NOT NULL, 
-	qno VARCHAR2(100) NOT NULL, 
+	qno NUMBER NOT NULL, 
 	grade VARCHAR2(100) default '브론즈',
+	msno NUMBER,
 	constraint fk_qno_in_member foreign key(qno) references question(qno),
-	constraint fk_grade_in_member foreign key(grade) references grade(grade)
+	constraint fk_grade_in_member foreign key(grade) references grade(grade),
+	constraint fk_msno_in_member foreign key(msno) references member_size(msno)
 );
 
 /* 포인트 */
 CREATE TABLE point (
-	point_no VARCHAR2(100) PRIMARY KEY, 
+	point_no NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL, 
 	updown NUMBER NOT NULL,
 	change_date date NOT NULL,
@@ -107,26 +129,9 @@ CREATE TABLE auth (
 	constraint pk_auth primary key(id, auth)
 );
 
-/* 회원치수 */
-CREATE TABLE member_size (
-	msno VARCHAR2(100) PRIMARY KEY,
-	id VARCHAR2(100) NOT NULL, 
-	shoulder NUMBER, 
-	chest NUMBER, 
-	sleeve NUMBER, 
-	armhole NUMBER,
-	toplength NUMBER, 
-	waist NUMBER,
-	crotch NUMBER, 
-	thigh NUMBER, 
-	hem NUMBER, 
-	bottomlength NUMBER,
-	constraint fk_id_in_member_size foreign key(id) references member(id)
-);
-
 /* 고객문의 게시판 */
 CREATE TABLE inquiry (
-	inquiry_no VARCHAR2(100) PRIMARY KEY, 
+	inquiry_no NUMBER PRIMARY KEY, 
 	content CLOB NOT NULL, 
 	regdate DATE NOT NULL, 
 	security VARCHAR2(100) NOT NULL, 
@@ -137,16 +142,16 @@ CREATE TABLE inquiry (
 
 /* 고객문의 댓글 */
 CREATE TABLE inquiry_reply (
-	irno VARCHAR2(100) PRIMARY KEY,
+	irno NUMBER PRIMARY KEY,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL, 
-	inquiry_no VARCHAR2(100) NOT NULL,
+	inquiry_no NUMBER NOT NULL,
 	constraint fk_inquiry_no_in_reply foreign key(inquiry_no) references inquiry(inquiry_no)
 );
 
 /* 상품 */
 CREATE TABLE product (
-	pno VARCHAR2(100) PRIMARY KEY, 
+	pno NUMBER PRIMARY KEY, 
 	name VARCHAR2(100) NOT NULL,
 	price NUMBER NOT NULL,
 	content CLOB NOT NULL, 
@@ -155,36 +160,36 @@ CREATE TABLE product (
 
 /* 상품게시판 */
 CREATE TABLE product_board (
-	pbno VARCHAR2(100) PRIMARY KEY, 
+	pbno NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
 	security VARCHAR2(100) NOT NULL, 
 	category VARCHAR2(100) NOT NULL, 
-	pno VARCHAR2(100) NOT NULL,
+	pno NUMBER NOT NULL,
 	constraint fk_pno_in_product_board foreign key(pno) references product(pno)
 );
 
 /* 상품댓글 */
 CREATE TABLE product_reply (
-	mrno VARCHAR2(100) PRIMARY KEY, 
+	mrno NUMBER PRIMARY KEY, 
 	content CLOB,
 	regdate DATE NOT NULL,
-	pbno VARCHAR2(100) NOT NULL,
+	pbno NUMBER NOT NULL,
 	constraint fk_pbno_in_product_reply foreign key(pbno) references product_board(pbno)
 );
 
 /* 이미지 */
 CREATE TABLE image (
-	ino VARCHAR2(100) PRIMARY KEY, 
-	pno VARCHAR2(100) NOT NULL, 
+	ino NUMBER PRIMARY KEY, 
+	pno NUMBER NOT NULL, 
 	url VARCHAR2(300) NOT NULL,
 	constraint fk_pno_in_image foreign key(pno) references product(pno)
 );
 
 /* 주문 */
 CREATE TABLE orders (
-	ono VARCHAR2(100) PRIMARY KEY, 
+	ono NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL, 
 	totalprice NUMBER NOT NULL, 
 	ordertime DATE NOT NULL,
@@ -194,13 +199,13 @@ CREATE TABLE orders (
 			
 				/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
 					CREATE TABLE product_color (
-						pcno VARCHAR2(100) PRIMARY KEY,
+						pcno NUMBER PRIMARY KEY,
 						color_name VARCHAR2(100) NOT NULL
 					);
 					
 				/* 상품치수 [작업중인 테이블]*/
 				CREATE TABLE product_size (
-					psno VARCHAR2(100) PRIMARY KEY,
+					psno NUMBER PRIMARY KEY,
 					size_name VARCHAR2(100) NOT NULL, /* 칼럼명 변경 */
 					size1 NUMBER NOT NULL,
 					size2 NUMBER NOT NULL,
@@ -226,10 +231,10 @@ CREATE TABLE orders (
 				
 			/* 상품상세 [작업중인 테이블]*/
 			CREATE TABLE product_detail (
-				pdno VARCHAR2(100) PRIMARY KEY,
-				pno VARCHAR2(100) NOT NULL,
-				pcno VARCHAR2(100) NOT NULL, 
-				psno VARCHAR2(100) NOT NULL,
+				pdno NUMBER PRIMARY KEY,
+				pno NUMBER NOT NULL,
+				pcno NUMBER NOT NULL, 
+				psno NUMBER NOT NULL,
 				constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
 				constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
 				constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
@@ -248,8 +253,8 @@ CREATE TABLE orders (
 
 /* 주문상품 */
 CREATE TABLE order_product (
-	ono VARCHAR2(100) NOT NULL, 
-	pdno VARCHAR2(100) NOT NULL,
+	ono NUMBER NOT NULL, 
+	pdno NUMBER NOT NULL,
 	quantity VARCHAR2(100) NOT NULL,
 	constraint fk_ono_in_product_detail foreign key(ono) references orders(ono),
 	constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
