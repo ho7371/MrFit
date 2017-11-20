@@ -1,15 +1,16 @@
 --------------- 테이블 데이터 삭제
 
-delete from PRODUCT_SIZE;
-delete from ORDER_PRODUCT;
-delete from PRODUCT_DETAIL;
-delete from ORDERS;
-delete from IMAGE;
 delete from PRODUCT_REPLY;
 delete from PRODUCT_BOARD;
-delete from PRODUCT;
 delete from INQUIRY_REPLY;
 delete from INQUIRY;
+delete from ORDER_PRODUCT;
+delete from ORDERS;
+delete from PRODUCT_DETAIL;
+delete from PRODUCT_SIZE;
+delete from PRODUCT_COLOR;
+delete from IMAGE;
+delete from PRODUCT;
 delete from MEMBER_SIZE;
 delete from AUTH;
 delete from POINT; 
@@ -29,11 +30,11 @@ insert into grade(grade, percent) values ('골드', 10);
  
 --------------- 비밀번호 확인 질문
 
-insert into question(qno,question) values (qno_seq.nextval,'당신이 태어난 곳은 어디입니까?');
-insert into question(qno,question) values (qno_seq.nextval,'출신 초등학교는 어디입니까?');
-insert into question(qno,question) values (qno_seq.nextval,'첫사랑의 이름은?');
-insert into question(qno,question) values (qno_seq.nextval,'자신의 보물 1호는?');
-insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료는?');
+insert into question(qno,question) values (1,'당신이 태어난 곳은 어디입니까?');
+insert into question(qno,question) values (2,'출신 초등학교는 어디입니까?');
+insert into question(qno,question) values (3,'첫사랑의 이름은?');
+insert into question(qno,question) values (4,'자신의 보물 1호는?');
+insert into question(qno,question) values (5,'좋아하는 음료는?');
 
 --------------- 회원
 
@@ -60,25 +61,25 @@ insert into member(id, password, name, phone, address, email, answer, qno)
  
 --------------- 포인트
 
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'java',-1000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'spring',2000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'jquery',-3000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'mybatis',4000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'html',5000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'css',-6000, sysdate);
-insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'kosta',7000, sysdate);
+insert into point(point_no, id, updown, change_date) values(1,'java',-1000, sysdate);
+insert into point(point_no, id, updown, change_date) values(2,'spring',2000, sysdate);
+insert into point(point_no, id, updown, change_date) values(3,'jquery',-3000, sysdate);
+insert into point(point_no, id, updown, change_date) values(4,'mybatis',4000, sysdate);
+insert into point(point_no, id, updown, change_date) values(5,'html',5000, sysdate);
+insert into point(point_no, id, updown, change_date) values(6,'css',-6000, sysdate);
+insert into point(point_no, id, updown, change_date) values(7,'kosta',7000, sysdate);
 
 --------------- 권한
 
-insert into auth(id, auth) values('java','고객');
-insert into auth(id, auth) values('spring','고객');
-insert into auth(id, auth) values('jquery','고객');
-insert into auth(id, auth) values('mybatis','고객');
-insert into auth(id, auth) values('html','고객');
-insert into auth(id, auth) values('css','고객');
-insert into auth(id, auth) values('spring','관리자');
-insert into auth(id, auth) values('jquery','관리자');
-insert into auth(id, auth) values('kosta','관리자');
+insert into auth(id, auth) values('java','ROLE_MEMBER');
+insert into auth(id, auth) values('spring','ROLE_MEMBER');
+insert into auth(id, auth) values('jquery','ROLE_MEMBER');
+insert into auth(id, auth) values('mybatis','ROLE_MEMBER');
+insert into auth(id, auth) values('html','ROLE_MEMBER');
+insert into auth(id, auth) values('css','ROLE_MEMBER');
+insert into auth(id, auth) values('spring','ROLE_ADMIN');
+insert into auth(id, auth) values('jquery','ROLE_ADMIN');
+insert into auth(id, auth) values('kosta','ROLE_ADMIN');
 
 --------------- 회원치수
 
@@ -105,39 +106,39 @@ values(48,57,68,28,76,43,30,29,19,96,'css');
 --------------- 상품등록
 
 insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'라운드넥맨투맨',23000,'라운드넥 맨투맨 상품 설명입니다','상의');
+	values(1,'라운드넥맨투맨',23000,'라운드넥 맨투맨 상품 설명입니다','상의');
 	
 insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'옥스포드 셔츠',18000,'옥스포드 셔츠 상품 설명입니다','상의');
-	
-	
-insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'빈티지 청바지',57000,'빈티지 청바지 상품 설명입니다','하의');
-	
-insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'생지 데님',47000,'생지 데님 상품 설명입니다','하의');
+	values(2,'옥스포드 셔츠',18000,'옥스포드 셔츠 상품 설명입니다','상의');
 	
 	
 insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'라쿤 파카',180000,'라쿤 파카 상품 설명입니다','아우터');
+	values(3,'빈티지 청바지',57000,'빈티지 청바지 상품 설명입니다','하의');
+	
+insert into product(pno,name,price,content,category) 
+	values(4,'생지 데님',47000,'생지 데님 상품 설명입니다','하의');
+	
+	
+insert into product(pno,name,price,content,category) 
+	values(5,'라쿤 파카',180000,'라쿤 파카 상품 설명입니다','아우터');
 
 insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,'롱패딩',165000,'롱패딩 상품 설명입니다','아우터');
+	values(6,'롱패딩',165000,'롱패딩 상품 설명입니다','아우터');
 	
 	
 --------------- 이미지 등록
 
-insert into image(ino,pno,url) values(ino_seq.nextval,1,'top/mantoman1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,1,'top/mantoman2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,1,'top/mantoman3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,2,'top/oxford1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,2,'top/oxford2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,3,'bottom/vintage1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,3,'bottom/vintage2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,3,'bottom/vintage3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,4,'bottom/jean1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,5,'outer/racoon1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,6,'outer/longpadding1.jpg');
+insert into image(ino,pno,url) values(1,1,'top/mantoman1.jpg');
+insert into image(ino,pno,url) values(2,1,'top/mantoman2.jpg');
+insert into image(ino,pno,url) values(3,1,'top/mantoman3.jpg');
+insert into image(ino,pno,url) values(4,2,'top/oxford1.jpg');
+insert into image(ino,pno,url) values(5,2,'top/oxford2.jpg');
+insert into image(ino,pno,url) values(6,3,'bottom/vintage1.jpg');
+insert into image(ino,pno,url) values(7,3,'bottom/vintage2.jpg');
+insert into image(ino,pno,url) values(8,3,'bottom/vintage3.jpg');
+insert into image(ino,pno,url) values(9,4,'bottom/jean1.jpg');
+insert into image(ino,pno,url) values(10,5,'outer/racoon1.jpg');
+insert into image(ino,pno,url) values(11,6,'outer/longpadding1.jpg');
 
 
 
