@@ -25,4 +25,6 @@ public interface MemberService {
 	void updateMemberSize(MemberSizeVO msizeVO);
 	
 	List<QuestionVO> findQuestionList();
+
+	void updateMember(MemberVO memberVO);
 }

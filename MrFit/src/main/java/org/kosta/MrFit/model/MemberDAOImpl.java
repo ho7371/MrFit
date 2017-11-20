@@ -97,6 +97,12 @@ public class MemberDAOImpl implements MemberDAO {
 		template.update("member.updateMemberSize", msizeVO);
 		
 	}
+	
+	@Override
+	public void updateMember(MemberVO vo) {
+		template.update("member.updateMember",vo);			
+	}
+	
 }
 
 
