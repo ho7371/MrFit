@@ -27,4 +27,6 @@ public interface MemberService {
 	List<QuestionVO> findQuestionList();
 
 	MemberSizeVO findMemberSizeById(String id);
+
+	void updateMember(MemberVO memberVO);
 }

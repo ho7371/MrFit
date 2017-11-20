@@ -103,6 +103,12 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return template.selectOne("member.findMemberSizeById", id);
 	}
+
+	@Override
+	public void updateMember(MemberVO vo) {
+		template.update("member.updateMember",vo);			
+	}
+	
 }
 
 

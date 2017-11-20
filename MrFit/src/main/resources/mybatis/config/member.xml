@@ -73,7 +73,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		set shoulder=#{shoulder}, chest=#{chest}, sleeeve=#{sleeve}, armhole=#{armhole}, toplength=#{toplength}, waist=#{waist}, crotch=#{crotch}, thigh=#{thigh}, hem=#{hem}, bottomlength=#{bottomlength} 
  		where id=#{id}
  	</update>
- 	
+
+ 	<update id="updateMember" parameterType="memberVO">
+		update member set password=#{password},name=#{name},address=#{address},email=#{email}
+		where id=#{id}
+	</update>
+
 </mapper>
 
 

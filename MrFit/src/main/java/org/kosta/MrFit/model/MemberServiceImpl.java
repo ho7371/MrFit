@@ -90,9 +90,18 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 	
+	@Override
 	public List<QuestionVO> findQuestionList(){
 		return memberDAO.findQuestionList();
 
+	}
+	
+	@Override
+	public void updateMember(MemberVO memberVO) {
+		// 변경할 비밀번호를 암호화한다
+		String encodePassword = passwordEncoder.encode(memberVO.getPassword());
+		memberVO.setPassword(encodePassword);
+		memberDAO.updateMember(memberVO);
 	}
 
 	@Override

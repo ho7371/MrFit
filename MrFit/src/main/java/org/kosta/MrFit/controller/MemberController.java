@@ -3,11 +3,14 @@ package org.kosta.MrFit.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.QuestionVO;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -165,6 +168,38 @@ public class MemberController {
 			System.out.println("   	MemberController/updateMemberSize()/시작");
 		memberService.updateMemberSize(msizeVO);
 		return "redirect:updateMsize_ok.do";
+	}
+	
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myPage.do")
+	public String myPage() {
+		return "member/myPage.tiles";
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myPageInfo.do")
+	public ModelAndView myPageInfo() {
+		return new ModelAndView("member/myPage_info.tiles");
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("updateMemberForm.do")
+	public String updateMemberForm() {
+		return"member/updateMemberForm.tiles";
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("updateMemberAction.do")
+	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("Spring Security 세션 수정 전 회원정보:" + pvo);		
+		memberService.updateMember(memberVO);
+		pvo.setPassword(memberVO.getPassword());
+		pvo.setName(memberVO.getName());
+		pvo.setAddress(memberVO.getAddress());
+		pvo.setEmail(memberVO.getEmail());
+		return "member/update_result.tiles";
 	}
 
 	

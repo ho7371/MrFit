@@ -28,6 +28,10 @@ public interface MemberDAO {
 
 	List<QuestionVO> findQuestionList();
 
+
 	MemberSizeVO findMemberSizeById(String id);
+
+	void updateMember(MemberVO vo);
+
 	
 }
