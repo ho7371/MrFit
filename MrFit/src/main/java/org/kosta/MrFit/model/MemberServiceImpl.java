@@ -34,63 +34,70 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO findMemberById(String id){
 		System.out.println("            MemberServiceImpl/findMemberById()/시작");
-		System.out.println("    		MemberServiceImpl/findMemberById()/진행");
-		System.out.println("      		MemberServiceImpl/findMemberById()/종료");
 		return memberDAO.findMemberById(id);
 	}
 	
 	@Transactional
 	@Override
 	public void registerMember(MemberVO vo) {
+		System.out.println("            MemberServiceImpl/registerMember()/시작");
 		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
 		String encodedPwd = passwordEncoder.encode(vo.getPassword());
 		vo.setPassword(encodedPwd);
 		memberDAO.registerMember(vo);
+		System.out.println("            MemberServiceImpl/registerMember()/진행");
 		// 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
 		Authority authority = new Authority(vo.getId(), "ROLE_MEMBER");
 		memberDAO.registerRole(authority);
+		System.out.println("            MemberServiceImpl/registerMember()/종료");
 	}
 	
 	@Override
 	public String idcheck(String id) {
+		System.out.println("            MemberServiceImpl/idcheck()/시작");
 		int count = memberDAO.idcheck(id);
+		System.out.println("      		MemberServiceImpl/idcheck()/종료");
 		return (count == 0) ? "ok" : "fail";
 	}
 
 	@Override
 	public String findIdByEmailAndName(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findIdByEmailAndName()/시작");
 		return memberDAO.findIdByEmailAndName(memberVO);
 	}
 
 	@Override
 	public String findQnaByIdNameEmail(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findIdByEmailAndName()/시작");
 		return memberDAO.findQnaByIdNameEmail(memberVO);
 	}
 
 	@Override
 	public MemberVO findMemberByQna(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findMemberByQna()/시작");
 		return memberDAO.findMemberByQna(memberVO);
 	}
 
 	@Transactional
 	@Override
 	public void updatePasswordById(MemberVO memberVO) {
+		System.out.println("            MemberServiceImpl/updatePasswordById()/시작");
 		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
 		memberVO.setPassword(encodedPwd);
 		memberDAO.updatePasswordById(memberVO);
+		System.out.println("            MemberServiceImpl/updatePasswordById()/종료");
 	}
 
 	@Transactional
 	@Override
 	public void registerMemberSize(MemberSizeVO msizeVO) {
+		System.out.println("            MemberServiceImpl/registerMemberSize()/시작");
 		memberDAO.registerMemberSize(msizeVO);
 	}
 
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
+		System.out.println("            MemberServiceImpl/updateMemberSize()/시작");
 		memberDAO.updateMemberSize(msizeVO);
 
 	}

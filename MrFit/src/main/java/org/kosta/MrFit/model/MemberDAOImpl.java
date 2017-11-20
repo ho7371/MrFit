@@ -14,37 +14,44 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberVO findMemberById(String id) {
-		System.out.println("아이디 : "+id);
-		System.out.println("                  MemberDAOImpl/findMemberById()/시작");
+		System.out.println("                  MemberDAOImpl/findMemberById()/시작 - 아이디 :"+id);
 		MemberVO vo=template.selectOne("member.findMemberById",id);
-		System.out.println("daoimpl "+vo);
+		System.out.println("                  MemberDAOImpl/findMemberById()/시작 - vo :"+vo);
 		return template.selectOne("member.findMemberById",id);
 	}
 
 	@Override
 	public List<Authority> selectAuthorityById(String id) {
-		// TODO Auto-generated method stub
 		System.out.println("                  MemberDAOImpl/selectAuthorityById()/시작");
+		System.out.println("                  MemberDAOImpl/selectAuthorityById()/종료");
 		return template.selectList("member.selectAuthorityById",id);
 	}
 	
 	@Override
 	public void registerMember(MemberVO vo) {
+		System.out.println("                  MemberDAOImpl/registerMember()/시작");
+		System.out.println("                  MemberDAOImpl/registerMember()/종료");
 		template.insert("member.registerMember",vo);			
 	}
 	
 	@Override	
 	public void registerRole(Authority authority){
+		System.out.println("                  MemberDAOImpl/registerRole()/시작");
+		System.out.println("                  MemberDAOImpl/registerRole()/종료");
 		template.insert("member.registerRole",authority);
 	}
 	
 	@Override
 	public int idcheck(String id) {
+		System.out.println("                  MemberDAOImpl/idcheck()/시작");
+		System.out.println("                  MemberDAOImpl/idcheck()/종료");
 		return template.selectOne("member.idcheck",id);				
 	}
 
 	@Override
 	public List<QuestionVO> findQuestionList(){
+		System.out.println("                  MemberDAOImpl/findQuestionList()/시작");
+		System.out.println("                  MemberDAOImpl/findQuestionList()/종료");
 		return template.selectList("member.findQuestionList");
 	}
 	// 주석샘플
@@ -57,49 +64,58 @@ public class MemberDAOImpl implements MemberDAO {
 	 */
 	public String findProductById(){
 		System.out.println("                  MemberDAOImpl/findProductById()/시작");
-		System.out.println("    		      MemberDAOImpl/findProductById()/진행");
 		System.out.println("      		      MemberDAOImpl/findProductById()/종료");
 		return null;
 	}
 
 	@Override
 	public String findIdByEmailAndName(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("                  MemberDAOImpl/findIdByEmailAndName()/시작");
+		System.out.println("      		      MemberDAOImpl/findIdByEmailAndName()/종료");
 		return template.selectOne("member.findIdByEmailAndName",memberVO);
 	}
 
 	@Override
 	public String findQnaByIdNameEmail(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("                  MemberDAOImpl/findQnaByIdNameEmail()/시작");
+		System.out.println("      		      MemberDAOImpl/findQnaByIdNameEmail()/종료");
 		return template.selectOne("member.findQnaByIdNameEmail",memberVO);
 	}
 
 	@Override
 	public MemberVO findMemberByQna(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("                  MemberDAOImpl/findMemberByQna()/시작");
+		System.out.println("      		      MemberDAOImpl/findMemberByQna()/종료");
 		return template.selectOne("member.findMemberByQna",memberVO);
 	}
 
 	@Override
 	public void updatePasswordById(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		System.out.println("                  MemberDAOImpl/updatePasswordById()/시작");
+		System.out.println("      		      MemberDAOImpl/updatePasswordById()/종료");
 		template.update("updatePasswordById", memberVO);
 	}
 
 	@Override
 	public void registerMemberSize(MemberSizeVO msizeVO) {
+		System.out.println("                  MemberDAOImpl/registerMemberSize()/시작");
+		System.out.println("      		      MemberDAOImpl/registerMemberSize()/종료");
 		template.insert("member.registerMemberSize", msizeVO);
 		
 	}
 
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
+		System.out.println("                  MemberDAOImpl/updateMemberSize()/시작");
+		System.out.println("      		      MemberDAOImpl/updateMemberSize()/종료");
 		template.update("member.updateMemberSize", msizeVO);
 		
 	}
 	
 	@Override
 	public void updateMember(MemberVO vo) {
+		System.out.println("                  MemberDAOImpl/updateMember()/시작");
+		System.out.println("      		      MemberDAOImpl/updateMember()/종료");
 		template.update("member.updateMember",vo);			
 	}
 	

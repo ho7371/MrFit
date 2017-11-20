@@ -37,7 +37,6 @@ public class ProductController {
 	@RequestMapping("registerProductAction.do")
 	public ModelAndView registerProduct(){
 		System.out.println("   	ProductController/registerProduct()/시작");
-		System.out.println("    ProductController/registerProduct()/진행");
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
 	}
@@ -69,10 +68,12 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByPno.do")
 	public ModelAndView findProductDetailByPno(String pno) {
+		System.out.println("   	ProductController/findProductDetailByPno()/시작");
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
 			mv.setViewName("product/productDetail.tiles");
 			mv.addObject("pvo", pvo);	
+			System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}
 	/*
@@ -83,7 +84,9 @@ public class ProductController {
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
 	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
+		System.out.println("   	ProductController/findProductDetailByColorAjax()/시작");
 		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdno);
+		System.out.println("    ProductController/findProductDetailByColorAjax()/종료");
 		return sizeList;
 	}
 }
