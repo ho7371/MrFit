@@ -22,7 +22,7 @@ public interface MemberDAO {
 
 	void updatePasswordById(MemberVO memberVO);
 
-	void registerMemberSize(MemberSizeVO msizeVO);
+	void registerMemberSize(String id);
 
 	void updateMemberSize(MemberSizeVO msizeVO);
 

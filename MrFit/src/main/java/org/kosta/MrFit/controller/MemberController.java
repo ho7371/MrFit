@@ -136,6 +136,7 @@ public class MemberController {
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String register(MemberVO vo) {
 		memberService.registerMember(vo);
+		memberService.registerMemberSize(vo.getId());
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
 	
@@ -152,27 +153,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("findMemberSizeById.do")
-	public ModelAndView findMemberSizeById(String id) {
+	public String findMemberSizeById(String id) {
 			System.out.println("   	MemberController/findMemberSizeById()/시작");
-		ModelAndView mv=new ModelAndView();
-		MemberSizeVO msvo=memberService.findMemberSizeById(id);
-			if(msvo == null) {
-				mv.setViewName("member/registerForm.tiles");
-				return mv;
-			}
-				mv.addObject("msvo", msvo);
-				mv.setViewName("member/memberSize.tiles");
-		return mv;
-	}
-	
-	@RequestMapping(value = "registerMemberSize.do", method = RequestMethod.POST)
-	public String registerMemberSize(MemberSizeVO msizeVO) {
-			System.out.println("   	MemberController/registerMemberSize()/시작");
-		memberService.registerMemberSize(msizeVO);
-		return "redirect:registerMsize_ok.do";
+
+		return "member/memberSizeView.tiles";
 	}
 	
 	@RequestMapping(value = "updateMemberSize.do", method = RequestMethod.POST)
+	@ResponseBody
 	public String updateMemberSize(MemberSizeVO msizeVO) {
 			System.out.println("   	MemberController/updateMemberSize()/시작");
 		memberService.updateMemberSize(msizeVO);

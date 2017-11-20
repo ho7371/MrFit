@@ -63,9 +63,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength from member_size where id=#{value}
  	</select>
  	
- 	<insert id="registerMemberSize" parameterType="memberSizeVO">
+ 	<insert id="registerMemberSize" parameterType="string">
  		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 
- 		values(#{id}, #{shoulder}, #{chest}, #{sleeve}, #{armhole}, #{toplength}, #{waist}, #{crotch}, #{thigh}, #{hem}, #{bottomlength})
+ 		values(#{id},0,0,0,0,0,0,0,0,0,0)
  	</insert>
  	
  	<update id="updateMemberSize" parameterType="memberSizeVO">

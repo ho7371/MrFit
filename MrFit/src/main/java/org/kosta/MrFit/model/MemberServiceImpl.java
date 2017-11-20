@@ -83,11 +83,6 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updatePasswordById(memberVO);
 	}
 
-	@Transactional
-	@Override
-	public void registerMemberSize(MemberSizeVO msizeVO) {
-		memberDAO.registerMemberSize(msizeVO);
-	}
 
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
@@ -104,6 +99,13 @@ public class MemberServiceImpl implements MemberService {
 	public MemberSizeVO findMemberSizeById(String id) {
 		// TODO Auto-generated method stub
 		return memberDAO.findMemberSizeById(id);
+	}
+
+	@Transactional
+	@Override
+	public void registerMemberSize(String id) {
+		memberDAO.registerMemberSize(id);
+		
 	}
 
 	

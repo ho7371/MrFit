@@ -87,8 +87,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void registerMemberSize(MemberSizeVO msizeVO) {
-		template.insert("member.registerMemberSize", msizeVO);
+	public void registerMemberSize(String id) {
+		template.insert("member.registerMemberSize", id);
 		
 	}
 
