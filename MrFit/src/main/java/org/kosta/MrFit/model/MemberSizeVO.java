@@ -1,7 +1,6 @@
 package org.kosta.MrFit.model;
 
 public class MemberSizeVO {
-	private String id;
 	private int shoulder;
 	private int chest;
 	private int sleeve;
@@ -16,10 +15,9 @@ public class MemberSizeVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MemberSizeVO(String id, int shoulder, int chest, int sleeve, int armhole, int toplength, int waist,
-			int crotch, int thigh, int hem, int bottomlength) {
+	public MemberSizeVO(int shoulder, int chest, int sleeve, int armhole, int toplength, int waist, int crotch,
+			int thigh, int hem, int bottomlength) {
 		super();
-		this.id = id;
 		this.shoulder = shoulder;
 		this.chest = chest;
 		this.sleeve = sleeve;
@@ -30,12 +28,6 @@ public class MemberSizeVO {
 		this.thigh = thigh;
 		this.hem = hem;
 		this.bottomlength = bottomlength;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public int getShoulder() {
 		return shoulder;
@@ -99,11 +91,9 @@ public class MemberSizeVO {
 	}
 	@Override
 	public String toString() {
-		return "MemberSizeVO [id=" + id + ", shoulder=" + shoulder + ", chest=" + chest + ", sleeve=" + sleeve
-				+ ", armhole=" + armhole + ", toplength=" + toplength + ", waist=" + waist + ", crotch=" + crotch
-				+ ", thigh=" + thigh + ", hem=" + hem + ", bottomlength=" + bottomlength + "]";
-	}
-	
-	
+		return "MemberSizeVO [shoulder=" + shoulder + ", chest=" + chest + ", sleeve=" + sleeve + ", armhole=" + armhole
+				+ ", toplength=" + toplength + ", waist=" + waist + ", crotch=" + crotch + ", thigh=" + thigh + ", hem="
+				+ hem + ", bottomlength=" + bottomlength + "]";
+	}		
 	
 }

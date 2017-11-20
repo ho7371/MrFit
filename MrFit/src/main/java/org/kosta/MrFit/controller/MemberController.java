@@ -72,9 +72,16 @@ public class MemberController {
 	@RequestMapping("findIdByEmailAndName.do")
 	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
 			System.out.println("   	MemberController/findIdByEmailAndName()/시작");
+		ModelAndView mv=new ModelAndView();
 		String id= memberService.findIdByEmailAndName(memberVO);
+			if(id == null) {
+				mv.setViewName("main/member/findid_fail");
+				return mv;
+			}
+			mv.setViewName("member/findId_ok.tiles");
+			mv.addObject("lostid", id);
 			System.out.println("    MemberController/findIdByEmailAndName()/종료");
-		return new ModelAndView("member/findId_ok.tiles","lostid",id);
+		return mv;
 
 	}
 	
@@ -103,7 +110,7 @@ public class MemberController {
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
 	
-	@RequestMapping("updatePasswordById.do")
+	@RequestMapping(value = "updatePasswordById.do", method = RequestMethod.POST)
 	public String updatePasswordById(MemberVO memberVO) {
 			System.out.println("   	MemberController/updatePasswordById()/시작");
 			System.out.println("    MemberController/updatePasswordById()/종료");
@@ -143,16 +150,31 @@ public class MemberController {
 	public String idcheckAjax(String id) {
 		return memberService.idcheck(id);
 	}
-		
+	
+	@RequestMapping("findMemberSizeById.do")
+	public ModelAndView findMemberSizeById(String id) {
+			System.out.println("   	MemberController/findMemberSizeById()/시작");
+		ModelAndView mv=new ModelAndView();
+		MemberSizeVO msvo=memberService.findMemberSizeById(id);
+			if(msvo == null) {
+				mv.setViewName("member/registerForm.tiles");
+				return mv;
+			}
+				mv.addObject("msvo", msvo);
+				mv.setViewName("member/memberSize.tiles");
+		return mv;
+	}
 	
 	@RequestMapping(value = "registerMemberSize.do", method = RequestMethod.POST)
 	public String registerMemberSize(MemberSizeVO msizeVO) {
+			System.out.println("   	MemberController/registerMemberSize()/시작");
 		memberService.registerMemberSize(msizeVO);
 		return "redirect:registerMsize_ok.do";
 	}
 	
 	@RequestMapping(value = "updateMemberSize.do", method = RequestMethod.POST)
 	public String updateMemberSize(MemberSizeVO msizeVO) {
+			System.out.println("   	MemberController/updateMemberSize()/시작");
 		memberService.updateMemberSize(msizeVO);
 		return "redirect:updateMsize_ok.do";
 	}
