@@ -439,7 +439,7 @@ insert into order_product(ono,pdno,quantity) values(3,7,2);
 --------------- 게시판
 
 -- 고객문의 샘플데이터
-
+/*
 insert into member_board(mbno,content,regdate,security,category,id) 
 	values(mbno_seq.nextval, '고객문의 카테고리입니다.',sysdate,'공개글','고객문의','java');
 
@@ -492,7 +492,7 @@ insert into common_board(bno,content,regdate,security,category,id,pno)
 insert into common_board(bno,content,regdate,security,category,id,pno) 
 	values(bno_seq.nextval, '상품리뷰4 카테고리입니다.',sysdate,'공개글','상품리뷰','spring',2);
 	
-	
+ */
 	
 --------------- 테이블 select
 

@@ -75,7 +75,15 @@ public class HomeController {
 		System.out.println("      HomeController/notice()/시작");
 		System.out.println("      HomeController/notice()/진행");
 		System.out.println("      HomeController/notice()/종료");
-		return "notice.tiles";
+		return "board/notice.tiles";
+	}
+	
+	@RequestMapping("inquiry.do")
+	public String inquiry(){
+		System.out.println("      HomeController/notice()/시작");
+		System.out.println("      HomeController/notice()/진행");
+		System.out.println("      HomeController/notice()/종료");
+		return "board/inquiry.tiles";
 	}
 	
 }
