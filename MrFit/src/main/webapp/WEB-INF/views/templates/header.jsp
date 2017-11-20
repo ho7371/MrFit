@@ -9,8 +9,7 @@
 		$("#searchProductBtn").click(
 			function() {
 			location.href = "findProductByName.do?keyword="+ $("#searchProduct").val();
-		});// click
-		
+		}); // click
 		$("#logoutAction").click(function() {
 			$("#logoutForm").submit();
 		});
@@ -57,6 +56,7 @@
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<sec:authentication property="principal.name" />님 <br>
 					</sec:authorize>
+
 					<sec:authorize
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<p>

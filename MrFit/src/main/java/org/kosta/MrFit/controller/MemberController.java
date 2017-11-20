@@ -159,7 +159,7 @@ public class MemberController {
 	@ResponseBody
 	public String idcheckAjax(String id) {
 		System.out.println("   	MemberController/idcheckAjax()/시작");
-		System.out.println("    MemberController/idcheckAjax()/종료");
+		System.out.println("     MemberController/idcheckAjax()/종료");
 		return memberService.idcheck(id);
 	}
 	
@@ -170,17 +170,22 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
-	@RequestMapping(value = "updateMemberSize.do", method = RequestMethod.POST)
-	@ResponseBody
+	@RequestMapping("updateMemberSizeForm.do")
+	public String updateMemberSizeForm() {
+			System.out.println("   	MemberController/updateMemberSizeForm()/시작");
+
+		return "member/updateMemberSizeForm.tiles";
+	}
+	
+	@RequestMapping("updateMemberSize.do")
 	public String updateMemberSize(MemberSizeVO msizeVO) {
-			System.out.println("   	MemberController/updateMemberSize()/시작");
+		System.out.println("   	MemberController/updateMemberSize()/시작");
 		memberService.updateMemberSize(msizeVO);
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		pvo.setMsvo(msizeVO);
 		System.out.println("   	MemberController/updateMemberSize()/종료");
-		return "ok";
+		return "member/memberSizeView.tiles";
 	}
-	
 	
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPage.do")
@@ -206,7 +211,6 @@ public class MemberController {
 		return"member/updateMemberForm.tiles";
 	}
 	
-	@Secured("ROLE_MEMBER")
 	@RequestMapping("updateMemberAction.do")
 	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
 		System.out.println("   	MemberController/updateMemberAction()/시작");
@@ -221,7 +225,6 @@ public class MemberController {
 		return "member/update_result.tiles";
 	}
 
-	
 }
 
 
