@@ -78,9 +78,16 @@ public class HomeController {
 	
 	@RequestMapping("inquiry.do")
 	public String inquiry(){
-		System.out.println("      HomeController/notice()/시작");
-		System.out.println("      HomeController/notice()/종료");
+		System.out.println("      HomeController/inquiry()/시작");
+		System.out.println("      HomeController/inquiry()/종료");
 		return "board/inquiry.tiles";
+	}
+	
+	@RequestMapping("note.do")
+	public String note(){
+		System.out.println("      HomeController/note()/시작");
+		System.out.println("      HomeController/note()/종료");
+		return "board/note.tiles";
 	}
 	
 }
