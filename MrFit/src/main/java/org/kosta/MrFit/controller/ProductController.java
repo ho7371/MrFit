@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,7 +82,6 @@ public class ProductController {
 	 * 상품 디테일 page에서 pdno를 조건으로 
 	 * 색상별 size를 JSON 형식으로 통신한다
 	 */
-	
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
 	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){

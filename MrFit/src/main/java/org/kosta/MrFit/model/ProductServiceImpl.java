@@ -58,6 +58,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
 		return productDAO.findProductDetailByColorAjax(pdno);
-	}	
+	}
 		
 }

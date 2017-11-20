@@ -271,7 +271,7 @@ select * from POINT;
 select * from AUTH;
 select * from MEMBER_SIZE;
 select * from INQUIRY;
-select * from MEMBER_REPLY;
+select * from INQUIRY_REPLY;
 select * from PRODUCT;
 select * from PRODUCT_BOARD;
 select * from PRODUCT_REPLY;

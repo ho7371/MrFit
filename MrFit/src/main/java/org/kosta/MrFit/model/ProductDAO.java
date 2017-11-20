@@ -16,4 +16,5 @@ public interface ProductDAO {
 
 	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
 
+
 }

@@ -15,4 +15,7 @@ public interface ProductService {
 
 	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
 
+
+	
+
 }

@@ -26,15 +26,6 @@
 				</div>
 				<div class="col-md-4 top-header-right">
 					<div class="cart box_1">
-						<a href="checkout.html">
-							<h3>
-								<div class="total">
-									<span class="simpleCart_total"></span> (<span
-										id="simpleCart_quantity" class="simpleCart_quantity"></span>
-									items)
-								</div>
-								<img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />
-						</a>
 						<sec:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_MEMBER')">
 						<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
 						&nbsp;|&nbsp;
@@ -44,24 +35,29 @@
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
 						<sec:authentication property="principal.name" />님 <br>
 					</sec:authorize>
-						<p>
-							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
-							<sec:authorize
-						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
-						<script type="text/javascript">
-							$(document).ready(function() {
-								$("#logoutAction").click(function() {
-									$("#logoutForm").submit();
+					<p>
+						<a href="cartForm.do">
+							<h3><div class="total">
+									<!-- <span class="simpleCart_total"></span>  -->
+									<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items
+								</div>
+								<img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" /></h3>
+						</a>
+						<!-- <a href="javascript:;" class="simpleCart_empty">Empty Cart</a> -->
+						<sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
+							<script type="text/javascript">
+								$(document).ready(function() {
+									$("#logoutAction").click(function() {
+										$("#logoutForm").submit();
+									});
 								});
-							});
-						</script>
-						&nbsp; <a href="#" id="logoutAction">로그아웃</a>
-						<form action="${pageContext.request.contextPath}/logout.do"
-						 	id="logoutForm" method="post" style="display: none">
-							<sec:csrfInput />
-						</form>
-					</sec:authorize>
-						</p>
+							</script>
+							&nbsp; <a href="#" id="logoutAction">로그아웃</a>
+							<form action="${pageContext.request.contextPath}/logout.do" id="logoutForm" method="post" style="display: none">
+								<sec:csrfInput />
+							</form>
+						</sec:authorize>
+					</p>
 						<div class="clearfix"></div>
 					</div>
 				</div>

@@ -45,9 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rnum between #{startRowNumber} and #{endRowNumber}
 		ORDER BY pno DESC   
     </select>
+    
     <select id="getTotalProductCount" resultType="int">
     	select count(*) from product
     </select>
+    
 </mapper>
 
 
