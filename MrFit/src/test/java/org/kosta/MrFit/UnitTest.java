@@ -36,7 +36,7 @@ public class UnitTest {
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
 		 System.out.println(memberService.findMemberById("mrfit"));*/
-		  System.out.println(pservice.findProductDtailByPno("11"));
+		  System.out.println(pservice.findProductDtailByPno("1"));
 		 	
 	 }
 	 
