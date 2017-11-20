@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ProductDAO {
@@ -15,5 +16,9 @@ public interface ProductDAO {
 	int getTotalProductCount();
 
 	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
+
+	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
+
+	int getCategoryProductCount(String category);
 
 }

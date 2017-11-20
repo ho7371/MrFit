@@ -48,6 +48,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getTotalProductCount" resultType="int">
     	select count(*) from product
     </select>
+     <select id="getCategoryProductCount" parameterType="string" resultType="int">
+    	select count(*) from product where category=#{value}
+    </select>
+    
+    <select id="findProductByCategory"  resultType="productVO">
+       SELECT  pno, name, price, content, category 
+		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content 
+			from Product where category=#{category})
+		product
+		where rnum between #{startNumber} and #{endNumber}
+		ORDER BY pno DESC   
+    </select>
 </mapper>
 
 

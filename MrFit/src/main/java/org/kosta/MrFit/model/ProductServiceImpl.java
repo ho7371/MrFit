@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -56,6 +57,21 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
 		System.out.println("            ProductServiceImpl/findProductDetailByColorAjax()/시작");
 		return productDAO.findProductDetailByColorAjax(pdno);
+	}
+	@Override
+	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
+		System.out.println("            ProductServiceImpl/ProductList()/시작");
+		List<ProductVO> ProductList=productDAO.findProductByCategory(map);
+		System.out.println("    		ProductServiceImpl/ProductList()/진행"+ProductList);
+		
+		System.out.println("      		ProductServiceImpl/ProductList()/종료");
+		return ProductList;
+	}
+	
+	@Override
+	public int getCategoryProductCount(String category) {
+		// TODO Auto-generated method stub
+		return productDAO.getCategoryProductCount(category);
 	}	
 		
 }
