@@ -36,9 +36,9 @@
 								<img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />
 						</a>
 						<sec:authorize access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_MEMBER')">
-						<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
-						&nbsp;|&nbsp;
-						<a href="${pageContext.request.contextPath}/registerForm.do">회원가입</a>
+							<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
+							&nbsp;|&nbsp;
+							<a href="${pageContext.request.contextPath}/registerForm.do">회원가입</a>
 						</sec:authorize>
 					<sec:authorize
 						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">

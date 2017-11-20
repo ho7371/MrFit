@@ -40,7 +40,7 @@ public class HomeController {
 		}
 		
 		List<ProductVO> ProductList=productService.ProductList(pb);
-		System.out.println("      HomeController/home()/진행"+pno+" 리스"+ProductList);		
+		System.out.println("      HomeController/home()/진행 - pno:"+pno+", 상품목록:"+ProductList);		
 		if(ProductList!=null&&!ProductList.isEmpty()) {
 			model.addAttribute("ProductList",ProductList);
 			model.addAttribute("pb",pb);
