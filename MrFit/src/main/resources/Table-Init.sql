@@ -1,24 +1,42 @@
 --------------- 테이블 데이터 삭제
 
-delete from PRODUCT_REPLY;
-delete from PRODUCT_BOARD;
-delete from INQUIRY_REPLY;
-delete from INQUIRY;
-delete from ORDER_PRODUCT;
-delete from ORDERS;
-delete from PRODUCT_DETAIL;
-delete from PRODUCT_SIZE;
-delete from PRODUCT_COLOR;
-delete from IMAGE;
-delete from PRODUCT;
-delete from MEMBER_SIZE;
-delete from AUTH;
-delete from POINT; 
-delete from MEMBER;
-delete from QUESTION;
-delete from GRADE;
+delete * from table order_product;
+delete * from table orders;
+delete * from table image;
+delete * from table product_qna;
+delete * from table review;
+delete * from table inquiry_reply;
+delete * from table inquiry;
+delete * from table product_detail;
+delete * from table product_size;
+delete * from table product_color;
+delete * from table product;
+delete * from table auth;
+delete * from table point;
+delete * from table member_size;
+delete * from table member;
+delete * from table question;
+delete * from table grade;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
+
+select * from table grade;
+select * from table question;
+select * from table member;
+select * from table member_size;
+select * from table point;
+select * from table auth;
+select * from table product;
+select * from table product_color;
+select * from table product_size;
+select * from table product_detail;
+select * from table inquiry;
+select * from table inquiry_reply;
+select * from table review;
+select * from table product_qna;
+select * from table image;
+select * from table orders;
+select * from table order_product;
 
 ------------------------------ 샘플데이터 insert
 
@@ -37,51 +55,15 @@ insert into question(qno,question) values (4,'자신의 보물 1호는?');
 insert into question(qno,question) values (5,'좋아하는 음료는?');
 
 --------------- 회원
-
+/* 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 */
 insert into member(id, password, name, phone, address, email, answer, qno)
   values('java','1234','현진호','010-1111-1111','판교','kosta@naver.com', '제주도', 1);
   
  insert into member(id, password, name, phone, address, email, answer, qno)
   values('spring','1234','김석환','010-1584-5678','분당','kosta2@naver.com','사당초등학교', 2);
   
-insert into member(id, password, name, phone, address, email, answer, qno)
-  values('jquery','1234','유정현','010-9754-5678','수지','hhh16745@naver.com','김태희', 3);
 
-insert into member(id, password, name, phone, address, email, answer, qno)
-  values('mybatis','1234','진영훈','010-7556-5678','용인','hhh079@naver.com','갤럭시7엣지', 4);
-  
-insert into member(id, password, name, phone, address, email, answer, qno)
-  values('html','1234','이현민','010-8313-5678','야탑','hhh179@naver.com','포카리스웨트', 5);
-  
-insert into member(id, password, name, phone, address, email, answer, qno)
-  values('css','1234','신재현','010-3865-5678','장지','hhh432@naver.com','원주', 1);
-  
-insert into member(id, password, name, phone, address, email, answer, qno)
-  values('kosta','1234','관리자','010-3429-3578','분당','kosta3@naver.com','수지초등학교',2);
- 
---------------- 포인트
-
-insert into point(point_no, id, updown, change_date) values(1,'java',-1000, sysdate);
-insert into point(point_no, id, updown, change_date) values(2,'spring',2000, sysdate);
-insert into point(point_no, id, updown, change_date) values(3,'jquery',-3000, sysdate);
-insert into point(point_no, id, updown, change_date) values(4,'mybatis',4000, sysdate);
-insert into point(point_no, id, updown, change_date) values(5,'html',5000, sysdate);
-insert into point(point_no, id, updown, change_date) values(6,'css',-6000, sysdate);
-insert into point(point_no, id, updown, change_date) values(7,'kosta',7000, sysdate);
-
---------------- 권한
-
-insert into auth(id, auth) values('java','ROLE_MEMBER');
-insert into auth(id, auth) values('spring','ROLE_MEMBER');
-insert into auth(id, auth) values('jquery','ROLE_MEMBER');
-insert into auth(id, auth) values('mybatis','ROLE_MEMBER');
-insert into auth(id, auth) values('html','ROLE_MEMBER');
-insert into auth(id, auth) values('css','ROLE_MEMBER');
-insert into auth(id, auth) values('spring','ROLE_ADMIN');
-insert into auth(id, auth) values('jquery','ROLE_ADMIN');
-insert into auth(id, auth) values('kosta','ROLE_ADMIN');
-
---------------- 회원치수
+--------------- 회원 치수
 
 insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
 values(42,51,63,23,71,37,25,23,14,91,'java');
@@ -89,19 +71,19 @@ values(42,51,63,23,71,37,25,23,14,91,'java');
 insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
 values(44,53,64,24,72,39,26,25,15,92,'spring');
 
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(45,54,65,25,73,40,27,26,16,93,'jquery');
 
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(46,55,66,26,74,41,28,27,17,94,'mybatis');
+--------------- 포인트
 
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(47,56,67,27,75,42,29,28,18,95,'html');
+insert into point(point_no, id, updown, change_date) values(1,'java',-1000, sysdate);
+insert into point(point_no, id, updown, change_date) values(2,'java',5000, sysdate);
+insert into point(point_no, id, updown, change_date) values(3,'spring',2000, sysdate);
+insert into point(point_no, id, updown, change_date) values(4,'spring',-2000, sysdate);
 
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(48,57,68,28,76,43,30,29,19,96,'css');
+--------------- 권한
 
-------------------------------- 진호 : [11/19][01:22]
+insert into auth(id, auth) values('java','ROLE_MEMBER');
+insert into auth(id, auth) values('spring','ROLE_MEMBER');
+insert into auth(id, auth) values('spring','ROLE_ADMIN');
 
 --------------- 상품등록
 
@@ -124,102 +106,6 @@ insert into product(pno,name,price,content,category)
 
 insert into product(pno,name,price,content,category) 
 	values(6,'롱패딩',165000,'롱패딩 상품 설명입니다','아우터');
-	
-	
---------------- 이미지 등록
-
-insert into image(ino,pno,url) values(1,1,'top/mantoman1.jpg');
-insert into image(ino,pno,url) values(2,1,'top/mantoman2.jpg');
-insert into image(ino,pno,url) values(3,1,'top/mantoman3.jpg');
-insert into image(ino,pno,url) values(4,2,'top/oxford1.jpg');
-insert into image(ino,pno,url) values(5,2,'top/oxford2.jpg');
-insert into image(ino,pno,url) values(6,3,'bottom/vintage1.jpg');
-insert into image(ino,pno,url) values(7,3,'bottom/vintage2.jpg');
-insert into image(ino,pno,url) values(8,3,'bottom/vintage3.jpg');
-insert into image(ino,pno,url) values(9,4,'bottom/jean1.jpg');
-insert into image(ino,pno,url) values(10,5,'outer/racoon1.jpg');
-insert into image(ino,pno,url) values(11,6,'outer/longpadding1.jpg');
-
-
-
-	/*    기존 상품 상세 정보 등록
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'회색',1);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'검정',1);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'녹색',1);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'흰색',2);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'하늘색',2);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'먹색',2);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'블루블랙',3);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'블랙',4);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'빨강',5);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'보라',5);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'검정',6);
-	insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'흰색',6);
-	*/
-
-	/* 기존 상품 사이즈
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,12);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,11);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,10);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,9);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,8);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,7);
-	
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,36,45,57,17,65,'M',76,6);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,37,46,58,18,66,'L',65,6);
-	
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,31,44,56,18,67,'FREE',76,5);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,49,59,18,69,'FREE',76,4);
-	
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,35,44,56,16,64,'S',14,3);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,36,45,57,17,65,'M',76,3);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,37,46,58,18,66,'L',65,3);
-	
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,47,59,19,67,'S',43,2);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,40,49,61,21,69,'M',18,2);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,38,47,59,19,67,'L',120,2);
-	
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,42,51,63,23,71,'S',15,1);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,44,53,64,24,72,'M',23,1);
-	
-	insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-		values(psno_seq.nextval,46,55,66,26,74,'L',125,1);
-	*/
 	
 ------------- 상품 색상 추가
 
@@ -255,7 +141,7 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
 	values(10,'L',46,55,66,26,74,240);
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
 	values(11,'XL',46,55,66,26,74,250);
-	
+
 ------------- 상품 상세 정보 추가
 
 insert into product_detail(pdno,pno,pcno,psno) values(1, 1, 1, 1);
@@ -277,100 +163,71 @@ insert into product_detail(pdno,pno,pcno,psno) values(14, 3, 5, 5);
 insert into product_detail(pdno,pno,pcno,psno) values(15, 3, 6, 5);
 insert into product_detail(pdno,pno,pcno,psno) values(16, 3, 7, 5);
 
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
 
+insert into inquiry(iqno, content, regdate, security, id)
+values(1,'첫번째 고객문의 글 내용@!@!@!@', sysdate, 'public','java');
 
-	
-/*
---------------- 상의 맨투맨 빨강 사이즈 S/M/L
+insert into inquiry(iqno, content, regdate, security, id)
+values(2,'두번째 고객문의 글 내용ㅂㄿㅇㅍ', sysdate, 'private','java');
 
-insert into product_detail(pdno,color,pno)
-values(pdno_seq.nextval,'빨강',pno_seq.currval);
+insert into inquiry(iqno, content, regdate, security, id)
+values(3,'세번째 고객문의 글 내용ㅎㅎ', sysdate, 'public','spring');
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,42,51,63,23,71,'s',99,pdno_seq.currval);
+insert into inquiry(iqno, content, regdate, security, id)
+values(4,'네번째 고객문의 글 내용ㅋㅋ', sysdate, 'private','spring');
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'m',98,pdno_seq.currval);
+--------------- 고객문의 답글 등록
+insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+values(1,'고객문의 첫번째 답글 내용!@#ㅇ', sysdate, 'public',1);
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'l',101,pdno_seq.currval);
+insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+values(2,'고객문의 두번째 답글 내용~~~~', sysdate, 'private',2);
 
+insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+values(3,'고객문의 세번째 답글 내용ㅋㄹㄴㅇㅎ', sysdate, 'public',3);
 
---------------- 상의 맨투맨 검정 사이즈 S/M/L
+insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+values(4,'고객문의 네번째 답글 내용ㄼㄷㄹ호ㅜㅋ', sysdate, 'private',4);
 
-insert into product_detail(pdno,color,pno)
-	values(pdno_seq.nextval,'검정',pno_seq.currval);
+--------------- 리뷰 등록
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-	values(psno_seq.nextval,42,51,63,23,71,'s',30,pdno_seq.currval);
+insert into review(rno, pdno, id, content, regdate)
+values(1,1,'java','이상품 짱이에요!!',sysdate);
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-	values(psno_seq.nextval,44,53,64,24,72,'m',50,pdno_seq.currval);
+insert into review(rno, pdno, id, content, regdate)
+values(2,1,'spring','이상품 별로네요',sysdate);
 
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-	values(psno_seq.nextval,44,53,64,24,72,'l',60,pdno_seq.currval);
+insert into review(rno, pdno, id, content, regdate)
+values(3,2,'java','이상품 짱이에요!!',sysdate);
 
+insert into review(rno, pdno, id, content, regdate)
+values(4,2,'spring','이상품 별로네여',sysdate);
 
---------------- 상품등록
-
-insert into product(pno,name,price,content,category)
-values(pno_seq.nextval,'청바지',15000,'청바지입니다','하의');
-
+--------------- 상품 QnA 등록
+insert into product_qna(pqno,id,content,regdate) 
+values(1,'java','이상품 괜찮아요??',sysdate);
+insert into product_qna(pqno,id,content,regdate) 
+values(2,'java','이상품 괜찮아요 222 ??',sysdate);
+insert into product_qna(pqno,id,content,regdate) 
+values(3,'java','이상품 괜찮아요 333 ??',sysdate);
+insert into product_qna(pqno,id,content,regdate) 
+values(4,'spring','이상품 괜찮아요 4444 ??',sysdate);
 
 --------------- 이미지 등록
 
-insert into image(ino,pno,url)
-	values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\nana.jpg');
+insert into image(ino,pno,url) values(1,1,'main/mantoman.jpg');
+insert into image(ino,pno,url) values(2,1,'top/mantoman1.jpg');
+insert into image(ino,pno,url) values(3,1,'top/mantoman2.jpg');
+insert into image(ino,pno,url) values(4,2,'main/oxford.jpg');
+insert into image(ino,pno,url) values(5,2,'top/oxford1.jpg');
+insert into image(ino,pno,url) values(6,3,'main/vintage.jpg');
+insert into image(ino,pno,url) values(7,3,'bottom/vintage1.jpg');
+insert into image(ino,pno,url) values(8,3,'bottom/vintage1.jpg');
+insert into image(ino,pno,url) values(9,4,'main/jean.jpg');
+insert into image(ino,pno,url) values(10,5,'main/racoon.jpg');
 
-insert into image(ino,pno,url)
-	values(ino_seq.nextval,pno_seq.currval,'C:\Users\kosta\Desktop\파이널프로젝트\사진\2017.11.10\kosta.jpg');
-
-
---------------- 상의 맨투맨 노랑색 사이즈 S/M/L
-
-insert into product_detail(pdno,color,pno) values(pdno_seq.nextval,'청청',pno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,42,51,63,23,71,'s',50,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'m',50,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'l',40,pdno_seq.currval);
-
-
---------------- 상의 맨투맨 빨강 사이즈 S/M/L
-
-insert into product_detail(pdno,color,pno)
-values(pdno_seq.nextval,'진청',pno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,42,51,63,23,71,'s',60,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'m',70,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'l',80,pdno_seq.currval);
-
-
---------------- 상의 맨투맨 검정 사이즈 S/M/L
-
-insert into product_detail(pdno,color,pno)
-values(pdno_seq.nextval,'검정',pno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,42,51,63,23,71,'s',90,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'m',89,pdno_seq.currval);
-
-insert into product_size(psno,size1,size2,size3,size4,size5,size_type,inventory,pdno)
-values(psno_seq.nextval,44,53,64,24,72,'l',111,pdno_seq.currval);
-
-*/
------------------------------------------------------------------------------------------------
 
 --------------- 주문
 
@@ -399,7 +256,7 @@ insert into orders(ono,totalprice,ordertime,status,id)
 values(8,64000,sysdate,'배송완료','spring');
 
 
---- [주문상품] 수정한 테이블  (수정자:현진호)
+--------------- 주문상품
 
 insert into order_product(ono,pdno,quantity) values(1,1,3);
 
@@ -410,90 +267,6 @@ insert into order_product(ono,pdno,quantity) values(2,2,10);
 insert into order_product(ono,pdno,quantity) values(3,1,2);
 insert into order_product(ono,pdno,quantity) values(3,2,6);
 insert into order_product(ono,pdno,quantity) values(3,7,2);
-
-
---- [주문상품] 기존 테이블  (수정자:현진호)
---- [테이블 변경이유] : 	주문 상품 테이블에 나온 데이터(pdno)만으로는  [상품치수테이블]로 가는 연결고리(외래키)를 발견할 수 없음.
---               	따라서 pdno를 가지고 상품치수를 가지고 오는 select문이 한번 더 돌아야 함.
-
-	/* 기존 데이터
-	--입금대기, java 회원
-	insert into order_product(ono,pdno,quantity) values(1,3,3);
-	insert into order_product(ono,pdno,quantity) values(1,2,3);
-	insert into order_product(ono,pdno,quantity) values(1,5,3);
-	
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 2,4);
-	--배송중, java 회원
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 3,5);
-	--배송완료, java 회원
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 4,2);
-	--입금대기, spring 회원
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 6,1);
-	--배송중, spring 회원
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 7,9);
-	--배송완료, spring 회원
-	insert into order_product(pdno,ono,quantity) values(pdno_seq.nextval, 8,10);
-	*/
-
---------------------------------- 진호 : [11/19][23:07]
-
---------------- 게시판
-
--- 고객문의 샘플데이터
-/*
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '고객문의 카테고리입니다.',sysdate,'공개글','고객문의','java');
-
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '고객문의 카테고리입니다.(비밀)',sysdate,'비밀글','고객문의','java');
-
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '고객문의 카테고리입니다.',sysdate,'공개글','고객문의','spring');
-
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '고객문의 카테고리입니다.(비밀)',sysdate,'비밀글','고객문의','spring');
-
--- 공지사항
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '공지사항 카테고리입니다.',sysdate,'공개글','공지사항','kosta');
-
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '공지사항2 카테고리입니다.',sysdate,'공개글','공지사항','kosta');
-
-insert into member_board(mbno,content,regdate,security,category,id) 
-	values(mbno_seq.nextval, '공지사항3 카테고리입니다.',sysdate,'공개글','공지사항','kosta');
-
-	
--- 상품문의
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품문의1 카테고리입니다.',sysdate,'비밀글','상품문의','java',1);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품문의2 카테고리입니다.',sysdate,'비밀글','상품문의','java',2);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품문의3 카테고리입니다.',sysdate,'비밀글','상품문의','spring',1);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품문의4 카테고리입니다.',sysdate,'비밀글','상품문의','spring',2);
-
-
--- 상품리뷰
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품리뷰1 카테고리입니다.',sysdate,'공개글','상품리뷰','java',1);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품리뷰2 카테고리입니다.',sysdate,'공개글','상품리뷰','java',2);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품리뷰3 카테고리입니다.',sysdate,'공개글','상품리뷰','spring',1);
-
-insert into common_board(bno,content,regdate,security,category,id,pno) 
-	values(bno_seq.nextval, '상품리뷰4 카테고리입니다.',sysdate,'공개글','상품리뷰','spring',2);
-	
- */
 	
 --------------- 테이블 select
 
