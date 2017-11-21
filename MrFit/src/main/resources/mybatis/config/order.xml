@@ -8,25 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select ono, id, totalprice, ordertime, status
  		from orders
  	</sql>
- 	
- 	
- 	<!-- <resultMap type="movieVO" id="movieListRM">
-		<result column="title" property="title" />
-		<result column="name" property="directorVO.name" />
-	</resultMap>
-	<select id="getDirectorNameAndMovieTitleVO" resultMap="movieListRM">
-		SELECT d.name, m.title
-		FROM director d,mybatis_movie m
-		WHERE d.id=m.director_id
-		ORDER BY m.id ASC
-	</select> -->
+
     <resultMap type="orderVO" id="ORM">
     	<result column="ono" property="ono"/>
     	<result column="totalprice" property="totalprice"/>
     	<result column="ordertime" property="ordertime"/>
     	<result column="status" property="status"/>
-    	<!-- <result column="pdno" property="orderproductVO.pdno"/>
-       	<result column="quantity" property="orderproductVO.quantity"/> -->
     </resultMap>
     
     <select id="findMyCart" parameterType="string" resultType="orderVO" resultMap="ORM">
@@ -53,25 +40,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
 		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'main' || '%'
     </select>
-    
-   <!--  <resultMap type="productSizeVO" id="productSizeRM">
-    	<result column="ps.size_name" property="size_type"/>
-    </resultMap>
-    
-    <resultMap type="productDetailVO" id="productDetailRM" extends="productSizeRM">
-    	<result column="pc.color_name" property="color"/> 
-    </resultMap>
-    
-    <resultMap type="productVO" id="PRM" extends="productDetailRM">
-    	<result column="pc.color_name" property="productDetailVO.color"/>
-       	<result column="ps.size_name" property="productDetailVO.productSizeVO.size_type"/>
-    </resultMap>
-    
-    <select id="findProductDetailByPdno" parameterType="string" resultType="productVO" resultMap="PRM">
-    	SELECT p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name
-		FROM product_detail pd, product p, product_color pc, product_size ps
-		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
-    </select> -->
     
     <resultMap type="orderVO" id="ORM2">
 		<result column="id" property="memberVO.id"/>

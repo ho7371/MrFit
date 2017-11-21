@@ -13,7 +13,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderVO> findMyCart(String id) {
 		System.out.println("            OrderServiceImpl/findMyCart()/시작");
-		//System.out.println("            OrderServiceImpl/findMyCart()/종료 - list :"+ovoList);*/
 		return orderDAO.findMyCart(id);
 	}
 	
@@ -26,10 +25,6 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderProductVO> myOrderPrductList(String ono){
 		return orderDAO.myOrderPrductList(ono);
 	}
-	
-	
-	
-	
 
 }
 
