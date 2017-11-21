@@ -4,8 +4,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.MrFit.model.MemberService;
+import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
-import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
@@ -19,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProductController {
 	@Resource
-	private ProductService productService;	
+	private ProductService productService;
+	@Resource
+	private MemberService memberService;
 	private String uploadPath;
 
 	/** 코드 작성 규칙
@@ -72,7 +75,7 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
-	/* [석환][11/18[]
+	/* [석환][11/18]
 	 * 상품 번호로 상품의 상세정보 페이지 이동
 	 */
 	@RequestMapping("findProductDetailByPno.do")
@@ -86,7 +89,7 @@ public class ProductController {
 		return mv;
 	}
 	
-	/* [석환][11/19][]
+	/* [석환][2017.11.21]
 	 * 상품 디테일 page에서 pdno를 조건으로 
 	 * 색상별 size를 JSON 형식으로 통신한다
 	 */
@@ -97,18 +100,38 @@ public class ProductController {
 		return sizeList;
 	}
 	
-	/**[][][]
-	 * 
+	/**[석환][2017.11.21]
+	 * 상품 사이즈 회원과 비교해서 보내줌
 	 * @param psno
 	 * @param pcno
 	 * @return
 	 */
 	@RequestMapping("findProductDetailBySizeAjax.do")
 	@ResponseBody
-	public Object findProductDetailBySizeAjax(String psno,String pcno) {
-		System.out.println("pnco :"+pcno);
-		System.out.println("psno :"+psno);
-		return null;
+	public ProductSizeVO findProductDetailBySizeAjax(String psno,String pcno,String pno) {
+		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
+		ProductSizeVO psvo=productService.findProductDetailBySizeAjax(psno);
+		ProductVO pvo=productService.findProductCategoryByPno(pno);
+		int size1=psvo.getSize1();
+		int size2=psvo.getSize2();
+		int size3=psvo.getSize3();
+		int size4=psvo.getSize4();
+		int size5=psvo.getSize5();
+		if(pvo.getCategory().equals("하의")) {
+			psvo.setSize1(msvo.getWaist()-size1);
+			psvo.setSize2(msvo.getCrotch()-size2);
+			psvo.setSize3(msvo.getThigh()-size3);
+			psvo.setSize4(msvo.getHem()-size4);
+			psvo.setSize5(msvo.getBottomlength()-size5);
+		}else {
+			psvo.setSize1(msvo.getShoulder()-size1);
+			psvo.setSize2(msvo.getChest()-size2);
+			psvo.setSize3(msvo.getSleeve()-size3);
+			psvo.setSize4(msvo.getArmhole()-size4);
+			psvo.setSize5(msvo.getToplength()-size5);
+		}
+		return psvo;
 	}
 }
 

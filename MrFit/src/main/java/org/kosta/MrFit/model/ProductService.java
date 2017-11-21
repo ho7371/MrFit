@@ -24,4 +24,10 @@ public interface ProductService {
 
 	List<ProductDetailVO> findProductColorBypno(String pno);
 
+
+	ProductVO findProductCategoryByPno(String pno);
+
+
+	ProductSizeVO findProductDetailBySizeAjax(String psno);
+
 }
