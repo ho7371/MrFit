@@ -86,4 +86,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDetailVO> findProductColorBypno(String pno) {
 		return productDAO.findProductColorBypno(pno);
 	}
+	@Override
+	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+		return productDAO.findProductReplyByPno(pno);
+	}
+	@Override
+	public void registerProductReview(ProductReviewVO prvo) {
+		productDAO.registerProductReview(prvo);
+		
+	}
 }

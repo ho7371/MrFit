@@ -146,7 +146,34 @@ $(window).load(function() {
 	</table>
 	</div>
 	
-					<div class="latest products">
+	<!-- review table -->
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+	<c:forEach items="prvolist" var="list">
+						<tr>
+							<td>${list.review_no }</td>
+							<td>${list.color_name}</td>
+							<td>${list.size_name }</td>
+							<td>${id }</td>
+							<td>${regdate }</td>
+						</tr>
+						<tr>
+							<td>${content }</td>
+						</tr>
+	</c:forEach>
+					</tbody>
+				</table>
+
+				<div class="latest products">
 						<div class="product-one">
 							<div class="col-md-4 product-left single-left"> 
 								<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >

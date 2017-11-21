@@ -7,7 +7,6 @@ public interface ProductService {
 	
 	List<ProductVO> ProductList(PagingBean pb);
 
-
 	List<ProductVO> findProductByName(String keyword);
 
 	ProductVO findProductDtailByPno(String pno);
@@ -16,12 +15,14 @@ public interface ProductService {
 
 	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
 
-
 	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
-
 
 	int getCategoryProductCount(String category);
 
 	List<ProductDetailVO> findProductColorBypno(String pno);
+
+	List<ProductReviewVO> findProductReplyByPno(String pno);
+
+	void registerProductReview(ProductReviewVO prvo);
 
 }

@@ -20,43 +20,43 @@
 					</div>
 					<div class="address">
 						<span>어깨</span> 
-						<input type="number" name="shoulder" size="10" value="<sec:authentication property="principal.msvo.shoulder"/>" maxlength="3" >
+						<input type="number" name="shoulder" size="10" value="<sec:authentication property="principal.msvo.shoulder"/>" max="200" min='0'>
 					</div>
 					<div class="address">
 						<span>가슴</span> 
-						<input type="number" name="chest" size="10" value="<sec:authentication property="principal.msvo.chest"/>" maxlength="3">
+						<input type="number" name="chest" size="10" value="<sec:authentication property="principal.msvo.chest"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>소매</span> 
-						<input type="number" name="sleeve" size="10" value="<sec:authentication property="principal.msvo.sleeve"/>" maxlength="3">
+						<input type="number" name="sleeve" size="10" value="<sec:authentication property="principal.msvo.sleeve"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>암홀</span> 
-						<input type="number" name="armhole" size="10" value="<sec:authentication property="principal.msvo.armhole"/>" maxlength="3">
+						<input type="number" name="armhole" size="10" value="<sec:authentication property="principal.msvo.armhole"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>상의 총 기장</span> 
-						<input type="number" name="toplength" size="10" value="<sec:authentication property="principal.msvo.toplength"/>" maxlength="3">
+						<input type="number" name="toplength" size="10" value="<sec:authentication property="principal.msvo.toplength"/>" max="200" min='0'>
 					</div>
 					<div class="address">
 						<span>허리</span> 
-						<input type="number" name="waist" size="10" value="<sec:authentication property="principal.msvo.waist"/>" maxlength="3">
+						<input type="number" name="waist" size="10" value="<sec:authentication property="principal.msvo.waist"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>밑위</span> 
-						<input type="number" name="crotch" size="10" value="<sec:authentication property="principal.msvo.crotch"/>"  maxlength="3">
+						<input type="number" name="crotch" size="10" value="<sec:authentication property="principal.msvo.crotch"/>"  max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>허벅지</span> 
-						<input type="number" name="thigh" size="10" value="<sec:authentication property="principal.msvo.thigh"/>" maxlength="3">
+						<input type="number" name="thigh" size="10" value="<sec:authentication property="principal.msvo.thigh"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>밑단</span> 
-						<input type="number" name="hem" size="10" value="<sec:authentication property="principal.msvo.hem"/>" maxlength="3">
+						<input type="number" name="hem" size="10" value="<sec:authentication property="principal.msvo.hem"/>" max="100" min='0'>
 					</div>
 					<div class="address">
 						<span>하의 총 기장</span> 
-						<input type="number" name="bottomlength" size="10" value="<sec:authentication property="principal.msvo.bottomlength"/>" maxlength="3">
+						<input type="number" name="bottomlength" size="10" value="<sec:authentication property="principal.msvo.bottomlength"/>" max="200" min='0'>
 					</div>
 					<div class="address" >
 							<input type="submit" value="수정완료">

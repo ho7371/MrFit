@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
@@ -76,9 +77,12 @@ public class ProductController {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
      	List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
+     	// 해당 상품 리뷰 불러오는 메서드
+		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
 			mv.setViewName("product/productDetail.tiles");
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
+			mv.addObject("prvolist", prvolist);
 		return mv;
 	}
 	/*
@@ -98,6 +102,14 @@ public class ProductController {
 		System.out.println("psno :"+psno);
 		return null;
 	}
+	
+	@RequestMapping("registerProductReview.do")
+	@ResponseBody
+	public String registerProductReview(ProductReviewVO prvo) {
+		productService.registerProductReview(prvo);
+		return "";
+	}
+	
 }
 
 

@@ -23,4 +23,8 @@ public interface ProductDAO {
 
 	List<ProductDetailVO> findProductColorBypno(String pno);
 
+	List<ProductReviewVO> findProductReplyByPno(String pno);
+
+	void registerProductReview(ProductReviewVO prvo);
+
 }

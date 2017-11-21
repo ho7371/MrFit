@@ -123,4 +123,13 @@ public class ProductDAOImpl implements ProductDAO {
 		System.out.println("      		      ProductDAOImpl/getCategoryProductCount()/종료");
 		return pc;
 	}
+	@Override
+	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+		return template.selectList("product.findProductReplyByPno", pno);
+	}
+	@Override
+	public void registerProductReview(ProductReviewVO prvo) {
+		template.insert("product.registerProductReview", prvo);
+		
+	}
 }
