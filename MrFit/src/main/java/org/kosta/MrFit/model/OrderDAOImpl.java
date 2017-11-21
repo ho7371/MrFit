@@ -1,8 +1,6 @@
 package org.kosta.MrFit.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -67,6 +65,15 @@ public class OrderDAOImpl implements OrderDAO {
 		template.delete("order.deleteOrderProduct",ovo);		
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");	
 	}
+	@Override
+    public List<OrderVO> myOrderList(String id){
+       return template.selectList("order.myOrderList",id);
+    }
+    
+    @Override
+    public List<OrderProductVO> myOrderPrductList(String ono){
+       return template.selectList("order.myOrderPrductList",ono);
+    }
 	
 	
 

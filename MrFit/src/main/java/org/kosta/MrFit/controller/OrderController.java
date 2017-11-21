@@ -2,7 +2,6 @@ package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +63,7 @@ public class OrderController {
 		opvo.setPdno(pdno);
 		opvo.setQuantity(quantity);		
 		opList.add(opvo);
-		ovo.setOpList(opList);
+		ovo.setOrderProductList(opList);
 		ovo.setTotalprice(price);
 		ovo.setMemberVO(mvo);
 		System.out.println("    OrderController/registerCart()/진행 ovo : "+ovo);
@@ -97,7 +96,7 @@ public class OrderController {
 		opvo.setQuantity(quantity);
 		
 		opList.add(opvo);
-		ovo.setOpList(opList);
+		ovo.setOrderProductList(opList);
 		ovo.setTotalprice(-price);
 		ovo.setMemberVO(mvo);
 		System.out.println("   	OrderController/deleteCart()/진행 map : "+ovo);

@@ -1,7 +1,6 @@
 package org.kosta.MrFit.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public interface OrderDAO {
 	List<OrderVO> findMyCart(String id);
