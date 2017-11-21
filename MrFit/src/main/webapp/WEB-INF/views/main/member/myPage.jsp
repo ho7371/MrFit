@@ -28,7 +28,7 @@
 					</div>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="#">
+							<a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>">
 								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
 								<p>내 주문 내역</p>
 							</a>

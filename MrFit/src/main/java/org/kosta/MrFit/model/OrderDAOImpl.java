@@ -15,7 +15,7 @@ public class OrderDAOImpl implements OrderDAO {
 	
 	@Override
 	public Map<String, Object> findMyCart(String id) {
-		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
+		/*System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		List<OrderVO> list = template.selectList("order.findMyCart",id);
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list:"+list);
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0) :"+list.get(0));
@@ -25,8 +25,37 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println(pdList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", list);
-		map.put("product", pdList);
-		return map;
+		map.put("product", pdList);*/
+		return null;
 	}
+	
+	@Override
+	public List<OrderVO> myOrderList(String id){
+		return template.selectList("order.myOrderList",id);
+	}
+	
+	@Override
+	public List<OrderProductVO> myOrderPrductList(String ono){
+		return template.selectList("order.myOrderPrductList",ono);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
