@@ -18,5 +18,39 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("            OrderServiceImpl/findMyCart()/종료 - map :"+map);
 		return map;
 	}
+	
+	@Override
+	public List<OrderVO> myOrderList(String id){
+		return orderDAO.myOrderList(id);
+	}
+	
+	@Override
+	public List<OrderProductVO> myOrderPrductList(String ono){
+		return orderDAO.myOrderPrductList(ono);
+	}
+	
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -287,17 +287,6 @@ CREATE TABLE orders (
 				pno VARCHAR2(100) NOT NULL,
 				constraint fk_pno_in_product_detail foreign key(pno) references product(pno)
 			);*/
-
-/* 주문상품 */
-CREATE TABLE order_product (
-	ono NUMBER NOT NULL, 
-	pdno NUMBER NOT NULL,
-	quantity VARCHAR2(100) NOT NULL,
-	constraint fk_ono_in_product_detail foreign key(ono) references orders(ono),
-	constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
-	constraint pk_order_product primary key(ono, pdno)
-);
-
 				
 ----------------------------------------------------- 테이블 생성 SQL 끝
 
