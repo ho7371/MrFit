@@ -4,4 +4,14 @@ import java.util.Map;
 
 public interface OrderService {
 	Map<String, Object> findMyCart(String id);
+
+	int findMyCartCount(String id);
+
+	void registerOrder(OrderVO ovo);
+
+	void registerOrderProduct(OrderVO ovo);
+
+	void updateOrder(OrderVO ovo);
+
+	void deleteOrderProduct(OrderVO ovo);
 }

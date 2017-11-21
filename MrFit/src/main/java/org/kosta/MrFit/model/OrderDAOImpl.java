@@ -28,5 +28,44 @@ public class OrderDAOImpl implements OrderDAO {
 		map.put("product", pdList);
 		return map;
 	}
+	//정현 장바구니 담기 
+	@Override
+	public int findMyCartCount(String id) {
+		System.out.println("                  OrderDAOImpl/findMyCartCount()/시작 ");
+		int cartCount=template.selectOne("order.findMyCartCount",id);
+		System.out.println("                  OrderDAOImpl/findMyCartCount()/진행 cartCount : "+cartCount);
+		System.out.println("                  OrderDAOImpl/findMyCartCount()/종료");
+		return cartCount;
+	}
+	//정현 장바구니 담기 
+	@Override
+	public void registerOrder(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ");
+		template.insert("order.registerOrder",ovo);		
+		System.out.println("                  OrderDAOImpl/registerOrder()/종료");		
+	}
+	//정현 장바구니 담기 
+	@Override
+	public void registerOrderProduct(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/registerOrderProduct()/시작 ovo : "+ovo);
+		template.insert("order.registerOrderProduct",ovo);		
+		System.out.println("                  OrderDAOImpl/registerOrderProduct()/종료");	
+	}
+	//정현 장바구니 담기 
+	@Override
+	public void updateOrder(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/updateOrder()/시작 ovo : "+ovo);
+		System.out.println("                  OrderDAOImpl/updateOrder()/종료");
+		template.update("order.updateOrder",ovo);		
+			
+	}
+	@Override
+	public void deleteOrderProduct(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+ovo);
+		template.delete("order.deleteOrderProduct",ovo);		
+		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");	
+	}
+	
+	
 
 }

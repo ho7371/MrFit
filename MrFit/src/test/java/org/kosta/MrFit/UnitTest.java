@@ -1,6 +1,7 @@
 package org.kosta.MrFit;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -8,10 +9,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
-<<<<<<< HEAD
+import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
-=======
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
+import org.kosta.MrFit.model.OrderVO;
+//github.com/ho7371/MrFit.git
 import org.kosta.MrFit.model.ProductService;
 //github.com/ho7371/MrFit.git
 import org.springframework.test.context.ContextConfiguration;
@@ -44,20 +46,19 @@ public class UnitTest {
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
 		 System.out.println(memberService.findMemberById("mrfit"));*/
-<<<<<<< HEAD
+
 		 // System.out.println(pservice.findProductDtailByPno("1"));
 		 //System.out.println(pservice.findProductByName("청바지"));
 		 
 		/* System.out.println("OrderService : "+oservice);
 		 Map<String,Object> map =  oservice.findMyCart("java3");
 		 System.out.println("map : "+map);*/
-		 System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
-		 System.out.println("***********************");
-		 System.out.println("test2 : "+oservice.findMyCart("java3").get("product"));
-=======
+		 //System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
+	
+		// Map<String,Object> map;
 		//  System.out.println(pservice.findProductColorBypno("1"));
 		 System.out.println(pservice.findProductDetailByColorAjax("1"));	
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
+
 	 }
 	 
 
