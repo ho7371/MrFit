@@ -12,7 +12,6 @@ public class OrderVO {
 	private List<OrderProductVO> orderProductList;
 	public OrderVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public OrderVO(String ono, int totalprice, String destination, String ordertime, String status, MemberVO memberVO,
 			List<OrderProductVO> orderProductList) {

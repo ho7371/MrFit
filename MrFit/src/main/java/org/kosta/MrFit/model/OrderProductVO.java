@@ -1,10 +1,11 @@
 package org.kosta.MrFit.model;
 
 public class OrderProductVO {
+	private String ono;
 	private String pno;
 	private String pdno;
-	private int quantity;
 	private String name;
+	private int quantity;
 	private int price;
 	private String category;
 	private String color_name;
@@ -12,13 +13,14 @@ public class OrderProductVO {
 	private String url;
 	public OrderProductVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public OrderProductVO(String pno, String pdno, int quantity, String name, int price, String category,
+	public OrderProductVO(String ono, String pno, String pdno, String name, int quantity, int price, String category,
 			String color_name, String size_name, String url) {
 		super();
+		this.ono = ono;
 		this.pno = pno;
 		this.pdno = pdno;
+		this.name = name;
 		this.quantity = quantity;
 		this.name = name;
 		this.price = price;
@@ -39,6 +41,7 @@ public class OrderProductVO {
 	public void setPdno(String pdno) {
 		this.pdno = pdno;
 	}
+	
 	public int getQuantity() {
 		return quantity;
 	}
@@ -83,11 +86,8 @@ public class OrderProductVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderProductVO [pno=" + pno + ", pdno=" + pdno + ", quantity=" + quantity + ", name=" + name
-				+ ", price=" + price + ", category=" + category + ", color_name=" + color_name + ", size_name="
-				+ size_name + ", url=" + url + "]";
+		return "OrderProductVO [ono=" + ono + ", pno=" + pno + ", pdno=" + pdno + ", name=" + name + ", quantity="
+				+ quantity + ", price=" + price + ", category=" + category + ", color_name=" + color_name
+				+ ", size_name=" + size_name + ", url=" + url + "]";
 	}
-	
-	
-	
 }

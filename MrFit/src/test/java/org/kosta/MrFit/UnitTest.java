@@ -1,7 +1,5 @@
 package org.kosta.MrFit;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.ProductService;
-//github.com/ho7371/MrFit.git
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 

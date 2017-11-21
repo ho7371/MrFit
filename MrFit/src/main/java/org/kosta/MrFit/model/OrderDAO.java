@@ -5,4 +5,8 @@ import java.util.Map;
 
 public interface OrderDAO {
 	List<OrderVO> findMyCart(String id);
+
+	List<OrderVO> myOrderList(String id);
+
+	List<OrderProductVO> myOrderPrductList(String ono);
 }

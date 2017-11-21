@@ -72,6 +72,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM product_detail pd, product p, product_color pc, product_size ps
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
     </select> -->
+    
+    <resultMap type="orderVO" id="ORM2">
+		<result column="id" property="memberVO.id"/>
+ 	</resultMap>
+ 	<select id="myOrderList" parameterType="string" resultType="orderVO" resultMap="ORM2">
+ 		select ono, totalprice, ordertime, status, id, destination
+ 		from orders
+ 		where id=#{value}
+ 		order by ono desc
+ 	</select>
+ 	
+ 	<select id="myOrderPrductList" parameterType="string" resultType="orderProductVO">
+ 		select op.ono, op.pdno, op.quantity,
+				p.name, p.price, p.category,
+				pd.pno,
+				pc.color_name,
+				ps.size_name,
+				i.url
+		from ORDER_PRODUCT op, PRODUCT p, PRODUCT_DETAIL pd, product_color pc, product_size ps, IMAGE i
+		where ono=#{value} 
+		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and pd.pcno = pc.pcno
+		and p.pno = i.pno
+		and  i.url like 'main%'
+ 	</select>
+    
+    
 </mapper>
 
 

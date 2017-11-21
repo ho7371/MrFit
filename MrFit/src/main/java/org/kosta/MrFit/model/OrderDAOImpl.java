@@ -35,4 +35,16 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 
+	@Override
+	public List<OrderVO> myOrderList(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderProductVO> myOrderPrductList(String ono) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

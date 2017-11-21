@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +36,39 @@ public class OrderController {
 		System.out.println("    OrderController/cartForm()/종료");
 		return new ModelAndView("product/myCart.tiles","ovoList",ovoList);
 	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myOrderList.do")
+	public ModelAndView myOrderList(String id) {
+		System.out.println("   	OrderController/myOrderList()/시작");
+		List<OrderVO> list = orderService.myOrderList(id);
+		System.out.println("   	OrderController/myOrderList()/중간"+list);
+		return new ModelAndView("order/myOrderList.tiles","list",list);
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myOrderPrductList.do")
+	public ModelAndView myOrderPrductList(String ono) {
+		System.out.println("   	OrderController/myOrderPrductList()/시작");
+		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
+		System.out.println("   	OrderController/myOrderPrductList()/중간"+list);
+		return new ModelAndView("order/myOrderProductList.tiles","list",list);
+	}
+
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
