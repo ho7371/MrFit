@@ -21,4 +21,6 @@ public interface ProductDAO {
 
 	int getCategoryProductCount(String category);
 
+	List<ProductDetailVO> findProductColorBypno(String pno);
+
 }

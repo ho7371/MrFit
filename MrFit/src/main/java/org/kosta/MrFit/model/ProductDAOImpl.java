@@ -12,26 +12,26 @@ import org.springframework.stereotype.Repository;
 public class ProductDAOImpl implements ProductDAO {
 	@Resource
 	SqlSessionTemplate template;
-	/*
+	/* 
 	 * @see org.kosta.MrFit.model.ProductDAO#findProductDtail(java.lang.String)
-	 * 상품 상세보기
+	 * [석환][상품 상세보기]
 	 * 상품 상세보기 메서드(상품번호로 검색)
 	 */
 	@Override
 	public ProductVO findProductDtailByPno(String pno) {
 		System.out.println("      		      ProductDAOImpl/findProductDtailByPno()/시작");
-		  ProductVO pvo = template.selectOne("product.findProductDetail",pno);
-	         List<ProductDetailVO> pdList=template.selectList("product.findProductDetailList", pno);
-	         for (int k = 0; k < pdList.size(); k++) {               
-	            List<ProductSizeVO> psList=template.selectList("product.findProductSizeList",pdList.get(k).getPdno());
-	            pdList.get(k).setSizeList(psList);
-	         }
-        System.out.println("      		      ProductDAOImpl/findProductDtailByPno()/진행");
-	          List<ImageVO> iList=template.selectList("product.findProductImageList",pvo.getPno());
-	          pvo.setProductDetailList(pdList);
-	          pvo.setImageList(iList);
-	    System.out.println("      		      ProductDAOImpl/findProductDtailByPno()/종료");
-	          return pvo;	
+		ProductVO pvo=template.selectOne("product.findProductDetail", pno);
+		pvo.setImageList(template.selectList("product.findProductImageList",pno));
+		pvo.setProductDetailList(template.selectList("product.findProductDetailList",pno));
+		return pvo;
+	}
+	/* 석환
+	 * (non-Javadoc)
+	 * @see org.kosta.MrFit.model.ProductDAO#findProductColorBypno(java.lang.String)
+	 */
+	@Override
+	public List<ProductDetailVO> findProductColorBypno(String pno) {
+		return template.selectList("product.findProductColorList", pno);
 	}
 	/**[현민][상품검색]
 	 * 검색한 키워드를 찾아 리스트에 담은 후 
@@ -89,9 +89,8 @@ public class ProductDAOImpl implements ProductDAO {
 
 	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
 	@Override
-	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-		System.out.println("      		      ProductDAOImpl/findProductDetailByColorAjax()/시작");
-		return template.selectList("product.findProductSizeList", pdno);
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pcno){
+		return template.selectList("product.findProductListByPcnoAjax", pcno);
 	}
 /*	@Override
 	public ProductVO findProductDtailByPno(String pno) {   

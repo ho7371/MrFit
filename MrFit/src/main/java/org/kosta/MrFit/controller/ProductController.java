@@ -1,17 +1,17 @@
 package org.kosta.MrFit.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
-import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +21,6 @@ public class ProductController {
 	@Resource
 	private ProductService productService;	
 	private String uploadPath;
-	private PagingBean pb;
 
 	/** 코드 작성 규칙
 	 *  1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -42,6 +41,7 @@ public class ProductController {
 	@RequestMapping("registerProductAction.do")
 	public ModelAndView registerProduct(){
 		System.out.println("   	ProductController/registerProduct()/시작");
+		System.out.println("    ProductController/registerProduct()/진행");
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
 	}
@@ -73,61 +73,30 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByPno.do")
 	public ModelAndView findProductDetailByPno(String pno) {
-		System.out.println("   	ProductController/findProductDetailByPno()/시작");
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
+     	List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
 			mv.setViewName("product/productDetail.tiles");
+			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
-			System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}
 	/*
 	 * 상품 디테일 page에서 pdno를 조건으로 
 	 * 색상별 size를 JSON 형식으로 통신한다
 	 */
-	
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
-	public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-		System.out.println("   	ProductController/findProductDetailByColorAjax()/시작");
-		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdno);
-		System.out.println("    ProductController/findProductDetailByColorAjax()/종료");
+	public List<ProductSizeVO> findProductDetailByColorAjax(String pcno){
+ 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pcno);
 		return sizeList;
 	}
-	/**[정현][분류별 상품 리스트 뽑기]
-	 * 
-	 * @param category
-	 * @return
-	 */
-	@RequestMapping("findProductByCategory.do")
-	public String findProductByCategory(HttpServletRequest request,Model model){
-		System.out.println("      ProductController/findProductByCategory()/시작");			
-		
-		String category=request.getParameter("category");
-		String pno=request.getParameter("pageNo");
-		int pbCount=productService.getCategoryProductCount(category);
-		if(pno==null){
-			pb = new PagingBean(pbCount);
-		}else{
-			pb = new PagingBean(pbCount,Integer.parseInt(pno));
-		}
-		
-		
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		map.put("startNumber",pb.getStartRowNumber());
-		map.put("endNumber",pb.getEndRowNumber());
-		map.put("category",category);
-		List<ProductVO> ProductList=productService.findProductByCategory(map);
-		System.out.println("      ProductController/findProductByCategory()/진행"+pno+" 리스트"+ProductList);		
-		if(ProductList!=null&&!ProductList.isEmpty()) {
-			model.addAttribute("ProductList",ProductList);
-			model.addAttribute("pb",pb);
-			System.out.println("      ProductController/findProductByCategory()/종료");
-			return "product/productList.tiles";
-		}else {
-			System.out.println("      ProductController/findProductByCategory()/종료");
-			return "product/productList.tiles";
-		}
+	@RequestMapping("findProductDetailBySizeAjax.do")
+	@ResponseBody
+	public Object findProductDetailBySizeAjax(String psno,String pcno) {
+		System.out.println("pnco :"+pcno);
+		System.out.println("psno :"+psno);
+		return null;
 	}
 }
 

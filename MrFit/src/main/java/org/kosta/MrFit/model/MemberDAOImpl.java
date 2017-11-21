@@ -102,8 +102,6 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("                  MemberDAOImpl/registerMemberSize()/시작");
 		System.out.println("      		      MemberDAOImpl/registerMemberSize()/종료");
 		template.insert("member.registerMemberSize", id);
-
-		
 	}
 
 	@Override
@@ -111,7 +109,6 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("                  MemberDAOImpl/updateMemberSize()/시작");
 		System.out.println("      		      MemberDAOImpl/updateMemberSize()/종료");
 		template.update("member.updateMemberSize", msizeVO);
-		
 	}
 
 	@Override
