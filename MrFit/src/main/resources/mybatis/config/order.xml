@@ -56,10 +56,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     
     
-    <resultMap type="orderVO" id="ORM">
+    <resultMap type="orderVO" id="ORM2">
 		<result column="id" property="memberVO.id"/>
  	</resultMap>
- 	<select id="myOrderList" parameterType="string" resultType="orderVO" resultMap="ORM">
+ 	<select id="myOrderList" parameterType="string" resultType="orderVO" resultMap="ORM2">
  		select ono, totalprice, ordertime, status, id, destination
  		from orders
  		where id=#{value}

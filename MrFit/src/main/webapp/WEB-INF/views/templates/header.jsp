@@ -45,7 +45,6 @@
 								src="${pageContext.request.contextPath}/resources/images/cart-1.png"
 								alt="" />
 					</a>
-<<<<<<< HEAD
 					
 					<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 					<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
@@ -81,34 +80,6 @@
 						   </c:otherwise>
 						</c:choose>
 					
-=======
-					<sec:authorize
-						access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_MEMBER')">
-						<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
-							&nbsp;|&nbsp;
-							<a href="${pageContext.request.contextPath}/registerForm.do">회원가입</a>
-					</sec:authorize>
-					<sec:authorize
-						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
-						<sec:authentication property="principal.name" />님 <br>
-					</sec:authorize>
-
-					<sec:authorize
-						access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')">
-						<p>
-							<a href="javascript:;" class="simpleCart_empty">Empty Cart</a> <a
-								href="${pageContext.request.contextPath}/myPage.do">마이페이지</a>&nbsp;
-							<a href="${pageContext.request.contextPath}/note.do">쪽지함</a>&nbsp;
-						</p>
-						
-						<a href="#" id="logoutAction">로그아웃</a>
-						<form action="${pageContext.request.contextPath}/logout.do"
-							id="logoutForm" method="post" style="display: none;">
-							<sec:csrfInput />
-						</form>
-
-					</sec:authorize>
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 					<div class="clearfix"></div>
 				</div>
 			</div>
