@@ -23,4 +23,9 @@ public interface ProductDAO {
 
 	List<ProductDetailVO> findProductColorBypno(String pno);
 
+	ProductSizeVO findProductDetailBySizeAjax(String psno);
+
+	ProductVO findProductCategoryByPno(String pno);
+
+
 }

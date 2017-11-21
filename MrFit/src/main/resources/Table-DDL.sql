@@ -1,40 +1,37 @@
 ----------------------------------------------------- 삭제 SQL
 ------------ 삭제순서 : 1. 시퀀스 삭제  		2. 테이블 삭제
 ------------ 시퀀스 삭제
+
 drop sequence qno_seq;
 drop sequence point_no_seq;
-drop sequence mbno_seq;
-drop sequence rno_seq;
 drop sequence pno_seq;
-drop sequence pbno_seq;
-drop sequence mrno_seq;
-drop sequence irno_seq;
+drop sequence pcno_seq;
+drop sequence psno_seq;
+drop sequence pdno_seq;
+drop sequence iqno_seq;
+drop sequence iqrno_seq;
+drop sequence rno_seq;
+drop sequence pqno_seq;
 drop sequence ino_seq;
 drop sequence ono_seq;
-drop sequence pcno_seq;
-drop sequence pdno_seq;
-drop sequence psno_seq;
 
-
------------- 테이블 삭제
-
-drop table ORDER_PRODUCT;
-drop table PRODUCT_DETAIL;
-drop table PRODUCT_SIZE;
-drop table PRODUCT_COLOR;
-drop table ORDERS;
-drop table IMAGE;
-drop table PRODUCT_REPLY;
-drop table PRODUCT_BOARD;
-drop table PRODUCT;
-drop table INQUIRY_REPLY;
-drop table INQUIRY;
-drop table AUTH;
-drop table POINT; 
-drop table MEMBER_SIZE;
-drop table MEMBER;
-drop table QUESTION;
-drop table GRADE;
+drop table order_product;
+drop table orders;
+drop table image;
+drop table product_qna;
+drop table review;
+drop table inquiry_reply;
+drop table inquiry;
+drop table product_detail;
+drop table product_size;
+drop table product_color;
+drop table product;
+drop table auth;
+drop table point;
+drop table member_size;
+drop table member;
+drop table question;
+drop table grade;
 	
 ----------------------------------------------------- 삭제 SQL 종료
 
@@ -47,17 +44,16 @@ drop table GRADE;
 /* 시퀀스 생성 */
 create sequence qno_seq;
 create sequence point_no_seq;
-create sequence mbno_seq;
-create sequence rno_seq;
 create sequence pno_seq;
-create sequence pbno_seq;
-create sequence mrno_seq;
-create sequence ino_seq;
-create sequence irno_seq;
-create sequence ono_seq;
 create sequence pcno_seq;
-create sequence pdno_seq;
 create sequence psno_seq;
+create sequence pdno_seq;
+create sequence iqno_seq;
+create sequence iqrno_seq;
+create sequence rno_seq;
+create sequence pqno_seq;
+create sequence ino_seq;
+create sequence ono_seq;
 
 
 /* 회원 등급 */
@@ -90,24 +86,22 @@ CREATE TABLE member (
 	constraint fk_grade_in_member foreign key(grade) references grade(grade)
 );
 
-/* 회원치수 */
-CREATE TABLE member_size (
-	id VARCHAR2(100) NOT NULL,
-	shoulder NUMBER, 
-	chest NUMBER, 
-	sleeve NUMBER, 
-	armhole NUMBER,
-	toplength NUMBER, 
-	waist NUMBER,
-	crotch NUMBER, 
-	thigh NUMBER, 
-	hem NUMBER, 
-	bottomlength NUMBER,
-	constraint fk_id_in_member foreign key(id) references member(id)
-);
-CREATE INDEX member_size_unique ON member_size(id);
-
-
+		/* 회원치수 */
+		CREATE TABLE member_size (
+			id VARCHAR2(100) NOT NULL,
+			shoulder NUMBER, 
+			chest NUMBER, 
+			sleeve NUMBER, 
+			armhole NUMBER,
+			toplength NUMBER, 
+			waist NUMBER,
+			crotch NUMBER, 
+			thigh NUMBER, 
+			hem NUMBER, 
+			bottomlength NUMBER,
+			constraint fk_id_in_member foreign key(id) references member(id)
+		);
+		CREATE INDEX member_size_unique ON member_size(id);
 
 
 /* 포인트 */
@@ -127,25 +121,6 @@ CREATE TABLE auth (
 	constraint pk_auth primary key(id, auth)
 );
 
-/* 고객문의 게시판 */
-CREATE TABLE inquiry (
-	inquiry_no NUMBER PRIMARY KEY, 
-	content CLOB NOT NULL, 
-	regdate DATE NOT NULL, 
-	security VARCHAR2(100) NOT NULL, 
-	category VARCHAR2(100) NOT NULL, 
-	id VARCHAR2(100) NOT NULL,
-	constraint fk_id_in_inquiry foreign key(id) references member(id)
-);
-
-/* 고객문의 댓글 */
-CREATE TABLE inquiry_reply (
-	irno NUMBER PRIMARY KEY,
-	content CLOB NOT NULL,
-	regdate DATE NOT NULL, 
-	inquiry_no NUMBER NOT NULL,
-	constraint fk_inquiry_no_in_reply foreign key(inquiry_no) references inquiry(inquiry_no)
-);
 
 /* 상품 */
 CREATE TABLE product (
@@ -156,26 +131,79 @@ CREATE TABLE product (
 	category VARCHAR2(100) NOT NULL
 );
 
-/* 상품게시판 */
-CREATE TABLE product_board (
-	pbno NUMBER PRIMARY KEY, 
+		/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
+		CREATE TABLE product_color (
+			pcno NUMBER PRIMARY KEY,
+			color_name VARCHAR2(100) NOT NULL
+		);
+			
+		/* 상품치수 [작업중인 테이블]*/
+		CREATE TABLE product_size (
+			psno NUMBER PRIMARY KEY,
+			size_name VARCHAR2(100) NOT NULL, /* 칼럼명 변경 */
+			size1 NUMBER NOT NULL,
+			size2 NUMBER NOT NULL,
+			size3 NUMBER NOT NULL,
+			size4 NUMBER NOT NULL,
+			size5 NUMBER NOT NULL,
+			inventory NUMBER NOT NULL
+		);
+		
+		/* 상품상세 [작업중인 테이블]*/
+		CREATE TABLE product_detail (
+			pdno NUMBER PRIMARY KEY,
+			pno NUMBER NOT NULL,
+			pcno NUMBER NOT NULL, 
+			psno NUMBER NOT NULL,
+			constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
+			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
+			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
+		);
+			CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
+			/* CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); */
+
+
+/* 고객문의 게시판 */
+CREATE TABLE inquiry (
+	iqno NUMBER PRIMARY KEY, 
+	content CLOB NOT NULL, 
+	regdate DATE NOT NULL, 
+	security VARCHAR2(100) NOT NULL, 
+	id VARCHAR2(100) NOT NULL,
+	constraint fk_id_in_inquiry foreign key(id) references member(id)
+);
+
+		/* 고객문의 댓글 */
+		CREATE TABLE inquiry_reply (
+			iqrno NUMBER PRIMARY KEY,
+			content CLOB NOT NULL,
+			regdate DATE NOT NULL, 
+			security VARCHAR2(100) NOT NULL, 
+			iqno NUMBER NOT NULL,
+			constraint fk_iqno_in_inquiry_reply foreign key(iqno) references inquiry(iqno)
+		);
+
+/* 리뷰 */
+CREATE TABLE review (
+	rno NUMBER PRIMARY KEY,
+	pdno NUMBER NOT NULL,
 	id VARCHAR2(100) NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
-	security VARCHAR2(100) NOT NULL, 
-	category VARCHAR2(100) NOT NULL, 
-	pno NUMBER NOT NULL,
-	constraint fk_pno_in_product_board foreign key(pno) references product(pno)
+	constraint fk_pdno_in_review foreign key(pdno) references product_detail(pdno),
+	constraint fk_id_in_review foreign key(id) references member(id)
+);
+CREATE INDEX review_unique ON review(pdno,id);
+
+/* 상품 문의 */
+CREATE TABLE product_qna (
+	pqno NUMBER PRIMARY KEY,
+	id VARCHAR2(100) NOT NULL,
+	content CLOB NOT NULL,
+	regdate DATE NOT NULL,
+	constraint fk_id_in_product_qna foreign key(id) references member(id)
 );
 
-/* 상품댓글 */
-CREATE TABLE product_reply (
-	mrno NUMBER PRIMARY KEY, 
-	content CLOB,
-	regdate DATE NOT NULL,
-	pbno NUMBER NOT NULL,
-	constraint fk_pbno_in_product_reply foreign key(pbno) references product_board(pbno)
-);
 
 /* 이미지 */
 CREATE TABLE image (
@@ -194,6 +222,18 @@ CREATE TABLE orders (
 	status VARCHAR2(100) NOT NULL,
 	constraint fk_id_in_orders foreign key(id) references member(id)
 );
+<<<<<<< HEAD
+		
+		/* 주문상품 */
+		CREATE TABLE order_product (
+			ono NUMBER NOT NULL, 
+			pdno NUMBER NOT NULL,
+			quantity VARCHAR2(100) NOT NULL,
+			constraint fk_ono_in_product_detail foreign key(ono) references orders(ono),
+			constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
+			constraint pk_order_product primary key(ono, pdno)
+		);
+=======
 			
 				/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
 					CREATE TABLE product_color (
@@ -281,3 +321,4 @@ select * from PRODUCT_COLOR;
 select * from PRODUCT_DETAIL;
 select * from ORDER_PRODUCT;
 select * from PRODUCT_SIZE;
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git

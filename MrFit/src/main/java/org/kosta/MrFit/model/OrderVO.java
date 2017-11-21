@@ -9,12 +9,13 @@ public class OrderVO {
 	private String ordertime;
 	private String status;
 	private MemberVO memberVO;
-	private List<OrderProductVO> opList;
+	private List<OrderProductVO> orderProductList;
 	public OrderVO() {
 		super();
 	}
+
 	public OrderVO(String ono, int totalprice, String destination, String ordertime, String status, MemberVO memberVO,
-			List<OrderProductVO> opList) {
+			List<OrderProductVO> orderProductList) {
 		super();
 		this.ono = ono;
 		this.totalprice = totalprice;
@@ -22,7 +23,7 @@ public class OrderVO {
 		this.ordertime = ordertime;
 		this.status = status;
 		this.memberVO = memberVO;
-		this.opList = opList;
+		this.orderProductList = orderProductList;
 	}
 	public String getOno() {
 		return ono;
@@ -60,16 +61,19 @@ public class OrderVO {
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
-	public List<OrderProductVO> getOpList() {
-		return opList;
+
+	public List<OrderProductVO> getOrderProductList() {
+		return orderProductList;
 	}
-	public void setOpList(List<OrderProductVO> opList) {
-		this.opList = opList;
+
+	public void setOrderProductList(List<OrderProductVO> orderProductList) {
+		this.orderProductList = orderProductList;
 	}
 	@Override
 	public String toString() {
 		return "OrderVO [ono=" + ono + ", totalprice=" + totalprice + ", destination=" + destination + ", ordertime="
-				+ ordertime + ", status=" + status + ", memberVO=" + memberVO + ", opList=" + opList + "]";
+				+ ordertime + ", status=" + status + ", memberVO=" + memberVO + ", orderProductList=" + orderProductList
+				+ "]";
 	}
 	
 }

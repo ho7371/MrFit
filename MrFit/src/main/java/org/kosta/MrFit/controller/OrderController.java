@@ -11,6 +11,7 @@ import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +22,26 @@ public class OrderController {
 	@Resource
 	private OrderService orderService;
 	
-	
+	/**[현민][11/21][16:10]
+	 * 장바구니 보기 기능
+	 * 회원의 아이디로 회원이 장바구니에 담은 상품들을 불러온다
+	 * 그 후 회원의 정보를 사용할 수 있도록 회원 정보도 set해준다.
+	 * 그 다음 list로 반환 한다.
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("cartForm.do")
 	public ModelAndView cartForm() {
 		System.out.println("   	OrderController/cartForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("    OrderController/cartForm()/진행");
-		//List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
-		Map<String, Object> ovoList = orderService.findMyCart(mvo.getId());
+		System.out.println(mvo.getId());
+		System.out.println("    OrderController/cartForm()/진행1");
+		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		System.out.println("    OrderController/cartForm()/진행2");
+		for (int i = 0; i < ovoList.size(); i++) {
+			ovoList.get(i).setMemberVO(mvo);
+		}
+		System.out.println("    OrderController/cartForm()/진행3 ovoList : "+ovoList);
 		System.out.println("    OrderController/cartForm()/종료");
 		return new ModelAndView("product/myCart","list",ovoList);
 	}

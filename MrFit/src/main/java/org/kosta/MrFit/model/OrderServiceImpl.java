@@ -1,6 +1,6 @@
 package org.kosta.MrFit.model;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -11,11 +11,19 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDAO;
 	
 	@Override
-	public Map<String, Object> findMyCart(String id) {
+	public List<OrderVO> findMyCart(String id) {
 		System.out.println("            OrderServiceImpl/findMyCart()/시작");
-		Map<String, Object> map = orderDAO.findMyCart(id);
-		System.out.println("            OrderServiceImpl/findMyCart()/종료 - map :"+map);
-		return map;
+		return orderDAO.findMyCart(id);
+	}
+	
+	@Override
+	public List<OrderVO> myOrderList(String id){
+		return orderDAO.myOrderList(id);
+	}
+	
+	@Override
+	public List<OrderProductVO> myOrderPrductList(String ono){
+		return orderDAO.myOrderPrductList(ono);
 	}
 
 	@Override

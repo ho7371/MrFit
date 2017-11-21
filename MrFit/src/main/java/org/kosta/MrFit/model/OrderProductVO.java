@@ -22,17 +22,21 @@ public class OrderProductVO {
 		this.pdno = pdno;
 		this.name = name;
 		this.quantity = quantity;
+<<<<<<< HEAD
+=======
+		this.name = name;
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 		this.price = price;
 		this.category = category;
 		this.color_name = color_name;
 		this.size_name = size_name;
 		this.url = url;
 	}
-	public String getOno() {
-		return ono;
+	public String getPno() {
+		return pno;
 	}
-	public void setOno(String ono) {
-		this.ono = ono;
+	public void setPno(String pno) {
+		this.pno = pno;
 	}
 	public String getPno() {
 		return pno;
@@ -46,18 +50,31 @@ public class OrderProductVO {
 	public void setPdno(String pdno) {
 		this.pdno = pdno;
 	}
+<<<<<<< HEAD
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+=======
+	
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+<<<<<<< HEAD
+=======
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 	public int getPrice() {
 		return price;
 	}
@@ -93,7 +110,11 @@ public class OrderProductVO {
 		return "OrderProductVO [ono=" + ono + ", pno=" + pno + ", pdno=" + pdno + ", name=" + name + ", quantity="
 				+ quantity + ", price=" + price + ", category=" + category + ", color_name=" + color_name
 				+ ", size_name=" + size_name + ", url=" + url + "]";
+<<<<<<< HEAD
 	}
 	
 
+=======
+	}
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 }

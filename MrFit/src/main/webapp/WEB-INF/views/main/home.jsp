@@ -134,7 +134,7 @@
 		</div>
 	</div>
 </div>
-
+	<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=1">디테일</a>
 
 <!--end-shoes-->
 <!-- pagingBean -->

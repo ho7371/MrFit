@@ -12,21 +12,23 @@ import org.springframework.stereotype.Repository;
 public class OrderDAOImpl implements OrderDAO {
 	@Resource
 	private SqlSessionTemplate template;
-	
+	/**[현민][11/21][16:07]
+	 * 장바구니 보기 기능
+	 * 회원이 담아놓은 상품을 불러온다
+	 * 회원 아이디로 주문, 주문상품 테이블에서 
+	 * 주문상태가 장바구니로 되어있는 주문 정보를 불러온다
+	 * 그 다음 주문 번호로 상품과 상품상세 정보들을 불러와 set한후 
+	 * List로 반환한다.
+	 */
 	@Override
-	public Map<String, Object> findMyCart(String id) {
+	public List<OrderVO> findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		List<OrderVO> list = template.selectList("order.findMyCart",id);
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list:"+list);
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0) :"+list.get(0));
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0).getOrderProductVO:"+list.get(0).getOrderProductVO());
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0).getOrderProductVO.getPdno:"+list.get(0).getOrderProductVO().getPdno());
-		List<ProductVO> pdList = template.selectList("order.findProductDetailByPdno", list.get(0).getOrderProductVO().getPdno());
-		System.out.println(pdList);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("cart", list);
-		map.put("product", pdList);
-		return map;
+		for (int i = 0; i < list.size(); i++) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
+			list.get(i).setOrderProductList(orderProductList);
+		}
+		return list;
 	}
 	//정현 장바구니 담기 
 	@Override
