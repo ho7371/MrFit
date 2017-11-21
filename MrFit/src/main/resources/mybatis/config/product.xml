@@ -77,6 +77,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rnum between #{startNumber} and #{endNumber}
 		ORDER BY pno DESC   
     </select>
+    <!-- [석환][11.21][ajax 사이즈비교] -->
+    <select id="findProductDetailBySizeAjax" resultType="productSizeVO">
+    SELECT psno,size1, size2, size3, size4, size5
+	FROM product_size
+	WHERE psno=#{value}
+    </select>
 </mapper>
 
 
