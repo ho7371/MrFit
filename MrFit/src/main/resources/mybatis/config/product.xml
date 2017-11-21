@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="findProductDetail" parameterType="string" resultType="productVO">
     	select pno,name,price,content,category from product where pno=#{value}
     </select>
+    
     <!-- 상품 상세정보 ProductDetailVO에 ProductSizeVO가 Has A 관계-->
      <resultMap type="productDetailVO" id="productSizeListRM">
 	<result column="psno" property="productSizeVO.psno"/>
@@ -28,31 +29,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="size4" property="productSizeVO.size4"/>
 	<result column="size5" property="productSizeVO.size5"/>
 	<result column="inventory" property="productSizeVO.inventory"/>
-	</resultMap>   
+	</resultMap>
+	   
     <!--  상품상세정보 중 productDetail List값   -->
     <select id="findProductDetailList" parameterType="string" resultMap="productSizeListRM">
     	SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,ps.inventory
     	FROM  product_detail pd, product_color pc, product_size ps
 		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pno=#{value}
     </select>
+    
     <!--  상품상세정보 중 ImageVO List값 -->
     <select id="findProductImageList" parameterType="string" resultType="imageVO">
     	SELECT i.ino,i.url, i.pno
 		FROM  product p, image i
 		WHERE i.pno=p.pno and p.pno=#{value}
     </select>
+    
     <!-- 상품상세정보 중 SizeVO List값 -->
     <select id="findProductColorList" parameterType="string" resultType="productDetailVO">
     	SELECT distinct pd.pcno,color_name
 		FROM product_color pc, product_detail pd
 		WHERE pd.pcno=pc.pcno and pd.pno=#{value}
     </select>
+    
     <!-- 색상에 맞춰 size리스트를 가지고옴 ajax용 -->
     <select id="findProductListByPcnoAjax" parameterType="string" resultType="productSizeVO">
     	SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,ps.inventory
     	FROM  product_detail pd, product_color pc, product_size ps
 		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{value}  
     </select>
+    
+    <!-- 상품리스트 -->
     <select id="ProductList" parameterType="pagingBean" resultType="productVO">
        SELECT  pno, name, price, content, category 
 		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content from Product)
@@ -61,14 +68,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY pno DESC   
     </select>
     
+    <!-- 상품 개수 -->
     <select id="getTotalProductCount" resultType="int">
     	select count(*) from product
     </select>
     
-     <select id="getCategoryProductCount" parameterType="string" resultType="int">
+    <!-- 카테고리에 따른 상품 개수 -->
+    <select id="getCategoryProductCount" parameterType="string" resultType="int">
     	select count(*) from product where category=#{value}
     </select>
     
+    <!-- 카테고리에 따른 상품 찾기 -->
     <select id="findProductByCategory"  resultType="productVO">
        SELECT  pno, name, price, content, category 
 		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content 
@@ -77,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rnum between #{startNumber} and #{endNumber}
 		ORDER BY pno DESC   
     </select>
+    
 </mapper>
 
 

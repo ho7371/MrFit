@@ -20,7 +20,14 @@ public class OrderController {
 	@Resource
 	private OrderService orderService;
 	
-	
+	/**[현민][11/21][16:10]
+	 * 장바구니 보기 기능
+	 * 회원의 아이디로 회원이 장바구니에 담은 상품들을 불러온다
+	 * 그 후 회원의 정보를 사용할 수 있도록 회원 정보도 set해준다.
+	 * 그 다음 list로 반환 한다.
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("cartForm.do")
 	public ModelAndView cartForm() {
 		System.out.println("   	OrderController/cartForm()/시작");
@@ -37,6 +44,11 @@ public class OrderController {
 		return new ModelAndView("product/myCart.tiles","ovoList",ovoList);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderList.do")
 	public ModelAndView myOrderList(String id) {
@@ -46,6 +58,11 @@ public class OrderController {
 		return new ModelAndView("order/myOrderList.tiles","list",list);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param ono
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
 	public ModelAndView myOrderPrductList(String ono) {

@@ -37,6 +37,10 @@ public class ProductController {
 	 * @return
 	 */
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	// @Secured("ROLE_MEMBER")
 	@RequestMapping("registerProductAction.do")
 	public ModelAndView registerProduct(){
@@ -68,7 +72,7 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
-	/*
+	/* [석환][11/18[]
 	 * 상품 번호로 상품의 상세정보 페이지 이동
 	 */
 	@RequestMapping("findProductDetailByPno.do")
@@ -81,7 +85,8 @@ public class ProductController {
 			mv.addObject("pvo", pvo);	
 		return mv;
 	}
-	/*
+	
+	/* [석환][11/19][]
 	 * 상품 디테일 page에서 pdno를 조건으로 
 	 * 색상별 size를 JSON 형식으로 통신한다
 	 */
@@ -91,6 +96,13 @@ public class ProductController {
  	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pcno);
 		return sizeList;
 	}
+	
+	/**[][][]
+	 * 
+	 * @param psno
+	 * @param pcno
+	 * @return
+	 */
 	@RequestMapping("findProductDetailBySizeAjax.do")
 	@ResponseBody
 	public Object findProductDetailBySizeAjax(String psno,String pcno) {
