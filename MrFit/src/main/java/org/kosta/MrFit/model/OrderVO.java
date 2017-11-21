@@ -1,27 +1,29 @@
 package org.kosta.MrFit.model;
 
+import java.util.List;
+
 public class OrderVO {
 	private String ono;
 	private int totalprice;
+	private String destination;
 	private String ordertime;
 	private String status;
-	private String destination;
 	private MemberVO memberVO;
-	private OrderProductVO orderProductVO;
+	private List<OrderProductVO> orderProductList;
 	public OrderVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public OrderVO(String ono, int totalprice, String ordertime, String status, String destination, MemberVO memberVO,
-			OrderProductVO orderProductVO) {
+	public OrderVO(String ono, int totalprice, String destination, String ordertime, String status, MemberVO memberVO,
+			List<OrderProductVO> orderProductList) {
 		super();
 		this.ono = ono;
 		this.totalprice = totalprice;
+		this.destination = destination;
 		this.ordertime = ordertime;
 		this.status = status;
-		this.destination = destination;
 		this.memberVO = memberVO;
-		this.orderProductVO = orderProductVO;
+		this.orderProductList = orderProductList;
 	}
 	public String getOno() {
 		return ono;
@@ -35,6 +37,12 @@ public class OrderVO {
 	public void setTotalprice(int totalprice) {
 		this.totalprice = totalprice;
 	}
+	public String getDestination() {
+		return destination;
+	}
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
 	public String getOrdertime() {
 		return ordertime;
 	}
@@ -47,31 +55,23 @@ public class OrderVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getDestination() {
-		return destination;
-	}
-	public void setDestination(String destination) {
-		this.destination = destination;
-	}
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
-	public OrderProductVO getOrderProductVO() {
-		return orderProductVO;
+	public List<OrderProductVO> getOrderProductList() {
+		return orderProductList;
 	}
-	public void setOrderProductVO(OrderProductVO orderProductVO) {
-		this.orderProductVO = orderProductVO;
+	public void setOrderProductList(List<OrderProductVO> orderProductList) {
+		this.orderProductList = orderProductList;
 	}
 	@Override
 	public String toString() {
-		return "OrderVO [ono=" + ono + ", totalprice=" + totalprice + ", ordertime=" + ordertime + ", status=" + status
-				+ ", destination=" + destination + ", memberVO=" + memberVO + ", orderProductVO=" + orderProductVO
+		return "OrderVO [ono=" + ono + ", totalprice=" + totalprice + ", destination=" + destination + ", ordertime="
+				+ ordertime + ", status=" + status + ", memberVO=" + memberVO + ", orderProductList=" + orderProductList
 				+ "]";
 	}
-	
-	
 	
 }

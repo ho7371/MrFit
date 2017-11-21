@@ -25,17 +25,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<result column="totalprice" property="totalprice"/>
     	<result column="ordertime" property="ordertime"/>
     	<result column="status" property="status"/>
-    	<result column="pdno" property="orderProductVO.pdno"/>
-       	<result column="quantity" property="orderProductVO.quantity"/>
+    	<!-- <result column="pdno" property="orderproductVO.pdno"/>
+       	<result column="quantity" property="orderproductVO.quantity"/> -->
     </resultMap>
     
     <select id="findMyCart" parameterType="string" resultType="orderVO" resultMap="ORM">
-    	SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status, op.pdno, op.quantity
+    	SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
 		FROM orders o, order_product op, product_detail pd
 		WHERE o.id = #{value} and o.status = '장바구니' and o.ono = op.ono and pd.pdno = op.pdno
     </select>
     
-    <resultMap type="productSizeVO" id="productSizeRM">
+    <resultMap type="orderProductVO" id="OPRM">
+    	<result column="p.pno" property="pno"/>
+    	<result column="pd.pdno" property="pdno"/>
+    	<result column="op.quantity" property="quantity"/>
+    	<result column="p.name" property="name"/>
+    	<result column="p.price" property="price"/>
+    	<result column="p.category" property="category"/>
+    	<result column="pc.color_name" property="color_name"/>
+    	<result column="ps.size_name" property="size_name"/>
+    	<result column="i.url" property="url"/>
+    </resultMap>
+    
+    <select id="findOrderProductInfoByPdnoAndOno" parameterType="string" resultMap="OPRM">
+    	SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name, i.url
+		FROM product_detail pd, product p, product_color pc, product_size ps, order_product op, orders o , image i 
+		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
+		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'main' || '%'
+    </select>
+    
+   <!--  <resultMap type="productSizeVO" id="productSizeRM">
     	<result column="ps.size_name" property="size_type"/>
     </resultMap>
     
@@ -52,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name
 		FROM product_detail pd, product p, product_color pc, product_size ps
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
-    </select>
+    </select> -->
 </mapper>
 
 

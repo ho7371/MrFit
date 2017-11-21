@@ -1,7 +1,7 @@
 package org.kosta.MrFit.model;
 
-import java.util.Map;
+import java.util.List;
 
 public interface OrderService {
-	Map<String, Object> findMyCart(String id);
+	List<OrderVO> findMyCart(String id);
 }

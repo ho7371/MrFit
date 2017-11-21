@@ -1,8 +1,6 @@
 package org.kosta.MrFit.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,19 +12,27 @@ public class OrderDAOImpl implements OrderDAO {
 	private SqlSessionTemplate template;
 	
 	@Override
-	public Map<String, Object> findMyCart(String id) {
+	public List<OrderVO> findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		List<OrderVO> list = template.selectList("order.findMyCart",id);
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list:"+list);
+		System.out.println("                  OrderDAOImpl/findMyCart()/진행 - list :"+list);
+		/*System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list:"+list);
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0) :"+list.get(0));
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0).getOrderProductVO:"+list.get(0).getOrderProductVO());
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - list.get(0).getOrderProductVO.getPdno:"+list.get(0).getOrderProductVO().getPdno());
-		List<ProductVO> pdList = template.selectList("order.findProductDetailByPdno", list.get(0).getOrderProductVO().getPdno());
+*/		/*List<ProductVO> pdList = template.selectList("order.findProductDetailByPdno", list.get(0).getOrderProductVO().getPdno());
 		System.out.println(pdList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cart", list);
-		map.put("product", pdList);
-		return map;
+		map.put("product", pdList);*/
+		for (int i = 0; i < list.size(); i++) {
+			/*Map<String, String> map = new HashMap<String, String>();
+			map.put("pdno", list.get(i).getOrderProductList().get(i).getPdno());
+			map.put("ono", list.get(i).getOno());*/
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
+			list.get(i).setOrderProductList(orderProductList);
+		}
+		return list;
 	}
 
 }
