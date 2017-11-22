@@ -10,7 +10,7 @@
           <h3>My Shopping Bag ( ${requestScope.ovoList.size()} )</h3>
           <script type="text/javascript">
           $(document).ready(function() {
-        	  var quant 	ity=$(".findQuantity").attr("id");
+        	  var quantity=$(".findQuantity").attr("id");
           	$("#updateBtan").click(function() {
           		alert(1);
           		var info="";

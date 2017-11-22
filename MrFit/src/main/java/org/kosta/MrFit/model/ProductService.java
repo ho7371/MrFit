@@ -14,7 +14,7 @@ public interface ProductService {
 	
 	int getTotalProductCount();
 
-	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
+	List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
 
 	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
 

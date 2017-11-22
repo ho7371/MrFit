@@ -1,5 +1,6 @@
 package org.kosta.MrFit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -91,7 +92,7 @@ public class ProductController {
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
 		if(vo!=null) {			
 		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-		List<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+		ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
 		mv.addObject("psglist", psglist);
 		}
 		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
@@ -111,43 +112,9 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
-	public List<ProductSizeVO> findProductDetailByColorAjax(String pcno){
- 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pcno);
+	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+ 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
 		return sizeList;
-	}
-	
-	/**[석환][2017.11.21]
-	 * 상품 사이즈 회원과 비교해서 보내줌
-	 * @param psno
-	 * @param pcno
-	 * @return
-	 */
-	@RequestMapping("findProductDetailBySizeAjax.do")
-	@ResponseBody
-	public ProductSizeVO findProductDetailBySizeAjax(String psno,String pcno,String pno) {
-		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-		ProductSizeVO psvo=productService.findProductDetailBySizeAjax(psno);
-		ProductVO pvo=productService.findProductCategoryByPno(pno);
-		int size1=psvo.getSize1();
-		int size2=psvo.getSize2();
-		int size3=psvo.getSize3();
-		int size4=psvo.getSize4();
-		int size5=psvo.getSize5();
-		if(pvo.getCategory().equals("하의")) {
-			psvo.setSize1(msvo.getWaist()-size1);
-			psvo.setSize2(msvo.getCrotch()-size2);
-			psvo.setSize3(msvo.getThigh()-size3);
-			psvo.setSize4(msvo.getHem()-size4);
-			psvo.setSize5(msvo.getBottomlength()-size5);
-		}else {
-			psvo.setSize1(msvo.getShoulder()-size1);
-			psvo.setSize2(msvo.getChest()-size2);
-			psvo.setSize3(msvo.getSleeve()-size3);
-			psvo.setSize4(msvo.getArmhole()-size4);
-			psvo.setSize5(msvo.getToplength()-size5);
-		}
-		return psvo;
 	}
 	
 	/**[재현][2017.11.21]

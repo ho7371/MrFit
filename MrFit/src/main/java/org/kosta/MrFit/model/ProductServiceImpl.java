@@ -60,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductDetailByColorAjax(pdno);
 	}*/
 	@Override
-		public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-			return productDAO.findProductDetailByColorAjax(pdno);
+		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
@@ -142,8 +142,8 @@ public class ProductServiceImpl implements ProductService {
 				sizeGap1=msvo.getWaist()-psList.get(i).getSize1();
 				sizeGap2=msvo.getCrotch()-psList.get(i).getSize2();
 				sizeGap3=msvo.getThigh()-psList.get(i).getSize3();
-				sizeGap4=msvo.getHem()-psList.get(i).getSize3();
-				sizeGap5=msvo.getBottomlength()-psList.get(i).getSize3();
+				sizeGap4=msvo.getHem()-psList.get(i).getSize4();
+				sizeGap5=msvo.getBottomlength()-psList.get(i).getSize5();
 				if(sizeGap1<=2&&sizeGap1>=-2) {
 					colorGap1="#ffffff";
 				}else if(sizeGap1<=4&&sizeGap1>=-4) {
@@ -193,10 +193,10 @@ public class ProductServiceImpl implements ProductService {
 			////////////////상의,아우터
 			else {
 				sizeGap1=msvo.getShoulder()-psList.get(i).getSize1();
-				sizeGap2=msvo.getChest()-psList.get(i).getSize1();
-				sizeGap3=msvo.getSleeve()-psList.get(i).getSize1();
-				sizeGap4=msvo.getArmhole()-psList.get(i).getSize1();
-				sizeGap5=msvo.getToplength()-psList.get(i).getSize1();
+				sizeGap2=msvo.getChest()-psList.get(i).getSize2();
+				sizeGap3=msvo.getSleeve()-psList.get(i).getSize3();
+				sizeGap4=msvo.getArmhole()-psList.get(i).getSize4();
+				sizeGap5=msvo.getToplength()-psList.get(i).getSize5();
 				if(sizeGap1<=2&&sizeGap1>=-2) {
 					colorGap1="#ffffff";
 				}else if(sizeGap1<=4&&sizeGap1>=-4) {
