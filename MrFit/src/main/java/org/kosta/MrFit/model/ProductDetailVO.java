@@ -6,12 +6,13 @@ public class ProductDetailVO {
 	private String pcno;
 	private String psno;
 	private String color_name;
+	private int inventory;
 	private ProductSizeVO productSizeVO;
 	public ProductDetailVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductDetailVO(String pdno, String pno, String pcno, String psno, String color_name,
+	public ProductDetailVO(String pdno, String pno, String pcno, String psno, String color_name, int inventory,
 			ProductSizeVO productSizeVO) {
 		super();
 		this.pdno = pdno;
@@ -19,6 +20,7 @@ public class ProductDetailVO {
 		this.pcno = pcno;
 		this.psno = psno;
 		this.color_name = color_name;
+		this.inventory = inventory;
 		this.productSizeVO = productSizeVO;
 	}
 	public String getPdno() {
@@ -51,6 +53,12 @@ public class ProductDetailVO {
 	public void setColor_name(String color_name) {
 		this.color_name = color_name;
 	}
+	public int getInventory() {
+		return inventory;
+	}
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
+	}
 	public ProductSizeVO getProductSizeVO() {
 		return productSizeVO;
 	}
@@ -60,8 +68,7 @@ public class ProductDetailVO {
 	@Override
 	public String toString() {
 		return "ProductDetailVO [pdno=" + pdno + ", pno=" + pno + ", pcno=" + pcno + ", psno=" + psno + ", color_name="
-				+ color_name + ", productSizeVO=" + productSizeVO + "]";
+				+ color_name + ", inventory=" + inventory + ", productSizeVO=" + productSizeVO + "]";
 	}
-	
-	
+
 }
