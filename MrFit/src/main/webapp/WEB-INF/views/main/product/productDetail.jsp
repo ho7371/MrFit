@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -267,16 +266,16 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 											<li><span>날짜</span></li>
 											<div class="clearfix"></div>
 										</ul>
-										<c:forEach items="prvolist" var="list">
 										<ul class="cart-header">
+										<c:forEach items="${prvolist}" var="list" >
 											<li><span>리뷰번호=${list.rno}</span></li>
 											<li><span>내용=${list.content }</span></li>
 											<li><span>색상=${list.color_name} | 사이즈=${list.size_name }</span></li>
 											<li><span>아이디=${list.id }</span></li>
 											<li><span>작성일=${list.regdate }</span></li>
 											<div class="clearfix"></div>
-										</ul>
 										</c:forEach>
+										</ul>
 									</div>
 								</div>
 							</div>
