@@ -222,7 +222,6 @@ CREATE TABLE orders (
 	status VARCHAR2(100) NOT NULL,
 	constraint fk_id_in_orders foreign key(id) references member(id)
 );
-<<<<<<< HEAD
 		
 		/* 주문상품 */
 		CREATE TABLE order_product (
@@ -233,7 +232,6 @@ CREATE TABLE orders (
 			constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
 			constraint pk_order_product primary key(ono, pdno)
 		);
-=======
 			
 				/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
 					CREATE TABLE product_color (
@@ -321,4 +319,3 @@ select * from PRODUCT_COLOR;
 select * from PRODUCT_DETAIL;
 select * from ORDER_PRODUCT;
 select * from PRODUCT_SIZE;
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git

@@ -156,6 +156,38 @@ $(window).load(function() {
   });
 });
 </script>
+
+<!--start-single-->
+	<div class="single contact">
+		<div class="container">
+			<div class="single-main">
+				<div class="col-md-9 single-main-left">
+				<div class="sngl-top">
+					<div class="col-md-5 single-top-left">	
+ 						<div class="flexslider" >
+							<ul class="slides">
+								<li data-thumb="images/s1.jpg" >
+									<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s1.jpg" />
+									<button type="button" class="btn btn-info active">1</button>
+									<button type="button" class="btn btn-info active">1</button>
+									<button type="button" class="btn btn-info active">1</button>
+									<button type="button" class="btn btn-info active">1</button>
+						<%--		</li>
+							<li data-thumb="images/s2.jpg">
+									<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
+								</li>
+								<li data-thumb="images/s3.jpg">
+									<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s3.jpg" />
+								</li>
+								<li data-thumb="images/s4.jpg">
+									<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s4.jpg" />
+								</li> --%>
+							</ul> 
+						</div> 
+<!-- FlexSlider -->
+  <script defer src="js/jquery.flexslider.js"></script>
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+
 				</div>
 				<!-- 상품번호 -->
 				<div class="productPno" id="${requestScope.pvo.pno}"></div>	
@@ -204,131 +236,125 @@ $(window).load(function() {
 		<div class="clearfix"></div>
 	<br><br>
 	<div class="memberSize1" id=<sec:authentication property="principal.id"/>>
-	<h3>오차범위</h3>
-	<table class="table table-bordered">
-	<thead>
-	<tr>
-	<th style="background-color:#ffffff;">±2cm</th>
-	<th style="background-color:#ffffb3;">±4cm</th>
-	<th style="background-color:#ffcc99;">±6cm</th>
-	<th style="background-color:#ff471a;">±8cm</th>
-	<th style="background-color:#ff0000;">±8cm이상</th>
-	</tr>
-	</thead>
-	</table>
-	<h3>사이즈비교</h3>
-	<c:choose>
-	<c:when test="${requestScope.pvo.category=='하의'}">
-	<table class="table table-bordered">
-	<thead>
-	<tr>
-	<th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>총기장</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td id="size1"></td><td id="size2"></td><td id="size3"></td><td id="size4"></td><td id="size5"></td>
-	</tr>
-	</tbody>
-	</table>
-	</c:when>
-	<c:otherwise>
-	<table class="table table-bordered">
-	<thead>
-	<tr>
-	<th>어깨</th><th>가슴</th><th>소매</th><th>암홀</th><th>총기장</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-	<td id="size1"></td><td id="size2"></td><td id="size3"></td><td id="size4"></td><td id="size5"></td>
-	</tr>
-	</tbody>
-	</table>
-	</c:otherwise>
-	</c:choose>
+		<h3>오차범위</h3>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="background-color:#ffffff;">±2cm</th>
+					<th style="background-color:#ffffb3;">±4cm</th>
+					<th style="background-color:#ffcc99;">±6cm</th>
+					<th style="background-color:#ff471a;">±8cm</th>
+					<th style="background-color:#ff0000;">±8cm이상</th>
+				</tr>
+			</thead>
+		</table>
+		<h3>사이즈비교</h3>
+		<table class="table table-bordered">
+			<thead>
+				<c:choose>
+					<c:when test="${requestScope.pvo.category=='하의'}">
+						<tr><th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th></tr>
+					</c:when>
+					<c:otherwise>
+						<tr><th>사이즈</th><th>어깨</th><th>가슴</th><th>소매</th><th>암홀</th><th>상의 총기장</th></tr>
+					</c:otherwise>
+				</c:choose>
+			</thead>
+			<tbody>
+				<c:forEach items="" var="">
+					<tr>
+						<td id="sizeName"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	
-					<div class="latest products">
-						<div class="product-one">
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >								
-									<a href="#">
-								<img style="height: 80%; width: auto;" src="${pageContext.request.contextPath}/resources/images/s2.jpg" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-		
-							</div>
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem">
-									<a href="#">
-								<img src="images/shoes-2.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-									<h4>Aenean placerat</h4>
-									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
-									
-								</div>
-							</div>
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem">
-									<a href="#">
-								<img src="images/shoes-3.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-									<h4>Aenean placerat</h4>
-									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="product-one">
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem">
-									<a href="#">
-								<img src="images/shoes-13.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-									<h4>Aenean placerat</h4>
-									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
-								</div>
-							</div>
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem">
-									<a href="#">
-								<img src="images/shoes-5.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-							</a>
-									<h4>Aenean placerat</h4>
-									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
-								</div>
-							</div>
-							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem">
-									<a href="#">
-								<img src="images/shoes-6.png" alt="" />
-								<div class="mask mask1">
-									<span>Quick View</span>
-								</div>
-								</a>
-									<h4>Aenean placerat</h4>
-									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>				
-								</div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
+		<div class="latest products">
+			<div class="product-one">
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >								
+						<a href="#">
+					<img style="height: 80%; width: auto;" src="${pageContext.request.contextPath}/resources/images/s2.jpg" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+				</a>
+
+				</div>
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem">
+						<a href="#">
+					<img src="images/shoes-2.png" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+				</a>
+						<h4>Aenean placerat</h4>
+						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
+						
 					</div>
 				</div>
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem">
+						<a href="#">
+					<img src="images/shoes-3.png" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+				</a>
+						<h4>Aenean placerat</h4>
+						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="product-one">
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem">
+						<a href="#">
+					<img src="images/shoes-13.png" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+				</a>
+						<h4>Aenean placerat</h4>
+						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+					</div>
+				</div>
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem">
+						<a href="#">
+					<img src="images/shoes-5.png" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+				</a>
+						<h4>Aenean placerat</h4>
+						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+					</div>
+				</div>
+				<div class="col-md-4 product-left single-left"> 
+					<div class="p-one simpleCart_shelfItem">
+						<a href="#">
+					<img src="images/shoes-6.png" alt="" />
+					<div class="mask mask1">
+						<span>Quick View</span>
+					</div>
+					</a>
+						<h4>Aenean placerat</h4>
+						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>				
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
 				<!-- <div class="col-md-3 single-right">
 					<h3>Categories</h3>
 					<ul class="product-categories">
@@ -365,8 +391,8 @@ $(window).load(function() {
 						<li><a href="#">1000$-1100$</a> <span class="count">(11)</span></li>
 					</ul>
 				</div> -->
-				<div class="clearfix"> </div>
-			</div>
+			<div class="clearfix"> </div>
 		</div>
 	</div>
+</div>
 	<!--end-single-->

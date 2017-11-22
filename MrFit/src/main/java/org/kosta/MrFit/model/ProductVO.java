@@ -12,7 +12,6 @@ public class ProductVO {
 	private List<ImageVO> imageList;
 	public ProductVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public ProductVO(String pno, String name, int price, String content, String category,
 			List<ProductDetailVO> productDetailList, List<ImageVO> imageList) {
