@@ -139,10 +139,9 @@ public class ProductController {
 	}
 	
 	/**[재현][2017.11.21]
-	 * 상품 리뷰 작성
-	 * @param psno
-	 * @param pcno
-	 * @return
+	 * 상품 리뷰 작성 미완
+	 * @param prvo
+	 * @return 미정
 	 */
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
@@ -151,7 +150,9 @@ public class ProductController {
 		return "";
 	}
 	
-}
+	
+	
+}//class
 
 
 

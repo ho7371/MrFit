@@ -12,8 +12,8 @@ public class ProductReviewVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductReviewVO(String rno, String pdno, String color_name, String size_name, String id,
-			String content, String regdate) {
+	public ProductReviewVO(String rno, String pdno, String color_name, String size_name, String id, String content,
+			String regdate) {
 		super();
 		this.rno = rno;
 		this.pdno = pdno;
@@ -23,10 +23,10 @@ public class ProductReviewVO {
 		this.content = content;
 		this.regdate = regdate;
 	}
-	public String getReview_no() {
+	public String getRno() {
 		return rno;
 	}
-	public void setReview_no(String rno) {
+	public void setRno(String rno) {
 		this.rno = rno;
 	}
 	public String getPdno() {
@@ -67,9 +67,8 @@ public class ProductReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "ProductReviewVO [rno=" + rno + ", pdno=" + pdno + ", color_name=" + color_name
-				+ ", size_name=" + size_name + ", id=" + id + ", content=" + content + ", regdate=" + regdate + "]";
+		return "ProductReviewVO [rno=" + rno + ", pdno=" + pdno + ", color_name=" + color_name + ", size_name="
+				+ size_name + ", id=" + id + ", content=" + content + ", regdate=" + regdate + "]";
 	}
-		
 	
 }
