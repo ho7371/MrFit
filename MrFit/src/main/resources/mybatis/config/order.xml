@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and  i.url like 'main%'
  	</select>
     
-    <resultMap type="productVO" id="PRM" >
+    <resultMap type="productVO" id="PRM">
     	<result column="pc.color_name" property="productDetailVO.color"/>
        	<result column="ps.size_name" property="productDetailVO.productSizeVO.size_type"/>
     </resultMap>

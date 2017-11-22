@@ -94,6 +94,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM product_size
 		WHERE psno=#{value}
     </select>
+    
+    <select id="findProductReplyByPno" parameterType="string" resultType="productReviewVO">
+    	select r.rno, pd.pno, pc.color_name, ps.size_name, r.id, r.content, r.regdate 
+		from review r, 
+			(select pdno,pno,pcno,psno from product_detail) pd, 
+			(select pcno,color_name from product_color) pc, 
+			(select psno,size_name from product_size) ps
+		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) and pd.pno=#{value}
+    </select>
+    
+    <insert id="registerProductReview">
+    	insert into review values (review_seq.nextval, #{pdno}, #{id},#{content},sysdate )
+    </insert>
+    
+    
 </mapper>
 
 

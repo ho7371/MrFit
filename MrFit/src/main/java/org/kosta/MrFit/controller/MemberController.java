@@ -50,6 +50,11 @@ public class MemberController {
 	 * @return
 	 */
 	
+	/**
+	 * 아이디로 멤버객체를 리턴받는 메서드
+	 * 
+	 * @return
+	 */
 	@RequestMapping("findMemberById.do")
 	public ModelAndView findMemberById(String id) {
 		System.out.println("   	MemberController/findMemberById()/시작");

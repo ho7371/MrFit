@@ -133,4 +133,31 @@ public class ProductDAOImpl implements ProductDAO {
 	public ProductVO findProductCategoryByPno(String pno) {
 		return template.selectOne("product.findProductDetail", pno);
 	}
+
+/*   @Override
+   public ProductVO findProductDtailByPno(String pno) {   
+      ProductVO pvo=null;
+      pvo=template.selectOne("product.findProductDetail", pno);
+      
+      return pvo;
+   }*/
+ 
+	/** [재현][1122][]
+	 *  상품상세에서 리뷰 불러오기
+	 */
+	@Override
+	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+		return template.selectList("product.findProductReplyByPno", pno);
+	}
+	
+	/** [재현][1122][]
+	 *  상품리뷰 작성
+	 */
+	@Override
+	public void registerProductReview(ProductReviewVO prvo) {
+		template.insert("product.registerProductReview", prvo);
+		
+	}
+
 }
+
