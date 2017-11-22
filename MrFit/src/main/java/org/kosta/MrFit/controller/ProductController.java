@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.ProductDAO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
+import org.kosta.MrFit.model.ProductSizeGapVO;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,8 @@ public class ProductController {
 	private ProductService productService;
 	@Resource
 	private MemberService memberService;
+	@Resource
+	private ProductDAO productDAO;
 	private String uploadPath;
 
 	/** 코드 작성 규칙
@@ -83,13 +87,21 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
-     	List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
+		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
+		if(vo!=null) {			
+		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
+		List<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+		mv.addObject("psglist", psglist);
+		}
+		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
      	// 해당 상품 리뷰 불러오는 메서드
 		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
 			mv.setViewName("product/productDetail.tiles");
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 			mv.addObject("prvolist", prvolist);
+			mv.addObject("psList", psList);
 		return mv;
 	}
 	

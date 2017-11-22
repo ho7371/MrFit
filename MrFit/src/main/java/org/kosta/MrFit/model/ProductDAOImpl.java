@@ -158,6 +158,12 @@ public class ProductDAOImpl implements ProductDAO {
 		template.insert("product.registerProductReview", prvo);
 		
 	}
-
+	/*
+	 * [석환][11.22][치수차이]
+	 */
+	@Override
+	public List<ProductSizeVO> sizeGapMemberAndProduct(String pno){
+		return template.selectList("product.sizeGapMemberAndProduct", pno);
+	}
 }
 

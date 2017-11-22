@@ -31,5 +31,7 @@ public interface ProductDAO {
 
 	void registerProductReview(ProductReviewVO prvo);
 
+	List<ProductSizeVO> sizeGapMemberAndProduct(String pno);
+
 
 }

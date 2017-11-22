@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public interface ProductService {
 	List<ProductReviewVO> findProductReplyByPno(String pno);
 
 	void registerProductReview(ProductReviewVO prvo);
+
+	ArrayList<ProductSizeGapVO> sizeGapMemberAndProduct(String pno, MemberSizeVO msvo, String pvo);
 
 
 }

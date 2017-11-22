@@ -127,7 +127,9 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 		});
 	});
 </script>
-
+${requestScope.psglist}
+<br><br>
+${requestScope.pvo }
 <!--start-single-->
 <div class="single contact">
 	<div class="container">
@@ -236,16 +238,18 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 								</c:choose>
 							</thead>
 							<tbody>
-								<%-- <c:forEach items="" var="">
+						<%-- 		 <c:forEach items="${requestScope.psglist}" var="psglist" varStatus="i"> --%>
+								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
-										<td id="sizeName"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${psList.size_name}</td>
+										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}/${i.index}</td>
+										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}/${i.index}</td>
+										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}/${i.index}</td>
+										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}/${i.index}</td>
+										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}/${i.index}</td>
 									</tr>
-								</c:forEach> --%>
+							<%-- 		</c:forEach> --%>
+								</c:forEach> 
 							</tbody>
 						</table>
 					</div>
