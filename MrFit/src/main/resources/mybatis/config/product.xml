@@ -28,7 +28,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="size3" property="productSizeVO.size3"/>
 	<result column="size4" property="productSizeVO.size4"/>
 	<result column="size5" property="productSizeVO.size5"/>
-	<result column="inventory" property="productSizeVO.inventory"/>
 	</resultMap>
 	   
     <!--  상품상세정보 중 productDetail List값   -->

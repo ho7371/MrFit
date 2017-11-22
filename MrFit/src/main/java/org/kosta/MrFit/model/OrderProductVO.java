@@ -28,6 +28,13 @@ public class OrderProductVO {
 		this.size_name = size_name;
 		this.url = url;
 	}
+	
+	public String getOno() {
+		return ono;
+	}
+	public void setOno(String ono) {
+		this.ono = ono;
+	}
 	public String getPno() {
 		return pno;
 	}

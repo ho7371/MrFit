@@ -10,7 +10,7 @@
           <h3>My Shopping Bag ( ${requestScope.ovoList.size()} )</h3>
           <script type="text/javascript">
           $(document).ready(function() {
-        	  var quantity=$(".findQuantity").attr("id");
+        	  var quant 	ity=$(".findQuantity").attr("id");
           	$("#updateBtan").click(function() {
           		alert(1);
           		var info="";
@@ -56,6 +56,14 @@
                   });     
                });
             </script>
+            <script type="text/javascript">
+            	$(document).ready(function() {
+					$("#orderForm").click(function() {
+						return confirm("상품을 주문하시겠습니까?");
+					}); //click
+				}); // ready
+            </script>
+
          <div class="in-check" align="center">
              
             <ul class="unit">
@@ -84,13 +92,15 @@
 						</span></li>
 						<span class="findQuantity" id="${j.quantity}"></span>
 				  </c:forEach>
-					 <li><span>${i.totalprice}</span></li>
+						<li><span>${i.totalprice}</span></li>
+						
 						   <li id="updateGround">
 					     	<a href="#" class="add-cart cart-check" id="updateBtan">수정하기</a>
 						</li>						
                <div class="clearfix"> </div>
             </ul>
             </c:forEach>
+            <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
             <%-- <ul class=" cart-header1">
                <div class="close2"> </div>
                   <li class="ring-in"><a href="single.html" >
