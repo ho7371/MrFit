@@ -21,7 +21,7 @@
 					</div>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="#">
+							<a href="${pageContext.request.contextPath}/adminProductList.do">
 								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
 								<p>상품 관리</p>
 							</a>

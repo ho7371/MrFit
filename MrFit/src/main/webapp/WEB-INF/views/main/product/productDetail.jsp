@@ -411,7 +411,7 @@ if (data.size5<2&&data.size5> - 2) {
 											<li><span>날짜</span></li>
 											<div class="clearfix"></div>
 										</ul>
-										<c:forEach items="prvolist" var="list">
+										<c:forEach items="${prvolist}" var="list">
 										<ul class="cart-header">
 											<li><span>리뷰번호=${list.rno}</span></li>
 											<li><span>내용=${list.content }</span></li>
