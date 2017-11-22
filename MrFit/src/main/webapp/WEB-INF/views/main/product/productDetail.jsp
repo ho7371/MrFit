@@ -410,14 +410,14 @@ if (data.size5<2&&data.size5> - 2) {
 						<tbody>
 							<c:forEach items="prvolist" var="list">
 								<tr>
-									<td>${list.review_no }</td>
+									<td>${list.rno }</td>
 									<td>${list.color_name}</td>
 									<td>${list.size_name }</td>
-									<td>${id }</td>
-									<td>${regdate }</td>
+									<td>${list.id }</td>
+									<td>${list.regdate }</td>
 								</tr>
 								<tr>
-									<td>${content }</td>
+									<td>${list.content }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
