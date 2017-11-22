@@ -397,31 +397,36 @@ if (data.size5<2&&data.size5> - 2) {
 
 
 					<!-- review table -->
-					<table>
-						<thead>
-							<tr>
-								<th>리뷰번호</th>
-								<th>색상명</th>
-								<th>사이즈명</th>
-								<th>작성자</th>
-								<th>날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="prvolist" var="list">
-								<tr>
-									<td>${list.rno }</td>
-									<td>${list.color_name}</td>
-									<td>${list.size_name }</td>
-									<td>${list.id }</td>
-									<td>${list.regdate }</td>
-								</tr>
-								<tr>
-									<td>${list.content }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<div class="ckeckout">
+						<div class="container">
+							<div class="ckeckout-top">
+								<div class=" cart-items heading">
+									<h3>상품리뷰</h3>
+									<div class="in-check">
+										<ul class="unit">
+											<li><span>리뷰번호</span></li>
+											<li><span>내용</span></li>
+											<li><span>색상 / 사이즈</span></li>
+											<li><span>작성자</span></li>
+											<li><span>날짜</span></li>
+											<div class="clearfix"></div>
+										</ul>
+										<c:forEach items="prvolist" var="list">
+										<ul class="cart-header">
+											<li><span>리뷰번호=${list.rno}</span></li>
+											<li><span>내용=${list.content }</span></li>
+											<li><span>색상=${list.color_name} | 사이즈=${list.size_name }</span></li>
+											<li><span>아이디=${list.id }</span></li>
+											<li><span>작성일=${list.regdate }</span></li>
+											<div class="clearfix"></div>
+										</ul>
+										</c:forEach>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 
 					<div class="latest products">
 						<div class="product-one">
@@ -514,42 +519,7 @@ if (data.size5<2&&data.size5> - 2) {
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-md-3 single-right">
-				<h3>Categories</h3>
-				<ul class="product-categories">
-				<li><a href="#">Blucher Shoe</a> <span class="count">(14)</span></li>
-				<li><a href="#">Clog Shoe</a> <span class="count">(2)</span></li>
-				<li><a href="#">Snow Boot Shoe</a> <span class="count">(2)</span></li>
-				<li><a href="#">Galesh Shoe</a> <span class="count">(11)</span></li>
-				<li><a href="#">pataugas Shoe</a> <span class="count">(3)</span></li>
-				<li><a href="#">Jazz Shoe</a> <span class="count">(3)</span></li>
-				</ul>
-				<h3>Colors</h3>
-				<ul class="product-categories">
-				<li><a href="#">Green</a> <span class="count">(14)</span></li>
-				<li><a href="#">Blue</a> <span class="count">(2)</span></li>
-				<li><a href="#">Red</a> <span class="count">(2)</span></li>
-				<li><a href="#">Gray</a> <span class="count">(8)</span></li>
-				<li><a href="#">Green</a> <span class="count">(11)</span></li>
-				<li><a href="#">Yellow</a> <span class="count">(2)</span></li>
-				</ul>
-				<h3>Sizes</h3>
-				<ul class="product-categories">
-				<li><a href="#">5.5</a> <span class="count">(14)</span></li>
-				<li><a href="#">6</a> <span class="count">(2)</span></li>
-				<li><a href="#">6.5</a> <span class="count">(2)</span></li>
-				<li><a href="#">7</a> <span class="count">(8)</span></li>
-				<li><a href="#">7.5</a> <span class="count">(11)</span></li>
-				</ul>
-				<h3>Price</h3>
-				<ul class="product-categories p1">
-				<li><a href="#">600$-700$</a> <span class="count">(14)</span></li>
-				<li><a href="#">700$-800$</a> <span class="count">(2)</span></li>
-				<li><a href="#">800$-900$</a> <span class="count">(2)</span></li>
-				<li><a href="#">900$-1000$</a> <span class="count">(8)</span></li>
-				<li><a href="#">1000$-1100$</a> <span class="count">(11)</span></li>
-				</ul>
-				</div> -->
+					
 					<div class="clearfix"></div>
 				</div>
 			</div>

@@ -10,6 +10,7 @@ import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -50,27 +51,11 @@ public class HomeController {
 			return "home.tiles";
 		}
 	}
-	
-	/*@RequestMapping("{viewName}.do")
-	public String showView(@PathVariable String viewName){
-		return viewName+".tiles";
-	}
-	
-	@RequestMapping("{dirName}/{viewName}.do")
-	public String showView(@PathVariable String dirName,@PathVariable String viewName){
-		return dirName+"/"+viewName+".tiles";
-	}	*/
-	
-	@RequestMapping("contact.do")
-	public String contact(){
-		System.out.println("      HomeController/contact()/시작");
-		System.out.println("      HomeController/contact()/종료");
-		return "contact.tiles";
-	}
-	
+
 	@RequestMapping("notice.do")
 	public String notice(){
 		System.out.println("      HomeController/notice()/시작");
+		// 공지사항 불러오는 빽단 작업 코드 필요
 		System.out.println("      HomeController/notice()/종료");
 		return "board/notice.tiles";
 	}
@@ -78,6 +63,7 @@ public class HomeController {
 	@RequestMapping("inquiry.do")
 	public String inquiry(){
 		System.out.println("      HomeController/inquiry()/시작");
+		// 고객문의 불러오는 빽단 작업 코드 필요
 		System.out.println("      HomeController/inquiry()/종료");
 		return "board/inquiry.tiles";
 	}
@@ -85,8 +71,20 @@ public class HomeController {
 	@RequestMapping("note.do")
 	public String note(){
 		System.out.println("      HomeController/note()/시작");
+		// 쪽지함 불러오는 빽단 작업 코드 필요
 		System.out.println("      HomeController/note()/종료");
 		return "board/note.tiles";
+	}
+	
+	
+		/* 단순 페이지 맵핑 */
+	@RequestMapping("{viewName}.do")
+	public String showView(@PathVariable String viewName){
+		return viewName+".tiles";
+	}	/* 단순 페이지 맵핑 */
+	@RequestMapping("{dirName}/{viewName}.do")
+	public String showView(@PathVariable String dirName,@PathVariable String viewName){
+		return dirName+"/"+viewName+".tiles";
 	}
 	
 }
