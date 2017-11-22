@@ -8,257 +8,114 @@
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="screen" />
 <script type="text/javascript">
-$(document)
-.ready(
-	function() {
+$(document).ready(function() {
 		alert($(".memberSize1").attr("id"));
 		alert($(".quick_desc").attr("id"));
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
 		//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
-		$("#colorCheck")
-			.change(
-					function() {
+		$("#colorCheck").change(function() {
 						pcno = $(this).val();
 						if ($(this).val() == 0) {
 							return false;
-}
-	$("#slsSize").html("");
-	$
-			.ajax({
+		}
+		$("#slsSize").html("");
+		$.ajax({
 				type : "get",
 				url : "${pageContext.request.contextPath}/findProductDetailByColorAjax.do",
 				dataType : "json",
-				data : "pcno="
-						+ $(this).val(),
+				data : "pcno="+ $(this).val(),
 				success : function(data) {
 					var infoSize = "";
-	infoSize = "<h3>사이즈</h3>"
-	infoSize += "<select id='sizeSelectAjax'>";
-infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
-infoSize += "<option>-----------------------------------------</option>";
-for (var i = 0; i < data.length; i++) {
-	infoSize += "<option value='"
-infoSize+=data[i].psno;
-infoSize+="'>";
-										infoSize += "Size : "
-												+ data[i].size_name;
-										infoSize += "</option>";
-									}
-									infoSize += "</select>";
-									$("#slsSize")
-											.append(
-													infoSize);
-								}//success
-							});//ajax
-				});//change
+						infoSize = "<h3>사이즈</h3>"
+						infoSize += "<select id='sizeSelectAjax'>";
+						infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
+						infoSize += "<option>-----------------------------------------</option>";
+					for (var i = 0; i < data.length; i++) {
+						infoSize += "<option value='"
+						infoSize+=data[i].psno;
+						infoSize+="'>";
+						infoSize += "Size : "+data[i].size_name;
+						infoSize += "</option>";
+					}
+						infoSize += "</select>";
+						$("#slsSize").append(infoSize);
+				}//success
+		});//ajax
+	});//change
 
 // 동적으로 생긴 사이즈 와 회원의 사이즈를 비교하기 위한 On 이벤트 
-$("#slsSize")
-		.on(
-					"change",
-					"#sizeSelectAjax",
-					function() {
+$("#slsSize").on("change","#sizeSelectAjax",function() {
 						alert($(this).val());
-						$
-								.ajax({
-type : "get",
-url : "${pageContext.request.contextPath}/findProductDetailBySizeAjax.do",
-dataType : "json",
-data : "psno="
-		+ $(this).val()
-						+ "&pcno="
-						+ pcno
-						+ "&pno=" + pno,
-				success : function(data) {
-					//size1
-					if (data.size1<2&&data.size1> - 2) {
-						$("#size1")
-								.text(
-										data.size1)
-								.css(
-										"background-color",
-										"#ffffff");
-} else if (data.size1<4&&data.size1> - 4) {
-	$("#size1")
-			.text(
-					data.size1)
-			.css(
-					"background-color",
-														"#ffffb3");
-									} else if (data.size1<6&&data.size1> - 6) {
-										$("#size1")
-												.text(
-														data.size1)
-												.css(
-														"background-color",
-														"#ffcc99");
-									} else if (data.size1<8&&data.size1> - 8) {
-										$("#size1")
-												.text(
-														data.size1)
-												.css(
-														"background-color",
-														"#ff471a");
-									} else {
-										$("#size1")
-												.text(
-					data.size1)
-			.css(
-					"background-color",
-					"#ff0000");
-}
+					$.ajax({
+							type : "get",
+							url : "${pageContext.request.contextPath}/findProductDetailBySizeAjax.do",
+							dataType : "json",
+							data : "psno="+ $(this).val()+ "&pcno="+ pcno+ "&pno=" + pno,
+						success : function(data) {
+//size1
+						if (data.size1<2&&data.size1> - 2) {
+							$("#size1").text(data.size1).css("background-color","#ffffff");
+						} else if (data.size1<4&&data.size1> - 4) {
+							$("#size1").text(data.size1).css("background-color","#ffffb3");
+						} else if (data.size1<6&&data.size1> - 6) {
+							$("#size1").text(data.size1).css("background-color","#ffcc99");
+						} else if (data.size1<8&&data.size1> - 8) {
+							$("#size1").text(data.size1).css("background-color","#ff471a");
+						} else {
+							$("#size1").text(data.size1).css("background-color","#ff0000");
+						}
 //size2
-					if (data.size2<2&&data.size2> - 2) {
-						$("#size2")
-								.text(
-										data.size2)
-								.css(
-										"background-color",
-										"#ffffff");
-					} else if (data.size2<4&&data.size2> - 4) {
-						$("#size2")
-								.text(
-					data.size2)
-												.css(
-														"background-color",
-														"#ffffb3");
-									} else if (data.size2<6&&data.size2> - 6) {
-										$("#size2")
-					.text(
-							data.size2)
-					.css(
-							"background-color",
-							"#ffcc99");
-		} else if (data.size2<8&&data.size2> - 8) {
-			$("#size2")
-					.text(
-							data.size2)
-					.css(
-							"background-color",
-							"#ff471a");
-		} else {
-			$("#size2")
-										.text(
-												data.size2)
-										.css(
-												"background-color",
-												"#ff0000");
-							}
-							//size3
-							if (data.size3<2&&data.size3> - 2) {
-$("#size3")
-									.text(
-											data.size3)
-									.css(
-											"background-color",
-											"#ffffff");
+						if (data.size2<2&&data.size2> - 2) {
+							$("#size2").text(data.size2).css("background-color","#ffffff");
+						} else if (data.size2<4&&data.size2> - 4) {
+							$("#size2").text(data.size2).css("background-color","#ffffb3");
+						} else if (data.size2<6&&data.size2> - 6) {
+							$("#size2").text(data.size2).css("background-color","#ffcc99");
+						} else if (data.size2<8&&data.size2> - 8) {
+							$("#size2").text(data.size2).css("background-color","#ff471a");
+						} else {
+							$("#size2").text(data.size2).css("background-color","#ff0000");
+						}
+//size3
+						if (data.size3<2&&data.size3> - 2) {
+							$("#size3").text(data.size3).css("background-color","#ffffff");
 						} else if (data.size3<4&&data.size3> - 4) {
-							$("#size3")
-									.text(
-											data.size3)
-									.css(
-											"background-color",
-											"#ffffb3");
+							$("#size3").text(data.size3).css("background-color","#ffffb3");
 						} else if (data.size3<6&&data.size3> - 6) {
-							$("#size3")
-									.text(
-		data.size3)
-								.css(
-										"background-color",
-										"#ffcc99");
-					} else if (data.size3<8&&data.size3> - 8) {
-						$("#size3")
-								.text(
-										data.size3)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size3")
-								.text(
-										data.size3)
-								.css(
-										"background-color",
-										"#ff0000");
-					}
-				//size4
-				if (data.size4<2&&data.size4> - 2) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-									"#ffffff");
-				} else if (data.size4<4&&data.size4> - 4) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-									"#ffffb3");
-				} else if (data.size4<6&&data.size4> - 6) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-"#ffcc99");
-					} else if (data.size4<8&&data.size4> - 8) {
-						$("#size4")
-								.text(
-										data.size4)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size4")
-								.text(
-										data.size4)
-								.css(
-										"background-color",
-										"#ff0000");
-					}
+							$("#size3").text(data.size3).css("background-color","#ffcc99");
+						} else if (data.size3<8&&data.size3> - 8) {
+							$("#size3").text(data.size3).css("background-color","#ff471a");
+						} else {
+							$("#size3").text(data.size3).css("background-color","#ff0000");
+						}
+//size4
+						if (data.size4<2&&data.size4> - 2) {
+							$("#size4").text(data.size4).css("background-color","#ffffff");
+						} else if (data.size4<4&&data.size4> - 4) {
+							$("#size4").text(data.size4).css("background-color","#ffffb3");
+						} else if (data.size4<6&&data.size4> - 6) {
+							$("#size4").text(data.size4).css("background-color","#ffcc99");
+						} else if (data.size4<8&&data.size4> - 8) {
+							$("#size4").text(data.size4).css("background-color","#ff471a");
+						} else {
+							$("#size4").text(data.size4).css("background-color","#ff0000");
+						}
 //size5
-if (data.size5<2&&data.size5> - 2) {
-										$("#size5")
-												.text(
-														data.size5)
-												.css(
-														"background-color",
-														"#ffffff");
-		} else if (data.size5<4&&data.size5> - 4) {
-			$("#size5")
-					.text(
-												data.size5)
-										.css(
-												"background-color",
-												"#ffffb3");
-							} else if (data.size5<6&&data.size5> - 6) {
-								$("#size5")
-										.text(
-												data.size5)
-										.css(
-												"background-color",
-												"#ffcc99");
-		} else if (data.size5<8&&data.size5> - 8) {
-			$("#size5")
-												.text(
-										data.size5)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size5")
-								.text(
-										data.size5)
-								.css(
-										"background-color",
-										"#ff0000");
-					}
-				}//success
-			});//ajax
+						if (data.size5<2&&data.size5> - 2) {
+							$("#size5").text(data.size5).css("background-color","#ffffff");
+						} else if (data.size5<4&&data.size5> - 4) {
+							$("#size5").text(data.size5).css("background-color","#ffffb3");
+						} else if (data.size5<6&&data.size5> - 6) {
+							$("#size5").text(data.size5).css("background-color","#ffcc99");
+						} else if (data.size5<8&&data.size5> - 8) {
+							$("#size5").text(data.size5).css("background-color","#ff471a");
+						} else {
+							$("#size5").text(data.size5).css("background-color","#ff0000");
+						}
+			}//success
+		});//ajax
 });//on 이벤트
 });//ready
 </script>
@@ -342,8 +199,7 @@ if (data.size5<2&&data.size5> - 2) {
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" /> <input type="submit"
-									value="즉시구매" />
+								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
 					</div>
@@ -381,7 +237,7 @@ if (data.size5<2&&data.size5> - 2) {
 								</c:choose>
 							</thead>
 							<tbody>
-								<c:forEach items="" var="">
+								<%-- <c:forEach items="" var="">
 									<tr>
 										<td id="sizeName"></td>
 										<td></td>
@@ -390,38 +246,43 @@ if (data.size5<2&&data.size5> - 2) {
 										<td></td>
 										<td></td>
 									</tr>
-								</c:forEach>
+								</c:forEach> --%>
 							</tbody>
 						</table>
 					</div>
 
 
 					<!-- review table -->
-					<table>
-						<thead>
-							<tr>
-								<th>리뷰번호</th>
-								<th>색상명</th>
-								<th>사이즈명</th>
-								<th>작성자</th>
-								<th>날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="prvolist" var="list">
-								<tr>
-									<td>${list.rno }</td>
-									<td>${list.color_name}</td>
-									<td>${list.size_name }</td>
-									<td>${list.id }</td>
-									<td>${list.regdate }</td>
-								</tr>
-								<tr>
-									<td>${list.content }</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<div class="ckeckout">
+						<div class="container">
+							<div class="ckeckout-top">
+								<div class=" cart-items heading">
+									<h3>상품리뷰</h3>
+									<div class="in-check">
+										<ul class="unit">
+											<li><span>리뷰번호</span></li>
+											<li><span>내용</span></li>
+											<li><span>색상 / 사이즈</span></li>
+											<li><span>작성자</span></li>
+											<li><span>날짜</span></li>
+											<div class="clearfix"></div>
+										</ul>
+										<c:forEach items="prvolist" var="list">
+										<ul class="cart-header">
+											<li><span>리뷰번호=${list.rno}</span></li>
+											<li><span>내용=${list.content }</span></li>
+											<li><span>색상=${list.color_name} | 사이즈=${list.size_name }</span></li>
+											<li><span>아이디=${list.id }</span></li>
+											<li><span>작성일=${list.regdate }</span></li>
+											<div class="clearfix"></div>
+										</ul>
+										</c:forEach>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 
 					<div class="latest products">
 						<div class="product-one">
@@ -514,42 +375,7 @@ if (data.size5<2&&data.size5> - 2) {
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-md-3 single-right">
-				<h3>Categories</h3>
-				<ul class="product-categories">
-				<li><a href="#">Blucher Shoe</a> <span class="count">(14)</span></li>
-				<li><a href="#">Clog Shoe</a> <span class="count">(2)</span></li>
-				<li><a href="#">Snow Boot Shoe</a> <span class="count">(2)</span></li>
-				<li><a href="#">Galesh Shoe</a> <span class="count">(11)</span></li>
-				<li><a href="#">pataugas Shoe</a> <span class="count">(3)</span></li>
-				<li><a href="#">Jazz Shoe</a> <span class="count">(3)</span></li>
-				</ul>
-				<h3>Colors</h3>
-				<ul class="product-categories">
-				<li><a href="#">Green</a> <span class="count">(14)</span></li>
-				<li><a href="#">Blue</a> <span class="count">(2)</span></li>
-				<li><a href="#">Red</a> <span class="count">(2)</span></li>
-				<li><a href="#">Gray</a> <span class="count">(8)</span></li>
-				<li><a href="#">Green</a> <span class="count">(11)</span></li>
-				<li><a href="#">Yellow</a> <span class="count">(2)</span></li>
-				</ul>
-				<h3>Sizes</h3>
-				<ul class="product-categories">
-				<li><a href="#">5.5</a> <span class="count">(14)</span></li>
-				<li><a href="#">6</a> <span class="count">(2)</span></li>
-				<li><a href="#">6.5</a> <span class="count">(2)</span></li>
-				<li><a href="#">7</a> <span class="count">(8)</span></li>
-				<li><a href="#">7.5</a> <span class="count">(11)</span></li>
-				</ul>
-				<h3>Price</h3>
-				<ul class="product-categories p1">
-				<li><a href="#">600$-700$</a> <span class="count">(14)</span></li>
-				<li><a href="#">700$-800$</a> <span class="count">(2)</span></li>
-				<li><a href="#">800$-900$</a> <span class="count">(2)</span></li>
-				<li><a href="#">900$-1000$</a> <span class="count">(8)</span></li>
-				<li><a href="#">1000$-1100$</a> <span class="count">(11)</span></li>
-				</ul>
-				</div> -->
+					
 					<div class="clearfix"></div>
 				</div>
 			</div>
