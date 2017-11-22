@@ -119,49 +119,49 @@ insert into product_color(pcno, color_name)	values(7,'SKY');
 
 ------------- 상품 치수 추가
 
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(1,'S',42,51,63,23,71,150);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(2,'M',44,53,64,24,72,160);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(3,'L',46,55,66,26,74,170);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(4,'M',42,51,63,23,71,180);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(5,'L',44,53,64,24,72,190);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(6,'XL',46,55,66,26,74,200);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(7,'XS',42,51,63,23,71,210);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(8,'S',44,53,64,24,72,220);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(9,'M',46,55,66,26,74,230);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(10,'L',46,55,66,26,74,240);
-insert into product_size(psno,size_name,size1,size2,size3,size4,size5,inventory)
-	values(11,'XL',46,55,66,26,74,250);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(1,'S',42,51,63,23,71);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(2,'M',44,53,64,24,72);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(3,'L',46,55,66,26,74);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(4,'M',42,51,63,23,71);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(5,'L',44,53,64,24,72);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(6,'XL',46,55,66,26,74);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(7,'XS',42,51,63,23,71);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(8,'S',44,53,64,24,72);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(9,'M',46,55,66,26,74);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(10,'L',46,55,66,26,74);
+insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(11,'XL',46,55,66,26,74);
 
 ------------- 상품 상세 정보 추가
 
-insert into product_detail(pdno,pno,pcno,psno) values(1, 1, 1, 1);
-insert into product_detail(pdno,pno,pcno,psno) values(2, 1, 1, 2);
-insert into product_detail(pdno,pno,pcno,psno) values(3, 1, 1, 3);
-insert into product_detail(pdno,pno,pcno,psno) values(4, 1, 2, 1);
-insert into product_detail(pdno,pno,pcno,psno) values(5, 1, 2, 2);
-insert into product_detail(pdno,pno,pcno,psno) values(6, 1, 2, 3);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(1, 1, 1, 1,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(2, 1, 1, 2,160);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(3, 1, 1, 3,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(4, 1, 2, 1,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(5, 1, 2, 2,160);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(6, 1, 2, 3,150);
 --2번째 상품 
-insert into product_detail(pdno,pno,pcno,psno) values(7, 2, 3, 1);
-insert into product_detail(pdno,pno,pcno,psno) values(8, 2, 3, 2);
-insert into product_detail(pdno,pno,pcno,psno) values(9, 2, 3, 3);
-insert into product_detail(pdno,pno,pcno,psno) values(10, 2, 3, 4);
-insert into product_detail(pdno,pno,pcno,psno) values(11, 2, 3, 5);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(7, 2, 3, 1,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(8, 2, 3, 2,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(9, 2, 3, 3,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(10, 2, 3, 4,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(11, 2, 3, 5,150);
 --3번째 상품
-insert into product_detail(pdno,pno,pcno,psno) values(12, 3, 1, 4);
-insert into product_detail(pdno,pno,pcno,psno) values(13, 3, 3, 5);
-insert into product_detail(pdno,pno,pcno,psno) values(14, 3, 5, 5);
-insert into product_detail(pdno,pno,pcno,psno) values(15, 3, 6, 5);
-insert into product_detail(pdno,pno,pcno,psno) values(16, 3, 7, 5);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(12, 3, 1, 4,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(13, 3, 3, 5,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(14, 3, 5, 5,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(15, 3, 6, 5,190);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(16, 3, 7, 5,150);
 
 -----------------------------------------------------------------------
 -----------------------------------------------------------------------
@@ -231,29 +231,29 @@ insert into image(ino,pno,url) values(10,5,'main/racoon.jpg');
 
 --------------- 주문
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(1,60000,sysdate,'장바구니','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(1,60000,sysdate,'장바구니','java', '기본주소');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(2,12000,sysdate,'장바구니','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(2,12000,sysdate,'장바구니','spring', '기본주소');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(3,20000,sysdate,'입금대기','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(3,20000,sysdate,'입금대기','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(4,16000,sysdate,'입금대기','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(4,16000,sysdate,'입금대기','spring', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(5,30000,sysdate,'배송중','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(5,30000,sysdate,'배송중','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(6,23000,sysdate,'배송중','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(6,23000,sysdate,'배송중','spring', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(7,40000,sysdate,'배송완료','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(7,40000,sysdate,'배송완료','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(8,64000,sysdate,'배송완료','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(8,64000,sysdate,'배송완료','spring', '용인 수지');
 
 
 --------------- 주문상품

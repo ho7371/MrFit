@@ -10,9 +10,9 @@
 			<div class="contact-bottom"> 
 				<div class="col-md-6 contact-left"> 
 				<form>
-					<input type="text" placeholder="Name" required="">
-					<input type="text" placeholder="E-mail" required="">
-					<input type="text" placeholder="Phone" required="">
+					<input type="text" placeholder="Name" required>
+					<input type="text" placeholder="E-mail" required>
+					<input type="text" placeholder="Phone" required>
 				</form>
 				</div>
 				<div class="col-md-6 contact-left">
@@ -27,7 +27,15 @@
 	</div>
 	<!--end-contact-->
 	<!--start-map-->
-	<div class="map">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10120.556497001287!2d18.76800955!3d50.6431073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4710db154211990b%3A0x2d1cfe0737d73ec1!2sRusinowice%2C+Poland!5e0!3m2!1sen!2sin!4v1434621332678" frameborder="0" style="border:0"></iframe>
-	</div>
+	<div id="map" style="width: 100%; height: 500px;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5f1a88880da3f10b3af7bd82dd9cdf6a"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(37.4021577, 127.1043413),
+			level: 3
+		};
+
+		var map = new daum.maps.Map(container, options);
+	</script>
 	<!--end-map-->

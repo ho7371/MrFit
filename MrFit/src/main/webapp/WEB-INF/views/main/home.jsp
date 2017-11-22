@@ -97,7 +97,7 @@
 		<c:if test="${cnt.count<5}">
 			<div class="col-md-3 product-left">
 				<div class="p-one simpleCart_shelfItem">
-					<a href="home.do"> <img src="${pvo.imageList[0].url}" alt="" />
+					<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pvo.imageList[0].url}" alt="" />
 						<div class="mask">
 							<span>Quick View</span>
 						</div>
@@ -115,7 +115,7 @@
 		<c:if test="${cnt.count>4}">
 			<div class="col-md-3 product-left">
 				<div class="p-one simpleCart_shelfItem">
-					<a href="home.do"> <img src="${pvo.imageList[0].url}" alt="" />
+					<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pvo.imageList[0].url}" alt="" />
 						<div class="mask">
 							<span>Quick View</span>
 						</div>
@@ -134,7 +134,7 @@
 		</div>
 	</div>
 </div>
-	<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=1">디테일</a>
+	<a href=>디테일</a>
 
 <!--end-shoes-->
 <!-- pagingBean -->

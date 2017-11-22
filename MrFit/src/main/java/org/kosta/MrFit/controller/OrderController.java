@@ -109,8 +109,30 @@ public class OrderController {
 		return "cartForm.do";
 	}
 	
-	
-	
+	@Secured("ROLE_MEMBER")
+	   @RequestMapping("myOrderList.do")
+	   public ModelAndView myOrderList(String id) {
+	      System.out.println("      OrderController/myOrderList()/시작");
+	      List<OrderVO> list = orderService.myOrderList(id);
+	      System.out.println("      OrderController/myOrderList()/중간"+list);
+	      return new ModelAndView("order/myOrderList.tiles","list",list);
+	   }
+	   
+	   @Secured("ROLE_MEMBER")
+	   @RequestMapping("myOrderPrductList.do")
+	   public ModelAndView myOrderPrductList(String ono) {
+	      System.out.println("      OrderController/myOrderPrductList()/시작");
+	      List<OrderProductVO> list = orderService.myOrderPrductList(ono);
+	      System.out.println("      OrderController/myOrderPrductList()/중간"+list);
+	      return new ModelAndView("order/myOrderProductList.tiles","list",list);
+	   }
+		//[석환][11.22][장바구니 수량 수정]
+		@RequestMapping("updateOrderQuantity.do")
+		public String updateOrderQuantity(OrderProductVO opvo) {
+			orderService.updateOrderQuantity(opvo);
+			return "redirect:cartForm.do";
+		}
+		
 	
 	
 	

@@ -145,8 +145,7 @@ CREATE TABLE product (
 			size2 NUMBER NOT NULL,
 			size3 NUMBER NOT NULL,
 			size4 NUMBER NOT NULL,
-			size5 NUMBER NOT NULL,
-			inventory NUMBER NOT NULL
+			size5 NUMBER NOT NULL
 		);
 		
 		/* 상품상세 [작업중인 테이블]*/
@@ -155,6 +154,7 @@ CREATE TABLE product (
 			pno NUMBER NOT NULL,
 			pcno NUMBER NOT NULL, 
 			psno NUMBER NOT NULL,
+			inventory NUMBER NOT NULL,
 			constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
 			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
 			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
@@ -210,6 +210,7 @@ CREATE TABLE image (
 	ino NUMBER PRIMARY KEY, 
 	pno NUMBER NOT NULL, 
 	url VARCHAR2(300) NOT NULL,
+	
 	constraint fk_pno_in_image foreign key(pno) references product(pno)
 );
 
@@ -220,72 +221,9 @@ CREATE TABLE orders (
 	totalprice NUMBER NOT NULL, 
 	ordertime DATE NOT NULL,
 	status VARCHAR2(100) NOT NULL,
-	constraint fk_id_in_orders foreign key(id) references member(id) ON DELETE CASCADE
+	destination VARCHAR2(100) NOT NULL,
+	constraint fk_id_in_orders foreign key(id) references member(id)
 );
-		
-		/* 주문상품 */
-		CREATE TABLE order_product (
-			ono NUMBER NOT NULL, 
-			pdno NUMBER NOT NULL,
-			quantity VARCHAR2(100) NOT NULL,
-			constraint fk_ono_in_product_detail foreign key(ono) references orders(ono),
-			constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
-			constraint pk_order_product primary key(ono, pdno)
-		);
-			
-				/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
-					CREATE TABLE product_color (
-						pcno NUMBER PRIMARY KEY,
-						color_name VARCHAR2(100) NOT NULL
-					);
-					
-				/* 상품치수 [작업중인 테이블]*/
-				CREATE TABLE product_size (
-					psno NUMBER PRIMARY KEY,
-					size_name VARCHAR2(100) NOT NULL, /* 칼럼명 변경 */
-					size1 NUMBER NOT NULL,
-					size2 NUMBER NOT NULL,
-					size3 NUMBER NOT NULL,
-					size4 NUMBER NOT NULL,
-					size5 NUMBER NOT NULL,
-					inventory NUMBER NOT NULL
-				);
-				
-				/* 상품치수 [기존 테이블]
-				CREATE TABLE product_size (
-					psno VARCHAR2(100) PRIMARY KEY,
-					size1 NUMBER NOT NULL,
-					size2 NUMBER NOT NULL,
-					size3 NUMBER NOT NULL,
-					size4 NUMBER NOT NULL,
-					size5 NUMBER NOT NULL,
-					size_type VARCHAR2(100) NOT NULL,
-					inventory NUMBER NOT NULL,
-					pdno VARCHAR2(100) NOT NULL,
-					constraint fk_pdno_in_product_size foreign key(pdno) references product_detail(pdno)
-				);*/
-				
-			/* 상품상세 [작업중인 테이블]*/
-			CREATE TABLE product_detail (
-				pdno NUMBER PRIMARY KEY,
-				pno NUMBER NOT NULL,
-				pcno NUMBER NOT NULL, 
-				psno NUMBER NOT NULL,
-				constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
-				constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
-				constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
-			);
-			CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
-			/* CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); */
-			
-			
-			/* 상품상세 [기존테이블]
-			CREATE TABLE product_detail (
-				pdno VARCHAR2(100) PRIMARY KEY,
-				color VARCHAR2(100) NOT NULL, 
-				pno VARCHAR2(100) NOT NULL,
-				constraint fk_pno_in_product_detail foreign key(pno) references product(pno)
-			);*/
 
 /* 주문상품 */
 CREATE TABLE order_product (
@@ -296,6 +234,8 @@ CREATE TABLE order_product (
 	constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
 	constraint pk_order_product primary key(ono, pdno)
 );
+			
+
 
 				
 ----------------------------------------------------- 테이블 생성 SQL 끝

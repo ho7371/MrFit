@@ -5,6 +5,53 @@
 
 <h2>my OrderProduct List</h2>
 
+<!--start-ckeckout-->
+<div class="ckeckout">
+	<div class="container">
+		<div class="ckeckout-top">
+			<div class=" cart-items heading">
+				<h3>(특정 주문의)주문 내역</h3>
+				<div class="in-check">
+					<ul class="unit">
+						<li><span>No</span></li>
+						<li><span>Title</span></li>
+						<li><span>Writer</span></li>
+						<li><span>hit</span></li>
+						<li><span>작성일</span></li>
+						<div class="clearfix"></div>
+					</ul>
+					<ul class="cart-header">
+						<li><span>1</span></li>
+						<li><span>공지사항 1번</span></li>
+						<li><span>관리자</span></li>
+						<li><span>조회수</span></li>
+						<li><span>2017/11/19</span></li>
+						<div class="clearfix"></div>
+					</ul>
+					<ul class="cart-header">
+						<li><span>2</span></li>
+						<li><span>공지사항 2번</span></li>
+						<li><span>관리자</span></li>
+						<li><span>조회수</span></li>
+						<li><span>2017/11/19</span></li>
+						<div class="clearfix"></div>
+					</ul>
+					<ul class="cart-header">
+						<li><span>3</span></li>
+						<li><span>공지사항 3번</span></li>
+						<li><span>관리자</span></li>
+						<li><span>조회수</span></li>
+						<li><span>2017/11/19</span></li>
+						<div class="clearfix"></div>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end-ckeckout-->
+
+
 <c:forEach items="${list}" var="orderProduct">
 주문번호 :	${orderProduct.ono}<br>
 상품이름 :	${orderProduct.name}<br>
