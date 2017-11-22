@@ -231,29 +231,29 @@ insert into image(ino,pno,url) values(10,5,'main/racoon.jpg');
 
 --------------- 주문
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(1,60000,sysdate,'장바구니','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(1,60000,sysdate,'장바구니','java', '기본주소');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(2,12000,sysdate,'장바구니','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(2,12000,sysdate,'장바구니','spring', '기본주소');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(3,20000,sysdate,'입금대기','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(3,20000,sysdate,'입금대기','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(4,16000,sysdate,'입금대기','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(4,16000,sysdate,'입금대기','spring', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(5,30000,sysdate,'배송중','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(5,30000,sysdate,'배송중','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(6,23000,sysdate,'배송중','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(6,23000,sysdate,'배송중','spring', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(7,40000,sysdate,'배송완료','java');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(7,40000,sysdate,'배송완료','java', '용인 수지');
 
-insert into orders(ono,totalprice,ordertime,status,id) 
-values(8,64000,sysdate,'배송완료','spring');
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(8,64000,sysdate,'배송완료','spring', '용인 수지');
 
 
 --------------- 주문상품
