@@ -126,7 +126,13 @@ public class OrderController {
 	      System.out.println("      OrderController/myOrderPrductList()/중간"+list);
 	      return new ModelAndView("order/myOrderProductList.tiles","list",list);
 	   }
-	
+		//[석환][11.22][장바구니 수량 수정]
+		@RequestMapping("updateOrderQuantity.do")
+		public String updateOrderQuantity(OrderProductVO opvo) {
+			orderService.updateOrderQuantity(opvo);
+			return "redirect:cartForm.do";
+		}
+		
 	
 	
 	
