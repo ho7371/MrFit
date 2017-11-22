@@ -5,18 +5,7 @@
 <script type="text/javascript">
 
 </script>
-<!--start-single-->
-<div class="single contact">
-	<div class="container">
-		<div class="single-main">
-			<div class="col-md-9 single-main-left">
-				<div class="sngl-top">
-					<div class="col-md-5 single-top-left">
-						<div class="flexslider">
-							<!-- image upload -->
-							
-						</div>
-					</div>
+		
 					<!-- Product -->
 <!--start-account-->
 	<div class="account">
@@ -52,6 +41,8 @@
 					<div class="address new">
 						<input type="submit" value="등록">
 					</div>
+					<!-- image upload -->
+					
 					<!-- product_color -->
 						<input type="text" name="" value="">
 						<input type="button" value="색상등록" id="addColor">
@@ -98,46 +89,3 @@
 		</div>
 	</div>
 	<!--end-account-->
-							<!-- product_color -->
-							<ul class="product-colors">
-								<h3>색상</h3>
-								<select id="colorCheck">
-									<option value="0">-[필수] 옵션을 선택해주세요-</option>
-									<option value="0">-----------------------------------------</option>
-									<c:forEach items="${requestScope.clist}" var="clist">
-										<option class="colorSelect" value="${clist.pcno}">${clist.color_name}</option>
-									</c:forEach>
-								</select>
-								<!-- product_size -->
-								<div class="clear" id="slsSize">
-									<h3>사이즈</h3>
-									<select id="sizeSelectAjax">
-										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option>-----------------------------------------</option>
-									</select>
-								</div>
-							</ul>
-							<!-- 재고량등록 -->
-							<div class="quantity_box">
-								<ul class="product-qty">
-									<span>주문수량:</span>
-									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" min="0">
-								</ul>
-							</div>
-							<div class="clearfix"></div>
-							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" /> <input type="submit"
-									value="즉시구매" />
-							</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-					<br> <br>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!--end-single-->
