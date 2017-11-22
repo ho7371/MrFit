@@ -96,13 +96,19 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO findProductCategoryByPno(String pno) {
 		return productDAO.findProductCategoryByPno(pno);
 	}
-
+	
+	/** [재현][1122][]
+	 *  상품상세에서 리뷰 불러오기
+	 */
 	@Override
 	public List<ProductReviewVO> findProductReplyByPno(String pno) {
 		// TODO Auto-generated method stub
 		return productDAO.findProductReplyByPno(pno);
 	}
 	
+	/** [재현][1122][]
+	 *  상품리뷰 작성
+	 */
 	@Override
 	public void registerProductReview(ProductReviewVO prvo) {
 		productDAO.registerProductReview(prvo);

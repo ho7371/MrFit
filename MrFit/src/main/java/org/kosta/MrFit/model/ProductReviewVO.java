@@ -1,7 +1,7 @@
 package org.kosta.MrFit.model;
 
 public class ProductReviewVO {
-	private String review_no;
+	private String rno;
 	private String pdno;
 	private String color_name;
 	private String size_name;
@@ -12,10 +12,10 @@ public class ProductReviewVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductReviewVO(String review_no, String pdno, String color_name, String size_name, String id,
+	public ProductReviewVO(String rno, String pdno, String color_name, String size_name, String id,
 			String content, String regdate) {
 		super();
-		this.review_no = review_no;
+		this.rno = rno;
 		this.pdno = pdno;
 		this.color_name = color_name;
 		this.size_name = size_name;
@@ -24,10 +24,10 @@ public class ProductReviewVO {
 		this.regdate = regdate;
 	}
 	public String getReview_no() {
-		return review_no;
+		return rno;
 	}
-	public void setReview_no(String review_no) {
-		this.review_no = review_no;
+	public void setReview_no(String rno) {
+		this.rno = rno;
 	}
 	public String getPdno() {
 		return pdno;
@@ -67,7 +67,7 @@ public class ProductReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "ProductReviewVO [review_no=" + review_no + ", pdno=" + pdno + ", color_name=" + color_name
+		return "ProductReviewVO [rno=" + rno + ", pdno=" + pdno + ", color_name=" + color_name
 				+ ", size_name=" + size_name + ", id=" + id + ", content=" + content + ", regdate=" + regdate + "]";
 	}
 		

@@ -42,7 +42,7 @@ public class OrderController {
 		}
 		System.out.println("    OrderController/cartForm()/진행3 ovoList : "+ovoList);
 		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart","list",ovoList);
+		return new ModelAndView("product/myCart.tiles","ovoList",ovoList);
 	}
 	// 11/20 정현 장바구니 담기 
 	

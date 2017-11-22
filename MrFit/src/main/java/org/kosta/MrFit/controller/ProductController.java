@@ -138,6 +138,12 @@ public class ProductController {
 		return psvo;
 	}
 	
+	/**[재현][2017.11.21]
+	 * 상품 리뷰 작성
+	 * @param psno
+	 * @param pcno
+	 * @return
+	 */
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
 	public String registerProductReview(ProductReviewVO prvo) {
