@@ -86,10 +86,23 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDetailVO> findProductColorBypno(String pno) {
 		return productDAO.findProductColorBypno(pno);
 	}
+	//[김석환][2017.11.21][상품사이즈 번호를 가지고 AJAX통신을 이용해 고객의 치수비교]
+	@Override
+	public ProductSizeVO findProductDetailBySizeAjax(String psno) {
+		return productDAO.findProductDetailBySizeAjax(psno);
+	}
+	//[김석환][2017.11.21][상품 카테고리 검색]
+	@Override
+	public ProductVO findProductCategoryByPno(String pno) {
+		return productDAO.findProductCategoryByPno(pno);
+	}
+
 	@Override
 	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+		// TODO Auto-generated method stub
 		return productDAO.findProductReplyByPno(pno);
 	}
+	
 	@Override
 	public void registerProductReview(ProductReviewVO prvo) {
 		productDAO.registerProductReview(prvo);

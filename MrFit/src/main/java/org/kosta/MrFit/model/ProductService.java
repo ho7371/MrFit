@@ -21,6 +21,10 @@ public interface ProductService {
 
 	List<ProductDetailVO> findProductColorBypno(String pno);
 
+	ProductVO findProductCategoryByPno(String pno);
+
+	ProductSizeVO findProductDetailBySizeAjax(String psno);
+	
 	List<ProductReviewVO> findProductReplyByPno(String pno);
 
 	void registerProductReview(ProductReviewVO prvo);
