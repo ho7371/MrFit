@@ -61,5 +61,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.deleteOrderProduct(ovo);
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
 	}
-
+	//[김석환][2017.11.22][장바구니 상품 수량 수정]
+	@Override
+	public void updateOrderQuantity(OrderProductVO opvo) {
+		orderDAO.updateOrderQuantity(opvo);
+	}
 }

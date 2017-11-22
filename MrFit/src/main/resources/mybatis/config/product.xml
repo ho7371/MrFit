@@ -28,12 +28,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="size3" property="productSizeVO.size3"/>
 	<result column="size4" property="productSizeVO.size4"/>
 	<result column="size5" property="productSizeVO.size5"/>
-	<result column="inventory" property="productSizeVO.inventory"/>
 	</resultMap>
 	   
     <!--  상품상세정보 중 productDetail List값   -->
     <select id="findProductDetailList" parameterType="string" resultMap="productSizeListRM">
-    	SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,ps.inventory
+    	SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno, ps.size_name,ps.size1,
+    	 ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
     	FROM  product_detail pd, product_color pc, product_size ps
 		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pno=#{value}
     </select>
@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 색상에 맞춰 size리스트를 가지고옴 ajax용 -->
     <select id="findProductListByPcnoAjax" parameterType="string" resultType="productSizeVO">
-    	SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,ps.inventory
+    	SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
     	FROM  product_detail pd, product_color pc, product_size ps
 		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{value}  
     </select>

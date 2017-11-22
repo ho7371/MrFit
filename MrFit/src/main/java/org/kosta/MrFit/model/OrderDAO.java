@@ -18,4 +18,6 @@ public interface OrderDAO {
 	void updateOrder(OrderVO ovo);
 
 	void deleteOrderProduct(OrderVO ovo);
+
+	void updateOrderQuantity(OrderProductVO opvo);
 }

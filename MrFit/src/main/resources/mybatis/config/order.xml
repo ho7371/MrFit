@@ -84,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM product_detail pd, product p, product_color pc, product_size ps
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
     </select>
+    
     <!-- 정현 장바구니 담기 -->
     <select id="findMyCartCount" resultType="int">
    		 select count(*) from ORDERS
@@ -128,7 +129,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set totalprice=totalprice-#{totalprice},ordertime=sysdate  
 		where id=#{memberVO.id} and status='장바구니'
     </update>
-    
+      <!-- [석환][11.22] 장바구니 수량 수정 -->
+    <update id="updateOrderQuantity" parameterType="orderProductVO">
+ 		update order_product set quantity=#{quantity}
+ 		where ono=#{ono} and pdno=#{pdno}
+ 	</update>
    
 </mapper>
 

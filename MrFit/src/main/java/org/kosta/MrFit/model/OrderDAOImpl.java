@@ -74,7 +74,10 @@ public class OrderDAOImpl implements OrderDAO {
     public List<OrderProductVO> myOrderPrductList(String ono){
        return template.selectList("order.myOrderPrductList",ono);
     }
-	
-	
+    //[김석환][2017.11.22][장바구니 상품 수량 수정]
+  	@Override
+  	public void updateOrderQuantity(OrderProductVO opvo) {
+  		template.update("order.updateOrderQuantity", opvo);
+  	}
 
 }
