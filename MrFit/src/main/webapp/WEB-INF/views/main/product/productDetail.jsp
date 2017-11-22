@@ -266,16 +266,16 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 											<li><span>날짜</span></li>
 											<div class="clearfix"></div>
 										</ul>
+										<c:forEach items="${prvolist}" var="list">
 										<ul class="cart-header">
-										<c:forEach items="${prvolist}" var="list" >
 											<li><span>리뷰번호=${list.rno}</span></li>
 											<li><span>내용=${list.content }</span></li>
 											<li><span>색상=${list.color_name} | 사이즈=${list.size_name }</span></li>
 											<li><span>아이디=${list.id }</span></li>
 											<li><span>작성일=${list.regdate }</span></li>
 											<div class="clearfix"></div>
-										</c:forEach>
 										</ul>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
