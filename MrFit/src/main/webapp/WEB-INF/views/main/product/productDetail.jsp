@@ -279,8 +279,7 @@ $(window).load(function() {
 				<div class="latest products">
 						<div class="product-one">
 							<div class="col-md-4 product-left single-left"> 
-								<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >
-									
+								<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >								
 									<a href="#">
 								<img style="height: 80%; width: auto;" src="${pageContext.request.contextPath}/resources/images/s2.jpg" alt="" />
 								<div class="mask mask1">

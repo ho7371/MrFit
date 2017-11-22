@@ -134,14 +134,26 @@ public class ProductDAOImpl implements ProductDAO {
 		return template.selectOne("product.findProductDetail", pno);
 	}
 
+/*   @Override
+   public ProductVO findProductDtailByPno(String pno) {   
+      ProductVO pvo=null;
+      pvo=template.selectOne("product.findProductDetail", pno);
+      
+      return pvo;
+   }*/
+ 
+	//[김석환][2017.11.21][상품사이즈 번호를 가지고 AJAX통신을 이용해 고객의 치수비교]
 	@Override
 	public List<ProductReviewVO> findProductReplyByPno(String pno) {
 		return template.selectList("product.findProductReplyByPno", pno);
 	}
+	
+	//[김석환][2017.11.21][상품 카테고리 검색]
 	@Override
 	public void registerProductReview(ProductReviewVO prvo) {
 		template.insert("product.registerProductReview", prvo);
 		
 	}
+
 }
 

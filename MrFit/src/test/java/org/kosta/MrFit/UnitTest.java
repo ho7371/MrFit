@@ -1,7 +1,6 @@
 package org.kosta.MrFit;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -32,6 +31,27 @@ public class UnitTest {
 		 List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
 		 
 		 System.out.println(prvolist);
+	  //System.out.println(memberDAO.findMemberById("java"));
+	  /*System.out.println(pservice.findProductDtailByPno("3"));
+	  System.out.println("*******************************");
+	  System.out.println(pservice.findProductDtailByPno("3").getProductDetailList());
+	  System.out.println("*******************************");
+	  System.out.println(pservice.findProductDtailByPno("3").getImageList());*/
+	  //System.out.println(pservice.findProductByName("청바지"));
+		 /*	MemberVO memberVO=new MemberVO();
+		 	memberVO.setId("mrfit");
+		 	memberVO.setPassword("hot6");
+		   memberService.updatePasswordById(memberVO);
+
+
+		 
+		/* System.out.println("OrderService : "+oservice);
+		 Map<String,Object> map =  oservice.findMyCart("java3");
+		 System.out.println("map : "+map);*/
+		 //System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
+	
+		// Map<String,Object> map;
+
 	 }
 	 
 

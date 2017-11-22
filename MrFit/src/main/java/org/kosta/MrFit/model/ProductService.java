@@ -29,4 +29,5 @@ public interface ProductService {
 
 	void registerProductReview(ProductReviewVO prvo);
 
+
 }

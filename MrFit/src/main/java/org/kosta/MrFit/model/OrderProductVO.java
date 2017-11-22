@@ -28,36 +28,38 @@ public class OrderProductVO {
 		this.size_name = size_name;
 		this.url = url;
 	}
-	public String getOno() {
-		return ono;
-	}
-	public void setOno(String ono) {
-		this.ono = ono;
-	}
 	public String getPno() {
 		return pno;
 	}
 	public void setPno(String pno) {
 		this.pno = pno;
 	}
+	
 	public String getPdno() {
 		return pdno;
 	}
 	public void setPdno(String pdno) {
 		this.pdno = pdno;
 	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	
+
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	
+
 	public int getPrice() {
 		return price;
 	}
@@ -93,7 +95,11 @@ public class OrderProductVO {
 		return "OrderProductVO [ono=" + ono + ", pno=" + pno + ", pdno=" + pdno + ", name=" + name + ", quantity="
 				+ quantity + ", price=" + price + ", category=" + category + ", color_name=" + color_name
 				+ ", size_name=" + size_name + ", url=" + url + "]";
+
 	}
+	
+
+
 	
 
 }

@@ -137,13 +137,6 @@ public class ProductController {
 		}
 		return psvo;
 	}
-	@RequestMapping("findProductDetailBySizeAjax.do")
-	@ResponseBody
-	public Object findProductDetailBySizeAjax(String psno,String pcno) {
-		System.out.println("pnco :"+pcno);
-		System.out.println("psno :"+psno);
-		return null;
-	}
 	
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
