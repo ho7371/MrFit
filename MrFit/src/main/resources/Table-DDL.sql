@@ -145,8 +145,7 @@ CREATE TABLE product (
 			size2 NUMBER NOT NULL,
 			size3 NUMBER NOT NULL,
 			size4 NUMBER NOT NULL,
-			size5 NUMBER NOT NULL,
-			inventory NUMBER NOT NULL
+			size5 NUMBER NOT NULL
 		);
 		
 		/* 상품상세 [작업중인 테이블]*/
@@ -155,6 +154,7 @@ CREATE TABLE product (
 			pno NUMBER NOT NULL,
 			pcno NUMBER NOT NULL, 
 			psno NUMBER NOT NULL,
+			inventory NUMBER NOT NULL,
 			constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
 			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
 			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)

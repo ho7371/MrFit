@@ -10,9 +10,9 @@
 			<div class="contact-bottom"> 
 				<div class="col-md-6 contact-left"> 
 				<form>
-					<input type="text" placeholder="Name" required="">
-					<input type="text" placeholder="E-mail" required="">
-					<input type="text" placeholder="Phone" required="">
+					<input type="text" placeholder="Name" required>
+					<input type="text" placeholder="E-mail" required>
+					<input type="text" placeholder="Phone" required>
 				</form>
 				</div>
 				<div class="col-md-6 contact-left">
@@ -27,8 +27,7 @@
 	</div>
 	<!--end-contact-->
 	<!--start-map-->
-		
-	<div id="map" style="width: 1000px; height: 500px;"></div>
+	<div id="map" style="width: 100%; height: 500px;"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5f1a88880da3f10b3af7bd82dd9cdf6a"></script>
 	<script>
 		var container = document.getElementById('map');

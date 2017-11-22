@@ -28,9 +28,9 @@ public class UnitTest {
 	
 	 @Test
 	 public void unitTest() {
-		 List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
-		 
-		 System.out.println(prvolist);
+		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
+		 System.out.println(productService.findProductDtailByPno("1"));
+		// System.out.println(prvolist);
 	  //System.out.println(memberDAO.findMemberById("java"));
 	  /*System.out.println(pservice.findProductDtailByPno("3"));
 	  System.out.println("*******************************");
