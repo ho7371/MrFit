@@ -1,7 +1,9 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +44,7 @@ public class OrderController {
 		}
 		System.out.println("    OrderController/cartForm()/진행3 ovoList : "+ovoList);
 		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart","list",ovoList);
+		return new ModelAndView("product/myCart.tiles","ovoList",ovoList);
 	}
 	// 11/20 정현 장바구니 담기 
 	
@@ -109,8 +111,23 @@ public class OrderController {
 		return "cartForm.do";
 	}
 	
-	
-	
+	@RequestMapping("orderForm.do")
+	public ModelAndView orderForm() {
+		System.out.println("   	OrderController/orderForm()/시작");
+	//	Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(mvo.getId());
+		System.out.println("    OrderController/orderForm()/진행1");
+		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		System.out.println("    OrderController/orderForm()/진행2");
+		for (int i = 0; i < ovoList.size(); i++) {
+			ovoList.get(i).setMemberVO(mvo);
+		}
+		System.out.println("    OrderController/orderForm()/진행3 ovoList : "+ovoList);
+	//	map.put("ovoList", ovoList);
+		System.out.println("    OrderController/orderForm()/종료");
+		return new ModelAndView("order/orderForm.tiles","ovoList",ovoList);
+	}
 	
 	
 	

@@ -31,6 +31,13 @@
                   });     
                });
             </script>
+            <script type="text/javascript">
+            	$(document).ready(function() {
+					$("#orderForm").click(function() {
+						return confirm("상품을 주문하시겠습니까?");
+					}); //click
+				}); // ready
+            </script>
             
          <div class="in-check" align="center">
             <ul class="unit">
@@ -53,7 +60,7 @@
 						<li><span>${j.size_name} / ${j.color_name}  <input type = "number" value ="${j.quantity}" id = "changeQuantity" size="5"></span></li>
 				  </c:forEach>
 						<li><span>${i.totalprice}</span></li>
-						<li><a href="#" class="add-cart cart-check">주문하기</a></li>
+						<li><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></li>
                <div class="clearfix"> </div>
             </ul>
             </c:forEach>
