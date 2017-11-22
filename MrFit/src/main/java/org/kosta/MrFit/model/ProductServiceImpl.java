@@ -96,4 +96,17 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO findProductCategoryByPno(String pno) {
 		return productDAO.findProductCategoryByPno(pno);
 	}
+
+	@Override
+	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+		// TODO Auto-generated method stub
+		return productDAO.findProductReplyByPno(pno);
+	}
+	
+	@Override
+	public void registerProductReview(ProductReviewVO prvo) {
+		productDAO.registerProductReview(prvo);
+		
+	}
+	
 }

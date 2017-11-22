@@ -1,5 +1,6 @@
 package org.kosta.MrFit;
 
+import java.util.List;
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,13 +21,16 @@ public class UnitTest {
 	 @Resource
 	 private MemberService memberService;
 	@Resource
-	private ProductService pservice;
+	private ProductService productService;
 	
 	@Resource
-	private OrderService oservice;
+	private OrderService orderService;
 	
 	 @Test
 	 public void unitTest() {
+		 List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
+		 
+		 System.out.println(prvolist);
 	  //System.out.println(memberDAO.findMemberById("java"));
 	  /*System.out.println(pservice.findProductDtailByPno("3"));
 	  System.out.println("*******************************");
@@ -37,13 +42,16 @@ public class UnitTest {
 		 	memberVO.setId("mrfit");
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
-		 System.out.println(memberService.findMemberById("mrfit"));*/
-		 // System.out.println(pservice.findProductDtailByPno("1"));
-		 //System.out.println(pservice.findProductByName("청바지"));
-		//  System.out.println(pservice.findProductColorBypno("1"));
-		// System.out.println(pservice.findProductDetailByColorAjax("1"));
+
+
 		 
-		 System.out.println(oservice.findMyCart("java3"));
+		/* System.out.println("OrderService : "+oservice);
+		 Map<String,Object> map =  oservice.findMyCart("java3");
+		 System.out.println("map : "+map);*/
+		 //System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
+	
+		// Map<String,Object> map;
+
 	 }
 	 
 

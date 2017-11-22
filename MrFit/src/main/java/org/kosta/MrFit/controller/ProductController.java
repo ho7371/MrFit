@@ -8,6 +8,7 @@ import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
@@ -40,6 +41,10 @@ public class ProductController {
 	 * @return
 	 */
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	// @Secured("ROLE_MEMBER")
 	@RequestMapping("registerProductAction.do")
 	public ModelAndView registerProduct(){
@@ -71,7 +76,7 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
-	/*
+	/* [석환][11/18]
 	 * 상품 번호로 상품의 상세정보 페이지 이동
 	 */
 	@RequestMapping("findProductDetailByPno.do")
@@ -79,11 +84,15 @@ public class ProductController {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
      	List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
+     	// 해당 상품 리뷰 불러오는 메서드
+		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
 			mv.setViewName("product/productDetail.tiles");
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
+			mv.addObject("prvolist", prvolist);
 		return mv;
 	}
+	
 	/* [석환][2017.11.21]
 	 * 상품 디테일 page에서 pdno를 조건으로 
 	 * 색상별 size를 JSON 형식으로 통신한다
@@ -94,9 +103,12 @@ public class ProductController {
  	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pcno);
 		return sizeList;
 	}
-	/* [석환][2017.11.21]
+	
+	/**[석환][2017.11.21]
 	 * 상품 사이즈 회원과 비교해서 보내줌
-	 * 
+	 * @param psno
+	 * @param pcno
+	 * @return
 	 */
 	@RequestMapping("findProductDetailBySizeAjax.do")
 	@ResponseBody
@@ -125,6 +137,14 @@ public class ProductController {
 		}
 		return psvo;
 	}
+	
+	@RequestMapping("registerProductReview.do")
+	@ResponseBody
+	public String registerProductReview(ProductReviewVO prvo) {
+		productService.registerProductReview(prvo);
+		return "";
+	}
+	
 }
 
 

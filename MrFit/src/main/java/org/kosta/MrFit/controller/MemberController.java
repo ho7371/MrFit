@@ -49,14 +49,22 @@ public class MemberController {
 		}
 	 * @return
 	 */
-
+	
+	/**
+	 * 아이디로 멤버객체를 리턴받는 메서드
+	 * 
+	 * @return
+	 */
 	@RequestMapping("findMemberById.do")
 	public ModelAndView findMemberById(String id) {
 		System.out.println("   	MemberController/findMemberById()/시작");
 		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
 	}
-	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
 		System.out.println("   	MemberController/loginForm()/시작");
@@ -64,7 +72,10 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
-
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@RequestMapping("findIdPasswordForm.do")
 	public String findIdPasswordForm() {
 		System.out.println("   	MemberController/findId()/시작");
@@ -72,6 +83,11 @@ public class MemberController {
 		return "member/findIdPasswordForm.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("findIdByEmailAndName.do")
 	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
 			System.out.println("   	MemberController/findIdByEmailAndName()/시작");
@@ -87,6 +103,11 @@ public class MemberController {
 		return mv;
 	}
 	
+	/**[][][]
+	 * 
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("findQnaByIdNameEmail.do")
 	public ModelAndView findQnaByIdNameEmail(MemberVO memberVO) {
 		System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
@@ -103,6 +124,11 @@ public class MemberController {
 		return mv;
 	}
 	
+	/**[][][]
+	 * 
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("findMemberByQna.do")
 	public ModelAndView findMemberByQna(MemberVO memberVO) {
 		System.out.println("   	MemberController/findPassword()/시작");
@@ -112,6 +138,11 @@ public class MemberController {
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping(value = "updatePasswordById.do", method = RequestMethod.POST)
 	public String updatePasswordById(MemberVO memberVO) {
 		System.out.println("   	MemberController/updatePasswordById()/시작");
@@ -121,6 +152,10 @@ public class MemberController {
 		return "redirect:updatePassword_ok.do";
 	}
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@RequestMapping("updatePassword_ok.do")
 	public String updatePassword_ok() {
 		System.out.println("   	MemberController/updatePasswordById()/시작");
@@ -128,7 +163,11 @@ public class MemberController {
 		// updatePasswordById
 		return "member/updatePassword_ok.tiles";
 	}
-
+	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@RequestMapping("registerForm.do")
 	public ModelAndView findQuestionList() {
 		System.out.println("   	MemberController/findQuestionList()/시작");
@@ -137,6 +176,11 @@ public class MemberController {
 		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param vo
+	 * @return
+	 */
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String register(MemberVO vo) {
 		System.out.println("   	MemberController/register()/시작");
@@ -147,6 +191,11 @@ public class MemberController {
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
 	
+	/**[][][]
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("registerResultView.do")
 	public ModelAndView registerResultView(String id) {
 		System.out.println("   	MemberController/registerResultView()/시작");
@@ -155,6 +204,11 @@ public class MemberController {
 		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("idcheckAjax.do")
 	@ResponseBody
 	public String idcheckAjax(String id) {
@@ -163,20 +217,32 @@ public class MemberController {
 		return memberService.idcheck(id);
 	}
 	
+	/**[][][]
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("findMemberSizeById.do")
 	public String findMemberSizeById(String id) {
 			System.out.println("   	MemberController/findMemberSizeById()/시작");
-
 		return "member/memberSizeView.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@RequestMapping("updateMemberSizeForm.do")
 	public String updateMemberSizeForm() {
 			System.out.println("   	MemberController/updateMemberSizeForm()/시작");
-
 		return "member/updateMemberSizeForm.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @param msizeVO
+	 * @return
+	 */
 	@RequestMapping("updateMemberSize.do")
 	public String updateMemberSize(MemberSizeVO msizeVO) {
 		System.out.println("   	MemberController/updateMemberSize()/시작");
@@ -187,6 +253,10 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPage.do")
 	public String myPage() {
@@ -195,6 +265,10 @@ public class MemberController {
 		return "member/myPage.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPageInfo.do")
 	public ModelAndView myPageInfo() {
@@ -203,6 +277,10 @@ public class MemberController {
 		return new ModelAndView("member/myPage_info.tiles");
 	}
 	
+	/**[][][]
+	 * 
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("updateMemberForm.do")
 	public String updateMemberForm() {
@@ -211,6 +289,12 @@ public class MemberController {
 		return"member/updateMemberForm.tiles";
 	}
 	
+	/**[][][]
+	 * 
+	 * @param request
+	 * @param memberVO
+	 * @return
+	 */
 	@RequestMapping("updateMemberAction.do")
 	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
 		System.out.println("   	MemberController/updateMemberAction()/시작");

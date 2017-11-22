@@ -26,6 +26,10 @@ public interface ProductDAO {
 	ProductSizeVO findProductDetailBySizeAjax(String psno);
 
 	ProductVO findProductCategoryByPno(String pno);
+	
+	List<ProductReviewVO> findProductReplyByPno(String pno);
+
+	void registerProductReview(ProductReviewVO prvo);
 
 
 }

@@ -275,6 +275,7 @@ $(window).load(function() {
 		</table>
 	</div>
 	
+<<<<<<< HEAD
 		<div class="latest products">
 			<div class="product-one">
 				<div class="col-md-4 product-left single-left"> 
@@ -298,6 +299,113 @@ $(window).load(function() {
 						<h4>Aenean placerat</h4>
 						<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
 						
+=======
+	<!-- review table -->
+				<table>
+					<thead>
+						<tr>
+							<th>리뷰번호</th>
+							<th>색상명</th>
+							<th>사이즈명</th>
+							<th>작성자</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+	<c:forEach items="prvolist" var="list">
+						<tr>
+							<td>${list.review_no }</td>
+							<td>${list.color_name}</td>
+							<td>${list.size_name }</td>
+							<td>${id }</td>
+							<td>${regdate }</td>
+						</tr>
+						<tr>
+							<td>${content }</td>
+						</tr>
+	</c:forEach>
+					</tbody>
+				</table>
+
+				<div class="latest products">
+						<div class="product-one">
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem" style="width: 250px; height: 165px; overflow: hidden"  >								
+									<a href="#">
+								<img style="height: 80%; width: auto;" src="${pageContext.request.contextPath}/resources/images/s2.jpg" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+							</a>
+		
+							</div>
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem">
+									<a href="#">
+								<img src="images/shoes-2.png" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+							</a>
+									<h4>Aenean placerat</h4>
+									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>
+									
+								</div>
+							</div>
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem">
+									<a href="#">
+								<img src="images/shoes-3.png" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+							</a>
+									<h4>Aenean placerat</h4>
+									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="product-one">
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem">
+									<a href="#">
+								<img src="images/shoes-13.png" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+							</a>
+									<h4>Aenean placerat</h4>
+									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+								</div>
+							</div>
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem">
+									<a href="#">
+								<img src="images/shoes-5.png" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+							</a>
+									<h4>Aenean placerat</h4>
+									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>									
+								</div>
+							</div>
+							<div class="col-md-4 product-left single-left"> 
+								<div class="p-one simpleCart_shelfItem">
+									<a href="#">
+								<img src="images/shoes-6.png" alt="" />
+								<div class="mask mask1">
+									<span>Quick View</span>
+								</div>
+								</a>
+									<h4>Aenean placerat</h4>
+									<p><a class="item_add" href="#"><i></i> <span class=" item_price">$329</span></a></p>				
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 					</div>
 				</div>
 				<div class="col-md-4 product-left single-left"> 

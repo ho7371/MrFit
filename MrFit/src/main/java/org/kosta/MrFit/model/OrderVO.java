@@ -13,6 +13,7 @@ public class OrderVO {
 	public OrderVO() {
 		super();
 	}
+
 	public OrderVO(String ono, int totalprice, String destination, String ordertime, String status, MemberVO memberVO,
 			List<OrderProductVO> orderProductList) {
 		super();
@@ -60,9 +61,11 @@ public class OrderVO {
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
+
 	public List<OrderProductVO> getOrderProductList() {
 		return orderProductList;
 	}
+
 	public void setOrderProductList(List<OrderProductVO> orderProductList) {
 		this.orderProductList = orderProductList;
 	}
