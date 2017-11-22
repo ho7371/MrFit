@@ -20,23 +20,23 @@ delete * from table grade;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
 
-select * from table grade;
-select * from table question;
-select * from table member;
-select * from table member_size;
-select * from table point;
-select * from table auth;
-select * from table product;
-select * from table product_color;
-select * from table product_size;
-select * from table product_detail;
-select * from table inquiry;
-select * from table inquiry_reply;
-select * from table review;
-select * from table product_qna;
-select * from table image;
-select * from table orders;
-select * from table order_product;
+select * from grade;
+select * from question;
+select * from member;
+select * from member_size;
+select * from point;
+select * from auth;
+select * from product;
+select * from product_color;
+select * from product_size;
+select * from product_detail;
+select * from inquiry;
+select * from inquiry_reply;
+select * from review;
+select * from product_qna;
+select * from image;
+select * from orders;
+select * from order_product;
 
 ------------------------------ 샘플데이터 insert
 

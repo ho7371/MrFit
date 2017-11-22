@@ -220,7 +220,7 @@ CREATE TABLE orders (
 	totalprice NUMBER NOT NULL, 
 	ordertime DATE NOT NULL,
 	status VARCHAR2(100) NOT NULL,
-	constraint fk_id_in_orders foreign key(id) references member(id)
+	constraint fk_id_in_orders foreign key(id) references member(id) ON DELETE CASCADE
 );
 
 		/* 주문상품 */
