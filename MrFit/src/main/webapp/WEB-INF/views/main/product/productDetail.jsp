@@ -381,7 +381,7 @@ if (data.size5<2&&data.size5> - 2) {
 								</c:choose>
 							</thead>
 							<tbody>
-								<c:forEach items="" var="">
+								<%-- <c:forEach items="" var="">
 									<tr>
 										<td id="sizeName"></td>
 										<td></td>
@@ -390,7 +390,7 @@ if (data.size5<2&&data.size5> - 2) {
 										<td></td>
 										<td></td>
 									</tr>
-								</c:forEach>
+								</c:forEach> --%>
 							</tbody>
 						</table>
 					</div>
