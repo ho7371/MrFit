@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%-- <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -53,11 +53,12 @@ $(document).ready(function() {
 	});
 </script>
 
+<%-- 
 <!-- 지울 부분 -->
 ${requestScope.psglist}
 <br><br>
 <!-- 지울 부분 -->
-${requestScope.pvo }
+${requestScope.pvo } --%>
 
 
 <!--start-single-->
@@ -70,24 +71,10 @@ ${requestScope.pvo }
 						<div class="flexslider">
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
-							${imgList.url }							
-		 <%--		</li>
-					<li data-thumb="images/s2.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
-					</li>
-					<li data-thumb="images/s3.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s3.jpg" />
-					</li>
-					<li data-thumb="images/s4.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s4.jpg" />
-					</li> --%>
 							</ul>
 						</div>
 					</div>
 					<!-- 상품번호 -->
-					<form action="${pageContext.request.contextPath}/registerCart.do">
-					<input type="hidden" name="pvo" value="${pvo}">
-					<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
 						<div class="details-left-info simpleCart_shelfItem">
@@ -108,14 +95,14 @@ ${requestScope.pvo }
 									<option value="0">-[필수] 옵션을 선택해주세요-</option>
 									<option value="0">-----------------------------------------</option>
 									<c:forEach items="${requestScope.clist}" var="clist">
-										<option class="colorSelect" id="pcno" value="${clist.pcno}">${clist.color_name}</option>
+										<option class="colorSelect" value="${clist.pcno}">${clist.color_name}</option>
 									</c:forEach>
 								</select>
 								<div class="clear" id="slsSize">
 									<h3>사이즈</h3>
 									<select id="sizeSelectAjax">
 										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option id="psno">-----------------------------------------</option>
+										<option>-----------------------------------------</option>
 									</select>
 								</div>
 							</ul>
@@ -124,7 +111,7 @@ ${requestScope.pvo }
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" id="quantity" min="0">
+									<input type="number" name="quantity" min="0" value="1">
 								</ul>
 							</div>
 							<div class="clearfix"></div>
@@ -132,7 +119,6 @@ ${requestScope.pvo }
 								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
-						</form>
 					</div>
 					<div class="clearfix"></div>
 					<br>
@@ -155,7 +141,7 @@ ${requestScope.pvo }
 						<table class="table table-bordered">
 							<thead>
 								<c:choose>
-									<c:when test="${requestScope.pvo.category=='하의'}">
+									<c:when test="${requestScope.pvo.category=='bottom'}">
 										<tr>
 											<th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th>
 										</tr>
@@ -168,22 +154,27 @@ ${requestScope.pvo }
 								</c:choose>
 							</thead>
 							<tbody>
-								<%-- <c:forEach items="" var="">
+								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
-										<td id="sizeName"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${psList.size_name}</td>
+										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}</td>
+										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}</td>
+										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}</td>
+										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}</td>
+										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}</td>
 									</tr>
-								</c:forEach> --%>
+								</c:forEach> 
 							</tbody>
 						</table>
 					</div>
+					<!-- 이미지  -->
+					<div>
+					<c:forEach items="${requestScope.pvo.imageList}" varStatus="j">
+					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
+					</c:forEach>									
+					</div>
 
-
-					<!-- review table -->
+					<!-- start review table -->
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
@@ -213,100 +204,7 @@ ${requestScope.pvo }
 							</div>
 						</div>
 					</div>
-					
-
-					<div class="latest products">
-						<div class="product-one">
-							<div class="col-md-4 product-left single-left">
-								<div class="p-one simpleCart_shelfItem"
-									style="width: 250px; height: 165px; overflow: hidden">
-									<a href="#"> <img style="height: 80%; width: auto;"
-										src="${pageContext.request.contextPath}/resources/images/s2.jpg"
-										alt="" />
-										<div class="mask mask1">
-											<span>Quick View</span>
-										</div>
-									</a>
-
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-2.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-3.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="product-one">
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-13.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-5.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-6.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-					
+					<!-- end review table  -->
 					<div class="clearfix"></div>
 				</div>
 			</div>

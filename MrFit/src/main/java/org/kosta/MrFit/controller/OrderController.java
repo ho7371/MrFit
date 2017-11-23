@@ -24,7 +24,7 @@ public class OrderController {
 	private OrderService orderService;
 
 	/**
-	 	 * [현민][11/21][16:10] 
+	 * [현민][11/21][16:10] 
 	 * 장바구니 보기 기능 회원의 아이디로 
 	 * 회원이 장바구니에 담은 상품들을 불러온다 
 	 * 그 후 회원의 정보를 사용할
