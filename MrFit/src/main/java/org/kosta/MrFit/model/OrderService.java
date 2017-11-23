@@ -21,4 +21,7 @@ public interface OrderService {
 	void deleteOrderProduct(OrderVO ovo);
 
 	void updateOrderQuantity(OrderProductVO opvo);
+
+	OrderProductVO findCartOderproduct(OrderVO ovo);
+	
 }
