@@ -10,7 +10,7 @@
           <h3>My Shopping Bag ( ${requestScope.ovoList.size()} )</h3>
           <script type="text/javascript">
           $(document).ready(function() {
-        	  var quant 	ity=$(".findQuantity").attr("id");
+        	  var quantity=$(".findQuantity").attr("id");
           	$("#updateBtan").click(function() {
           		alert(1);
           		var info="";
@@ -25,10 +25,6 @@
         		location.href="${pageContext.request.contextPath}/updateOrderQuantity.do?ono="
         			+$(".findOno").attr("id")+"&pdno="+$(".findPdno").attr("id")
         			+"&quantity="+$("#updateQuantity").val();
-        		//alert($(".findOno").attr("id"));
-        		//alert($(".findPdno").attr("id"));
-        		//alert($("#updateQuantity").val());
-         		//alert(1);
         	});
           });//ready
           </script>

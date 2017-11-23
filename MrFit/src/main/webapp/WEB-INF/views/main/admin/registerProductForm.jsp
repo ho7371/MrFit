@@ -130,7 +130,6 @@
 					</div>
 				</form>	
 				</div>
-				
 				<div class="col-md-6 account-left">
 					
 				</div>

@@ -15,7 +15,7 @@ public interface ProductDAO {
 	
 	int getTotalProductCount();
 
-	List<ProductSizeVO> findProductDetailByColorAjax(String pdno);
+	List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
 
 	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
 
@@ -30,6 +30,8 @@ public interface ProductDAO {
 	List<ProductReviewVO> findProductReplyByPno(String pno);
 
 	void registerProductReview(ProductReviewVO prvo);
+
+	List<ProductSizeVO> sizeGapMemberAndProduct(String pno);
 
 
 }

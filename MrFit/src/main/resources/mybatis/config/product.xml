@@ -53,10 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 색상에 맞춰 size리스트를 가지고옴 ajax용 -->
-    <select id="findProductListByPcnoAjax" parameterType="string" resultType="productSizeVO">
+    <select id="findProductListByPcnoAjax" parameterType="productDetailVO" resultType="productSizeVO">
     	SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
     	FROM  product_detail pd, product_color pc, product_size ps
-		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{value}  
+		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{pcno} and pd.pno=#{pno} 
     </select>
     
     <!-- 상품리스트 -->
@@ -107,7 +107,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registerProductReview">
     	insert into review values (rno_seq.nextval, #{pdno}, #{id},#{content},sysdate )
     </insert>
-    
+    <!-- [석환][11.22][치수 비교] -->
+    <select id="sizeGapMemberAndProduct" parameterType="string" resultType="productSizeVO">
+    select distinct ps.size_name, ps.size1, ps.size2, ps.size3, ps.size4, ps.size5
+	from PRODUCT_DETAIL pd, PRODUCT_SIZE ps, product p
+	where p.pno=pd.pno and ps.psno=pd.psno and p.pno=#{value}
+	order by ps.size_name desc
+    </select>
     
 </mapper>
 

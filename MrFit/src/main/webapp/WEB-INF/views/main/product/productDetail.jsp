@@ -8,8 +8,6 @@
 	media="screen" />
 <script type="text/javascript">
 $(document).ready(function() {
-		alert($(".memberSize1").attr("id"));
-		alert($(".quick_desc").attr("id"));
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
@@ -24,7 +22,7 @@ $(document).ready(function() {
 				type : "get",
 				url : "${pageContext.request.contextPath}/findProductDetailByColorAjax.do",
 				dataType : "json",
-				data : "pcno="+ $(this).val(),
+				data : "pcno="+ $(this).val()+"&pno="+pno,
 				success : function(data) {
 					var infoSize = "";
 						infoSize = "<h3>사이즈</h3>"
@@ -43,79 +41,6 @@ $(document).ready(function() {
 				}//success
 		});//ajax
 	});//change
-
-// 동적으로 생긴 사이즈 와 회원의 사이즈를 비교하기 위한 On 이벤트 
-$("#slsSize").on("change","#sizeSelectAjax",function() {
-						alert($(this).val());
-					$.ajax({
-							type : "get",
-							url : "${pageContext.request.contextPath}/findProductDetailBySizeAjax.do",
-							dataType : "json",
-							data : "psno="+ $(this).val()+ "&pcno="+ pcno+ "&pno=" + pno,
-						success : function(data) {
-//size1
-						if (data.size1<2&&data.size1> - 2) {
-							$("#size1").text(data.size1).css("background-color","#ffffff");
-						} else if (data.size1<4&&data.size1> - 4) {
-							$("#size1").text(data.size1).css("background-color","#ffffb3");
-						} else if (data.size1<6&&data.size1> - 6) {
-							$("#size1").text(data.size1).css("background-color","#ffcc99");
-						} else if (data.size1<8&&data.size1> - 8) {
-							$("#size1").text(data.size1).css("background-color","#ff471a");
-						} else {
-							$("#size1").text(data.size1).css("background-color","#ff0000");
-						}
-//size2
-						if (data.size2<2&&data.size2> - 2) {
-							$("#size2").text(data.size2).css("background-color","#ffffff");
-						} else if (data.size2<4&&data.size2> - 4) {
-							$("#size2").text(data.size2).css("background-color","#ffffb3");
-						} else if (data.size2<6&&data.size2> - 6) {
-							$("#size2").text(data.size2).css("background-color","#ffcc99");
-						} else if (data.size2<8&&data.size2> - 8) {
-							$("#size2").text(data.size2).css("background-color","#ff471a");
-						} else {
-							$("#size2").text(data.size2).css("background-color","#ff0000");
-						}
-//size3
-						if (data.size3<2&&data.size3> - 2) {
-							$("#size3").text(data.size3).css("background-color","#ffffff");
-						} else if (data.size3<4&&data.size3> - 4) {
-							$("#size3").text(data.size3).css("background-color","#ffffb3");
-						} else if (data.size3<6&&data.size3> - 6) {
-							$("#size3").text(data.size3).css("background-color","#ffcc99");
-						} else if (data.size3<8&&data.size3> - 8) {
-							$("#size3").text(data.size3).css("background-color","#ff471a");
-						} else {
-							$("#size3").text(data.size3).css("background-color","#ff0000");
-						}
-//size4
-						if (data.size4<2&&data.size4> - 2) {
-							$("#size4").text(data.size4).css("background-color","#ffffff");
-						} else if (data.size4<4&&data.size4> - 4) {
-							$("#size4").text(data.size4).css("background-color","#ffffb3");
-						} else if (data.size4<6&&data.size4> - 6) {
-							$("#size4").text(data.size4).css("background-color","#ffcc99");
-						} else if (data.size4<8&&data.size4> - 8) {
-							$("#size4").text(data.size4).css("background-color","#ff471a");
-						} else {
-							$("#size4").text(data.size4).css("background-color","#ff0000");
-						}
-//size5
-						if (data.size5<2&&data.size5> - 2) {
-							$("#size5").text(data.size5).css("background-color","#ffffff");
-						} else if (data.size5<4&&data.size5> - 4) {
-							$("#size5").text(data.size5).css("background-color","#ffffb3");
-						} else if (data.size5<6&&data.size5> - 6) {
-							$("#size5").text(data.size5).css("background-color","#ffcc99");
-						} else if (data.size5<8&&data.size5> - 8) {
-							$("#size5").text(data.size5).css("background-color","#ff471a");
-						} else {
-							$("#size5").text(data.size5).css("background-color","#ff0000");
-						}
-			}//success
-		});//ajax
-});//on 이벤트
 });//ready
 </script>
 <script>
@@ -127,7 +52,9 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 		});
 	});
 </script>
-
+${requestScope.psglist}
+<br><br>
+${requestScope.pvo }
 <!--start-single-->
 <div class="single contact">
 	<div class="container">
@@ -137,13 +64,11 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
 							<ul class="slides">
-								<li data-thumb="images/s1.jpg"><img height=350px
-									width=250px
-									src="${pageContext.request.contextPath}/resources/images/s1.jpg" />
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button> <%--		</li>
+							<c:forEach items="${requestScope.pvo.imageList}" var="imgList">
+								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/images/${imgList.url}" />
+							${imgList.url }							
+							</c:forEach>	
+		 <%--		</li>
 					<li data-thumb="images/s2.jpg">
 					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
 					</li>
@@ -193,7 +118,7 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" min="0">
+									<input type="number" name="quantity" min="0" value="1">
 								</ul>
 							</div>
 							<div class="clearfix"></div>
@@ -236,16 +161,16 @@ $("#slsSize").on("change","#sizeSelectAjax",function() {
 								</c:choose>
 							</thead>
 							<tbody>
-								<%-- <c:forEach items="" var="">
+								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
-										<td id="sizeName"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${psList.size_name}</td>
+										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}</td>
+										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}</td>
+										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}</td>
+										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}</td>
+										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}</td>
 									</tr>
-								</c:forEach> --%>
+								</c:forEach> 
 							</tbody>
 						</table>
 					</div>
