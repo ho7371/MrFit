@@ -12,7 +12,6 @@
           $(document).ready(function() {
         	  var quantity=$(".findQuantity").attr("id");
           	$("#updateBtan").click(function() {
-          		alert(1);
           		var info="";
           		info="수량 :<input id='updateQuantity' type='text' value='";
           		info+=quantity;
