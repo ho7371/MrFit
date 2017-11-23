@@ -1,9 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#searchProductBtn").click(
+			function() {
+			location.href = "adminFindProductByName.do?keyword="+ $("#searchProduct").val();
+		}); // click
+	});// ready
+</script>
 <div class="shoes">
 	<div class="container">
+		<div class="search-bar">
+			<input type="text" value="Search" onfocus="this.value = '';"
+				onblur="if (this.value == '') {this.value = 'Search';}"
+				id="searchProduct">
+				<input type="submit" value="" id="searchProductBtn">
+		</div>
 		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">상품등록</a> &nbsp; 
 
 		<div class="product-one">
