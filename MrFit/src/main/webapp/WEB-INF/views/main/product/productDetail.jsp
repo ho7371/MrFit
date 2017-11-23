@@ -184,7 +184,11 @@ ${requestScope.pvo }
 					</c:forEach>									
 					</div>
 
+<<<<<<< HEAD
 					<!-- start review table -->
+=======
+					<!-- review table -->
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
@@ -214,7 +218,104 @@ ${requestScope.pvo }
 							</div>
 						</div>
 					</div>
+<<<<<<< HEAD
 					<!-- end review table  -->
+=======
+					
+<%-- 
+					<div class="latest products">
+						<div class="product-one">
+							<div class="col-md-4 product-left single-left">
+								<div class="p-one simpleCart_shelfItem"
+									style="width: 250px; height: 165px; overflow: hidden">
+									<a href="#"> <img style="height: 80%; width: auto;"
+										src="${pageContext.request.contextPath}/resources/images/s2.jpg"
+										alt="" />
+										<div class="mask mask1">
+											<span>Quick View</span>
+										</div>
+									</a>
+
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-2.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-3.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-one">
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-13.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-5.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-6.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div> --%>
+					
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 					<div class="clearfix"></div>
 				</div>
 			</div>
