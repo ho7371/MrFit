@@ -52,9 +52,14 @@ $(document).ready(function() {
 		});
 	});
 </script>
+
+<!-- 지울 부분 -->
 ${requestScope.psglist}
 <br><br>
+<!-- 지울 부분 -->
 ${requestScope.pvo }
+
+
 <!--start-single-->
 <div class="single contact">
 	<div class="container">
@@ -64,10 +69,8 @@ ${requestScope.pvo }
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
 							<ul class="slides">
-							<c:forEach items="${requestScope.pvo.imageList}" var="imgList">
-								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/images/${imgList.url}" />
+								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
 							${imgList.url }							
-							</c:forEach>	
 		 <%--		</li>
 					<li data-thumb="images/s2.jpg">
 					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
@@ -148,7 +151,7 @@ ${requestScope.pvo }
 						<table class="table table-bordered">
 							<thead>
 								<c:choose>
-									<c:when test="${requestScope.pvo.category=='하의'}">
+									<c:when test="${requestScope.pvo.category=='bottom'}">
 										<tr>
 											<th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th>
 										</tr>
@@ -174,9 +177,14 @@ ${requestScope.pvo }
 							</tbody>
 						</table>
 					</div>
+					<!-- 이미지  -->
+					<div>
+					<c:forEach items="${requestScope.pvo.imageList}" varStatus="j">
+					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
+					</c:forEach>									
+					</div>
 
-
-					<!-- review table -->
+					<!-- start review table -->
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
@@ -206,100 +214,7 @@ ${requestScope.pvo }
 							</div>
 						</div>
 					</div>
-					
-
-					<div class="latest products">
-						<div class="product-one">
-							<div class="col-md-4 product-left single-left">
-								<div class="p-one simpleCart_shelfItem"
-									style="width: 250px; height: 165px; overflow: hidden">
-									<a href="#"> <img style="height: 80%; width: auto;"
-										src="${pageContext.request.contextPath}/resources/images/s2.jpg"
-										alt="" />
-										<div class="mask mask1">
-											<span>Quick View</span>
-										</div>
-									</a>
-
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-2.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-3.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="product-one">
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-13.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-5.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-6.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-					
+					<!-- end review table  -->
 					<div class="clearfix"></div>
 				</div>
 			</div>
