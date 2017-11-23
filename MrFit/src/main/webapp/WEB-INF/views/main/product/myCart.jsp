@@ -25,10 +25,6 @@
         		location.href="${pageContext.request.contextPath}/updateOrderQuantity.do?ono="
         			+$(".findOno").attr("id")+"&pdno="+$(".findPdno").attr("id")
         			+"&quantity="+$("#updateQuantity").val();
-        		//alert($(".findOno").attr("id"));
-        		//alert($(".findPdno").attr("id"));
-        		//alert($("#updateQuantity").val());
-         		//alert(1);
         	});
           });//ready
           </script>

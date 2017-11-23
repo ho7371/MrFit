@@ -64,13 +64,11 @@ ${requestScope.pvo }
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
 							<ul class="slides">
-								<li data-thumb="images/s1.jpg"><img height=350px
-									width=250px
-									src="${pageContext.request.contextPath}/resources/images/s1.jpg" />
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button> <%--		</li>
+							<c:forEach items="${requestScope.pvo.imageList}" var="imgList">
+								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/images/${imgList.url}" />
+							${imgList.url }							
+							</c:forEach>	
+		 <%--		</li>
 					<li data-thumb="images/s2.jpg">
 					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
 					</li>
@@ -166,11 +164,11 @@ ${requestScope.pvo }
 								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
 										<td>${psList.size_name}</td>
-										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}/${i.index}</td>
-										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}/${i.index}</td>
-										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}/${i.index}</td>
-										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}/${i.index}</td>
-										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}/${i.index}</td>
+										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}</td>
+										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}</td>
+										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}</td>
+										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}</td>
+										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}</td>
 									</tr>
 								</c:forEach> 
 							</tbody>
