@@ -4,8 +4,9 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 	$(document).ready(function(){
+			var category="";
 		$("#category").on("change",function() {
-			var category=$(this).val();
+				category=$(this).val();
 			if(category=="하의"){
 				$("#topsize").hide();
 				$("#bottomsize").show();
@@ -14,28 +15,49 @@
 				$("#bottomsize").hide();
 			}
 		}); // on change
+			var cbname="";
+			var cbleng="";
 		 $('#sizecheck input:checkbox').on("click",function() {
-			 var cbname = $(this).val();
-		      var cbleng = $("input:checkbox:checked").length; // 체크박스 전체 갯수
+			 	cbname = $(this).val();
+		     	cbleng = $(this).is(":checked"); // 체크박스 전체 갯수
 		      // 만일 체크되면 누적테이블 + 언체크되면 테이블 - 하기
-		      alert(cbname);
-		      alert(cbleng);
-		      if(cb=="S"){
-				
-		      }else if (cb=="M"){
-				
-		      }else{
-		    	
+		      if (cbleng==true){ // check될떄 true
+		    	  if(category!="하의"){
+				      $("#topsize tbody").append(
+								'<tr id="'+cbname+'">'
+								+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
+								+'<td><input type="number" name="shoulder" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="chest" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="sleeve" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="armhole" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="toplength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+							+'</tr>'	  
+				      );
+		    	  }else{
+		    		  $("#bottomsize tbody").append(
+								'<tr id="'+cbname+'">'
+								+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
+								+'<td><input type="number" name="waist" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="crotch" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="thigh" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="hem" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+								+'<td><input type="number" name="bottomlength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+							+'</tr>'	  
+				      ); 
+		    	  } //else
+		      } // cbleng if
+		      if(cbleng==false){ // check 될때 false
+		      	$("#"+cbname+"").detach();
 		      }
-		  }); 
+		  }); // on click
 	});//ready
 	
-	//maxlength 체크
+		//maxlength 체크
 	  function maxLengthCheck(object){
-	   if (object.value.length > object.maxLength){
-	    object.value = object.value.slice(0, object.maxLength);
-	   }    
-	  }
+		   if (object.value.length > object.maxLength){
+		    object.value = object.value.slice(0, object.maxLength);
+		   }    
+	  } // length check
 
 </script>
 		
@@ -89,32 +111,18 @@
 					<!--detail size and inventory -->
 						<table id="topsize">
 							<thead>
-								<tr><th>어깨</th><th>가슴</th><th>소매</th><th>암홀</th><th>상의총기장</th><th></th></tr>
+								<tr><th>Size</th><th>어깨</th><th>가슴</th><th>소매</th><th>암홀</th><th>상의총기장</th></tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><input type="number" name="shoulder" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="chest" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="sleeve" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="armhole" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="toplength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="hidden" name="size_name" value=""></td>
-								</tr>
+
 							</tbody>
 						</table>
 						<table id="bottomsize">
 							<thead>
-								<tr><th>허리</th><th>밑위</th><th>허벅지</th><th>밑단</th><th>하의총기장</th><th></th></tr>
+								<tr><th>Size</th><th>허리</th><th>밑위</th><th>허벅지</th><th>밑단</th><th>하의총기장</th></tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><input type="number" name="waist" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="crotch" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="thigh" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="hem" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="number" name="bottomlength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>
-									<td><input type="hidden" name="size_name" value=""></td>
-								</tr>
+
 							</tbody>
 						</table>
 					<div class="address new">
