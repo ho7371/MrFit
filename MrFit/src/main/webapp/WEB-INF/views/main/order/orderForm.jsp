@@ -21,11 +21,73 @@
 		}); //click
 		$("#order").click(function() {
 			if($("#agreeOrder").is(':checked')){
+				if($("#memberName").text()==""){
+					alert("배송자 이름을 입력하시기 바랍니다.");
+					return false;
+				}else if($("#memberPhone").text()==""){
+					alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
+					return false;
+				}else if($("#memberAddress").text()==""){
+					alert("배송자 주소을 입력하시기 바랍니다.");
+					return false;
+				}
 				return confirm("구매를 진행 하시겠습니까?");
 			}else{	
 				alert("구매 동의를 하시기 바랍니다.");
 				return false;
 			}
+		}); // click
+	/* 	$("#payMethodTable1").hide(); */
+		$("#payMethodTable2").hide();
+		$("#payMethodTable3").hide();
+		$("#payMethodTable4").hide();
+		$("#payMethod1").click(function() {
+			if($("#payMethod2").is(":checked") | $("#payMethod3").is(":checked") | $("#payMethod4").is(":checked")){
+				$("#payMethod2").prop("checked", false);
+				$("#payMethod3").prop("checked", false);
+				$("#payMethod4").prop("checked", false);
+				$("#payMethodTable2").hide();
+				$("#payMethodTable3").hide();
+				$("#payMethodTable4").hide();
+				$("#payMethod1").prop("checked", true);
+			}
+			$("#payMethodTable1").show();
+		}); // click
+		$("#payMethod2").click(function() {
+			if($("#payMethod1").is(":checked") | $("#payMethod3").is(":checked") | $("#payMethod4").is(":checked")){
+				$("#payMethod1").prop("checked", false);
+				$("#payMethod3").prop("checked", false);
+				$("#payMethod4").prop("checked", false);
+				$("#payMethodTable1").hide();
+				$("#payMethodTable3").hide();
+				$("#payMethodTable4").hide();
+				$("#payMethod2").prop("checked", true);
+			}
+			$("#payMethodTable2").show();
+		}); // click
+		$("#payMethod3").click(function() {
+			if($("#payMethod1").is(":checked") | $("#payMethod2").is(":checked") | $("#payMethod4").is(":checked")){
+				$("#payMethod1").prop("checked", false);
+				$("#payMethod2").prop("checked", false);
+				$("#payMethod4").prop("checked", false);
+				$("#payMethodTable1").hide();
+				$("#payMethodTable2").hide();
+				$("#payMethodTable4").hide();
+				$("#payMethod3").prop("checked", true);
+			}
+			$("#payMethodTable3").show();
+		}); // click
+		$("#payMethod4").click(function() {
+			if($("#payMethod1").is(":checked") | $("#payMethod2").is(":checked") | $("#payMethod3").is(":checked")){
+				$("#payMethod1").prop("checked", false);
+				$("#payMethod2").prop("checked", false);
+				$("#payMethod3").prop("checked", false);
+				$("#payMethodTable1").hide();
+				$("#payMethodTable2").hide();
+				$("#payMethodTable3").hide();
+				$("#payMethod4").prop("checked", true);
+			}
+			$("#payMethodTable4").show();
 		}); // click
 	});// ready
 </script>
@@ -61,6 +123,7 @@
 	            </ul>
 	            </c:forEach>
 	         </div>
+	         <br><br><br>
 <%-- 주문 정보 --%>
 	         <div class = "in-check">
 	         	<ul class="unit">
@@ -70,6 +133,7 @@
 					<li><span></span></li>
 	               <div class="clearfix"></div>
 	            </ul>
+	            <br><br><br>
 	            <table class="cart-header">
 	            	<tr>
 	            		<th>
@@ -83,6 +147,7 @@
 	            	</tr>
 	            </table>
 	          </div>
+	          <br><br><br>
 <%-- 주문자 정보 --%>
 	         <div class = "in-check">
 	         	<ul class="unit">
@@ -92,6 +157,7 @@
 					<li><span></span></li>
 	               <div class="clearfix"></div>
 	            </ul>
+	            <br><br><br>
 	            <div>
 		          	<table class="cart-header">
 		          		<tr>
@@ -112,6 +178,7 @@
 		          	</table>
 		         </div>
 	          </div>
+	          <br><br><br>
 <%-- 배송지 정보 --%>
 	          <div class = "in-check">
 	         	<ul class="unit">
@@ -122,6 +189,7 @@
 					<li><span><input type = "checkbox" id = "equalMemberInfo"> 위 정보와 같음</span></li>
 	               <div class="clearfix"></div>
 	            </ul>
+	            <br><br><br>
 	            <div>
 		          	<table class="cart-header">
 		          		<tr>
@@ -136,8 +204,9 @@
 		          	</table>
 		         </div>
 	          </div>
+	          <br><br><br>
 <%-- 결제 정보 --%>
-			  <div class = "in-check">
+			  <div class = "in-check" >
 	         	<ul class="unit">
 	               <li><span></span></li>
 					<li><span></span></li>		
@@ -145,22 +214,57 @@
 					<li><span></span></li>
 	               <div class="clearfix"></div>
 	            </ul>
-	            <div>
-	            	<input type = "radio" name = "" id = "">무통장입금 &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "">카카오페이 &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "">추가1 &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "">추가2 &nbsp;&nbsp;
+	            <br><br>
+	            <div align="center">
+	            	<input type = "radio" name = "" id = "payMethod1" checked="checked">무통장입금 &nbsp;&nbsp;
+	            	<input type = "radio" name = "" id = "payMethod2">신용카드 &nbsp;&nbsp;
+	            	<input type = "radio" name = "" id = "payMethod3">페이코(PAYCO) &nbsp;&nbsp;
+	            	<input type = "radio" name = "" id = "payMethod4">카카오페이(KakaoPay) &nbsp;&nbsp;
 	            </div>
-	            <div>
-		          	<table class="cart-header">
+	            <br><br><br>
+	            <div align="center">
+		          	<table class="cart-header" id ="payMethodTable1">
 		          		<tr>
-		          			<th></th>
+		          			<th>입금자명 : </th><td><input type = "text" name = "" id = ""></td>
+		          			<td rowspan ="2" colspan = "3" style="font-size: 2;">
+		          			· 선택된 입금계좌로 인터넷 뱅킹, 은행방문 등을 통해 입금해 주세요.  <br>
+							· 반드시 입금 기한 내에 정확한 결제금액을 입금해 주세요. <br>
+							· 입금 기한이 지나면 주문은 자동취소됩니다.
+		          			</td>
 		          		</tr>
 		          		<tr>
-		          			<th></th>
+		          			<th>입금 은행 : </th>
+		          			<td>
+		          				우리 은행 : 1002-536-524962 김석환 
+		          			</td>
+		          			<td></td>
 		          		</tr>
+		          	</table>
+		          	<table class="cart-header" id ="payMethodTable2">
 		          		<tr>
-		          			<th></th>
+		          			<td>
+		          			· 안심클릭 및 인터넷안전결제(IPS)서비스로 128bit SSL로 암호화된 결제 창이 새로 뜹니다. <br>
+							· 결제후, 카드명세서에 [KCP.CO.KR]로 표시되며, 카드 정보는 상점에 남지 않습니다.
+							</td>
+		          		</tr>
+		          	</table>
+		          	<table class="cart-header" id ="payMethodTable3">
+		          		<tr>
+		          			<td>
+		          			★ 11월 한정 혜택1. 생애 첫결제 7,000원 할인 (신한/하나/롯데/NH 35,000원 결제시) <Br>
+   							★ 11월 한정 혜택2. 1,500원 할인 (신한/하나/롯데/NH 2만원 이상 결제시, 기간 內 2회 제공) <br>
+  							 (“★”프로모션은 예산 소진 시 자동 종료) <br>
+							1) 생애 첫 결제 시 3,500원 쿠폰 제공(단, 10,000원 이상 결제 시) <br>
+							2) PAYCO 슈퍼세이브 : 최대 10,000p 적립, 등급별 라운지 혜택 제공 <br>
+							   [슈퍼세이브 자세히보기]   <Br>
+							3) PAYCO 포인트(유상충전)로 결제 시 3% 상시 할인 <br>  
+							휴대폰과 카드 명의자가 동일해야 결제 가능하며, 결제금액 제한은 없습니다.
+		          			</td>
+		          		</tr>
+		          	</table>
+		          	<table class="cart-header" id ="payMethodTable4">
+		          		<tr>
+		          			<td>· 가장 빠른 모바일 결제</td>
 		          		</tr>
 		          	</table>
 		         </div>
@@ -169,7 +273,7 @@
          <div align="right">
          	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
          	<a href="order.do" class="add-cart cart-check" id = "order">주문하기</a>
-         </div>
+         </div> 
        </div>
       </div>
    </div>
