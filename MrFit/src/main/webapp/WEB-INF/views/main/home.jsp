@@ -134,7 +134,6 @@
 		</div>
 	</div>
 </div>
-	<a href=>디테일</a>
 
 <!--end-shoes-->
 <!-- pagingBean -->

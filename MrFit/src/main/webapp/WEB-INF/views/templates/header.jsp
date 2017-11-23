@@ -15,6 +15,16 @@
 		});
 	});// ready
 </script>
+<script type="text/javascript">
+$(window).scroll(function(){
+    if ($(window).scrollTop() >= 300) {
+       $('header-bottom').css("position","fixed");
+    }
+    else {
+       $('header-bottom').css("position","relative");
+    }
+});
+</script>
 
 <!--top-header-->
 <div class="top-header">
