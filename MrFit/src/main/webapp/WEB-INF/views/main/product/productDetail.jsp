@@ -85,6 +85,9 @@ ${requestScope.pvo }
 						</div>
 					</div>
 					<!-- 상품번호 -->
+					<form action="${pageContext.request.contextPath}/registerCart.do">
+					<input type="hidden" name="pvo" value="${pvo}">
+					<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
 						<div class="details-left-info simpleCart_shelfItem">
@@ -105,14 +108,14 @@ ${requestScope.pvo }
 									<option value="0">-[필수] 옵션을 선택해주세요-</option>
 									<option value="0">-----------------------------------------</option>
 									<c:forEach items="${requestScope.clist}" var="clist">
-										<option class="colorSelect" value="${clist.pcno}">${clist.color_name}</option>
+										<option class="colorSelect" id="pcno" value="${clist.pcno}">${clist.color_name}</option>
 									</c:forEach>
 								</select>
 								<div class="clear" id="slsSize">
 									<h3>사이즈</h3>
 									<select id="sizeSelectAjax">
 										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option>-----------------------------------------</option>
+										<option id="psno">-----------------------------------------</option>
 									</select>
 								</div>
 							</ul>
@@ -121,7 +124,7 @@ ${requestScope.pvo }
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" min="0" value="1">
+									<input type="number" name="quantity" id="quantity" min="0">
 								</ul>
 							</div>
 							<div class="clearfix"></div>
@@ -129,6 +132,7 @@ ${requestScope.pvo }
 								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
+						</form>
 					</div>
 					<div class="clearfix"></div>
 					<br>
@@ -151,7 +155,7 @@ ${requestScope.pvo }
 						<table class="table table-bordered">
 							<thead>
 								<c:choose>
-									<c:when test="${requestScope.pvo.category=='bottom'}">
+									<c:when test="${requestScope.pvo.category=='하의'}">
 										<tr>
 											<th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th>
 										</tr>
