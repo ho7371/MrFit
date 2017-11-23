@@ -134,7 +134,6 @@
 		</div>
 	</div>
 </div>
-	<a href=>디테일</a>
 
 <!--end-shoes-->
 <!-- pagingBean -->
@@ -159,7 +158,7 @@
 	<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 	</c:if>
 	</ul>	 		
-	</div> 	
+</div> 	
 
 
 

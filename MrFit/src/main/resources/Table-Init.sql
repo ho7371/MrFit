@@ -88,24 +88,24 @@ insert into auth(id, auth) values('spring','ROLE_ADMIN');
 --------------- 상품등록
 
 insert into product(pno,name,price,content,category) 
-	values(1,'라운드넥맨투맨',23000,'라운드넥 맨투맨 상품 설명입니다','상의');
+	values(1,'라운드넥맨투맨',23000,'라운드넥 맨투맨 상품 설명입니다','top');
 	
 insert into product(pno,name,price,content,category) 
-	values(2,'옥스포드 셔츠',18000,'옥스포드 셔츠 상품 설명입니다','상의');
-	
-	
-insert into product(pno,name,price,content,category) 
-	values(3,'빈티지 청바지',57000,'빈티지 청바지 상품 설명입니다','하의');
-	
-insert into product(pno,name,price,content,category) 
-	values(4,'생지 데님',47000,'생지 데님 상품 설명입니다','하의');
+	values(2,'옥스포드 셔츠',18000,'옥스포드 셔츠 상품 설명입니다','top');
 	
 	
 insert into product(pno,name,price,content,category) 
-	values(5,'라쿤 파카',180000,'라쿤 파카 상품 설명입니다','아우터');
+	values(3,'빈티지 청바지',57000,'빈티지 청바지 상품 설명입니다','bottom');
+	
+insert into product(pno,name,price,content,category) 
+	values(4,'생지 데님',47000,'생지 데님 상품 설명입니다','bottom');
+	
+	
+insert into product(pno,name,price,content,category) 
+	values(5,'라쿤 파카',180000,'라쿤 파카 상품 설명입니다','outer');
 
 insert into product(pno,name,price,content,category) 
-	values(6,'롱패딩',165000,'롱패딩 상품 설명입니다','아우터');
+	values(6,'롱패딩',165000,'롱패딩 상품 설명입니다','outer');
 	
 ------------- 상품 색상 추가
 
@@ -217,9 +217,9 @@ values(4,'spring','이상품 괜찮아요 4444 ??',sysdate);
 
 --------------- 이미지 등록
 
-insert into image(ino,pno,url) values(1,1,'main/mantoman.jpg');
-insert into image(ino,pno,url) values(2,1,'top/mantoman1.jpg');
-insert into image(ino,pno,url) values(3,1,'top/mantoman2.jpg');
+insert into image(ino,pno,url) values(1,1,'thumb/이미지1.jpg');
+insert into image(ino,pno,url) values(2,1,'top/이미지2.jpg');
+insert into image(ino,pno,url) values(3,1,'top/이미지3.jpg');
 insert into image(ino,pno,url) values(4,2,'main/oxford.jpg');
 insert into image(ino,pno,url) values(5,2,'top/oxford1.jpg');
 insert into image(ino,pno,url) values(6,3,'main/vintage.jpg');

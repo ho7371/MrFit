@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.PointVO;
 import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -308,8 +309,10 @@ public class MemberController {
 		System.out.println("    MemberController/updateMemberAction()/종료");
 		return "member/update_result.tiles";
 	}
-
-}
+	
+	
+	
+}// class
 
 
 

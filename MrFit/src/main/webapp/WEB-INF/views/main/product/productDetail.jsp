@@ -1,265 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="screen" />
 <script type="text/javascript">
-$(document)
-.ready(
-	function() {
-		alert($(".memberSize1").attr("id"));
-		alert($(".quick_desc").attr("id"));
+$(document).ready(function() {
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
 		//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
-		$("#colorCheck")
-			.change(
-					function() {
+		$("#colorCheck").change(function() {
 						pcno = $(this).val();
 						if ($(this).val() == 0) {
 							return false;
-}
-	$("#slsSize").html("");
-	$
-			.ajax({
+		}
+		$("#slsSize").html("");
+		$.ajax({
 				type : "get",
 				url : "${pageContext.request.contextPath}/findProductDetailByColorAjax.do",
 				dataType : "json",
-				data : "pcno="
-						+ $(this).val(),
+				data : "pcno="+ $(this).val()+"&pno="+pno,
 				success : function(data) {
 					var infoSize = "";
-	infoSize = "<h3>사이즈</h3>"
-	infoSize += "<select id='sizeSelectAjax'>";
-infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
-infoSize += "<option>-----------------------------------------</option>";
-for (var i = 0; i < data.length; i++) {
-	infoSize += "<option value='"
-infoSize+=data[i].psno;
-infoSize+="'>";
-										infoSize += "Size : "
-												+ data[i].size_name;
-										infoSize += "</option>";
-									}
-									infoSize += "</select>";
-									$("#slsSize")
-											.append(
-													infoSize);
-								}//success
-							});//ajax
-				});//change
-
-// 동적으로 생긴 사이즈 와 회원의 사이즈를 비교하기 위한 On 이벤트 
-$("#slsSize")
-		.on(
-					"change",
-					"#sizeSelectAjax",
-					function() {
-						alert($(this).val());
-						$
-								.ajax({
-type : "get",
-url : "${pageContext.request.contextPath}/findProductDetailBySizeAjax.do",
-dataType : "json",
-data : "psno="
-		+ $(this).val()
-						+ "&pcno="
-						+ pcno
-						+ "&pno=" + pno,
-				success : function(data) {
-					//size1
-					if (data.size1<2&&data.size1> - 2) {
-						$("#size1")
-								.text(
-										data.size1)
-								.css(
-										"background-color",
-										"#ffffff");
-} else if (data.size1<4&&data.size1> - 4) {
-	$("#size1")
-			.text(
-					data.size1)
-			.css(
-					"background-color",
-														"#ffffb3");
-									} else if (data.size1<6&&data.size1> - 6) {
-										$("#size1")
-												.text(
-														data.size1)
-												.css(
-														"background-color",
-														"#ffcc99");
-									} else if (data.size1<8&&data.size1> - 8) {
-										$("#size1")
-												.text(
-														data.size1)
-												.css(
-														"background-color",
-														"#ff471a");
-									} else {
-										$("#size1")
-												.text(
-					data.size1)
-			.css(
-					"background-color",
-					"#ff0000");
-}
-//size2
-					if (data.size2<2&&data.size2> - 2) {
-						$("#size2")
-								.text(
-										data.size2)
-								.css(
-										"background-color",
-										"#ffffff");
-					} else if (data.size2<4&&data.size2> - 4) {
-						$("#size2")
-								.text(
-					data.size2)
-												.css(
-														"background-color",
-														"#ffffb3");
-									} else if (data.size2<6&&data.size2> - 6) {
-										$("#size2")
-					.text(
-							data.size2)
-					.css(
-							"background-color",
-							"#ffcc99");
-		} else if (data.size2<8&&data.size2> - 8) {
-			$("#size2")
-					.text(
-							data.size2)
-					.css(
-							"background-color",
-							"#ff471a");
-		} else {
-			$("#size2")
-										.text(
-												data.size2)
-										.css(
-												"background-color",
-												"#ff0000");
-							}
-							//size3
-							if (data.size3<2&&data.size3> - 2) {
-$("#size3")
-									.text(
-											data.size3)
-									.css(
-											"background-color",
-											"#ffffff");
-						} else if (data.size3<4&&data.size3> - 4) {
-							$("#size3")
-									.text(
-											data.size3)
-									.css(
-											"background-color",
-											"#ffffb3");
-						} else if (data.size3<6&&data.size3> - 6) {
-							$("#size3")
-									.text(
-		data.size3)
-								.css(
-										"background-color",
-										"#ffcc99");
-					} else if (data.size3<8&&data.size3> - 8) {
-						$("#size3")
-								.text(
-										data.size3)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size3")
-								.text(
-										data.size3)
-								.css(
-										"background-color",
-										"#ff0000");
+						infoSize = "<h3>사이즈</h3>"
+						infoSize += "<select id='sizeSelectAjax'>";
+						infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
+						infoSize += "<option>-----------------------------------------</option>";
+					for (var i = 0; i < data.length; i++) {
+						infoSize += "<option value='"
+						infoSize+=data[i].psno;
+						infoSize+="'>";
+						infoSize += "Size : "+data[i].size_name;
+						infoSize += "</option>";
 					}
-				//size4
-				if (data.size4<2&&data.size4> - 2) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-									"#ffffff");
-				} else if (data.size4<4&&data.size4> - 4) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-									"#ffffb3");
-				} else if (data.size4<6&&data.size4> - 6) {
-					$("#size4")
-							.text(
-									data.size4)
-							.css(
-									"background-color",
-"#ffcc99");
-					} else if (data.size4<8&&data.size4> - 8) {
-						$("#size4")
-								.text(
-										data.size4)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size4")
-								.text(
-										data.size4)
-								.css(
-										"background-color",
-										"#ff0000");
-					}
-//size5
-if (data.size5<2&&data.size5> - 2) {
-										$("#size5")
-												.text(
-														data.size5)
-												.css(
-														"background-color",
-														"#ffffff");
-		} else if (data.size5<4&&data.size5> - 4) {
-			$("#size5")
-					.text(
-												data.size5)
-										.css(
-												"background-color",
-												"#ffffb3");
-							} else if (data.size5<6&&data.size5> - 6) {
-								$("#size5")
-										.text(
-												data.size5)
-										.css(
-												"background-color",
-												"#ffcc99");
-		} else if (data.size5<8&&data.size5> - 8) {
-			$("#size5")
-												.text(
-										data.size5)
-								.css(
-										"background-color",
-										"#ff471a");
-					} else {
-						$("#size5")
-								.text(
-										data.size5)
-								.css(
-										"background-color",
-										"#ff0000");
-					}
+						infoSize += "</select>";
+						$("#slsSize").append(infoSize);
 				}//success
-			});//ajax
-});//on 이벤트
+		});//ajax
+	});//change
 });//ready
 </script>
 <script>
@@ -272,6 +53,13 @@ if (data.size5<2&&data.size5> - 2) {
 	});
 </script>
 
+<!-- 지울 부분 -->
+${requestScope.psglist}
+<br><br>
+<!-- 지울 부분 -->
+${requestScope.pvo }
+
+
 <!--start-single-->
 <div class="single contact">
 	<div class="container">
@@ -281,13 +69,9 @@ if (data.size5<2&&data.size5> - 2) {
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
 							<ul class="slides">
-								<li data-thumb="images/s1.jpg"><img height=350px
-									width=250px
-									src="${pageContext.request.contextPath}/resources/images/s1.jpg" />
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button>
-									<button type="button" class="btn btn-info active">1</button> <%--		</li>
+								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
+							${imgList.url }							
+		 <%--		</li>
 					<li data-thumb="images/s2.jpg">
 					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
 					</li>
@@ -337,13 +121,12 @@ if (data.size5<2&&data.size5> - 2) {
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" min="0">
+									<input type="number" name="quantity" min="0" value="1">
 								</ul>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" /> <input type="submit"
-									value="즉시구매" />
+								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
 					</div>
@@ -368,7 +151,7 @@ if (data.size5<2&&data.size5> - 2) {
 						<table class="table table-bordered">
 							<thead>
 								<c:choose>
-									<c:when test="${requestScope.pvo.category=='하의'}">
+									<c:when test="${requestScope.pvo.category=='bottom'}">
 										<tr>
 											<th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th>
 										</tr>
@@ -381,22 +164,27 @@ if (data.size5<2&&data.size5> - 2) {
 								</c:choose>
 							</thead>
 							<tbody>
-								<%-- <c:forEach items="" var="">
+								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
-										<td id="sizeName"></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>${psList.size_name}</td>
+										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}</td>
+										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}</td>
+										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}</td>
+										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}</td>
+										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}</td>
 									</tr>
-								</c:forEach> --%>
+								</c:forEach> 
 							</tbody>
 						</table>
 					</div>
+					<!-- 이미지  -->
+					<div>
+					<c:forEach items="${requestScope.pvo.imageList}" varStatus="j">
+					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
+					</c:forEach>									
+					</div>
 
-
-					<!-- review table -->
+					<!-- start review table -->
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
@@ -411,7 +199,7 @@ if (data.size5<2&&data.size5> - 2) {
 											<li><span>날짜</span></li>
 											<div class="clearfix"></div>
 										</ul>
-										<c:forEach items="prvolist" var="list">
+										<c:forEach items="${prvolist}" var="list">
 										<ul class="cart-header">
 											<li><span>리뷰번호=${list.rno}</span></li>
 											<li><span>내용=${list.content }</span></li>
@@ -426,100 +214,7 @@ if (data.size5<2&&data.size5> - 2) {
 							</div>
 						</div>
 					</div>
-					
-
-					<div class="latest products">
-						<div class="product-one">
-							<div class="col-md-4 product-left single-left">
-								<div class="p-one simpleCart_shelfItem"
-									style="width: 250px; height: 165px; overflow: hidden">
-									<a href="#"> <img style="height: 80%; width: auto;"
-										src="${pageContext.request.contextPath}/resources/images/s2.jpg"
-										alt="" />
-										<div class="mask mask1">
-											<span>Quick View</span>
-										</div>
-									</a>
-
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-2.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-3.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="product-one">
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-13.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-5.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="col-md-4 product-left single-left">
-									<div class="p-one simpleCart_shelfItem">
-										<a href="#"> <img src="images/shoes-6.png" alt="" />
-											<div class="mask mask1">
-												<span>Quick View</span>
-											</div>
-										</a>
-										<h4>Aenean placerat</h4>
-										<p>
-											<a class="item_add" href="#"><i></i> <span
-												class=" item_price">$329</span></a>
-										</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-					</div>
-					
+					<!-- end review table  -->
 					<div class="clearfix"></div>
 				</div>
 			</div>
