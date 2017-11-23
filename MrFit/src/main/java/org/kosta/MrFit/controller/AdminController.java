@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
@@ -73,12 +74,16 @@ public class AdminController {
 	 * @param request
 	 * @param productName
 	 * @return
+	 * Tomcat /conf/context.xml 
+		이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다. 
+		<Context reloadable="true" allowCasualMultipartParsing="true">
 	 */
 	@Transactional
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
 	public ModelAndView registerProduct(UploadVO vo, ProductVO productVO, HttpServletRequest request) {
 		System.out.println("   	AdminController/registerProduct()/시작");
+			
 		
 			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
@@ -86,29 +91,34 @@ public class AdminController {
 				uploadDir.mkdirs();
 			}
 			
-			List<MultipartFile> list=vo.getFiles();
+			List<MultipartFile> list=vo.getFile();
 			ArrayList<String> nameList=new ArrayList<String>();		
 			System.out.println("   	AdminController/registerProduct()/진행1");
 			
 			String thumbPath = uploadPath+"thumb/";
 			String imagePath = uploadPath+productVO.getCategory()+"/";
 			String fileName = productVO.getName();	
-			
+			String realName=list.get(0).getOriginalFilename();
+			System.out.println(thumbPath);
+			System.out.println(imagePath);
+			System.out.println(realName);
 			try {
 				if(!fileName.equals("")){
-					list.get(0).transferTo(new File(thumbPath+fileName));
+					list.get(0).transferTo(new File(thumbPath+fileName+".jpg"));
 				}
 				
 				System.out.println("   	AdminController/registerProduct()/진행2 - 대표이미지 업로드");
 				
 				for(int i=1; i<list.size(); i++){
-					fileName =  productVO.getName()+i;		
+					fileName =  productVO.getName()+i+".jpg";		
 					if(!fileName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
 						try {
 							list.get(i).transferTo(new File(imagePath+fileName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
 							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
 							nameList.add(fileName);
-						} catch (Exception e) {					
+							ImageVO ivo=new ImageVO(vo.getPno(),fileName);
+							productService.registerImage(ivo);
+						} catch (Exception e) {
 							e.printStackTrace();
 						} 
 					}

@@ -7,6 +7,13 @@ public class ImageVO {
 	public ImageVO() {
 		super();
 	}
+	
+	public ImageVO(String pno, String url) {
+		super();
+		this.pno = pno;
+		this.url = url;
+	}
+
 	public ImageVO(String ino, String pno, String url) {
 		super();
 		this.ino = ino;

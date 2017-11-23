@@ -6,15 +6,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadVO {
 	private String pno;
-	private List<MultipartFile> files;
+	private List<MultipartFile> file;
 	
 	public UploadVO() {
 		super();
 	}
-	public UploadVO(String pno, List<MultipartFile> files) {
+	public UploadVO(String pno, List<MultipartFile> file) {
 		super();
 		this.pno = pno;
-		this.files = files;
+		this.file = file;
 	}
 	public String getPno() {
 		return pno;
@@ -22,15 +22,15 @@ public class UploadVO {
 	public void setPno(String pno) {
 		this.pno = pno;
 	}
-	public List<MultipartFile> getFiles() {
-		return files;
+	public List<MultipartFile> getFile() {
+		return file;
 	}
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
 	}
 	@Override
 	public String toString() {
-		return "UploadVO [pno=" + pno + ", files=" + files + "]";
+		return "UploadVO [pno=" + pno + ", file=" + file + "]";
 	}
 }
 	

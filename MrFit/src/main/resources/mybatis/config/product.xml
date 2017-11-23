@@ -107,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registerProductReview">
     	insert into review values (rno_seq.nextval, #{pdno}, #{id},#{content},sysdate )
     </insert>
+    
     <!-- [석환][11.22][치수 비교] -->
     <select id="sizeGapMemberAndProduct" parameterType="string" resultType="productSizeVO">
     select distinct ps.size_name, ps.size1, ps.size2, ps.size3, ps.size4, ps.size5
@@ -115,6 +116,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by ps.size_name desc
     </select>
     
+    <insert id="registerImage" parameterType="imageVO">
+    	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url});
+    </insert>
 </mapper>
 
 
