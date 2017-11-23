@@ -3,12 +3,18 @@ package org.kosta.MrFit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.AdminService;
+import org.kosta.MrFit.model.ListVO;
+import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.PagingBean0;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
 import org.kosta.MrFit.model.UploadVO;
@@ -23,9 +29,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 	@Resource
+	private AdminService adminService;
+	@Resource
 	private ProductService productService;
 	private PagingBean pb;
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminPage.do")
 	public String adminPage() {
 		System.out.println("   	AdminController/adminPage()/시작");
@@ -140,4 +149,70 @@ public class AdminController {
 		return null;
 	}
 	
+	
+	@SuppressWarnings("null")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("commonMemberList.do")
+	public ModelAndView commonMemberList(HttpServletRequest request,int status) {
+		ModelAndView mv = new ModelAndView();
+	//	int intStatus =Integer.parseInt(status);
+		int tmc = adminService.getTotalCommonMemberCount(status);
+		int nowPage = 1;
+		if(request.getParameter("listPage")!=null) {
+			nowPage = Integer.parseInt(request.getParameter("listPage"));
+		}
+		PagingBean0 pb = new PagingBean0(tmc,nowPage,3,2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", status);
+		map.put("pagingBean", pb);
+		List<MemberVO> list = adminService.commonMemberList(map);
+		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
+		mv.addObject("lvo",lvo);
+		if(status==1) {
+			mv.setViewName("admin/memberList.tiles");
+		}else {
+			mv.setViewName("admin/unregisterMemberList.tiles");
+		}
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminUnregisterMember.do")
+	public ModelAndView adminUnregisterMember(String id) {
+		adminService.adminDeleteMemberAuthority(id);
+		adminService.adminUpdateMemberStatus(id);
+		return new ModelAndView("admin/adminUnregisterMember.tiles");
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchMember.do")
+	public ModelAndView adminSearchMember(String id) {
+		MemberVO mvo = adminService.adminSearchMember(id);
+		ModelAndView mv = null;
+		if(mvo==null) {
+			mv = new ModelAndView("admin/adminSearchMember_fail.tiles");
+			return mv;
+		}else {
+			mv = new ModelAndView("admin/adminSearchMember_ok.tiles","member",mvo);
+			return mv;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+

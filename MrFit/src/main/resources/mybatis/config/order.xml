@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name, i.url
 		FROM product_detail pd, product p, product_color pc, product_size ps, order_product op, orders o , image i 
 		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
-		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'main' || '%'
+		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'thumb' || '%'
     </select>
     
     <resultMap type="orderProductVO" id="orderProductRM">
@@ -49,7 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="orderVO" id="ORM2">
 		<result column="id" property="memberVO.id"/>
-		<result column="address" property="memberVO.address"/>
  	</resultMap>
  	
  	<!-- 주문 내역 보기  -->
