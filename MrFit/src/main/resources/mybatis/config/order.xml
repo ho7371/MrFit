@@ -86,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
     </select>
     
-    <!-- 정현 장바구니 담기 -->
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인-->
     <select id="findMyCartCount" resultType="int">
    		 select count(*) from ORDERS
 		where id=#{value} and status='장바구니'

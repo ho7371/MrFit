@@ -168,27 +168,22 @@ ${requestScope.pvo }
 								</c:choose>
 							</thead>
 							<tbody>
-								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
+								<%-- <c:forEach items="" var="">
 									<tr>
-										<td>${psList.size_name}</td>
-										<td style="background-color:${psglist[i.index].sizeGap1}">${psList.size1}</td>
-										<td style="background-color:${psglist[i.index].sizeGap2}">${psList.size2}</td>
-										<td style="background-color:${psglist[i.index].sizeGap3}">${psList.size3}</td>
-										<td style="background-color:${psglist[i.index].sizeGap4}">${psList.size4}</td>
-										<td style="background-color:${psglist[i.index].sizeGap5}">${psList.size5}</td>
+										<td id="sizeName"></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
 									</tr>
-								</c:forEach> 
+								</c:forEach> --%>
 							</tbody>
 						</table>
 					</div>
-					<!-- 이미지  -->
-					<div>
-					<c:forEach items="${requestScope.pvo.imageList}" varStatus="j">
-					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
-					</c:forEach>									
-					</div>
 
-					<!-- start review table -->
+
+					<!-- review table -->
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
@@ -218,7 +213,100 @@ ${requestScope.pvo }
 							</div>
 						</div>
 					</div>
-					<!-- end review table  -->
+					
+
+					<div class="latest products">
+						<div class="product-one">
+							<div class="col-md-4 product-left single-left">
+								<div class="p-one simpleCart_shelfItem"
+									style="width: 250px; height: 165px; overflow: hidden">
+									<a href="#"> <img style="height: 80%; width: auto;"
+										src="${pageContext.request.contextPath}/resources/images/s2.jpg"
+										alt="" />
+										<div class="mask mask1">
+											<span>Quick View</span>
+										</div>
+									</a>
+
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-2.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-3.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-one">
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-13.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-5.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="col-md-4 product-left single-left">
+									<div class="p-one simpleCart_shelfItem">
+										<a href="#"> <img src="images/shoes-6.png" alt="" />
+											<div class="mask mask1">
+												<span>Quick View</span>
+											</div>
+										</a>
+										<h4>Aenean placerat</h4>
+										<p>
+											<a class="item_add" href="#"><i></i> <span
+												class=" item_price">$329</span></a>
+										</p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+					
 					<div class="clearfix"></div>
 				</div>
 			</div>

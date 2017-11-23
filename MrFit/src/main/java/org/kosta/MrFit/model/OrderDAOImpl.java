@@ -41,7 +41,7 @@ public class OrderDAOImpl implements OrderDAO {
 	//정현 장바구니 담기 
 	@Override
 	public void registerOrder(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ");
+		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ovo : "+ovo);
 		template.insert("order.registerOrder",ovo);		
 		System.out.println("                  OrderDAOImpl/registerOrder()/종료");		
 	}

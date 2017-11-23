@@ -11,6 +11,7 @@ import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class OrderController {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		
 		int cartCount = orderService.findMyCartCount(mvo.getId());
 
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
@@ -86,7 +87,7 @@ public class OrderController {
 		ovo.setMemberVO(mvo);
 		
 		System.out.println("    OrderController/registerCart()/진행 ovo : " + ovo);
-		if (cartCount == 0) {
+		if (cartCount==0) {
 			orderService.registerOrder(ovo);
 			orderService.registerOrderProduct(ovo);
 			System.out.println("    OrderController/registerCart()/종료");
@@ -140,7 +141,7 @@ public class OrderController {
 
 		System.out.println("   	OrderController/deleteCart()/종료");
 
-		return "cartForm.do";
+		return "redirect:cartForm.do";
 	}
 
 	/**
