@@ -39,7 +39,6 @@
 				return confirm("구매를 진행 하시겠습니까?");
 			}
 		}); // click
-	/* 	$("#payMethodTable1").hide(); */
 		$("#payMethodTable2").hide();
 		$("#payMethodTable3").hide();
 		$("#payMethodTable4").hide();
@@ -113,7 +112,8 @@
 				<c:forEach items="${requestScope.ovoList}" var="i">
 	            <ul class="cart-header">
 	                  <li class="ring-in"><a href="single.html" >
-	                  <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/>
+	                  <%-- <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/> --%>
+	                  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>
 	                  </a>
 	                  </li>
 	                  <c:forEach items="${i.orderProductList}" var="j">

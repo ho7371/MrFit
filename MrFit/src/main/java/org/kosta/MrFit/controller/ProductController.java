@@ -1,10 +1,12 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.MrFit.model.Authority;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
@@ -58,6 +60,8 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return null;
 	}
+	
+	
 	/**[현민][상품검색]
 	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 
 	 * 찾는 기능 
@@ -71,7 +75,6 @@ public class ProductController {
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
-		System.out.println("    ProductController/registerProduct()/진행");
 		if(list!= null) {
 			mv.setViewName("product/findProductByName_ok.tiles");
 			mv.addObject("list", list);
@@ -81,6 +84,7 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
+	
 	/* [석환][11/18]
 	 * 상품 번호로 상품의 상세정보 페이지 이동
 	 */
@@ -88,13 +92,15 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
-		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
-		if(vo!=null) {			
-		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-		ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
-		mv.addObject("psglist", psglist);
+		System.out.println("    ProductController/findProductDetailByPno()/진행1 - @@@@@ " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
+			ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+			mv.addObject("psglist", psglist);
 		}
+		mv.addObject("psList", psList);
 		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
      	// 해당 상품 리뷰 불러오는 메서드
 		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
@@ -102,7 +108,6 @@ public class ProductController {
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 			mv.addObject("prvolist", prvolist);
-			mv.addObject("psList", psList);
 		return mv;
 	}
 	

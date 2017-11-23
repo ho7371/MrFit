@@ -22,6 +22,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<OrderVO> findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		List<OrderVO> list = template.selectList("order.findMyCart",id);
+		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list :"+list);
 		for (int i = 0; i < list.size(); i++) {
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);

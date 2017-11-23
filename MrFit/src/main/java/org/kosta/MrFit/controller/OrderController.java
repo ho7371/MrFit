@@ -25,8 +25,12 @@ public class OrderController {
 	private OrderService orderService;
 
 	/**
-	 * [현민][11/21][16:10] 장바구니 보기 기능 회원의 아이디로 회원이 장바구니에 담은 상품들을 불러온다 그 후 회원의 정보를 사용할
-	 * 수 있도록 회원 정보도 set해준다. 그 다음 list로 반환 한다.
+	 * [현민][11/21][16:10] 
+	 * 장바구니 보기 기능 회원의 아이디로 
+	 * 회원이 장바구니에 담은 상품들을 불러온다 
+	 * 그 후 회원의 정보를 사용할
+	 * 수 있도록 회원 정보도 set해준다. 
+	 * 그 다음 list로 반환 한다.
 	 * 
 	 * @return
 	 */
@@ -184,6 +188,7 @@ public class OrderController {
 		System.out.println("      OrderController/myOrderList()/중간" + list);
 		return new ModelAndView("order/myOrderList.tiles", "list", list);
 	}
+	
 	
 	/**
 	 * [영훈][][주문상품리스트가져오기]

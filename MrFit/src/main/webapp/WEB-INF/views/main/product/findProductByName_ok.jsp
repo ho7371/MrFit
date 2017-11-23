@@ -13,7 +13,7 @@
 						<div class="col-md-4 product-left single-left"> 
 							<div class="p-one simpleCart_shelfItem">
 								<a href="single.html">
-										<img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" alt="" />
+										<img src="${pageContext.request.contextPath}/resources/upload/${url}" alt="" />
 										<%-- <img src="${pageContext.request.contextPath}/resources/images/${url}" alt="" /> --%>
 										<div class="mask mask1">
 											<span>Quick View</span>
@@ -29,18 +29,7 @@
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<div class="col-md-3 p-right single-right">
+			<!-- <div class="col-md-3 p-right single-right">
 				<h3>Categories</h3>
 					<ul class="product-categories">
 						<li><a href="#">Blucher Shoe</a> <span class="count">(14)</span></li>
@@ -75,7 +64,7 @@
 						<li><a href="#">900$-1000$</a> <span class="count">(8)</span></li>
 						<li><a href="#">1000$-1100$</a> <span class="count">(11)</span></li>
 					</ul>
-			</div>
+			</div> -->
 			<div class="clearfix"> </div>
 		</div>
 	</div>
