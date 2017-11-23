@@ -162,6 +162,7 @@ ${requestScope.pvo } --%>
 									</c:otherwise>
 								</c:choose>
 							</thead>
+	<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
 							<tbody>
 								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>

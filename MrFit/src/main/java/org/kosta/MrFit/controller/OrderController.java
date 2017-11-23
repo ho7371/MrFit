@@ -57,8 +57,9 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+// 주석규칙 지키기
 	@RequestMapping("registerCart.do")
-	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
+	public String registerCart(HttpServletRequest request,ProductVO productVO) {
 		System.out.println("   	OrderController/registerCart()/시작");
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
@@ -66,7 +67,7 @@ public class OrderController {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("pvo : "+prodeuctVO);
+		System.out.println("pvo : "+productVO);
 		int cartCount = orderService.findMyCartCount(mvo.getId());
 			System.out.println("cartCount : "+cartCount);
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
