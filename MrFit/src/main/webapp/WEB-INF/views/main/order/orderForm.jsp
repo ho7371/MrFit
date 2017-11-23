@@ -20,21 +20,23 @@
 			}	
 		}); //click
 		$("#order").click(function() {
-			if($("#agreeOrder").is(':checked')){
-				if($("#memberName").text()==""){
-					alert("배송자 이름을 입력하시기 바랍니다.");
-					return false;
-				}else if($("#memberPhone").text()==""){
-					alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
-					return false;
-				}else if($("#memberAddress").text()==""){
-					alert("배송자 주소을 입력하시기 바랍니다.");
-					return false;
-				}
-				return confirm("구매를 진행 하시겠습니까?");
-			}else{	
+			if(!$("#agreeOrder").is(':checked')){
 				alert("구매 동의를 하시기 바랍니다.");
 				return false;
+			}else if($("#name").val()==""){
+				alert("배송자 이름을 입력하시기 바랍니다.");
+				return false;
+			}else if($("#phone").val()==""){
+				alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
+				return false;
+			}else if($("#address").val()==""){
+				alert("배송자 주소을 입력하시기 바랍니다.");
+				return false;
+			}else if($("#payMethod1").is(":checked") && $("#insertPerson").val()==""){
+				alert("입금자명을 입력하시기 바랍니다.");
+				return false;
+			}else{	
+				return confirm("구매를 진행 하시겠습니까?");
 			}
 		}); // click
 	/* 	$("#payMethodTable1").hide(); */
@@ -225,7 +227,7 @@
 	            <div align="center">
 		          	<table class="cart-header" id ="payMethodTable1">
 		          		<tr>
-		          			<th>입금자명 : </th><td><input type = "text" name = "" id = ""></td>
+		          			<th>입금자명 : </th><td><input type = "text" name = "" id = "insertPerson"></td>
 		          			<td rowspan ="2" colspan = "3" style="font-size: 2;">
 		          			· 선택된 입금계좌로 인터넷 뱅킹, 은행방문 등을 통해 입금해 주세요.  <br>
 							· 반드시 입금 기한 내에 정확한 결제금액을 입금해 주세요. <br>
