@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductDetailByColorAjax(pdno);
 	}*/
 	@Override
-		public List<ProductSizeVO> findProductDetailByColorAjax(String pdno){
-			return productDAO.findProductDetailByColorAjax(pdno);
+		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
@@ -114,5 +115,142 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.registerProductReview(prvo);
 		
 	}
+	/*
+	 * [석환][11.22][치수차이]
+	 */
+	@Override
+	public ArrayList<ProductSizeGapVO> sizeGapMemberAndProduct(String pno,MemberSizeVO msvo,String pvo){
+		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
+		ArrayList<ProductSizeGapVO> psgList=new ArrayList<ProductSizeGapVO>();
+		System.out.println(pno);
+		System.out.println(msvo);
+		System.out.println(pvo);
+		System.out.println(psList);
+		int sizeGap1=0;
+		int sizeGap2=0;
+		int sizeGap3=0;
+		int sizeGap4=0;
+		int sizeGap5=0;
+		String colorGap1="#ff0000";
+		String colorGap2="#ff0000";
+		String colorGap3="#ff0000";
+		String colorGap4="#ff0000";
+		String colorGap5="#ff0000";
+		// #ffffff #ffffb3 #ffcc99 #ff471a #ff0000
+		for(int i=0;i<psList.size();i++) {
+			if(pvo.equals("하의")) {
+				sizeGap1=msvo.getWaist()-psList.get(i).getSize1();
+				sizeGap2=msvo.getCrotch()-psList.get(i).getSize2();
+				sizeGap3=msvo.getThigh()-psList.get(i).getSize3();
+				sizeGap4=msvo.getHem()-psList.get(i).getSize4();
+				sizeGap5=msvo.getBottomlength()-psList.get(i).getSize5();
+				if(sizeGap1<=2&&sizeGap1>=-2) {
+					colorGap1="#ffffff";
+				}else if(sizeGap1<=4&&sizeGap1>=-4) {
+					colorGap1="#ffffb3";
+				}else if(sizeGap1<=6&&sizeGap1>=-6) {
+					colorGap1="#ffcc99";
+				}else if(sizeGap1<=8&&sizeGap1>=-8) {
+					colorGap1="#ff471a";
+				}
+				if(sizeGap2<=2&&sizeGap2>=-2) {
+					colorGap2="#ffffff";
+				}else if(sizeGap2<=4&&sizeGap2>=-4) {
+					colorGap2="#ffffb3";
+				}else if(sizeGap2<=6&&sizeGap2>=-6) {
+					colorGap2="#ffcc99";
+				}else if(sizeGap2<=8&&sizeGap2>=-8) {
+					colorGap2="#ff471a";
+				}
+				if(sizeGap3<=2&&sizeGap3>=-2) {
+					colorGap3="#ffffff";
+				}else if(sizeGap3<=4&&sizeGap3>=-4) {
+					colorGap3="#ffffb3";
+				}else if(sizeGap3<=6&&sizeGap3>=-6) {
+					colorGap3="#ffcc99";
+				}else if(sizeGap3<=8&&sizeGap3>=-8) {
+					colorGap3="#ff471a";
+				}
+				if(sizeGap4<=2&&sizeGap4>=-2) {
+					colorGap4="#ffffff";
+				}else if(sizeGap4<=4&&sizeGap4>=-4) {
+					colorGap4="#ffffb3";
+				}else if(sizeGap4<=6&&sizeGap4>=-6) {
+					colorGap4="#ffcc99";
+				}else if(sizeGap4<=8&&sizeGap4>=-8) {
+					colorGap4="#ff471a";
+				}
+				if(sizeGap5<=2&&sizeGap5>=-2) {
+					colorGap5="#ffffff";
+				}else if(sizeGap5<=4&&sizeGap5>=-4) {
+					colorGap5="#ffffb3";
+				}else if(sizeGap5<=6&&sizeGap5>=-6) {
+					colorGap5="#ffcc99";
+				}else if(sizeGap5<=8&&sizeGap5>=-8) {
+					colorGap5="#ff471a";
+				}
+			}
+			////////////////상의,아우터
+			else {
+				sizeGap1=msvo.getShoulder()-psList.get(i).getSize1();
+				sizeGap2=msvo.getChest()-psList.get(i).getSize2();
+				sizeGap3=msvo.getSleeve()-psList.get(i).getSize3();
+				sizeGap4=msvo.getArmhole()-psList.get(i).getSize4();
+				sizeGap5=msvo.getToplength()-psList.get(i).getSize5();
+				if(sizeGap1<=2&&sizeGap1>=-2) {
+					colorGap1="#ffffff";
+				}else if(sizeGap1<=4&&sizeGap1>=-4) {
+					colorGap1="#ffffb3";
+				}else if(sizeGap1<=6&&sizeGap1>=-6) {
+					colorGap1="#ffcc99";
+				}else if(sizeGap1<=8&&sizeGap1>=-8) {
+					colorGap1="#ff471a";
+				}
+				if(sizeGap2<=2&&sizeGap2>=-2) {
+					colorGap2="#ffffff";
+				}else if(sizeGap2<=4&&sizeGap2>=-4) {
+					colorGap2="#ffffb3";
+				}else if(sizeGap2<=6&&sizeGap2>=-6) {
+					colorGap2="#ffcc99";
+				}else if(sizeGap2<=8&&sizeGap2>=-8) {
+					colorGap2="#ff471a";
+				}
+				if(sizeGap3<=2&&sizeGap3>=-2) {
+					colorGap3="#ffffff";
+				}else if(sizeGap3<=4&&sizeGap3>=-4) {
+					colorGap3="#ffffb3";
+				}else if(sizeGap3<=6&&sizeGap3>=-6) {
+					colorGap3="#ffcc99";
+				}else if(sizeGap3<=8&&sizeGap3>=-8) {
+					colorGap3="#ff471a";
+				}
+				if(sizeGap4<=2&&sizeGap4>=-2) {
+					colorGap4="#ffffff";
+				}else if(sizeGap4<=4&&sizeGap4>=-4) {
+					colorGap4="#ffffb3";
+				}else if(sizeGap4<=6&&sizeGap4>=-6) {
+					colorGap4="#ffcc99";
+				}else if(sizeGap4<=8&&sizeGap4>=-8) {
+					colorGap4="#ff471a";
+				}
+				if(sizeGap5<=2&&sizeGap5>=-2) {
+					colorGap5="#ffffff";
+				}else if(sizeGap5<=4&&sizeGap5>=-4) {
+					colorGap5="#ffffb3";
+				}else if(sizeGap5<=6&&sizeGap5>=-6) {
+					colorGap5="#ffcc99";
+				}else if(sizeGap5<=8&&sizeGap5>=-8) {
+					colorGap5="#ff471a";
+				}
+			}
+			psgList.add(new ProductSizeGapVO(colorGap1,colorGap2,colorGap3,colorGap4,colorGap5));
+		}
+		return psgList;
+	}
 	
+	@Override
+	public void uploadImages(UploadVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
 }
