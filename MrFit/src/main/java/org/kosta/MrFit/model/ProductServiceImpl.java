@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
 		String colorGap5="#ff0000";
 		// #ffffff #ffffb3 #ffcc99 #ff471a #ff0000
 		for(int i=0;i<psList.size();i++) {
-			if(pvo.equals("하의")) {
+			if(pvo.equals("bottom")) {
 				sizeGap1=msvo.getWaist()-psList.get(i).getSize1();
 				sizeGap2=msvo.getCrotch()-psList.get(i).getSize2();
 				sizeGap3=msvo.getThigh()-psList.get(i).getSize3();

@@ -64,10 +64,8 @@ ${requestScope.pvo }
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
 							<ul class="slides">
-							<c:forEach items="${requestScope.pvo.imageList}" var="imgList">
-								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/images/${imgList.url}" />
+								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
 							${imgList.url }							
-							</c:forEach>	
 		 <%--		</li>
 					<li data-thumb="images/s2.jpg">
 					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
@@ -148,7 +146,7 @@ ${requestScope.pvo }
 						<table class="table table-bordered">
 							<thead>
 								<c:choose>
-									<c:when test="${requestScope.pvo.category=='하의'}">
+									<c:when test="${requestScope.pvo.category=='bottom'}">
 										<tr>
 											<th>사이즈</th><th>허리</th><th>허벅지</th><th>밑위</th><th>밑단</th><th>하의 총기장</th>
 										</tr>
@@ -174,7 +172,12 @@ ${requestScope.pvo }
 							</tbody>
 						</table>
 					</div>
-
+					<!-- 이미지  -->
+					<div>
+					<c:forEach items="${requestScope.pvo.imageList}" varStatus="j">
+					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
+					</c:forEach>									
+					</div>
 
 					<!-- review table -->
 					<div class="ckeckout">
@@ -207,7 +210,7 @@ ${requestScope.pvo }
 						</div>
 					</div>
 					
-
+<%-- 
 					<div class="latest products">
 						<div class="product-one">
 							<div class="col-md-4 product-left single-left">
@@ -298,7 +301,7 @@ ${requestScope.pvo }
 								<div class="clearfix"></div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 					
 					<div class="clearfix"></div>
 				</div>
