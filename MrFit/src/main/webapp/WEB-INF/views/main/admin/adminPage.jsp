@@ -14,7 +14,7 @@
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="#">
-								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
+								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
 								<p>주문 관리</p>
 							</a>
 						</div>
@@ -22,7 +22,7 @@
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/adminProductList.do">
-								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
+								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
 								<p>상품 관리</p>
 							</a>
 						</div>
@@ -30,7 +30,7 @@
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="#">
-								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
+								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
 								<p>회원 관리</p>
 							</a>
 						</div>

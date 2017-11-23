@@ -23,15 +23,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AdminController {
 	@Resource
+	private AdminService adminService;
+	@Resource
 	private ProductService productService;
 	private PagingBean pb;
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminPage.do")
 	public String adminPage() {
 		System.out.println("   	AdminController/adminPage()/시작");
 		return "admin/adminPage.tiles";
 	}
 	
+	/** [진호][관리자 상품 목록보기]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminProductList.do")
 	public String adminProductList(HttpServletRequest request, Model model) {
@@ -61,6 +70,27 @@ public class AdminController {
 	public String registerProductForm() {
 		System.out.println("   	AdminController/registerProduct()/시작");
 		return "admin/registerProductForm.tiles";
+	}
+	
+	/** [진호][관리자 상품 검색]
+	 * 
+	 * @param keyword
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("findProductByName.do")
+	public ModelAndView findProductByName(String keyword){
+		System.out.println("   	AdminController/registerProduct()/시작");
+		ModelAndView mv = new ModelAndView();
+		List<ProductVO> list = productService.findProductByName(keyword);
+		if(list!= null) {
+			mv.setViewName("admin/adminProductList.tiles");
+			mv.addObject("list", list);
+		}else {
+			mv.setViewName("main/product/findProductByName_fail");
+		}
+		System.out.println("    AdminController/registerProduct()/종료");
+		return mv;
 	}
 	
 	
@@ -138,6 +168,55 @@ public class AdminController {
 		System.out.println("   	AdminController/deleteProduct()/시작");
 		// 현재는 null
 		return null;
+	}
+	
+	
+	@SuppressWarnings("null")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("commonMemberList.do")
+	public ModelAndView commonMemberList(HttpServletRequest request,int status) {
+		ModelAndView mv = new ModelAndView();
+	//	int intStatus =Integer.parseInt(status);
+		int tmc = adminService.getTotalCommonMemberCount(status);
+		int nowPage = 1;
+		if(request.getParameter("listPage")!=null) {
+			nowPage = Integer.parseInt(request.getParameter("listPage"));
+		}
+		PagingBean0 pb = new PagingBean0(tmc,nowPage,3,2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", status);
+		map.put("pagingBean", pb);
+		List<MemberVO> list = adminService.commonMemberList(map);
+		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
+		mv.addObject("lvo",lvo);
+		if(status==1) {
+			mv.setViewName("admin/memberList.tiles");
+		}else {
+			mv.setViewName("admin/unregisterMemberList.tiles");
+		}
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminUnregisterMember.do")
+	public ModelAndView adminUnregisterMember(String id) {
+		adminService.adminDeleteMemberAuthority(id);
+		adminService.adminUpdateMemberStatus(id);
+		return new ModelAndView("admin/adminUnregisterMember.tiles");
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchMember.do")
+	public ModelAndView adminSearchMember(String id) {
+		MemberVO mvo = adminService.adminSearchMember(id);
+		ModelAndView mv = null;
+		if(mvo==null) {
+			mv = new ModelAndView("admin/adminSearchMember_fail.tiles");
+			return mv;
+		}else {
+			mv = new ModelAndView("admin/adminSearchMember_ok.tiles","member",mvo);
+			return mv;
+		}
 	}
 	
 }
