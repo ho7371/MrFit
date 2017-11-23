@@ -1,3 +1,4 @@
+
 package org.kosta.MrFit.model;
 
 public class ProductSizeGapVO {
@@ -55,4 +56,3 @@ public class ProductSizeGapVO {
 	}
 	
 }
-

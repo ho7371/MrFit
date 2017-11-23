@@ -34,5 +34,4 @@ public interface ProductService {
 	
 	void uploadImages(UploadVO vo);
 
-
 }
