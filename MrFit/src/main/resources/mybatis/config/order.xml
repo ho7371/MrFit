@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name, i.url
 		FROM product_detail pd, product p, product_color pc, product_size ps, order_product op, orders o , image i 
 		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
-		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'main' || '%'
+		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'thumb' || '%'
     </select>
     
     <resultMap type="orderProductVO" id="orderProductRM">
@@ -85,50 +85,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
     </select>
     
-    <!-- 정현 장바구니 담기 -->
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인-->
     <select id="findMyCartCount" resultType="int">
    		 select count(*) from ORDERS
 		where id=#{value} and status='장바구니'
     </select>
-    <insert id="registerOrder">
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 만들기-->
+    <insert id="registerOrder" parameterType="orderVO">
     	insert into orders(ono,totalprice,ordertime,status,id,destination) 
-		values(ono_seq.nextval,${totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
+		values(ono_seq.nextval,#{totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
     </insert>
     
     
-    
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니와 상품상세정보 연결-->
     <insert id="registerOrderProduct" parameterType="orderVO">
     	insert into order_product(ono,pdno,quantity) 
 		values((select ono 
 				from orders 
 				where id=#{memberVO.id} and status='장바구니'),
-				<foreach item="item" collection="opList">
-					#{item.pdno},${item.quantity}  
+				<foreach item="item" collection="orderProductList">
+					#{item.pdno},#{item.quantity}  
 				</foreach>  	
 				)
     </insert>
     
+     <!--[정현][11/22]  장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
+    <select id="findCartOderproduct" parameterType="orderVO" resultType="orderProductVO">
+    	select ono,pdno,quantity from order_product 
+    	where ono=(select ono 
+				from orders 
+				where id=#{memberVO.id} and status='장바구니') and 				
+				pdno= #{orderProductList[0].pdno}
+    			 
+    </select>
+    <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 총합 가격 올리기-->
     <update id="updateOrder" parameterType="orderVO">    
 		update orders 
-		set totalprice=(totalprice+#{totalprice}),ordertime=sysdate  
+		set totalprice=totalprice+#{totalprice},ordertime=sysdate  
 		where id=#{memberVO.id} and status='장바구니'
     </update>
     
     <!-- 장바구니 담기 마무리 -->
-    <!--  장바구니에서 상품 삭제 -->
+    <!--[정현][11/22]  장바구니에서 상품 삭제 장바구니에서 상품 삭제-->
     <delete id="deleteOrderProduct" parameterType="orderVO">
     	delete from orders_product
     	 where ono=#{ono} and pdno=
-    	 <foreach item="item" collection="opList">
+    	 <foreach item="item" collection="orderProductList">
     	 #{item.pdno}
     	 </foreach>    	
     </delete>
     
-    <update id="deleteUpdateOrder"  parameterType="orderVO">    
-		update orders 
-		set totalprice=totalprice-#{totalprice},ordertime=sysdate  
-		where id=#{memberVO.id} and status='장바구니'
-    </update>
+   
+    
+    
+    
       <!-- [석환][11.22] 장바구니 수량 수정 -->
     <update id="updateOrderQuantity" parameterType="orderProductVO">
  		update order_product set quantity=#{quantity}

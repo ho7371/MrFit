@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%-- <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -53,11 +53,12 @@ $(document).ready(function() {
 	});
 </script>
 
+<%-- 
 <!-- 지울 부분 -->
 ${requestScope.psglist}
 <br><br>
 <!-- 지울 부분 -->
-${requestScope.pvo }
+${requestScope.pvo } --%>
 
 
 <!--start-single-->
@@ -70,17 +71,6 @@ ${requestScope.pvo }
 						<div class="flexslider">
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
-							${imgList.url }							
-		 <%--		</li>
-					<li data-thumb="images/s2.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
-					</li>
-					<li data-thumb="images/s3.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s3.jpg" />
-					</li>
-					<li data-thumb="images/s4.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s4.jpg" />
-					</li> --%>
 							</ul>
 						</div>
 					</div>

@@ -95,9 +95,9 @@ $(window).scroll(function(){
 	<div class="container">
 		<div class="top-nav">
 			<ul class="memenu skyblue">
-				<li class="grid"><a href="#">OUTER</a></li>
-				<li class="grid"><a href="#">TOP</a></li>
-				<li class="grid"><a href="#">BOTTOM</a></li>
+				<li class="grid"><a href="findProductByCategory.do?category=아우터">OUTER</a></li>
+				<li class="grid"><a href="findProductByCategory.do?category=상의">TOP</a></li>
+				<li class="grid"><a href="findProductByCategory.do?category=하의">BOTTOM</a></li>
 				<li class="grid"><a
 					href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
 				<li class="grid"><a

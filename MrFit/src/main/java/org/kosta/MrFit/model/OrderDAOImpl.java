@@ -22,6 +22,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<OrderVO> findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		List<OrderVO> list = template.selectList("order.findMyCart",id);
+		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list :"+list);
 		for (int i = 0; i < list.size(); i++) {
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);
@@ -40,7 +41,7 @@ public class OrderDAOImpl implements OrderDAO {
 	//정현 장바구니 담기 
 	@Override
 	public void registerOrder(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ");
+		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ovo : "+ovo);
 		template.insert("order.registerOrder",ovo);		
 		System.out.println("                  OrderDAOImpl/registerOrder()/종료");		
 	}
@@ -59,12 +60,7 @@ public class OrderDAOImpl implements OrderDAO {
 		template.update("order.updateOrder",ovo);		
 			
 	}
-	@Override
-	public void deleteOrderProduct(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+ovo);
-		template.delete("order.deleteOrderProduct",ovo);		
-		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");	
-	}
+	
 	@Override
     public List<OrderVO> myOrderList(String id){
        return template.selectList("order.myOrderList",id);
@@ -79,5 +75,27 @@ public class OrderDAOImpl implements OrderDAO {
   	public void updateOrderQuantity(OrderProductVO opvo) {
   		template.update("order.updateOrderQuantity", opvo);
   	}
+	@Override
+	public OrderProductVO findCartOderproduct(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
+		OrderProductVO opCount=template.selectOne("order.findCartOderproduct",ovo);
+		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 cartCount : "+opCount);
+		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
+		return opCount;
+	}
+	@Override
+	public void updateOrderProduct(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/updateOrderProduct()/시작 ovo : "+ovo);
+		System.out.println("                  OrderDAOImpl/updateOrderProduct()/종료");
+		template.update("order.updateOrderProduct",ovo);
+		
+	}
+	@Override
+	public void deleteOrderProduct(OrderVO ovo) {
+		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+ovo);
+		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");
+		template.update("order.deleteOrderProduct",ovo);
+		
+	}
 
 }

@@ -92,13 +92,15 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
-		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
-		if(vo!=null) {			
-		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-		ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
-		mv.addObject("psglist", psglist);
+		System.out.println("    ProductController/findProductDetailByPno()/진행1 - @@@@@ " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
+			ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+			mv.addObject("psglist", psglist);
 		}
+		mv.addObject("psList", psList);
 		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
      	// 해당 상품 리뷰 불러오는 메서드
 		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
@@ -106,7 +108,6 @@ public class ProductController {
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 			mv.addObject("prvolist", prvolist);
-			mv.addObject("psList", psList);
 		return mv;
 	}
 	

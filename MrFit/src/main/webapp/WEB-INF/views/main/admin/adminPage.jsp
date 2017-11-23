@@ -29,7 +29,7 @@
 					</div>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="#">
+							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
 								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
 								<p>회원 관리</p>
 							</a>

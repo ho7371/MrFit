@@ -13,7 +13,7 @@
 						<div class="col-md-4 product-left single-left"> 
 							<div class="p-one simpleCart_shelfItem">
 								<a href="single.html">
-										<img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" alt="" />
+										<img src="${pageContext.request.contextPath}/resources/upload/${url}" alt="" />
 										<%-- <img src="${pageContext.request.contextPath}/resources/images/${url}" alt="" /> --%>
 										<div class="mask mask1">
 											<span>Quick View</span>

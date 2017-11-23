@@ -12,7 +12,6 @@
           $(document).ready(function() {
         	  var quantity=$(".findQuantity").attr("id");
           	$("#updateBtan").click(function() {
-          		alert(1);
           		var info="";
           		info="수량 :<input id='updateQuantity' type='text' value='";
           		info+=quantity;
@@ -76,7 +75,8 @@
             <ul class="cart-header">
                <div class="close1"></div>
                   <li class="ring-in"><a href="single.html" >
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/>
+                  <%-- <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/> --%>
+             	  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>
                   </a>
                   </li>
                   <c:forEach items="${i.orderProductList}" var="j">
@@ -84,7 +84,7 @@
 						<li><span>${j.name}</span></li>
 						<li><span>size: ${j.size_name}<br>
 						color: ${j.color_name}<br>
-						<span id="updateField" style="font-size: 20px;">수량 : ${j.quantity}</span>
+						<span id="updateField" style="font-size: 20px;">수량 : 	${j.quantity}</span>
 						</span></li>
 						<span class="findQuantity" id="${j.quantity}"></span>
 				  </c:forEach>

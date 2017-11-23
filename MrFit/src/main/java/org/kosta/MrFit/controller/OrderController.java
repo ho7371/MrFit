@@ -1,6 +1,7 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,12 @@ public class OrderController {
 	private OrderService orderService;
 
 	/**
-	 * [현민][11/21][16:10] 장바구니 보기 기능 회원의 아이디로 회원이 장바구니에 담은 상품들을 불러온다 그 후 회원의 정보를 사용할
-	 * 수 있도록 회원 정보도 set해준다. 그 다음 list로 반환 한다.
+	 * [현민][11/21][16:10] 
+	 * 장바구니 보기 기능 회원의 아이디로 
+	 * 회원이 장바구니에 담은 상품들을 불러온다 
+	 * 그 후 회원의 정보를 사용할
+	 * 수 있도록 회원 정보도 set해준다. 
+	 * 그 다음 list로 반환 한다.
 	 * 
 	 * @return
 	 */
@@ -56,30 +62,50 @@ public class OrderController {
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		
 		int cartCount = orderService.findMyCartCount(mvo.getId());
 
-		int quantity = (int) request.getAttribute("quantity");
-		int price = (int) request.getAttribute("price");
-		String pdno = (String) request.getAttribute("pdno");
-
-		opvo.setPdno(pdno);
+		int quantity =Integer.parseInt( request.getParameter("quantity"));
+		System.out.println("quantity : "+quantity);
+		int price = Integer.parseInt(request.getParameter("price"));
+		System.out.println("price : "+price);		
+		String pdno = "2";
+		System.out.println("pdno : "+pdno);
+		String psno =request.getParameter("slsSize");
+		System.out.println("psno : "+psno);
+		
+		
+		opvo.setPdno(pdno);		
 		opvo.setQuantity(quantity);
 		opList.add(opvo);
 		ovo.setOrderProductList(opList);
+		
 		ovo.setTotalprice(price);
 		ovo.setMemberVO(mvo);
+		
 		System.out.println("    OrderController/registerCart()/진행 ovo : " + ovo);
-		if (cartCount == 0) {
+		if (cartCount==0) {
 			orderService.registerOrder(ovo);
 			orderService.registerOrderProduct(ovo);
+			System.out.println("    OrderController/registerCart()/종료");
+			return "redirect:cartForm.do";
 		} else {
-			orderService.updateOrder(ovo);
-			orderService.registerOrderProduct(ovo);
+			OrderProductVO opCount=orderService.findCartOderproduct(ovo);
+			if(opCount.equals(null)) {
+				orderService.updateOrder(ovo);
+				orderService.registerOrderProduct(ovo);
+				System.out.println("    OrderController/registerCart()/종료");
+				return "redirect:cartForm.do";
+			}else {
+				
+				System.out.println("    OrderController/registerCart()/종료");
+				return "order/existOrder.tiles";
+			}
 		}
-		System.out.println("    OrderController/registerCart()/종료");
-		return "cartForm.do";
+		
 	}
 
 	/**
@@ -95,14 +121,15 @@ public class OrderController {
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		int quantity = (int) request.getAttribute("quantity");
-		int price = (int) request.getAttribute("price");
-		String pdno = (String) request.getAttribute("pdno");
-
+		System.out.println("quantity"+request.getParameter("quantity")+"price"+request.getParameter("price")+"pdno"+ request.getParameter("pdno"));
+		System.out.println();
+		int quantity = Integer.parseInt( request.getParameter("quantity"));
+		int price =  Integer.parseInt(request.getParameter("price"));
+		String pdno =  request.getParameter("pdno");
+		System.out.println("quantity : "+quantity+"price :"+price+"pdno : "+pdno);
+		
 		opvo.setPdno(pdno);
 		opvo.setQuantity(quantity);
-
 		opList.add(opvo);
 		ovo.setOrderProductList(opList);
 		ovo.setTotalprice(-price);
@@ -114,7 +141,7 @@ public class OrderController {
 
 		System.out.println("   	OrderController/deleteCart()/종료");
 
-		return "cartForm.do";
+		return "redirect:cartForm.do";
 	}
 
 	/**
@@ -154,6 +181,7 @@ public class OrderController {
 		System.out.println("      OrderController/myOrderList()/중간" + list);
 		return new ModelAndView("order/myOrderList.tiles", "list", list);
 	}
+	
 	
 	/**
 	 * [영훈][][주문상품리스트가져오기]
