@@ -78,7 +78,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
 		OrderProductVO opCount=template.selectOne("order.findCartOderproduct",ovo);
-		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 cartCount : "+opCount);
+		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 opCount : "+opCount);
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
 		return opCount;
 	}
@@ -95,6 +95,15 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");
 		template.update("order.deleteOrderProduct",ovo);
 		
+	}
+	
+	@Override
+	public String findPdno(ProductDetailVO pdvo) {
+		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdvo : "+pdvo);
+		
+		String pdno=template.selectOne("order.findPdno",pdvo);
+		System.out.println("                  OrderDAOImpl/findPdno()/종료");
+		return pdno;
 	}
 
 }

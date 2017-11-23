@@ -137,6 +137,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
    
+   <select id="findPdno" parameterType="productDetailVO" resultType="String">
+   	select pdno from product_detail
+   	where pcno=#{pcno} and  psno=#{psno}
+   </select>
     
     
     

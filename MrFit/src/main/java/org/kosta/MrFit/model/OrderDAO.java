@@ -24,4 +24,6 @@ public interface OrderDAO {
 	void updateOrderProduct(OrderVO ovo);
 
 	void deleteOrderProduct(OrderVO ovo);
+
+	String findPdno(ProductDetailVO pdvo);
 }

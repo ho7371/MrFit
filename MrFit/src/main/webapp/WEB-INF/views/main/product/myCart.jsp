@@ -74,8 +74,9 @@
 			<c:forEach items="${requestScope.ovoList}" var="i">
 			<div class="findOno" id="${i.ono}"></div>
             <ul class="cart-header">
-               <div class="close1"></div>
-                  <li class="ring-in"><a href="single.html" >
+              <a href="${pageContext.request.contextPath}/home.do" > <div class="close1"></div></a>
+                  <li class="ring-in">
+                  <a href="single.html" >
                   <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/>
                   </a>
                   </li>

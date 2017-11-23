@@ -41,6 +41,11 @@ $(document).ready(function() {
 				}//success
 		});//ajax
 	});//change
+	$("#insertCart").click(function() {
+		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
+		$("#sendPcno").val(pcno);  
+	});//click 
+	
 });//ready
 </script>
 <script>
@@ -71,23 +76,17 @@ ${requestScope.pvo }
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
 							${imgList.url }							
-		 <%--		</li>
-					<li data-thumb="images/s2.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s2.jpg" />
-					</li>
-					<li data-thumb="images/s3.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s3.jpg" />
-					</li>
-					<li data-thumb="images/s4.jpg">
-					<img height=350px width=250px src="${pageContext.request.contextPath}/resources/images/s4.jpg" />
-					</li> --%>
+		 
 							</ul>
 						</div>
 					</div>
 					<!-- 상품번호 -->
 					<form action="${pageContext.request.contextPath}/registerCart.do">
-					<input type="hidden" name="pvo" value="${pvo}">
-					<input type="hidden" name="price" value="${pvo.price}">
+						<%-- <input type="hidden" name="pvo" id="" value="${pvo}">
+						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
+						<input type="hidden" name="psno" id="sendPsno" value="">
+						<input type="hidden" name="pcno" id="sendPcno" value="">
+						<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
 						<div class="details-left-info simpleCart_shelfItem">
@@ -129,7 +128,7 @@ ${requestScope.pvo }
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
+								<input type="submit" value="장바구니담기" id= "insertCart"/> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
 						</form>
