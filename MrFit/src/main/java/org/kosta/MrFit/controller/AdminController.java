@@ -253,34 +253,7 @@ public class AdminController {
 	}
 	
 	
-	/*@SuppressWarnings("null")
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("commonMemberList.do")
-	public ModelAndView commonMemberList(HttpServletRequest request,int status) {
-		ModelAndView mv = new ModelAndView();
-	//	int intStatus =Integer.parseInt(status);
-		int tmc = adminService.getTotalCommonMemberCount(status);
-		int nowPage = 1;
-		if(request.getParameter("listPage")!=null) {
-			nowPage = Integer.parseInt(request.getParameter("listPage"));
-		}
-		PagingBean0 pb = new PagingBean0(tmc,nowPage,3,2);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status", status);
-		map.put("pagingBean", pb);
-		List<MemberVO> list = adminService.commonMemberList(map);
-		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
-		mv.addObject("lvo",lvo);
-		if(status==1) {
-			mv.setViewName("admin/memberList.tiles");
-		}else {
-			mv.setViewName("admin/unregisterMemberList.tiles");
-		}
-		return mv;
-	}*/
-	
-	/** [영훈] - 수정자 : 진호
-	 * 
+	/** [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]
 	 * @param request
 	 * @param status
 	 * @return
@@ -328,6 +301,12 @@ public class AdminController {
 		return new ModelAndView("admin/adminUnregisterMember.tiles");
 	}
 	
+	/** [영훈][관리자 회원검색 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchMember.do")
 	public ModelAndView adminSearchMember(String id) {
@@ -341,7 +320,13 @@ public class AdminController {
 			return mv;
 		}
 	}
-
+	
+	/** [영훈][관리자 회원 포인트지급 폼 페이지 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
 	public ModelAndView adminGivePointToMemberForm(String id) {
@@ -349,6 +334,12 @@ public class AdminController {
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
+	/** [영훈][관리자 포인트지급 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
 	public String adminGivePointToMember(MemberVO mvo) {

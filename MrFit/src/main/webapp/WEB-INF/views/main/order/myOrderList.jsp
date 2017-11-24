@@ -18,19 +18,25 @@
 						<li><span>배송지</span></li>
 						<li><span>배송상태</span></li>
 						<li><span>주문시간</span></li>
+						<li><span>상태 변경</span></li>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${list}" var="order">
-					
 					<ul class="cart-header">
 						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}">${order.ono}</a></span></li>
 						<li><span>${order.totalprice}</span></li>
 						<li><span>${order.destination}</span></li>
 						<li><span>${order.status}</span></li>
 						<li><span>${order.ordertime}</span></li>
+						 <c:if test="${order.status=='배송완료'}">
+							<form action="${pageContext.request.contextPath}/myOrderStatusChange.do">
+								<input type="hidden" name="ono" value="${order.ono}">
+								<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
+								<input type="submit" value="상태변경">
+							</form>
+ 						 </c:if>
 						<div class="clearfix"></div>
 					</ul>
-			
 					</c:forEach>
 				</div>
 			</div>

@@ -165,7 +165,7 @@ public class MemberController {
 		return "member/updatePassword_ok.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입 폼]
 	 * 
 	 * @return
 	 */
@@ -177,7 +177,7 @@ public class MemberController {
 		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입]
 	 * 
 	 * @param vo
 	 * @return
@@ -192,7 +192,7 @@ public class MemberController {
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입 후 결과 뷰]
 	 * 
 	 * @param id
 	 * @return
@@ -205,7 +205,7 @@ public class MemberController {
 		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입시 id 중복확인 Ajax]
 	 * 
 	 * @param id
 	 * @return
@@ -254,7 +254,7 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
-	/**[][][]
+	/**[][myPage]
 	 * 
 	 * @return
 	 */
@@ -266,7 +266,7 @@ public class MemberController {
 		return "member/myPage.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][myPage의 회원(사용자 자신)정보]
 	 * 
 	 * @return
 	 */
@@ -278,7 +278,7 @@ public class MemberController {
 		return new ModelAndView("member/myPage_info.tiles");
 	}
 	
-	/**[][][]
+	/**[영훈][회원정보 수정 폼]
 	 * 
 	 * @return
 	 */
@@ -290,7 +290,7 @@ public class MemberController {
 		return"member/updateMemberForm.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][회원정보 수정]
 	 * 
 	 * @param request
 	 * @param memberVO

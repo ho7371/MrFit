@@ -99,6 +99,7 @@ public class ProductDAOImpl implements ProductDAO {
       
       return pvo;
    }*/
+ //[정현][11/24] 해당 카테고리 리스트 받아오기
    @Override
    public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
       
@@ -115,6 +116,7 @@ public class ProductDAOImpl implements ProductDAO {
       System.out.println("                  ProductDAOImpl/ProductList()/종료");      
       return ProductList;
    }
+ //[정현][11/21] 해당 카테고리의 총갯수 파악
    @Override
    public int getCategoryProductCount(String category) {
       System.out.println("                  ProductDAOImpl/getCategoryProductCount()/시작");

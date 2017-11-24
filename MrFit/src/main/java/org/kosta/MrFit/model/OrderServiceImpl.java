@@ -17,16 +17,19 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.findMyCart(id);
 	}
 	
+	//[영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
 	public List<OrderVO> myOrderList(String id){
 		return orderDAO.myOrderList(id);
 	}
 	
+	//[영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
 	public List<OrderProductVO> myOrderPrductList(String ono){
 		return orderDAO.myOrderPrductList(ono);
 	}
-
+	
+	//[정현][11/24] 장바구니가 존재하는지 체크
 	@Override
 	public int findMyCartCount(String id) {
 		System.out.println("            OrderServiceImpl/findMyCart()/시작");
@@ -34,21 +37,21 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("            OrderServiceImpl/findMyCart()/종료 - map :"+cartCount);
 		return cartCount;
 	}
-
+	//[정현][11/24] 주문 생성 
 	@Override
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrder()/시작 ovo : "+ovo);
 		orderDAO.registerOrder(ovo);
 		System.out.println("            OrderServiceImpl/registerOrder()/종료");
 	}
-
+	//[정현][11/24] 주문과 상품 상세 정보를 엮어 주문 수량을 저장
 	@Override
 	public void registerOrderProduct(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrderProduct()/시작 ovo : "+ ovo);
 		orderDAO.registerOrderProduct(ovo);
 		System.out.println("            OrderServiceImpl/registerOrderProduct()/종료");
 	}
-
+	//[정현][11/24] 주문에서 총가격을 수정하여 준다.
 	@Override
 	public void updateOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/updateOrder()/시작 ovo : "+ ovo);
@@ -62,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 	public void updateOrderQuantity(OrderProductVO opvo) {
 		orderDAO.updateOrderQuantity(opvo);
 	}
-
+	//[정현][11/24] 주문에 해당 주문 정보가 있는지 체크해서 있으면 그값을 리턴해준다.
 	@Override
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/findCartOderproduct()/진행 ovo : "+ ovo);
@@ -71,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
 		return opCount;		
 		
 	}
-
+	//[정현][11/24] 주문 상품상세에서 해당 정보를 삭제한다.
 	@Override
 	public void deleteOrderProduct(OrderProductVO opvo) {
 		
@@ -79,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.deleteOrderProduct(opvo);
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
 	}
-
+	//[정현][11/24]  pcno와psno를 통하여 pdno를 찾는다.
 	@Override
 	public String findPdno(ProductDetailVO pdvo) {
 		System.out.println("            OrderServiceImpl/findPdno()/시작 pdvo : "+ pdvo);
@@ -101,5 +104,11 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.updateStatusOrderEtc(ovo);
 		return null;
 	}
+	
+	//[영훈][2017.11.21][회원 주문내역 상태변경]
+		@Override
+		public void myOrderStatusChange(String ono) {
+			orderDAO.myOrderStatusChange(ono);
+		}
 	
 }
