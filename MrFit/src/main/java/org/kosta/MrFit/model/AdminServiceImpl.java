@@ -61,6 +61,16 @@ public class AdminServiceImpl implements AdminService {
 	public int adminSearchMemberOrderCount(String memberId) {
 		return adminDAO.adminSearchMemberOrderCount(memberId);
 	}
+
+	@Override
+	public void updateOrderStatus(Map<String, String> map) {
+		adminDAO.updateOrderStatus(map);
+	}
+
+	@Override
+	public OrderVO adminfindOrderByOno(String ono) {
+		return adminDAO.adminfindOrderByOno(ono);
+	}
 	
 	
 	

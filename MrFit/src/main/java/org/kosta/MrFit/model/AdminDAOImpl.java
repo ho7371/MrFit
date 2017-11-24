@@ -43,16 +43,21 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public List<OrderVO> adminAllOrderList(PagingBean pb) {
+		System.out.println("                  AdminDAOImpl/adminAllOrderList()/시작 ");
 		List<OrderVO> list =  template.selectList("admin.adminAllOrderList",pb);
 		for (int i = 0; i < list.size(); i++) {
+			System.out.println("                  AdminDAOImpl/adminAllOrderList()/진행 ");
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);
 		}
+		System.out.println("                  AdminDAOImpl/adminAllOrderList()/종료 ");
 		return list;
 	}
 
 	@Override
 	public int adminTotalOrderCount() {
+		System.out.println("                  AdminDAOImpl/adminTotalOrderCount()/시작 ");
+		System.out.println("                  AdminDAOImpl/adminTotalOrderCount()/종료 ");
 		return template.selectOne("admin.adminTotalOrderCount");
 	}
 	
@@ -63,17 +68,36 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public List<OrderVO> adminSearchOrder(Map<String, Object> map) {
+		System.out.println("                  AdminDAOImpl/adminSearchOrder()/시작 ");
 		List<OrderVO> list = template.selectList("admin.adminSearchOrder", map);
+		System.out.println("                  AdminDAOImpl/adminSearchOrder()/진행1 ");
 		for (int i = 0; i < list.size(); i++) {
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);
+			System.out.println("                  AdminDAOImpl/adminSearchOrder()/진행2 list :  "+list.get(i));
 		}
+		System.out.println("                  AdminDAOImpl/adminSearchOrder()/종료 ");
 		return list;
 	}
 
 	@Override
 	public int adminSearchMemberOrderCount(String memberId) {
+		System.out.println("                  AdminDAOImpl/adminSearchMemberOrderCount()/시작 ");
+		System.out.println("                  AdminDAOImpl/adminSearchMemberOrderCount()/종료 ");
 		return template.selectOne("admin.adminSearchMemberOrderCount", memberId);
+	}
+
+	@Override
+	public void updateOrderStatus(Map<String, String> map) {
+		System.out.println("                  AdminDAOImpl/updateOrderStatus()/시작 ");
+		template.update("admin.updateOrderStatus", map);
+		System.out.println("                  AdminDAOImpl/updateOrderStatus()/종료 ");
+	}
+
+	@Override
+	public OrderVO adminfindOrderByOno(String ono) {
+		// TODO Auto-generated method stub
+		return template.selectOne("admin.adminfindOrderByOno",ono);
 	}
 	
 	

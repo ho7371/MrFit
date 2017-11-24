@@ -26,4 +26,8 @@ public interface AdminService {
 
 	int adminSearchMemberOrderCount(String memberId);
 
+	void updateOrderStatus(Map<String, String> map);
+
+	OrderVO adminfindOrderByOno(String ono);
+
 }

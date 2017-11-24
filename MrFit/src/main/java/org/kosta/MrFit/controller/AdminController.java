@@ -388,6 +388,12 @@ public class AdminController {
 		return mv;
 	}
 	
+	/**[현민][11/24][아이디 검색]
+	 * 주문 내역에서 아이디를 검색 할 수 있다.
+	 * @param request
+	 * @param memberId
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchOrder.do")
 	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
@@ -409,7 +415,7 @@ public class AdminController {
 		map.put("memberId", memberId);
 		map.put("pagingBean", pb);
 		
-		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문개수 : "+totalOrderCount);
+		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문 개수 : "+totalOrderCount);
 		List<OrderVO> list = adminService.adminSearchOrder(map);
 		if(!list.isEmpty()) {
 			
@@ -421,6 +427,36 @@ public class AdminController {
 			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
 		}
 		System.out.println("   	AdminController/adminSearchOrder()/종료");
+		return mv;
+	}
+	
+	/**[현민][11/24][주문 상태 변경]
+	 * 주문번호를 받아와 주문정보를 찾은 후 
+	 * 주문상태를 
+	 * 입금대기 -> 배송준비중 -> 배송중 -> 배송완료
+	 * 이 순서대로 변경한다.
+	 * @param ono
+	 * @return
+	 */
+	@RequestMapping("updateOrderStatus.do")
+	public ModelAndView updateOrderStatus(String ono) {
+		System.out.println("   	AdminController/updateOrderStatus()/시작 ono : "+ono);
+		ModelAndView mv = new ModelAndView();
+		OrderVO ovo = adminService.adminfindOrderByOno(ono);
+		System.out.println("   	AdminController/updateOrderStatus()/진행1 ");
+		Map<String, String> map = new HashMap<String, String>();
+		if(ovo.getStatus().equals("입금대기")) {
+			map.put("status", "배송준비중");
+		}else if(ovo.getStatus().equals("배송준비중")) {
+			map.put("status", "배송중");
+		}else if(ovo.getStatus().equals("배송중")) {
+			map.put("status", "배송완료");
+		}
+		map.put("ono", ono);
+		adminService.updateOrderStatus(map);
+		System.out.println("   	AdminController/updateOrderStatus()/진행2 ");
+		mv.setViewName("admin/updateOrderStatus_ok.tiles");
+		System.out.println("   	AdminController/updateOrderStatus()/종료");
 		return mv;
 	}
 }
