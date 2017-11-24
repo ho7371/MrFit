@@ -32,6 +32,7 @@
 			var colid="";
 			var invid="";
 			var hidleng="";
+			var eqls="";
 		 $("#sizecheck input:checkbox").on("click",function() {
 			 	cbname = $(this).val();
 		     	cbstat = $(this).is(":checked"); // 체크박스 전체 갯수
@@ -46,7 +47,7 @@
 		    	  if(category!="하의"){
 					      $("#topsize tbody").append(
 									'<tr id="'+cbname+'">'
-									+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
+									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
 									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
@@ -57,7 +58,7 @@
 		    	  }else{
 			    		  $("#bottomsize tbody").append(
 									'<tr id="'+cbname+'">'
-									+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
+									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
 									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
@@ -71,7 +72,7 @@
 											+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
 											+'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
 											+'<td ><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
-											+'<input type="hidden" name="colleng" value="" id="'+hidleng+'"></td>'
+											+'<input type="hidden" name="colleng" value="'+eqls+'" id="'+hidleng+'"></td>'
 											+'</tr>'
 											+'<tr id="'+invid+'">'
 											+'<td><input type="text" name="" value="재고수량" readonly="readonly"></td>'
@@ -87,10 +88,9 @@
 		      
 			  $("#"+addcol+"").on("click",function() {
 					  var eql=$(this).parent().parent().children().length;
-	/* 				 alert(eql);
-					  alert($(this).parent().parent().children().eq(eql-2).html()); */
-					  $("#"+hidleng+"").val(eql-2);
-					 //alert($("#"+hidleng+"").val());
+					  alert(eql-2);
+					  eqls=$("#"+hidleng+"").val(eql-1);
+
 					  if( eql < 12){
 						$(this).parent().before(
 							'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
@@ -130,7 +130,7 @@
 		if (length > 0) {
 			for (var i = 0; i < length; i++) {
 				if ('.jpg' in file[i]) {
-					
+
 				} else {
 					return false;
 				}
@@ -166,11 +166,11 @@
 					<div class="address">
 						<div id="imagefile">
 						대표이미지
-						<input type="file" name="file[0]" accept="image/jpeg, image/jpg"><br> 
-						<input type="file" name="file[1]" accept="image/jpeg, image/jpg"><br> 
-						<input type="file" name="file[2]" accept="image/jpeg, image/jpg"><br> 
-						<input type="file" name="file[3]" accept="image/jpeg, image/jpg"><br> 
-						<input type="file" name="file[4]" accept="image/jpeg, image/jpg"><br> 
+						<input type="file" name="file[0]" accept="image/jpg"><br> 
+						<input type="file" name="file[1]" accept="image/jpg"><br> 
+						<input type="file" name="file[2]" accept="image/jpg"><br> 
+						<input type="file" name="file[3]" accept="image/jpg"><br> 
+						<input type="file" name="file[4]" accept="image/jpg"><br> 
 						</div>
 					</div>
 					<div class="address">

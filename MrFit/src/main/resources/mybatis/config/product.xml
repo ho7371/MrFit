@@ -121,7 +121,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url});
     </insert>
     
+    <!-- [상품등록] -->
+    <insert id="registerProduct" parameterType="productVO">
+    insert into product(pno,name,price,content,category) 
+	values(pno_seq.nextval,#{name},#{price},#{content},#{category})
+    </insert>
     
+    <!-- [상품사이즈 등록] -->
+    <insert id="registerProductSize" parameterType="productSizeVO">
+    		<selectKey keyProperty="psno" resultType="string" order="BEFORE">
+			select psno_seq.nextval from dual
+		</selectKey>
+    insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+	values(#{psno},#{size_name},#{size1},#{size2},#{size3},#{size4},#{size5})
+    </insert>
+    
+    <!-- [상품색상 등록] -->
+    <insert id="registerColor" parameterType="productDetailVO">
+    		<selectKey keyProperty="pcno" resultType="string" order="BEFORE">
+			select pcno_seq.nextval from dual
+		</selectKey>
+    insert into product_color(pcno, color_name)	values(#{pcno},#{color_name})
+    </insert>
+    
+    <!-- [상품상세 등록] -->
+    <insert id="registerProductDetail" parameterType="productDetailVO">
+    insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, #{pno}, #{pcno}, #{psno}, #{inventory})
+    </insert>
 </mapper>
 
 

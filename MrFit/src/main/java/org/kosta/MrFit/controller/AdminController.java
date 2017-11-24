@@ -114,7 +114,7 @@ public class AdminController {
 	}
 	
 	
-	/** [진호][상품등록]
+	/** [진호, 재현, 석환][상품등록]
 	 * 	nameList : view 화면에 업로드 된 파일 목록을 전달하기 위한 리스트 
 	 * 	thumbPath : 상품의 대표이미지가 저장될 위치
 	 * 	imagePath : 대표이미지를 제외한 이미지들이 저장될 위치
@@ -134,8 +134,8 @@ public class AdminController {
 	public ModelAndView registerProduct(UploadVO vo, ProductVO productVO, HttpServletRequest request) {
 		System.out.println("   	AdminController/registerProduct()/시작");
 			// 젤 처음 pno 등록 name, price, content, category
-			//productService.registerProduct(productVO);
-			System.out.println(productVO);
+		System.out.println(productVO);
+			productService.registerProduct(productVO);
 		
 		
 			ArrayList<String> psnolist=new ArrayList<String>(); // 등록한 사이즈 psno들
@@ -146,9 +146,7 @@ public class AdminController {
 			String[] size4=request.getParameterValues("size4");
 			String[] size5=request.getParameterValues("size5");
 			ProductSizeVO psvo=new ProductSizeVO();
-			System.out.println(size_name);
-			System.out.println(size1);
-			System.out.println(size2);
+
 			for (int i=0;i<size_name.length;i++) {		
 				psvo.setSize_name(size_name[i]);
 				psvo.setSize1(Integer.parseInt(size1[i]));
@@ -156,36 +154,44 @@ public class AdminController {
 				psvo.setSize3(Integer.parseInt(size3[i]));
 				psvo.setSize4(Integer.parseInt(size4[i]));
 				psvo.setSize5(Integer.parseInt(size5[i]));
-				//productService.registerProductSize(psvo);
+				productService.registerProductSize(psvo);
 				psnolist.add(psvo.getPsno());
 			}
 
 
 			
 			ArrayList<String> pcnolist=new ArrayList<String>(); // 등록한 색상 pcno들 
-			String[] colleng=request.getParameterValues("colleng");
-			String[] color=request.getParameterValues("colorS");
+		
+			String[] color=request.getParameterValues("color");
 			ProductDetailVO pdvo=new ProductDetailVO();
 			for (int i=0;i<color.length;i++) {
 				pdvo.setColor_name(color[i]);
-				//productService.registerColor(pdvo);
+				productService.registerColor(pdvo);
 				pcnolist.add(pdvo.getPcno());
 			}
-			System.out.println(colleng);
-			System.out.println(color);
-			//if(size_name==size)
-				
+			
 			//inventory
 			String[] inventory=request.getParameterValues("inventory");
-			
-
-			System.out.println(inventory);
-			
+			String[] colleng=request.getParameterValues("colleng");
+			int sn=0;
+			int en=0;
+			int mn=0;
+			System.out.println("colleng 확인 :"+colleng[0].toString());
+			pdvo.setPno(productVO.getPno());
 			for (int i=0;i<psnolist.size();i++) {
-				
-				pdvo.setColor_name(inventory[i]);
-				//productService.registerProductDetail(pdvo);
-			}
+				pdvo.setPsno(psnolist.get(i));
+				en=Integer.parseInt(colleng[i]);
+				//5,3,4
+				mn=sn+en;
+			for (int j=sn;j<(mn);j++) {
+					//1,2,3,4,5,6,7,8,9,10,11,12		
+					pdvo.setPcno(pcnolist.get(j));
+					pdvo.setInventory(Integer.parseInt(inventory[j]));
+					productService.registerProductDetail(pdvo);
+					}
+				sn=mn;
+				}
+
 			
 			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
@@ -219,7 +225,7 @@ public class AdminController {
 							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
 							nameList.add(fileName);
 							ImageVO ivo=new ImageVO(vo.getPno(),fileName);
-							//productService.registerImage(ivo);
+							productService.registerImage(ivo);
 						} catch (Exception e) {
 							e.printStackTrace();
 						} 

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -256,6 +257,26 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void registerImage(ImageVO ivo) {
 		productDAO.registerImage(ivo);
+		
+	}
+	@Override
+	public void registerProduct(ProductVO productVO) {
+		productDAO.registerProduct(productVO);
+		
+	}
+	@Override
+	public void registerProductSize(ProductSizeVO psvo) {
+		productDAO.registerProductSize(psvo);
+		
+	}
+	@Override
+	public void registerColor(ProductDetailVO pdvo) {
+		productDAO.registerColor(pdvo);
+		
+	}
+	@Override
+	public void registerProductDetail(ProductDetailVO pdvo) {
+		productDAO.registerProductDetail(pdvo);
 		
 	}
 }
