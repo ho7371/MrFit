@@ -1,15 +1,17 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-import org.kosta.MrFit.model.Authority;
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDAO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductReviewVO;
@@ -19,6 +21,7 @@ import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,7 +37,7 @@ public class ProductController {
 	@Resource
 	private ProductDAO productDAO;
 	private String uploadPath;
-
+	private PagingBean pb;
 	/** 코드 작성 규칙
 	 *  1. 메소드 주석은 꼭 구현 완료 후 작성한다.
 	 *  2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.
@@ -50,7 +53,46 @@ public class ProductController {
 	 * @return
 	 */
 	
-	
+	/**[정현][2017.11.20][분류별 상품 리스트 뽑기]
+	 * 해당 카테고리의 상품 총 갯수를 파악하고 페이징 빈을 통하여 필요한 갯수만큼만 
+	 * 리스트에 담아서 받아온다. 
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping("findProductByCategory.do")
+	public String findProductByCategory(HttpServletRequest request,Model model){
+		System.out.println("      ProductController/findProductByCategory()/시작");			
+		
+		String category=request.getParameter("category");
+		
+		/* 페이징 처리 공통 영역 */
+		int totalCount = productService.getCategoryProductCount(category);
+		int postCountPerPage = 10;
+		int postCountPerPageGroup = 5;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			
+		ListVO<ProductVO> lvo= new ListVO<ProductVO>();
+		
+		HashMap<String,Object> map=new HashMap<String,Object>();
+		map.put("startNumber",pb.getStartRowNumber());
+		map.put("endNumber",pb.getEndRowNumber());
+		map.put("category",category);
+		List<ProductVO> productList=productService.findProductByCategory(map);
+		
+		System.out.println("      ProductController/findProductByCategory()/진행"+" 리스트"+productList);		
+		if(productList!=null&&!productList.isEmpty()) {			
+			lvo.setList(productList);		
+		}
+		lvo.setPagingBean(pb);
+		model.addAttribute("lvo",lvo);
+		System.out.println("      ProductController/findProductByCategory()/종료");
+		return "product/productList.tiles";
+	}
 	
 	/**[현민][상품검색]
 	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 

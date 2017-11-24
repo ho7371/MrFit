@@ -63,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
 		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
 			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
+	//[정현][11/24] 해당 카테고리 리스트 받아오기
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
 		System.out.println("            ProductServiceImpl/ProductList()/시작");
@@ -72,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("      		ProductServiceImpl/ProductList()/종료");
 		return ProductList;
 	}
-	
+	//[정현][11/24] 해당 카테고리의 총갯수 파악
 	@Override
 	public int getCategoryProductCount(String category) {
 		// TODO Auto-generated method stub

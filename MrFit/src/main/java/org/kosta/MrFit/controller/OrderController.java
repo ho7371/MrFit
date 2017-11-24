@@ -1,7 +1,6 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -53,8 +52,11 @@ public class OrderController {
 	}
 
 	/**
-	 * [정현][11/20][장바구니 담기]
-	 * 
+	 * [정현][11/24][장바구니 담기]
+	 *  해당 아이디에 장바구니가 있는지 조회후 
+	 *  없으면 order에 주문번호를 생성해 주고 
+	 *  order_Product에 어떤 상품을 주문했는지 생성한다.
+	 *  만약 장바구니가 존재한다면 orders에서 총가격만 수정해준다.
 	 * @param request
 	 * @return
 	 */
@@ -65,8 +67,7 @@ public class OrderController {
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		
+			
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		int cartCount = orderService.findMyCartCount(mvo.getId());
@@ -110,8 +111,9 @@ public class OrderController {
 	}
 
 	/**
-	 * [정현][11/21][장바구니삭제]
-	 * 
+	 * [정현][11/24][장바구니삭제]
+	 * order_product에서 해당 데이터를 삭제하고
+	 * orders에서 가격을 계산해준다. 
 	 * @param request
 	 * @return
 	 */
