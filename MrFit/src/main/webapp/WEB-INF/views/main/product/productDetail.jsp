@@ -41,6 +41,10 @@ $(document).ready(function() {
 				}//success
 		});//ajax
 	});//change
+	$("#insertCart").click(function() {
+		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
+		$("#sendPcno").val(pcno);  
+	});//click 
 });//ready
 </script>
 <script>
@@ -103,14 +107,14 @@ ${requestScope.pvo } --%>
 									<option value="0">-[필수] 옵션을 선택해주세요-</option>
 									<option value="0">-----------------------------------------</option>
 									<c:forEach items="${requestScope.clist}" var="clist">
-										<option class="colorSelect" value="${clist.pcno}">${clist.color_name}</option>
+										<option class="colorSelect" id="pcno" value="${clist.pcno}">${clist.color_name}</option>
 									</c:forEach>
 								</select>
 								<div class="clear" id="slsSize">
 									<h3>사이즈</h3>
 									<select id="sizeSelectAjax">
 										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option>-----------------------------------------</option>
+										<option id="psno">-----------------------------------------</option>
 									</select>
 								</div>
 							</ul>
@@ -124,7 +128,7 @@ ${requestScope.pvo } --%>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
+								<input type="submit" value="장바구니담기" id= "insertCart"/> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
 						</form>

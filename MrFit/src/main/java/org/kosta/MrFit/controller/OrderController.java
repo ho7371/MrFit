@@ -16,6 +16,7 @@ import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,9 +58,9 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
-// 주석규칙 지키기
+	@Transactional
 	@RequestMapping("registerCart.do")
-	public String registerCart(HttpServletRequest request,ProductVO productVO) {
+	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
 		System.out.println("   	OrderController/registerCart()/시작");
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
@@ -67,26 +68,18 @@ public class OrderController {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("pvo : "+productVO);
+
 		int cartCount = orderService.findMyCartCount(mvo.getId());
-			System.out.println("cartCount : "+cartCount);
+
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
 		
-		int price =quantity* Integer.parseInt(request.getParameter("price"));
-			System.out.println("price : "+price);
-			String psno =request.getParameter("psno");
-			System.out.println("psno : "+psno);
-			String pcno =request.getParameter("pcno");
-			System.out.println("pcno : "+pcno);
+		int price =quantity* Integer.parseInt(request.getParameter("price"));			
+			
 			ProductDetailVO pdvo=new ProductDetailVO();
-			pdvo.setPcno(pcno);
-			pdvo.setPsno(psno);
-			String pdno = orderService.findPdno(pdvo);
-		
-		System.out.println("pdno : "+pdno);
-		
-		
-		opvo.setPdno(pdno);		
+			pdvo.setPcno(request.getParameter("pcno"));
+			pdvo.setPsno(request.getParameter("psno"));
+			
+		opvo.setPdno(orderService.findPdno(pdvo));		
 		opvo.setQuantity(quantity);
 		opList.add(opvo);
 		ovo.setOrderProductList(opList);
@@ -102,7 +95,7 @@ public class OrderController {
 			return "redirect:cartForm.do";
 		} else {
 			OrderProductVO opCount=orderService.findCartOderproduct(ovo);
-			if(opCount.equals(null)) {
+			if(opCount==null) {
 				orderService.updateOrder(ovo);
 				orderService.registerOrderProduct(ovo);
 				System.out.println("    OrderController/registerCart()/종료");
@@ -122,30 +115,29 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+	@Transactional
 	@RequestMapping("deleteCart.do")
-	public String deleteCart(HttpServletRequest request) {
+	public String deleteCart(HttpServletRequest request,OrderProductVO orpvo) {
 		System.out.println("   	OrderController/deleteCart()/시작");
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("quantity"+request.getParameter("quantity")+"price"+request.getParameter("price")+"pdno"+ request.getParameter("pdno"));
-		System.out.println();
 		int quantity = Integer.parseInt( request.getParameter("quantity"));
 		int price =  Integer.parseInt(request.getParameter("price"));
-		String pdno =  request.getParameter("pdno");
-		System.out.println("quantity : "+quantity+"price :"+price+"pdno : "+pdno);
-		
-		opvo.setPdno(pdno);
+				
+		int Totalprice= quantity*price;
+		opvo.setPdno(request.getParameter("pdno"));
 		opvo.setQuantity(quantity);
-		opList.add(opvo);
+		opvo.setOno(request.getParameter("ono"));
+		opList.add(opvo);		
+		ovo.setOno(request.getParameter("ono"));
 		ovo.setOrderProductList(opList);
-		ovo.setTotalprice(-price);
+		ovo.setTotalprice(-Totalprice);
 		ovo.setMemberVO(mvo);
-		System.out.println("   	OrderController/deleteCart()/진행 map : " + ovo);
-
+		System.out.println("   	OrderController/deleteCart()/진행 ovo : " + ovo);
+		orderService.deleteOrderProduct(opvo);
 		orderService.updateOrder(ovo);
-		orderService.deleteOrderProduct(ovo);
 
 		System.out.println("   	OrderController/deleteCart()/종료");
 

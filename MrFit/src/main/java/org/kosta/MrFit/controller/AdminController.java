@@ -11,11 +11,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.AdminService;
+import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
+import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.kosta.MrFit.model.UploadVO;
 import org.springframework.security.access.annotation.Secured;
@@ -120,6 +123,9 @@ public class AdminController {
 	 * @param request
 	 * @param productName
 	 * @return
+	 * Tomcat /conf/context.xml 
+		이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다. 
+		<Context reloadable="true" allowCasualMultipartParsing="true">
 	 */
 	
 	@Transactional
@@ -127,36 +133,94 @@ public class AdminController {
 	@RequestMapping("admin/registerProduct.do")
 	public ModelAndView registerProduct(UploadVO vo, ProductVO productVO, HttpServletRequest request) {
 		System.out.println("   	AdminController/registerProduct()/시작");
+			// 젤 처음 pno 등록 name, price, content, category
+			//productService.registerProduct(productVO);
+			System.out.println(productVO);
 		
+		
+			ArrayList<String> psnolist=new ArrayList<String>(); // 등록한 사이즈 psno들
+			String[] size_name=request.getParameterValues("size_name");
+			String[] size1=request.getParameterValues("size1");
+			String[] size2=request.getParameterValues("size2");
+			String[] size3=request.getParameterValues("size3");
+			String[] size4=request.getParameterValues("size4");
+			String[] size5=request.getParameterValues("size5");
+			ProductSizeVO psvo=new ProductSizeVO();
+			System.out.println(size_name);
+			System.out.println(size1);
+			System.out.println(size2);
+			for (int i=0;i<size_name.length;i++) {		
+				psvo.setSize_name(size_name[i]);
+				psvo.setSize1(Integer.parseInt(size1[i]));
+				psvo.setSize2(Integer.parseInt(size2[i]));
+				psvo.setSize3(Integer.parseInt(size3[i]));
+				psvo.setSize4(Integer.parseInt(size4[i]));
+				psvo.setSize5(Integer.parseInt(size5[i]));
+				//productService.registerProductSize(psvo);
+				psnolist.add(psvo.getPsno());
+			}
+
+
+			
+			ArrayList<String> pcnolist=new ArrayList<String>(); // 등록한 색상 pcno들 
+			String[] colleng=request.getParameterValues("colleng");
+			String[] color=request.getParameterValues("colorS");
+			ProductDetailVO pdvo=new ProductDetailVO();
+			for (int i=0;i<color.length;i++) {
+				pdvo.setColor_name(color[i]);
+				//productService.registerColor(pdvo);
+				pcnolist.add(pdvo.getPcno());
+			}
+			System.out.println(colleng);
+			System.out.println(color);
+			//if(size_name==size)
+				
+			//inventory
+			String[] inventory=request.getParameterValues("inventory");
+			
+
+			System.out.println(inventory);
+			
+			for (int i=0;i<psnolist.size();i++) {
+				
+				pdvo.setColor_name(inventory[i]);
+				//productService.registerProductDetail(pdvo);
+			}
+			
 			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
 			if(uploadDir.exists()==false) {
 				uploadDir.mkdirs();
 			}
 			
-			List<MultipartFile> list=vo.getFiles();
+			List<MultipartFile> list=vo.getFile();
 			ArrayList<String> nameList=new ArrayList<String>();		
 			System.out.println("   	AdminController/registerProduct()/진행1");
 			
 			String thumbPath = uploadPath+"thumb/";
 			String imagePath = uploadPath+productVO.getCategory()+"/";
 			String fileName = productVO.getName();	
-			
+			String realName=list.get(0).getOriginalFilename();
+			System.out.println(thumbPath);
+			System.out.println(imagePath);
+			System.out.println(realName);
 			try {
 				if(!fileName.equals("")){
-					list.get(0).transferTo(new File(thumbPath+fileName));
+					list.get(0).transferTo(new File(thumbPath+fileName+".jpg"));
 				}
 				
 				System.out.println("   	AdminController/registerProduct()/진행2 - 대표이미지 업로드");
 				
 				for(int i=1; i<list.size(); i++){
-					fileName =  productVO.getName()+i;		
+					fileName =  productVO.getName()+i+".jpg";		
 					if(!fileName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
 						try {
 							list.get(i).transferTo(new File(imagePath+fileName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
 							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
 							nameList.add(fileName);
-						} catch (Exception e) {					
+							ImageVO ivo=new ImageVO(vo.getPno(),fileName);
+							//productService.registerImage(ivo);
+						} catch (Exception e) {
 							e.printStackTrace();
 						} 
 					}

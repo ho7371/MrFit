@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!--banner-starts-->
 <div class="bnr" id="home">
 	<div id="top" class="callbacks_container">
@@ -15,6 +14,9 @@
 			</li>
 			<li>
 				<div class="banner-3"></div>
+			</li>
+			<li>
+				<div class="banner-4"></div>
 			</li>
 		</ul>
 	</div>
@@ -92,43 +94,26 @@
 	<div class="container">
 		<div class="product-one">
 		
-		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-			<c:if test="${cnt.count<5}">
+		<c:set value="${lvo.pagingBean}" var="pb" />
+		<c:set value="${lvo.list}" var="productList" />
+		
+			<c:forEach items="${productList}" var="pvo">
 				<div class="col-md-3 product-left">
 					<div class="p-one simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
 							<div class="mask">
-								<span>Quick View</span>
+								<span>상세보기</span>
 							</div>
 						</a>
 						<h4>${pvo.name}</h4>
 						<p>
 							<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
 						</p>
-	
+		
 					</div>
 				</div>	
-			</c:if>		
-		</c:forEach>
-		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-			<c:if test="${cnt.count>4}">
-				<div class="col-md-3 product-left">
-					<div class="p-one simpleCart_shelfItem">
-						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
-							<div class="mask">
-								<span>Quick View</span>
-							</div>
-						</a>
-						<h4>${pvo.name} </h4>
-						<p>
-							<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
-						</p>
-	
-					</div>
-				</div>	
-			</c:if>		
-		</c:forEach>	
-			
+			</c:forEach>
+		
 			<div class="clearfix"></div>
 		</div>
 	</div>
@@ -138,24 +123,29 @@
 <!-- pagingBean -->
 <div class="pagingInfo" align="center">
 	<ul class="pagination">
-		<c:if test="${pb.previousPageGroup}">	
-			<li><a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
-		</c:if>
-	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
-	end="${pb.endPageOfPageGroup}">
-		<c:choose>
-			<c:when test="${pb.nowPage!=i}">
-				<li><a href="home.do?pageNo=${i}">${i}</a></li> 
-			</c:when>
-			<c:otherwise>
-				<li class="active"><a href="#" >${i}</a></li>
-			</c:otherwise>
-		</c:choose>
-		&nbsp;
-	</c:forEach>
-	<c:if test="${pb.nextPageGroup}">	
-		<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
-	</c:if>
+		<c:if test="${pb.previousPageGroup==true}">
+   			<li>
+   				<a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
+   			</li>
+   			</c:if>
+   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+	   				<c:choose>
+	   					<c:when test="${pageNum==pb.nowPage}">
+							<li>${pageNum}&nbsp;&nbsp;</li>
+						</c:when>
+					<c:otherwise>
+						<li>
+							<a href="home.do?pageNopageNo=${pageNum}">${pageNum}</a>
+							&nbsp;&nbsp;
+						</li>
+					</c:otherwise>
+   				</c:choose>
+   			</c:forEach>
+   			<c:if test="${pb.nextPageGroup==true}">
+    			<li>
+    				<a href="home.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    			</li>
+    		</c:if>
 	</ul>	 		
 </div> 	
 

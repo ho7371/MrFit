@@ -73,10 +73,10 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void deleteOrderProduct(OrderVO ovo) {
+	public void deleteOrderProduct(OrderProductVO opvo) {
 		
-		System.out.println("            OrderServiceImpl/deleteOrderProduct()/시작 ovo : "+ ovo);
-		orderDAO.deleteOrderProduct(ovo);
+		System.out.println("            OrderServiceImpl/deleteOrderProduct()/시작 ovo : "+ opvo);
+		orderDAO.deleteOrderProduct(opvo);
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
 	}
 
