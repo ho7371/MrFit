@@ -122,7 +122,8 @@ a.simpleCart_empty {
 /*--end-bottom-header--*/
 /*--banner-starts--*/
 .banner-1{
-	background:url(../images/banner.jpg) no-repeat center;
+	background:url(../images/banner-1.jpg) no-repeat center;
+	width:100%;
 	min-height:700px;
 	background-size:cover;
 	-webkit-background-size:cover;
@@ -131,7 +132,8 @@ a.simpleCart_empty {
 	-ms-background-size:cover;
 }
 .banner-2{
-	background:url(../images/banner-3.jpg) no-repeat;
+	background:url(../images/banner-2.jpg) no-repeat center;
+	width:100%;
 	min-height:700px;
 	background-size:cover;
 	-webkit-background-size:cover;
@@ -140,7 +142,18 @@ a.simpleCart_empty {
 	-ms-background-size:cover;
 }
 .banner-3{
-	background:url(../images/banner-2.jpg) no-repeat center;
+	background:url(../images/banner-3.jpg) no-repeat center;
+	width:100%;
+	min-height:700px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	-ms-background-size:cover;
+}
+.banner-4{
+	background:url(../images/banner-4.jpg) no-repeat center;
+	width:100%;
 	min-height:700px;
 	background-size:cover;
 	-webkit-background-size:cover;
@@ -255,7 +268,8 @@ ul.callbacks_tabs.callbacks2_tabs {
 /*--start-banner-bottom--*/
 .banner-bottom {
 	background: rgba(153, 153, 153, 0.49);
-	padding-top: 3em;
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
 .bnr-one{
 	background: #fff;
@@ -942,7 +956,7 @@ ul.size li a:hover {
 /*--end-single--*/
 /*---- responsive-design -----*/
 @media(max-width:1440px){
-.banner-1,.banner-2 ,.banner-3{
+.banner-1,.banner-2 ,.banner-3, .banner-4{
 	min-height: 650px;
 }
 .bnr-one,.bnr-two{
@@ -950,7 +964,7 @@ ul.size li a:hover {
 }
 }
 @media(max-width:1366px){
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 530px;
 }
 .callbacks_tabs {
@@ -975,7 +989,7 @@ ul.size li a:hover {
 }
 }
 @media(max-width:1024px){
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 470px;
 }
 .details-left-info h3 {
@@ -1166,7 +1180,7 @@ a.simpleCart_empty {
 .header-bottom {
 	padding: 8px 0px 3px 0px;
 }
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 380px;
 }
 .callbacks_tabs a:after {
@@ -1342,7 +1356,7 @@ ul.unit li span {
 .top-header {
 	padding: 1.7em 0px 2px 0px;
 }
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 300px;
 }
 .callbacks_tabs a:after {
@@ -1531,7 +1545,7 @@ a.simpleCart_empty {
 .memenu>li.showhide {
 	height: 45px !important;
 }
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 230px;
 }
 .callbacks_tabs a:after {
@@ -1673,7 +1687,7 @@ a.simpleCart_empty {
 	padding: 7px 25px !important;
 	font-size: 13px;
 }
-.banner-1, .banner-2, .banner-3 {
+.banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 180px;
 }
 .callbacks_tabs a:after {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+ 	<resultMap type="memberVO" id="MRM">
+ 		<result column="grade" property="gradeVO.grade"/>
+ 	</resultMap>
+    
+    <update id="adminUpdateMemberStatus" parameterType="string">
+    	update member
+    	set status=0
+    	where id=#{value}
+    </update>
+    
+    <delete id="adminDeleteMemberAuthority" parameterType="string">
+    	delete from auth where id=#{value}
+    </delete>
+    
+    <select id="adminSearchMember" parameterType="string" resultType="memberVO">
+    	select id, name, phone, address, email, point, totalSpent, grade, status
+    	from member
+    	where id=#{value} and status=1
+    </select>
+    
+    <select id="commonMemberList" parameterType="map" resultType="memberVO" resultMap="MRM">
+    	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
+  		from (
+  				select ROW_NUMBER() OVER(ORDER BY totalSpent DESC) AS rnum,
+  				id, name, phone, address, email, point, totalSpent, grade, status
+  				from member 
+  				where status=#{status} 
+  			 ) 
+  		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+    </select>
+    
+    <select id="getTotalCommonMemberCount" parameterType="int" resultType="int">
+    	select count(*) 
+    	from member
+    	where status=#{value}
+    </select>
+
+    <!-- <resultMap type="orderVO" id="ORM">
+    	<result column="ono" property="ono"/>
+    	<result column="totalprice" property="totalprice"/>
+    	<result column="ordertime" property="ordertime"/>
+    	<result column="status" property="status"/>
+    </resultMap>
+    
+    <select id="adminAllOrderList" resultMap="ORM">
+		SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
+		FROM orders o, order_product op, product_detail pd
+		WHERE o.ono = op.ono and pd.pdno = op.pdno and o.status <![CDATA[ <> ]]> '장바구니'
+    </select> -->
+
+    <update id="adminGivePointToMember" parameterType="memberVO">
+    	update member
+    	set point=point+#{point} 
+    	where id=#{id}
+    </update>
+    
+    <select id="adminAllOrderList" resultType="orderVO" parameterType="pagingBean">
+		select o.ono, o.id, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
+		from 
+		( select ROW_NUMBER() OVER(ORDER BY ono DESC) AS rnum,
+		  ono, id, totalprice, ordertime, status, destination
+		  from orders where status <![CDATA[ <> ]]> '장바구니'
+		) o 
+		where rnum between #{startRowNumber} and #{endRowNumber}	
+    </select>
+
+	<select id="adminTotalOrderCount" resultType="int">
+		select count(*) from orders 
+		where status <![CDATA[ <> ]]> '장바구니'
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

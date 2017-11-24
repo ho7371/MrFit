@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
@@ -26,10 +27,12 @@ public class UnitTest {
 	@Resource
 	private OrderService orderService;
 	
+	@Resource
+	private AdminService adminService;
 	 @Test
 	 public void unitTest() {
 		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
-		 System.out.println(productService.findProductReplyByPno("1"));
+		 //System.out.println(productService.findProductReplyByPno("1"));
 		// System.out.println(prvolist);
 	  //System.out.println(memberDAO.findMemberById("java"));
 	  /*System.out.println(pservice.findProductDtailByPno("3"));
@@ -51,7 +54,7 @@ public class UnitTest {
 		 //System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
 	
 		// Map<String,Object> map;
-
+		// System.out.println(adminService.adminAllOrderList());
 	 }
 	 
 

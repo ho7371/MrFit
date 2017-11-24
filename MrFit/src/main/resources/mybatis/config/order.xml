@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="order">
 	<!-- 주문 테이블 정보 가져오기 -->
  	<sql id="selectall">
- 		select ono, id, totalprice, ordertime, status
+ 		select ono, id, totalprice, ordertime, status <!-- select시 destination 칼럼 추가 -->
  		from orders
  	</sql>
 
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<result column="ordertime" property="ordertime"/>
     	<result column="status" property="status"/>
     </resultMap>
-    <!-- 장바구니 보기기능 -->
+    <!-- 장바구니 보기기능 --> 		<!-- select 하지 않을 칼럼을 From문과 where문에 적을 필요가 있는지? -->
     <select id="findMyCart" parameterType="string" resultType="orderVO" resultMap="ORM">
     	SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
 		FROM orders o, order_product op, product_detail pd
@@ -39,9 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name, i.url
 		FROM product_detail pd, product p, product_color pc, product_size ps, order_product op, orders o , image i 
 		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
-		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'main' || '%'
+		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'thumb' || '%'
     </select>
-    
+<!-- 사용되지 않는 resultMap 지우기 -->
     <resultMap type="orderProductVO" id="orderProductRM">
     	<result column="pdno" property="pdno"/>
     	<result column="quantity" property="quantity"/>
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		where id=#{value}
  		order by ono desc
  	</select>
- 	
+
  	<!-- 주문 상품 정보 가져오기 -->
  	<select id="myOrderPrductList" parameterType="string" resultType="orderProductVO">
  		select op.ono, op.pdno, op.quantity,
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ono=#{value} 
 		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and  i.url like 'main%'
+		and  i.url like 'main%'		<!-- main이 아닌 thumb -->
  	</select>
     
     <resultMap type="productVO" id="PRM">
@@ -85,55 +85,73 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
     </select>
     
-    <!-- 정현 장바구니 담기 -->
+     <!--[정현[11/22]  장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인-->
     <select id="findMyCartCount" resultType="int">
    		 select count(*) from ORDERS
 		where id=#{value} and status='장바구니'
     </select>
-    <insert id="registerOrder">
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 만들기-->
+    <insert id="registerOrder" parameterType="orderVO">
     	insert into orders(ono,totalprice,ordertime,status,id,destination) 
-		values(ono_seq.nextval,${totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
+		values(ono_seq.nextval,#{totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
     </insert>
     
-    
-    
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니와 상품상세정보 연결-->
     <insert id="registerOrderProduct" parameterType="orderVO">
-    	insert into order_product(ono,pdno,quantity) 
-		values((select ono 
-				from orders 
-				where id=#{memberVO.id} and status='장바구니'),
-				<foreach item="item" collection="opList">
-					#{item.pdno},${item.quantity}  
-				</foreach>  	
-				)
+    	insert into order_product(ono,pdno,quantity)    
+values((select ono      from orders      where id=#{memberVO.id} and status='장바구니'),#{orderProductList[0].pdno},#{orderProductList[0].quantity})			
     </insert>
     
-    <update id="updateOrder" parameterType="orderVO">    
+     <!--[정현][11/22]  장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
+    <select id="findCartOderproduct" parameterType="orderVO" resultType="orderProductVO">
+    	select ono,pdno,quantity from order_product 
+    	where ono=(select ono 
+				from orders 
+				where id=#{memberVO.id} and status='장바구니') and 				
+				pdno=#{orderProductList[0].pdno} 
+    </select>
+    <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 총합 가격 올리기-->
+    <update id="updateOrder" parameterType="orderVO">
 		update orders 
-		set totalprice=(totalprice+#{totalprice}),ordertime=sysdate  
+		set totalprice=totalprice+#{totalprice},ordertime=sysdate  
 		where id=#{memberVO.id} and status='장바구니'
     </update>
     
     <!-- 장바구니 담기 마무리 -->
-    <!--  장바구니에서 상품 삭제 -->
-    <delete id="deleteOrderProduct" parameterType="orderVO">
-    	delete from orders_product
-    	 where ono=#{ono} and pdno=
-    	 <foreach item="item" collection="opList">
-    	 #{item.pdno}
-    	 </foreach>    	
+    <!--[정현][11/22]  장바구니에서 상품 삭제 장바구니에서 상품 삭제-->
+    <delete id="deleteOrderProduct" parameterType="orderProductVO">
+    	delete from order_product
+    	 where ono=#{ono} and pdno=#{pdno}
     </delete>
     
-    <update id="deleteUpdateOrder"  parameterType="orderVO">    
-		update orders 
-		set totalprice=totalprice-#{totalprice},ordertime=sysdate  
-		where id=#{memberVO.id} and status='장바구니'
-    </update>
+    <!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
+   <select id="findPdno" parameterType="productDetailVO" resultType="String">
+   	select pdno from product_detail
+   	where pcno=#{pcno} and  psno=#{psno}
+   </select>
+    
+    
+    
       <!-- [석환][11.22] 장바구니 수량 수정 -->
     <update id="updateOrderQuantity" parameterType="orderProductVO">
  		update order_product set quantity=#{quantity}
  		where ono=#{ono} and pdno=#{pdno}
  	</update>
+   	   	  <!-- [석환][11.23] 포인트 차감 -->
+   	<update id="updatePointOrder" parameterType="memberVO">
+   		update member set point=point-#{point}
+		where id=#{id}
+   	</update>
+   	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
+   	<update id="updateStatusOrder" parameterType="orderVO">
+   		update orders set status='입금대기', destination=#{destination}, ordertime=sysdate
+		where ono=#{ono}
+   	</update>
+   	<!-- [석환][11.23] 상품 주문시 무통장 외 배송준비중으로 변경 -->
+   	<update id="updateStatusOrderEtc" parameterType="orderVO">
+   		update orders set status='배송준비중', destination=#{destination}, ordertime=sysdate
+		where ono=#{ono}
+   	</update>
    
 </mapper>
 

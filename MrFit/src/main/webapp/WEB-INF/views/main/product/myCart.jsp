@@ -74,10 +74,9 @@
 			<c:forEach items="${requestScope.ovoList}" var="i">
 			<div class="findOno" id="${i.ono}"></div>
             <ul class="cart-header">
-               <div class="close1"></div>
-                  <li class="ring-in"><a href="single.html" >
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
+             <li class="ring-in">
+                  <a href="single.html" >
+                  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>                  </a>
                   </li>
                   <c:forEach items="${i.orderProductList}" var="j">
                   		<div class="findPdno" id="${j.pdno}"></div>
@@ -87,6 +86,8 @@
 						<span id="updateField" style="font-size: 20px;">수량 : ${j.quantity}</span>
 						</span></li>
 						<span class="findQuantity" id="${j.quantity}"></span>
+<a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${i.ono}&pdno=${j.pdno}&price=${j.price}" > <div class="close1"></div></a>                  
+ 
 				  </c:forEach>
 						<li><span>${i.totalprice}</span></li>
 						
@@ -97,32 +98,7 @@
             </ul>
             </c:forEach>
             <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
-            <%-- <ul class=" cart-header1">
-               <div class="close2"> </div>
-                  <li class="ring-in"><a href="single.html" >
-                  <!-- <img src="images/s-2.jpg" class="img-responsive" alt=""> -->
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-2.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
-                  </li>
-                  <li><span>Elliot Shoes</span></li>
-                  <li><span>$ 300.00</span></li>
-                  <li><span>In Stock</span></li>
-                  <li> <a href="single.html" class="add-cart cart-check">ADD TO CART</a></li>
-                  <div class="clearfix"> </div>
-            </ul>
-            <ul class="cart-header2">
-               <div class="close3"> </div>
-                  <li class="ring-in"><a href="single.html" >
-                  <!-- <img src="images/s-4.jpg" class="img-responsive" alt=""> -->
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-3.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
-                  </li>
-                  <li><span>Woo Dress</span></li>
-                  <li><span>$ 360.00</span></li>
-                  <li><span>In Stock</span></li>
-                  <li> <a href="single.html" class="add-cart cart-check">ADD TO CART</a></li>
-                  <div class="clearfix"> </div>
-            </ul> --%>
+          
          </div>
          </div>  
        </div>

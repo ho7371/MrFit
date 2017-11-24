@@ -1,13 +1,17 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDAO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductReviewVO;
@@ -17,6 +21,7 @@ import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,11 +30,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 	@Resource
 	private ProductService productService;
+	
 	@Resource
 	private MemberService memberService;
+	
 	@Resource
 	private ProductDAO productDAO;
-	private String uploadPath;
+	private PagingBean pb;
 
 	/** 코드 작성 규칙
 	 *  1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -46,18 +53,48 @@ public class ProductController {
 	 * @return
 	 */
 	
-	/**[][][]
-	 * 
-	 * @return
-	 */
-	// @Secured("ROLE_MEMBER")
-	@RequestMapping("registerProductAction.do")
-	public ModelAndView registerProduct(){
-		System.out.println("   	ProductController/registerProduct()/시작");
-		System.out.println("    ProductController/registerProduct()/진행");
-		System.out.println("    ProductController/registerProduct()/종료");
-		return null;
-	}
+	
+	/**[정현][2017.11.20][분류별 상품 리스트 뽑기]
+	    * 
+	    * @param category
+	    * @return
+	    */
+	   @RequestMapping("findProductByCategory.do")
+	   public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model){
+	      System.out.println("      ProductController/findProductByCategory()/시작");         
+	      
+			/* 페이징 처리 공통 영역 */
+			int totalCount = productService.getCategoryProductCount(category);
+			int postCountPerPage = 10;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+	      
+			ModelAndView mv = new ModelAndView();
+	      ListVO<ProductVO> lvo= new ListVO<ProductVO>();
+	      
+	      HashMap<String,Object> map=new HashMap<String,Object>();
+	      map.put("startNumber",pb.getStartRowNumber());
+	      map.put("endNumber",pb.getEndRowNumber());
+	      map.put("category",category);
+	      List<ProductVO> productList=productService.findProductByCategory(map);
+	      
+	      System.out.println("      ProductController/findProductByCategory()/진행 - 리스트 : "+productList);      
+	      if(productList!=null&&!productList.isEmpty()) {         
+	         lvo.setList(productList);      
+	      }
+	      lvo.setPagingBean(pb);
+	      mv.addObject("lvo", lvo);
+	      mv.setViewName("product/productList.tiles");
+	      System.out.println("      ProductController/findProductByCategory()/종료");
+	      return mv;
+	   }
+	   
+	   
 	/**[현민][상품검색]
 	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 
 	 * 찾는 기능 
@@ -71,8 +108,8 @@ public class ProductController {
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
-		System.out.println("    ProductController/registerProduct()/진행");
 		if(list!= null) {
+			System.out.println("    ProductController/registerProduct()/진행 list : "+list);
 			mv.setViewName("product/findProductByName_ok.tiles");
 			mv.addObject("list", list);
 		}else {
@@ -81,6 +118,7 @@ public class ProductController {
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
+	
 	/* [석환][11/18]
 	 * 상품 번호로 상품의 상세정보 페이지 이동
 	 */
@@ -88,13 +126,15 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
 		ProductVO pvo=productService.findProductDtailByPno(pno);
-		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
-		if(vo!=null) {			
-		MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-		ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
-		mv.addObject("psglist", psglist);
+		System.out.println("    ProductController/findProductDetailByPno()/진행1 - @@@@@ " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
+			ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+			mv.addObject("psglist", psglist);
 		}
+		mv.addObject("psList", psList);
 		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
      	// 해당 상품 리뷰 불러오는 메서드
 		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
@@ -102,7 +142,6 @@ public class ProductController {
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 			mv.addObject("prvolist", prvolist);
-			mv.addObject("psList", psList);
 		return mv;
 	}
 	
@@ -113,7 +152,7 @@ public class ProductController {
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
 	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
- 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
+		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
 		return sizeList;
 	}
 	

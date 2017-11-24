@@ -10,7 +10,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.ImageVO;
+import org.kosta.MrFit.model.ListVO;
+import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
@@ -49,7 +53,7 @@ public class AdminController {
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminProductList.do")
-	public String adminProductList(HttpServletRequest request, Model model) {
+	public ModelAndView adminProductList(HttpServletRequest request, Model model) {
 		System.out.println("   	AdminController/adminProductList()/시작");
 		
 			/* 페이징 처리 공통 영역 */
@@ -123,6 +127,7 @@ public class AdminController {
 		이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다. 
 		<Context reloadable="true" allowCasualMultipartParsing="true">
 	 */
+	
 	@Transactional
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
