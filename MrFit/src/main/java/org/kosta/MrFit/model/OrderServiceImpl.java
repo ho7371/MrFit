@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Resource
@@ -86,6 +87,19 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("            OrderServiceImpl/findPdno()/종료");
 		return pdno;
 	}
-
+	//[석환][11.23] 주문 결제
+	@Transactional
+	@Override
+	public OrderVO productOrderPayment(MemberVO vo,int payPoint,int depositMethod,OrderVO ovo) {
+		//상품 구매시 포인트 차감
+		orderDAO.updatePointOrder(vo);
+		//무통장 입금시 입금대기로 변경
+		if(depositMethod==1) {
+		orderDAO.updateStatusOrder(ovo);
+		}	
+		//무통장 외 입금시 배송준비중으로 변경
+		orderDAO.updateStatusOrderEtc(ovo);
+		return null;
+	}
 	
 }

@@ -27,8 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 	@Resource
 	private ProductService productService;
+	
 	@Resource
 	private MemberService memberService;
+	
 	@Resource
 	private ProductDAO productDAO;
 	private String uploadPath;
@@ -48,18 +50,6 @@ public class ProductController {
 	 * @return
 	 */
 	
-	/**[][][]
-	 * 
-	 * @return
-	 */
-	// @Secured("ROLE_MEMBER")
-	@RequestMapping("registerProductAction.do")
-	public ModelAndView registerProduct(){
-		System.out.println("   	ProductController/registerProduct()/시작");
-		System.out.println("    ProductController/registerProduct()/진행");
-		System.out.println("    ProductController/registerProduct()/종료");
-		return null;
-	}
 	
 	
 	/**[현민][상품검색]

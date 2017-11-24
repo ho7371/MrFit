@@ -54,7 +54,7 @@ public class UnitTest {
 		 //System.out.println("test1 : "+oservice.findMyCart("java3").get("cart"));
 	
 		// Map<String,Object> map;
-		 System.out.println(adminService.adminAllOrderList());
+		// System.out.println(adminService.adminAllOrderList());
 	 }
 	 
 

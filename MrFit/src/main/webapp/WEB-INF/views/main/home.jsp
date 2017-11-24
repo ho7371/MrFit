@@ -90,44 +90,43 @@
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
-		
 		<div class="product-one">
 		
 		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-		<c:if test="${cnt.count<5}">
-			<div class="col-md-3 product-left">
-				<div class="p-one simpleCart_shelfItem">
-					<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
-						<div class="mask">
-							<span>Quick View</span>
-						</div>
-					</a>
-					<h4>${pvo.name}</h4>
-					<p>
-						<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
-					</p>
-
-				</div>
-			</div>	
-		</c:if>		
+			<c:if test="${cnt.count<5}">
+				<div class="col-md-3 product-left">
+					<div class="p-one simpleCart_shelfItem">
+						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
+							<div class="mask">
+								<span>Quick View</span>
+							</div>
+						</a>
+						<h4>${pvo.name}</h4>
+						<p>
+							<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
+						</p>
+	
+					</div>
+				</div>	
+			</c:if>		
 		</c:forEach>
 		<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-		<c:if test="${cnt.count>4}">
-			<div class="col-md-3 product-left">
-				<div class="p-one simpleCart_shelfItem">
-					<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
-						<div class="mask">
-							<span>Quick View</span>
-						</div>
-					</a>
-					<h4>${pvo.name} </h4>
-					<p>
-						<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
-					</p>
-
-				</div>
-			</div>	
-		</c:if>		
+			<c:if test="${cnt.count>4}">
+				<div class="col-md-3 product-left">
+					<div class="p-one simpleCart_shelfItem">
+						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" />
+							<div class="mask">
+								<span>Quick View</span>
+							</div>
+						</a>
+						<h4>${pvo.name} </h4>
+						<p>
+							<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
+						</p>
+	
+					</div>
+				</div>	
+			</c:if>		
 		</c:forEach>	
 			
 			<div class="clearfix"></div>
@@ -155,7 +154,7 @@
 		&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
-	<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+		<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 	</c:if>
 	</ul>	 		
 </div> 	

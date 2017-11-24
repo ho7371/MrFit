@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
@@ -26,7 +28,14 @@ public class HomeController {
 	 *  
 	 * @return
 	 */
-	@RequestMapping("home.do")
+	
+	/** [정현] - 수정자 : 진호
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	/*@RequestMapping("home.do")
 	public String home(HttpServletRequest request,Model model){
 		System.out.println("      HomeController/home()/시작");
 			
@@ -50,6 +59,36 @@ public class HomeController {
 			System.out.println("      HomeController/home()/종료");
 			return "home.tiles";
 		}
+	}*/
+	
+	@RequestMapping("home.do")
+	public ModelAndView home(HttpServletRequest request,Model model){
+		System.out.println("      HomeController/home()/시작");
+		ModelAndView mv = new ModelAndView();
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
+		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = productService.getTotalProductCount();
+			int postCountPerPage = 9;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		List<ProductVO> productList=productService.ProductList(pb);
+		System.out.println("      HomeController/home()/진행 - productList :"+productList);
+		if(productList!=null&&!productList.isEmpty()) {
+			lvo.setList(productList);
+			lvo.setPagingBean(pb);
+		}
+			
+		mv.addObject("lvo", lvo);		
+		mv.setViewName("home.tiles");
+		System.out.println("      HomeController/home()/종료");
+		return mv;
 	}
 
 	@RequestMapping("notice.do")

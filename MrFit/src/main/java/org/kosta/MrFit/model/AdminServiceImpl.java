@@ -12,27 +12,6 @@ public class AdminServiceImpl implements AdminService {
 	@Resource
 	private AdminDAO adminDAO;
 	
-	
-	/*@Override
-	public List<MemberVO> memberList(PagingBean0 PagingBean){
-		return adminDAO.memberList(PagingBean);
-	}
-	
-	@Override
-	public int getTotalMemberCount() {
-		return adminDAO.getTotalMemberCount();
-	}*/
-	
-	/*@Override
-	public List<MemberVO> unregisterMemberList(PagingBean0 PagingBean){
-		return adminDAO.unregisterMemberList(PagingBean);
-	}
-	
-	@Override
-	public int getTotalUnregisterMemberCount() {
-		return adminDAO.getTotalUnregisterMemberCount();
-	}*/
-	
 	@Override
 	public void adminUpdateMemberStatus(String id) {
 		adminDAO.adminUpdateMemberStatus(id);
@@ -59,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<OrderVO> adminAllOrderList(PagingBean0 pb) {
+	public List<OrderVO> adminAllOrderList(PagingBean pb) {
 		return adminDAO.adminAllOrderList(pb);
 	}
 
@@ -68,7 +47,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminTotalOrderCount();
 	}
 	
-	
+	@Override
+	public void adminGivePointToMember(MemberVO mvo) {
+		adminDAO.adminGivePointToMember(mvo);
+	}
 	
 	
 	

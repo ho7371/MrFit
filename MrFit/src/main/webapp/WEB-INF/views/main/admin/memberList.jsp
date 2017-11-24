@@ -27,12 +27,12 @@
 			<th>point</th>
 			<th>누적구매금액</th>
 			<th>등급</th>
-			<th>관리</th>
+			<th>강제탈퇴</th>
+			<th>포인트지급</th>
 			</tr>
 		</thead>
 		<tbody>						
-				<c:forEach var="member" items="${lvo.list}">	
-							
+		 <c:forEach var="member" items="${lvo.list}">	
 			<tr>
 			    <td>${member.id}</td>				
 				<td>${member.name}</td>
@@ -43,20 +43,27 @@
 				<td>${member.totalSpent}</td>
 				<td>${member.gradeVO.grade}</td>
 				<td>
-						<form action="${pageContext.request.contextPath}/adminUnregisterMember.do">
-							<input type="hidden" name="id" value="${member.id}">
-							<input type="submit" value="삭제">
-						</form>
+					<form action="${pageContext.request.contextPath}/adminUnregisterMember.do">
+						<input type="hidden" name="id" value="${member.id}">
+						<input type="submit" value="삭제">
+					</form>
+				</td>
+				<td>
+					<form action="${pageContext.request.contextPath}/adminGivePointToMemberForm.do" method="post">
+						<sec:csrfInput/><%-- csrf 토큰 --%>   
+						<input type="hidden" name="id" value="${member.id}">
+						<input type="submit" value="포인트 지급">
+					</form>
 				</td>
 			</tr>	
-			</c:forEach>	
+		 </c:forEach>	
 		</tbody>					
 	</table>
 
 <div class="container" align="center">
   		<ul class="pager">
    			<c:if test="${pb.previousPageGroup==true}">
-   			<li><a href="commonMemberList.do?status=1&listPage=${pb.startPageOfPageGroup-1}">Previous</a></li>
+   			<li><a href="commonMemberList.do?status=1&pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
    			</c:if>
    			<c:forEach begin="${pb.startPageOfPageGroup}" 
    			end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -65,12 +72,12 @@
 				<li>${pageNum}&nbsp;&nbsp;</li>
 				</c:when>
 				<c:otherwise>
-				<li><a href="commonMemberList.do?status=1&listPage=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+				<li><a href="commonMemberList.do?status=1&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
 				</c:otherwise>
    			</c:choose>
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
-    		<li><a href="commonMemberList.do?status=1&listPage=${pb.endPageOfPageGroup+1}">Next</a></li>
+    		<li><a href="commonMemberList.do?status=1&pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
     		</c:if>
  		 </ul>
 	</div>

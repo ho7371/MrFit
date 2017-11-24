@@ -5,17 +5,9 @@ import java.util.Map;
 
 public interface AdminService {
 
-	/*List<MemberVO> memberList(PagingBean0 PagingBean);
-
-	int getTotalMemberCount();*/
-
 	void adminUpdateMemberStatus(String id);
 
 	void adminDeleteMemberAuthority(String id);
-
-	/*List<MemberVO> unregisterMemberList(PagingBean0 PagingBean);
-
-	int getTotalUnregisterMemberCount();*/
 
 	MemberVO adminSearchMember(String id);
 
@@ -23,8 +15,11 @@ public interface AdminService {
 
 	int getTotalCommonMemberCount(int status);
 
-	List<OrderVO> adminAllOrderList(PagingBean0 pb);
+
+	List<OrderVO> adminAllOrderList(PagingBean pb);
 
 	int adminTotalOrderCount();
+
+	void adminGivePointToMember(MemberVO mvo);
 
 }

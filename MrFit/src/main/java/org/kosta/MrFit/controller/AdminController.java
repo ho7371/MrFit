@@ -15,7 +15,6 @@ import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
-import org.kosta.MrFit.model.PagingBean0;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
 import org.kosta.MrFit.model.UploadVO;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,32 +50,41 @@ public class AdminController {
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminProductList.do")
-	public String adminProductList(HttpServletRequest request, Model model) {
+	public ModelAndView adminProductList(HttpServletRequest request, Model model) {
 		System.out.println("   	AdminController/adminProductList()/시작");
 		
-		int pbCount=productService.getTotalProductCount();
-		String pno=request.getParameter("pageNo");
-		System.out.println("      AdminController/adminProductList()/진행1");
-		if(pno==null){
-			pb = new PagingBean(pbCount);
-		}else{
-			pb = new PagingBean(pbCount,Integer.parseInt(pno));
-		}
-		List<ProductVO> ProductList=productService.ProductList(pb);
-		System.out.println("      AdminController/adminProductList()/진행2 - pno:"+pno+", 상품목록:"+ProductList);		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = productService.getTotalProductCount();
+			int postCountPerPage = 10;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			
+		ModelAndView mv = new ModelAndView();
+		List<ProductVO> productList=productService.ProductList(pb);
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
 		
-		if(ProductList!=null&&!ProductList.isEmpty()) {
-			model.addAttribute("ProductList",ProductList);
-			model.addAttribute("pb",pb);
+		System.out.println("      AdminController/adminProductList()/진행 - productList : "+productList);
+		
+		if(productList!=null&&!productList.isEmpty()) {
+			lvo.setList(productList);
+			lvo.setPagingBean(pb);
+			mv.addObject("lvo",lvo);
 		}
+		
+		mv.setViewName("admin/adminProductList.tiles");
 		System.out.println("      AdminController/adminProductList()/종료");
-		return "admin/adminProductList.tiles";
+		return mv;
 	}
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProductForm.do")
 	public String registerProductForm() {
-		System.out.println("   	AdminController/registerProduct()/시작");
+		System.out.println("   	AdminController/registerProductForm()/시작");
 		return "admin/registerProductForm.tiles";
 	}
 	
@@ -86,18 +95,19 @@ public class AdminController {
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminFindProductByName.do")
-	public ModelAndView findProductByName(String keyword){
-		System.out.println("   	AdminController/registerProduct()/시작");
+	public ModelAndView findProductByName(String keyword, HttpServletRequest request){
+		System.out.println("   	AdminController/findProductByName()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
+		
+		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 리스트 : "+list);
 		if(list!= null) {
-			mv.setViewName("admin/adminProductList.tiles");
 			mv.addObject("list", list);
-		}else {
-			mv.setViewName("main/product/findProductByName_fail");
 		}
-		System.out.println("    AdminController/registerProduct()/종료");
+		mv.setViewName("admin/adminProductList.tiles");
+		System.out.println("    AdminController/findProductByName()/종료");
 		return mv;
+		
 	}
 	
 	
@@ -111,6 +121,7 @@ public class AdminController {
 	 * @param productName
 	 * @return
 	 */
+	
 	@Transactional
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
@@ -178,7 +189,7 @@ public class AdminController {
 	}
 	
 	
-	@SuppressWarnings("null")
+	/*@SuppressWarnings("null")
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("commonMemberList.do")
 	public ModelAndView commonMemberList(HttpServletRequest request,int status) {
@@ -201,6 +212,47 @@ public class AdminController {
 		}else {
 			mv.setViewName("admin/unregisterMemberList.tiles");
 		}
+		return mv;
+	}*/
+	
+	/** [영훈] - 수정자 : 진호
+	 * 
+	 * @param request
+	 * @param status
+	 * @return
+	 */
+	@SuppressWarnings("null")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("commonMemberList.do")
+	public ModelAndView commonMemberList(HttpServletRequest request, int status) {
+		System.out.println("   	AdminController/commonMemberList()/시작");
+		ModelAndView mv = new ModelAndView();
+		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = adminService.getTotalCommonMemberCount(status);
+			int postCountPerPage = 10;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("status", status);
+		map.put("pagingBean", pb);
+		
+		List<MemberVO> list = adminService.commonMemberList(map);
+		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
+		mv.addObject("lvo",lvo);
+		if(status==1) {
+			mv.setViewName("admin/memberList.tiles");
+		}else {
+			mv.setViewName("admin/unregisterMemberList.tiles");
+		}
+		
+		System.out.println("   	AdminController/commonMemberList()/종료");
 		return mv;
 	}
 	
@@ -225,6 +277,21 @@ public class AdminController {
 			return mv;
 		}
 	}
+
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
+	public ModelAndView adminGivePointToMemberForm(String id) {
+		MemberVO mvo = adminService.adminSearchMember(id);
+		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
+	public String adminGivePointToMember(MemberVO mvo) {
+		adminService.adminGivePointToMember(mvo);
+		return "redirect:adminSearchMember.do?id="+mvo.getId();
+	}
+	
 	
 	/**[현민][11/23][관리자 전체 주문 내역]
 	 * 
@@ -235,13 +302,19 @@ public class AdminController {
 	public ModelAndView adminAllOrderList(HttpServletRequest request) {
 		System.out.println("   	AdminController/adminAllOrderList()/시작");
 		ModelAndView mv = new ModelAndView();
+		
+		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminTotalOrderCount();
-		System.out.println("주문개수 : "+totalOrderCount);
+		int postCountPerPage = 4;
+		int postCountPerPageGroup = 2;
 		int nowPage = 1;
-		if(request.getParameter("listPage")!=null) {
-			nowPage = Integer.parseInt(request.getParameter("listPage"));
-		}
-		PagingBean0 pb = new PagingBean0(totalOrderCount,nowPage,4,2);
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		System.out.println("주문개수 : "+totalOrderCount);
 		System.out.println(pb.getStartRowNumber()+"  "+pb.getEndRowNumber());
 		List<OrderVO> list = adminService.adminAllOrderList(pb);
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
