@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrder()/시작 ovo : "+ovo);
 		orderDAO.registerOrder(ovo);
-		System.out.println("            OrderServiceImpl/findMyCart()/종료");
+		System.out.println("            OrderServiceImpl/registerOrder()/종료");
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/findCartOderproduct()/진행 ovo : "+ ovo);
 		OrderProductVO opCount=orderDAO.findCartOderproduct(ovo);
-		System.out.println("            OrderServiceImpl/findCartOderproduct()/종료"+ ovo);
+		System.out.println("            OrderServiceImpl/findCartOderproduct()/종료 opCount : "+ opCount);
 		return opCount;		
 		
 	}
@@ -77,6 +77,14 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/시작 ovo : "+ ovo);
 		orderDAO.deleteOrderProduct(ovo);
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
+	}
+
+	@Override
+	public String findPdno(ProductDetailVO pdvo) {
+		System.out.println("            OrderServiceImpl/findPdno()/시작 pdvo : "+ pdvo);
+		String pdno=orderDAO.findPdno(pdvo);
+		System.out.println("            OrderServiceImpl/findPdno()/종료");
+		return pdno;
 	}
 
 	

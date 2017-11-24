@@ -4,6 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+<!-- select password 지우기 -->
  	<sql id="selectall">
  		select id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade from member
  	</sql>
@@ -12,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result column="grade" property="gradeVO.grade"/>
  		<result column="percent" property="gradeVO.percent"/>
  	</resultMap>
- 	
+<!-- m.password 지우기 -->	
  	<!-- 아이디로 회원 정보 찾기 -->
  	<select id="findMemberById" parameterType="string" resultMap="MRM" resultType="memberVO">
  		SELECT	m.id,	m.password,  m.name, m.phone, m.address, m.email, m.grade, g.percent, m.point, 
@@ -27,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM	auth 
 		WHERE	id=#{value}
  	</select>
- 	
+<!-- default 값이 있는 칼럼은 insert에서 지우기 : point, totalspent, status, grade -->
  	<!-- 회원가입 -->
  	<insert id="registerMember" parameterType="memberVO">
 		insert into member(id,	password,  name, phone, address, email, point, totalspent, status, answer, qno, grade)
@@ -74,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findMemberSizeById" parameterType="string" resultType="memberSizeVO">
  		select shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength from member_size where id=#{value}
  	</select>
- 	
+<!-- default 칼럼으로 설정하기 : shoulder ~ bottomlength -->
  	<!-- 회원 치수 정보 등록 -->
  	<insert id="registerMemberSize" parameterType="string">
  		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 

@@ -12,6 +12,7 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,8 +57,9 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+// 주석규칙 지키기
 	@RequestMapping("registerCart.do")
-	public String registerCart(HttpServletRequest request) {
+	public String registerCart(HttpServletRequest request,ProductVO productVO) {
 		System.out.println("   	OrderController/registerCart()/시작");
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
@@ -65,17 +67,23 @@ public class OrderController {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		System.out.println("pvo : "+productVO);
 		int cartCount = orderService.findMyCartCount(mvo.getId());
-
+			System.out.println("cartCount : "+cartCount);
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
-		System.out.println("quantity : "+quantity);
-		int price = Integer.parseInt(request.getParameter("price"));
-		System.out.println("price : "+price);		
-		String pdno = "2";
+		
+		int price =quantity* Integer.parseInt(request.getParameter("price"));
+			System.out.println("price : "+price);
+			String psno =request.getParameter("psno");
+			System.out.println("psno : "+psno);
+			String pcno =request.getParameter("pcno");
+			System.out.println("pcno : "+pcno);
+			ProductDetailVO pdvo=new ProductDetailVO();
+			pdvo.setPcno(pcno);
+			pdvo.setPsno(psno);
+			String pdno = orderService.findPdno(pdvo);
+		
 		System.out.println("pdno : "+pdno);
-		String psno =request.getParameter("slsSize");
-		System.out.println("psno : "+psno);
 		
 		
 		opvo.setPdno(pdno);		
