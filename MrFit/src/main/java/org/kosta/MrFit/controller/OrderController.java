@@ -215,5 +215,18 @@ public class OrderController {
 		orderService.updateOrderQuantity(opvo);
 		return "redirect:cartForm.do";
 	}
-
+	/* [석환][11.23][주문결제]
+	 * 
+	 */
+	@RequestMapping("order.do")
+	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
+		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		vo.setPoint(payPoint);
+		OrderVO uovo=orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		System.out.println("상품주문 변경 :  "+ovo);
+		System.out.println("ono: "+uovo);	
+		System.out.println(depositMethod);
+		return null;
+	}
 }

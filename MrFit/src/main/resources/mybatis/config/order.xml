@@ -148,6 +148,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update order_product set quantity=#{quantity}
  		where ono=#{ono} and pdno=#{pdno}
  	</update>
+   	   	  <!-- [석환][11.23] 포인트 차감 -->
+   	<update id="updatePointOrder" parameterType="memberVO">
+   		update member set point=point-#{point}
+		where id=#{id}
+   	</update>
+   	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
+   	<update id="updateStatusOrder" parameterType="orderVO">
+   		update orders set status='입금대기', destination=#{destination}, ordertime=sysdate
+		where ono=#{ono}
+   	</update>
+   	<!-- [석환][11.23] 상품 주문시 무통장 외 배송준비중으로 변경 -->
+   	<update id="updateStatusOrderEtc" parameterType="orderVO">
+   		update orders set status='배송준비중', destination=#{destination}, ordertime=sysdate
+		where ono=#{ono}
+   	</update>
    
 </mapper>
 

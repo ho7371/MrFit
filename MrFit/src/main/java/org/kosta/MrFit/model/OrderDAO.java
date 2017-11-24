@@ -26,4 +26,10 @@ public interface OrderDAO {
 	void deleteOrderProduct(OrderVO ovo);
 
 	String findPdno(ProductDetailVO pdvo);
+
+	void updatePointOrder(MemberVO vo);
+
+	void updateStatusOrder(OrderVO ovo);
+
+	void updateStatusOrderEtc(OrderVO ovo);
 }

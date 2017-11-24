@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function(c) {
 		var totalprice = 0;
@@ -8,15 +10,19 @@
 			totalprice += ${list.totalprice}
 		</c:forEach>
 		$("#totalprice").text("총 상품금액 : "+totalprice);
+		$("#pointCharge").change(function() {
+			var pointCharge=$(this).val();
+			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
+		});
 		$("#equalMemberInfo").click(function() {
-			if($("#name").val()=="" && $("#phone").val()=="" && $("#address").val()==""){
+			if($("#name").val()=="" && $("#phone").val()=="" && $("#destination").val()==""){
 				$("#name").val($("#memberName").text());
 				$("#phone").val($("#memberPhone").text());
-				$("#address").val($("#memberAddress").text());
+				$("#destination").val($("#memberAddress").text());
 			}else{
 				$("#name").val("");
 				$("#phone").val("");
-				$("#address").val("");
+				$("#destination").val("");
 			}	
 		}); //click
 		$("#order").click(function() {
@@ -29,7 +35,7 @@
 			}else if($("#phone").val()==""){
 				alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
 				return false;
-			}else if($("#address").val()==""){
+			}else if($("#destination").val()==""){
 				alert("배송자 주소을 입력하시기 바랍니다.");
 				return false;
 			}else if($("#payMethod1").is(":checked") && $("#insertPerson").val()==""){
@@ -93,6 +99,7 @@
 	});// ready
 </script>
 <!--start-ckeckout-->
+<form action="${pageContext.request.contextPath}/order.do">
    <div class="ckeckout">
       <div class="container">
          <div class="ckeckout-top">
@@ -144,7 +151,7 @@
 	            	</tr>
 	            	<tr>
 	            		<th>
-	            			<div align="center">포인트 : <input type = "text" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : ${ovoList[0].memberVO.point } )</div>
+	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "text" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" /> )</div>
 	            		</th>
 	            	</tr>
 	            </table>
@@ -195,13 +202,13 @@
 	            <div>
 		          	<table class="cart-header">
 		          		<tr>
-		          			<th>이름 : <input type = "text" name = "name" id = "name"> </th>
+		          			<th>이름 : <input type = "text" name = "name" id = "name" required="required"> </th>
 		          		</tr>
 		          		<tr>
-		          			<th>연락처 : <input type = "text" name = "phone" id = "phone"> </th>
+		          			<th>연락처 : <input type = "text" name = "phone" id = "phone" required="required"> </th>
 		          		</tr>
 		          		<tr>
-		          			<th>주소 : <input type = "text" name = "address" id = "address"> </th>
+		          			<th>주소 : <input type = "text" name = "destination" id = "destination" required="required"> </th>
 		          		</tr>
 		          	</table>
 		         </div>
@@ -218,10 +225,10 @@
 	            </ul>
 	            <br><br>
 	            <div align="center">
-	            	<input type = "radio" name = "" id = "payMethod1" checked="checked">무통장입금 &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "payMethod2">신용카드 &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "payMethod3">페이코(PAYCO) &nbsp;&nbsp;
-	            	<input type = "radio" name = "" id = "payMethod4">카카오페이(KakaoPay) &nbsp;&nbsp;
+	            	<input type = "radio" value="1" name = "depositMethod" id = "payMethod1" checked="checked">무통장입금 &nbsp;&nbsp;
+	            	<input type = "radio" value="2" name = "depositMethod" id = "payMethod2">신용카드 &nbsp;&nbsp;
+	            	<input type = "radio" value="3" name = "depositMethod" id = "payMethod3">페이코(PAYCO) &nbsp;&nbsp;
+	            	<input type = "radio" value="4" name = "depositMethod" id = "payMethod4">카카오페이(KakaoPay) &nbsp;&nbsp;
 	            </div>
 	            <br><br><br>
 	            <div align="center">
@@ -274,9 +281,12 @@
          </div>  
          <div align="right">
          	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
-         	<a href="order.do" class="add-cart cart-check" id = "order">주문하기</a>
+         	<input type="hidden" name="ono" value="${ovoList[0].ono}">
+         	<input class="add-cart cart-check" type ="submit" id="order" value="주문하기">
+         	<!-- <a href="order.do" class="add-cart cart-check" id = "order">주문하기</a> -->
          </div> 
        </div>
       </div>
    </div>
+   </form>
    <!--end-ckeckout-->

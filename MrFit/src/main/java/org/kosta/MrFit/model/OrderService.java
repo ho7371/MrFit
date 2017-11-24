@@ -25,5 +25,7 @@ public interface OrderService {
 	OrderProductVO findCartOderproduct(OrderVO ovo);
 
 	String findPdno(ProductDetailVO pdvo);
+
+	OrderVO productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
 	
 }
