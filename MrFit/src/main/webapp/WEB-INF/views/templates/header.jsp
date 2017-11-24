@@ -96,13 +96,13 @@ $(window).scroll(function(){
 		<div class="top-nav">
 			<ul class="memenu skyblue">
 				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=아우터">OUTER</a>
+					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=outer">OUTER</a>
 				</li>
 				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=상의">TOP</a>
+					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=top">TOP</a>
 				</li>
 				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=하의">BOTTOM</a>
+					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=bottom">BOTTOM</a>
 				</li>
 				<li class="grid">
 					<a href="${pageContext.request.contextPath}/notice.do">공지사항</a>
