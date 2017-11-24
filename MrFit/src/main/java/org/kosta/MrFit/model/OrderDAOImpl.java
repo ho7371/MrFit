@@ -79,6 +79,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
+
 		OrderProductVO opCount=template.selectOne("order.findCartOderproduct",ovo);
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 opCount : "+opCount);
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
@@ -92,11 +93,11 @@ public class OrderDAOImpl implements OrderDAO {
 		
 	}
 	@Override
-	public void deleteOrderProduct(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+ovo);
+	public void deleteOrderProduct(OrderProductVO opvo) {
+		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+opvo);
+		System.out.println("opvo.pdno : "+opvo.getPdno());
+		template.update("order.deleteOrderProduct",opvo);
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");
-		template.update("order.deleteOrderProduct",ovo);
-		
 	}
 	
 	@Override

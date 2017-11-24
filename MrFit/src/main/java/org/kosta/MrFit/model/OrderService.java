@@ -18,7 +18,7 @@ public interface OrderService {
 
 	void updateOrder(OrderVO ovo);
 
-	void deleteOrderProduct(OrderVO ovo);
+	void deleteOrderProduct(OrderProductVO opvo);
 
 	void updateOrderQuantity(OrderProductVO opvo);
 
