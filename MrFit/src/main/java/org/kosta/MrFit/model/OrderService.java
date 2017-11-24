@@ -1,7 +1,6 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
-import java.util.Map;
 
 public interface OrderService {
 	List<OrderVO> findMyCart(String id);
@@ -18,7 +17,7 @@ public interface OrderService {
 
 	void updateOrder(OrderVO ovo);
 
-	void deleteOrderProduct(OrderVO ovo);
+	void deleteOrderProduct(OrderProductVO opvo);
 
 	void updateOrderQuantity(OrderProductVO opvo);
 

@@ -74,11 +74,9 @@
 			<c:forEach items="${requestScope.ovoList}" var="i">
 			<div class="findOno" id="${i.ono}"></div>
             <ul class="cart-header">
-              <a href="${pageContext.request.contextPath}/home.do" > <div class="close1"></div></a>
-                  <li class="ring-in">
+             <li class="ring-in">
                   <a href="single.html" >
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
+                  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>                  </a>
                   </li>
                   <c:forEach items="${i.orderProductList}" var="j">
                   		<div class="findPdno" id="${j.pdno}"></div>
@@ -88,6 +86,8 @@
 						<span id="updateField" style="font-size: 20px;">수량 : ${j.quantity}</span>
 						</span></li>
 						<span class="findQuantity" id="${j.quantity}"></span>
+<a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${i.ono}&pdno=${j.pdno}&price=${j.price}" > <div class="close1"></div></a>                  
+ 
 				  </c:forEach>
 						<li><span>${i.totalprice}</span></li>
 						
