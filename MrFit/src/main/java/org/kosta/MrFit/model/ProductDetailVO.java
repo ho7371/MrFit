@@ -5,8 +5,8 @@ public class ProductDetailVO {
 	private String pno;
 	private String pcno;
 	private String psno;
-	private String color_name;
 	private int inventory;
+	private String color_name;
 	private ProductSizeVO productSizeVO;
 	public ProductDetailVO() {
 		super();

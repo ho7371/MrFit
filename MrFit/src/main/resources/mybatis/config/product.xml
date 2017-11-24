@@ -94,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM product_size
 		WHERE psno=#{value}
     </select>
-    
+    <!-- [재현][상품리뷰리스트] -->
     <select id="findProductReplyByPno" parameterType="string" resultType="productReviewVO">
     	select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content, r.regdate 
 		from review r, 
@@ -103,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(select psno,size_name from product_size) ps
 		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) and pd.pno=#{value}
     </select>
-    
+    <!-- [재현][상품리뷰등록] -->
     <insert id="registerProductReview">
     	insert into review values (rno_seq.nextval, #{pdno}, #{id},#{content},sysdate )
     </insert>
@@ -116,9 +116,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by ps.size_name desc
     </select>
     
+    <!-- [재현][이미지등록] -->
     <insert id="registerImage" parameterType="imageVO">
     	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url});
     </insert>
+    
+    
 </mapper>
 
 

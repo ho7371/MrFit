@@ -30,6 +30,8 @@
 			var addcol="";
 			var delcol="";
 			var colid="";
+			var invid="";
+			var hidleng="";
 		 $("#sizecheck input:checkbox").on("click",function() {
 			 	cbname = $(this).val();
 		     	cbstat = $(this).is(":checked"); // 체크박스 전체 갯수
@@ -37,57 +39,80 @@
 		     	addcol="addC"+cbname;
 		     	delcol="delC"+cbname;
 		     	colid="col"+cbname;
+		     	invid="inv"+cbname;
+		     	hidleng="hid"+cbname;
 		      // 만일 체크되면 누적테이블 + 언체크되면 테이블 - 하기
 		      if (cbstat==true){ // check될떄 true
 		    	  if(category!="하의"){
 					      $("#topsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="shoulder" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="chest" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="sleeve" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="armhole" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="toplength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 								+'</tr>'	  
 					      );
 		    	  }else{
 			    		  $("#bottomsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="waist" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="crotch" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="thigh" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="hem" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="bottomlength" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
 								+'</tr>'	  
 					      ); 
 		    	  } //append else
 					    		  $("#colorlist tbody").append(
 											'<tr id="'+colid+'">'
-											+'<td><input type="text" name="size_name" value="'+cbname+'" readonly="readonly"></td>'
+											+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
 											+'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
-											+'<td ><input type="button" value="+" id="'+addcol+'"></td>'
-											+'<td ><input type="button" value="-" id="'+delcol+'"></td>'
+											+'<td ><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
+											+'<input type="hidden" name="colleng" value="" id="'+hidleng+'"></td>'
+											+'</tr>'
+											+'<tr id="'+invid+'">'
+											+'<td><input type="text" name="" value="재고수량" readonly="readonly"></td>'
+											+'<td ><input type="text" name="inventory"  size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
 											+'</tr>'
 							      ); 
 		      } // cbstat true
 		      if(cbstat==false){ // check 될때 false  
 		      	$("#"+cbname+"").detach();
 		      	$("#"+colid+"").detach();
+		      	$("#"+invid+"").detach();
 		      } // cbstat false
 		      
 			  $("#"+addcol+"").on("click",function() {
-				  var eql=$(this).parent().parent().children().length;
-				  alert(eql);
-				  alert($(this).parent().parent().children().eq(eql-2).html());
-					  $(this).parent().before(
-						  '<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
-				  ); 
+					  var eql=$(this).parent().parent().children().length;
+	/* 				 alert(eql);
+					  alert($(this).parent().parent().children().eq(eql-2).html()); */
+					  $("#"+hidleng+"").val(eql-2);
+					 //alert($("#"+hidleng+"").val());
+					  if( eql < 12){
+						$(this).parent().before(
+							'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
+						); 
+						$(this).parent().parent().next().append(
+							'<td ><input type="text" name="inventory" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'	
+						);
+					  }else{
+						  alert("최대 색상 수는 10개 입니다");
+					  }
 			  }); // on click addcolor
 			  $("#"+delcol+"").on("click",function() {
-					  var a=$(this).parent().parent().children().length;
-					  $(this).parent().parent().children().eq(a-3).remove();
+					  var eql=$(this).parent().parent().children().length;
+					  $("#"+hidleng+"").val(eql-2);
+					  if(eql > 3){
+						$(this).parent().parent().children().eq(eql-2).remove();	
+						$(this).parent().parent().next().children().last().remove();
+					  }else{
+						  alert("색상을 입력해주세요");
+					  }
 			  }); // on click delcolor
+			  
 		  }); // on click sizecheck
 	});//ready
 	
@@ -151,9 +176,9 @@
 					<div class="address">
 						<span>Category</span> <select id="category" name="category" required="required">
 							<option>-[필수] 카테고리를 선택해주세요-</option>
-							<option value="상의">상의</option>
-							<option value="하의">하의</option>
-							<option value="아우터">아우터</option>
+							<option value="top">상의</option>
+							<option value="bottom">하의</option>
+							<option value="outer">아우터</option>
 						</select>
 					</div>
 					<!-- product_size -->
@@ -187,7 +212,7 @@
 								<tr><th>Size</th><th>색상</th></tr>
 							</thead>
 							<tbody>
-
+								
 							</tbody>
 						</table><br>
 					<div class="address new">
