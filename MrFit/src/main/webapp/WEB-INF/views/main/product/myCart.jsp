@@ -98,6 +98,7 @@
             </ul>
             </c:forEach>
             <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
+          
          </div>
          </div>  
        </div>
