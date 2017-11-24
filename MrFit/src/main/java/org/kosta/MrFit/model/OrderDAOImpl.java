@@ -27,6 +27,7 @@ public class OrderDAOImpl implements OrderDAO {
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);
 		}
+		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
 		return list;
 	}
 	//정현 장바구니 담기 

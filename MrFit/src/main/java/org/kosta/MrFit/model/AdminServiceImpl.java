@@ -59,8 +59,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<OrderVO> adminAllOrderList() {
-		return adminDAO.adminAllOrderList();
+	public List<OrderVO> adminAllOrderList(PagingBean0 pb) {
+		return adminDAO.adminAllOrderList(pb);
+	}
+
+	@Override
+	public int adminTotalOrderCount() {
+		return adminDAO.adminTotalOrderCount();
 	}
 	
 	

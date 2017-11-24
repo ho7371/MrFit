@@ -232,10 +232,38 @@ public class AdminController {
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminAllOrderList.do")
-	public ModelAndView adminAllOrderList() {
+	public ModelAndView adminAllOrderList(HttpServletRequest request) {
+		System.out.println("   	AdminController/adminAllOrderList()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<OrderVO> list = adminService.adminAllOrderList();
+		int totalOrderCount = adminService.adminTotalOrderCount();
+		System.out.println("주문개수 : "+totalOrderCount);
+		int nowPage = 1;
+		if(request.getParameter("listPage")!=null) {
+			nowPage = Integer.parseInt(request.getParameter("listPage"));
+		}
+		PagingBean0 pb = new PagingBean0(totalOrderCount,nowPage,4,2);
+		System.out.println(pb.getStartRowNumber()+"  "+pb.getEndRowNumber());
+		List<OrderVO> list = adminService.adminAllOrderList(pb);
+		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+		System.out.println("   	AdminController/adminAllOrderList()/진행");
+		mv.setViewName("admin/adminAllOrderList.tiles");
+		mv.addObject("lvo", lvo);
+		System.out.println("   	AdminController/adminAllOrderList()/종료");
 		return mv;
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

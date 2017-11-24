@@ -60,13 +60,18 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<OrderVO> adminAllOrderList() {
-		List<OrderVO> list =  template.selectList("admin.adminAllOrderList");
+	public List<OrderVO> adminAllOrderList(PagingBean0 pb) {
+		List<OrderVO> list =  template.selectList("admin.adminAllOrderList",pb);
 		for (int i = 0; i < list.size(); i++) {
 			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
 			list.get(i).setOrderProductList(orderProductList);
 		}
 		return list;
+	}
+
+	@Override
+	public int adminTotalOrderCount() {
+		return template.selectOne("admin.adminTotalOrderCount");
 	}
 	
 

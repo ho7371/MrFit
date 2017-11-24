@@ -76,6 +76,7 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> list = productService.findProductByName(keyword);
 		if(list!= null) {
+			System.out.println("    ProductController/registerProduct()/진행 list : "+list);
 			mv.setViewName("product/findProductByName_ok.tiles");
 			mv.addObject("list", list);
 		}else {
@@ -118,7 +119,7 @@ public class ProductController {
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
 	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
- 	List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
+		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
 		return sizeList;
 	}
 	

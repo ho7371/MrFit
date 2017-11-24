@@ -13,7 +13,7 @@
 				<div class="product-one">
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="#">
+							<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
 								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
 								<p>주문 관리</p>
 							</a>
