@@ -60,6 +60,21 @@ public class AdminDAOImpl implements AdminDAO {
 	public void adminGivePointToMember(MemberVO mvo) {
 		template.update("admin.adminGivePointToMember", mvo);
 	}
+
+	@Override
+	public List<OrderVO> adminSearchOrder(Map<String, Object> map) {
+		List<OrderVO> list = template.selectList("admin.adminSearchOrder", map);
+		for (int i = 0; i < list.size(); i++) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
+			list.get(i).setOrderProductList(orderProductList);
+		}
+		return list;
+	}
+
+	@Override
+	public int adminSearchMemberOrderCount(String memberId) {
+		return template.selectOne("admin.adminSearchMemberOrderCount", memberId);
+	}
 	
 	
 	

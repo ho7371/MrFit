@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h3>주문 관리</h3>
-<%-- 주문 검색 --%>
-<div align="right">
-<form action="${pageContext.request.contextPath}/adminSearchOrder.do">
-	<input type="text" name="memberId">
-	<input type="submit" value="검색">
-</form>
-</div>
-<br><hr><br>
-
+<h4>검색 아이디 : ${lvo.list[0].memberVO.id}</h4>
 <%-- 주문 내역 리스트 --%>
 <table class="table table-bordered  table-hover boardlist">
 		<thead>
@@ -38,19 +29,6 @@
 				</c:forEach>
 				<td>${order.ordertime}</td>
 				<td>${order.status}</td>
-				<%-- <td>
-					<form action="${pageContext.request.contextPath}/adminUnregisterorder.do">
-						<input type="hidden" name="id" value="${order.id}">
-						<input type="submit" value="삭제">
-					</form>
-				</td>
-				<td>
-					<form action="${pageContext.request.contextPath}/adminGivePointToorderForm.do" method="post">
-						<sec:csrfInput/>csrf 토큰   
-						<input type="hidden" name="id" value="${order.id}">
-						<input type="submit" value="포인트 지급">
-					</form>
-				</td> --%>
 			</tr>	
 		</tbody>					
 		</c:forEach>	

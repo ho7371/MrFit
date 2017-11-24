@@ -314,17 +314,51 @@ public class AdminController {
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
-		System.out.println("주문개수 : "+totalOrderCount);
-		System.out.println(pb.getStartRowNumber()+"  "+pb.getEndRowNumber());
+		System.out.println("	AdminController/adminAllOrderList()/진행1 주문개수 : "+totalOrderCount);
 		List<OrderVO> list = adminService.adminAllOrderList(pb);
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-		System.out.println("   	AdminController/adminAllOrderList()/진행");
+		System.out.println("   	AdminController/adminAllOrderList()/진행2 lvo : "+lvo);
 		mv.setViewName("admin/adminAllOrderList.tiles");
 		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminAllOrderList()/종료");
 		return mv;
 	}
 	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchOrder.do")
+	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
+		System.out.println("   	AdminController/adminSearchOrder()/시작");
+		ModelAndView mv = new ModelAndView();
+		
+		/* 페이징 처리 공통 영역*/ 
+		int totalOrderCount = adminService.adminSearchMemberOrderCount(memberId);
+		int postCountPerPage = 3;
+		int postCountPerPageGroup = 2;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("pagingBean", pb);
+		
+		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문개수 : "+totalOrderCount);
+		List<OrderVO> list = adminService.adminSearchOrder(map);
+		if(!list.isEmpty()) {
+			
+			ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+			System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
+			mv.setViewName("admin/adminSearchMemberOrder.tiles");
+			mv.addObject("lvo", lvo);
+		}else {
+			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
+		}
+		System.out.println("   	AdminController/adminSearchOrder()/종료");
+		return mv;
+	}
 }
 
 
