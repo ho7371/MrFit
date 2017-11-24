@@ -17,15 +17,18 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.findMyCart(id);
 	}
 	
+	//[영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
 	public List<OrderVO> myOrderList(String id){
 		return orderDAO.myOrderList(id);
 	}
 	
+	//[영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
 	public List<OrderProductVO> myOrderPrductList(String ono){
 		return orderDAO.myOrderPrductList(ono);
 	}
+	
 	//[정현][11/24] 장바구니가 존재하는지 체크
 	@Override
 	public int findMyCartCount(String id) {

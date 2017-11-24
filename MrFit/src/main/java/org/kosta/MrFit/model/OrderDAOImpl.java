@@ -62,11 +62,13 @@ public class OrderDAOImpl implements OrderDAO {
 			
 	}
 	
+	//[영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
     public List<OrderVO> myOrderList(String id){
        return template.selectList("order.myOrderList",id);
     }
-    
+	
+	//[영훈][2017.11.24][회원 주문상품내역 리스트]
     @Override
     public List<OrderProductVO> myOrderPrductList(String ono){
        return template.selectList("order.myOrderPrductList",ono);
