@@ -28,27 +28,29 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수 : 한페이지에 보여줄 게시물 최대수
 	 */
-	private int postCountPerPage=8;
+	private int postCountPerPage;	
 	/**
 	 * 페이지 그룹당 페이지 수 : 목록페이지 하단부에 제공할 페이지 수
 	 */
-	private int postCountPerPageGroup=4;
+	private int postCountPerPageGroup;	
 	/**
 	 * 총 게시물 수 : 
 	 */
 	private int totalPostCount;
 	
+	
 	public PagingBean() {
 		
 	}
-	public PagingBean(int totalPostCount) {
-		this.totalPostCount=totalPostCount;
-	}
-	public PagingBean(int totalPostCount, int nowPage) {
+	
+	public PagingBean(int totalPostCount, int nowPage, int postCountPerPage, int postCountPerPageGroup) {
 		super();
-		this.nowPage = nowPage;
 		this.totalPostCount = totalPostCount;
+		this.nowPage = nowPage;
+		this.postCountPerPage = postCountPerPage;
+		this.postCountPerPageGroup = postCountPerPageGroup;
 	}
+	
 	public int getNowPage() {
 		return nowPage;
 	}

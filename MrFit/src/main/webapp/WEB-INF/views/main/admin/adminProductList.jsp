@@ -1,80 +1,86 @@
+<%@page import="org.kosta.MrFit.model.ProductVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#searchProductBtn").click(
-			function() {
-			location.href = "adminFindProductByName.do?keyword="+ $("#searchProduct").val();
-		}); // click
-	});// ready
+	function updateConfirm(){
+		return confirm('해당 상품을 수정하시겠습니까?');
+	}
+	function deleteConfirm(){
+		return confirm('해당 상품을 삭제하시겠습니까?');
+	}
 </script>
-<div class="shoes">
-	<div class="container">
-		<div class="search-bar">
-			<input type="text" value="Search" onfocus="this.value = '';"
-				onblur="if (this.value == '') {this.value = 'Search';}"
-				id="searchProduct">
-				<input type="submit" value="" id="searchProductBtn">
-		</div>
-		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">상품등록</a> &nbsp; 
 
-		<div class="product-one">
-			<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-				<c:if test="${cnt.count<5}">
-					<div class="col-md-3 product-left">
-						<div class="p-one simpleCart_shelfItem">
-							<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}">
-								<img src="${pvo.imageList[0].url}" alt="" />
-							<h4>${pvo.name}</h4>
-							</a>
-							<p>
-								<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${pvo.pno}">
-									<span class=" item_price">상품수정</span></a><br>
-								<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${pvo.pno}">
-									<span class=" item_price">상품삭제</span></a>
-							</p>
-							
-						</div>
-					</div>	
-				</c:if>		
-			</c:forEach>
-			<c:forEach  var="pvo" items="${ProductList}" varStatus="cnt">
-				<c:if test="${cnt.count>4}">
-					<div class="col-md-3 product-left">
-						<div class="p-one simpleCart_shelfItem">
-							<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}">
-								<img src="${pvo.imageList[0].url}" alt="" />
-							<h4>Aenean placerat </h4>
-							</a>
-							<p>
-								<a href="${pageContext.request.contextPath}/updateProduct.do?pno=${pvo.pno}">
-									<span class=" item_price">상품수정</span></a><br>
-								<a href="${pageContext.request.contextPath}/deleteProduct.do?pno=${pvo.pno}">
-									<span class=" item_price">상품삭제</span></a>
-							</p>
-		
-						</div>
-					</div>	
-				</c:if>		
-			</c:forEach>	
-			<div class="clearfix"></div>
+
+<!--start-ckeckout-->
+<div class="ckeckout">
+	<div class="container">
+	
+		<form action="${pageContext.request.contextPath}/adminFindProductByName.do">
+			<input type="text" name="keyword" placeholder="상품검색">
+			<input type="submit" value="검색">
+		</form>
+		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">상품등록</a> &nbsp; 
+	
+		<div class="ckeckout-top">
+			<div class=" cart-items heading">
+				<h3>상품목록</h3>
+				<div class="in-check">
+					<ul class="unit">
+						<li><span>사진</span></li>
+						<li><span>상품명</span></li>
+						<li><span>내용</span></li>
+						<li><span>날짜</span></li>
+						<div class="clearfix"></div>
+					</ul>
+					
+					<c:forEach items="${ProductList}" var="item">
+						<ul class="cart-header">
+							<li>
+								<span>
+									<img alt="${item.name} 사진" src="${pageContext.request.contextPath}/thumb/${item.name}.jpg">
+								</span>
+							</li>
+							<li>
+								<span>${item.name}</span>
+							</li>
+							<li>
+								<span>
+									<a href="${pageContext.request.contextPath}/updateProduct.do?pno=${item.pno}">수정</a>
+								</span>
+							</li>
+							<li>
+								<span>
+									<a href="${pageContext.request.contextPath}/updateProduct.do?pno=${item.pno}">수정</a>
+								</span>
+							</li>
+							<div class="clearfix"></div>
+						</ul>
+					</c:forEach>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<!--end-ckeckout-->
+
+
+
+
+
 
 <!--end-shoes-->
 <!-- pagingBean -->
 <div class="pagingInfo" align="center">
 	<ul class="pagination">
 		<c:if test="${pb.previousPageGroup}">	
-			<li><a href="home.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+			<li><a href="${pageContext.request.contextPath}/adminProductList.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 		</c:if>
-	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" 
-	end="${pb.endPageOfPageGroup}">
+	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 		<c:choose>
 			<c:when test="${pb.nowPage!=i}">
-				<li><a href="home.do?pageNo=${i}">${i}</a></li> 
+				<li><a href="${pageContext.request.contextPath}/adminProductList.do?pageNo=${i}">${i}</a></li> 
 			</c:when>
 			<c:otherwise>
 				<li class="active"><a href="#" >${i}</a></li>
@@ -83,7 +89,9 @@
 		&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
-	<li><a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+		<li>
+			<a href="${pageContext.request.contextPath}/adminProductList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a>
+		</li>
 	</c:if>
 	</ul>	 		
 </div> 	

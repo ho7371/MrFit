@@ -56,7 +56,7 @@
 <div class="container" align="center">
   		<ul class="pager">
    			<c:if test="${pb.previousPageGroup==true}">
-   			<li><a href="commonMemberList.do?status=1&listPage=${pb.startPageOfPageGroup-1}">Previous</a></li>
+   			<li><a href="commonMemberList.do?status=1&pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
    			</c:if>
    			<c:forEach begin="${pb.startPageOfPageGroup}" 
    			end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -65,12 +65,12 @@
 				<li>${pageNum}&nbsp;&nbsp;</li>
 				</c:when>
 				<c:otherwise>
-				<li><a href="commonMemberList.do?status=1&listPage=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+				<li><a href="commonMemberList.do?status=1&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
 				</c:otherwise>
    			</c:choose>
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
-    		<li><a href="commonMemberList.do?status=1&listPage=${pb.endPageOfPageGroup+1}">Next</a></li>
+    		<li><a href="commonMemberList.do?status=1&pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
     		</c:if>
  		 </ul>
 	</div>
