@@ -186,6 +186,11 @@ public class OrderController {
 	public ModelAndView myOrderList(String id) {
 		System.out.println("      OrderController/myOrderList()/시작");
 		List<OrderVO> list = orderService.myOrderList(id);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getStatus().equals("장바구니")) {
+				list.remove(i);
+			}
+		}
 		System.out.println("      OrderController/myOrderList()/중간" + list);
 		return new ModelAndView("order/myOrderList.tiles", "list", list);
 	}
@@ -227,6 +232,6 @@ public class OrderController {
 		System.out.println("상품주문 변경 :  "+ovo);
 		System.out.println("ono: "+uovo);	
 		System.out.println(depositMethod);
-		return null;
+		return "redirect:myOrderList.do?id="+vo.getId();
 	}
 }
