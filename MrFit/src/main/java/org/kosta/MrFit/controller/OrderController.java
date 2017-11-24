@@ -228,4 +228,18 @@ public class OrderController {
 		System.out.println(depositMethod);
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
+	
+	/**
+	 * [영훈][11/24][회원 주문내역 상태변경]
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myOrderStatusChange.do")
+	public String myOrderStatusChange(String ono,String id) {
+		orderService.myOrderStatusChange(ono);
+		return "redirect:myOrderList.do?id="+id;
+	}
+	
 }

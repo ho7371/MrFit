@@ -102,4 +102,10 @@ public class OrderServiceImpl implements OrderService {
 		return null;
 	}
 	
+	//[영훈][2017.11.21][회원 주문내역 상태변경]
+		@Override
+		public void myOrderStatusChange(String ono) {
+			orderDAO.myOrderStatusChange(ono);
+		}
+	
 }

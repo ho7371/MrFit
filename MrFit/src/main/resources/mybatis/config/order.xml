@@ -152,6 +152,13 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
    		update orders set status='배송준비중', destination=#{destination}, ordertime=sysdate
 		where ono=#{ono}
    	</update>
+   	
+   		<!-- [영훈][11.24] 회원 주문내역 중 상태변경 -->
+ 	<update id="myOrderStatusChange" parameterType="string">
+ 		update orders 
+ 		set status='구매확정'
+ 		where ono=#{value}
+ 	</update>
    
 </mapper>
 

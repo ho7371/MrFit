@@ -126,4 +126,10 @@ public class OrderDAOImpl implements OrderDAO {
 	public void updateStatusOrderEtc(OrderVO ovo) {
 		template.update("order.updateStatusOrderEtc",ovo);
 	}
+	
+	//[영훈][2017.11.24][ 주문내역 상태변경]
+		@Override
+		public void myOrderStatusChange(String ono) {
+			template.update("order.myOrderStatusChange", ono);
+		}
 }
