@@ -33,5 +33,7 @@ public interface ProductDAO {
 
 	List<ProductSizeVO> sizeGapMemberAndProduct(String pno);
 
+	void registerImage(ImageVO ivo);
+
 
 }

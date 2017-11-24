@@ -254,4 +254,9 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void registerImage(ImageVO ivo) {
+		productDAO.registerImage(ivo);
+		
+	}
 }

@@ -22,4 +22,8 @@ public interface AdminService {
 
 	void adminGivePointToMember(MemberVO mvo);
 
+	List<OrderVO> adminSearchOrder(Map<String, Object> map);
+
+	int adminSearchMemberOrderCount(String memberId);
+
 }

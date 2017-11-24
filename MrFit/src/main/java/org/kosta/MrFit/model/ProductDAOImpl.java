@@ -167,5 +167,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductSizeVO> sizeGapMemberAndProduct(String pno){
 		return template.selectList("product.sizeGapMemberAndProduct", pno);
 	}
+	@Override
+	public void registerImage(ImageVO ivo) {
+		template.insert("product.registerImage", ivo);
+		
+	}
 }
 

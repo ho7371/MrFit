@@ -34,4 +34,6 @@ public interface ProductService {
 	
 	void uploadImages(UploadVO vo);
 
+	void registerImage(ImageVO ivo);
+
 }

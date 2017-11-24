@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+
 public class ProductSizeVO {
 private String psno;
 private String size_name;
