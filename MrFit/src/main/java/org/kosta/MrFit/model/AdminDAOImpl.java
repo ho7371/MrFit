@@ -14,25 +14,6 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate template;
 	
 	
-	/*@Override
-	public List<MemberVO> memberList(PagingBean0 PagingBean){
-		return template.selectList("admin.memberList",PagingBean);
-	}
-	
-	@Override
-	public int getTotalMemberCount() {
-		return template.selectOne("admin.getTotalMemberCount");
-	}*/
-	
-	/*@Override
-	public List<MemberVO> unregisterMemberList(PagingBean0 PagingBean){
-		return template.selectList("admin.unregisterMemberList",PagingBean);
-	}
-	
-	@Override
-	public int getTotalUnregisterMemberCount() {
-		return template.selectOne("admin.getTotalUnregisterMemberCount");
-	}*/
 	
 	@Override
 	public void adminUpdateMemberStatus(String id) {
@@ -59,7 +40,10 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectOne("admin.getTotalCommonMemberCount",status);
 	}
 	
-	
+	@Override
+	public void adminGivePointToMember(MemberVO mvo) {
+		template.update("admin.adminGivePointToMember", mvo);
+	}
 	
 	
 	

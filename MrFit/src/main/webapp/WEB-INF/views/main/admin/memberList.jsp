@@ -27,12 +27,12 @@
 			<th>point</th>
 			<th>누적구매금액</th>
 			<th>등급</th>
-			<th>관리</th>
+			<th>강제탈퇴</th>
+			<th>포인트지급</th>
 			</tr>
 		</thead>
 		<tbody>						
-				<c:forEach var="member" items="${lvo.list}">	
-							
+		 <c:forEach var="member" items="${lvo.list}">	
 			<tr>
 			    <td>${member.id}</td>				
 				<td>${member.name}</td>
@@ -43,13 +43,20 @@
 				<td>${member.totalSpent}</td>
 				<td>${member.gradeVO.grade}</td>
 				<td>
-						<form action="${pageContext.request.contextPath}/adminUnregisterMember.do">
-							<input type="hidden" name="id" value="${member.id}">
-							<input type="submit" value="삭제">
-						</form>
+					<form action="${pageContext.request.contextPath}/adminUnregisterMember.do">
+						<input type="hidden" name="id" value="${member.id}">
+						<input type="submit" value="삭제">
+					</form>
+				</td>
+				<td>
+					<form action="${pageContext.request.contextPath}/adminGivePointToMemberForm.do" method="post">
+						<sec:csrfInput/><%-- csrf 토큰 --%>   
+						<input type="hidden" name="id" value="${member.id}">
+						<input type="submit" value="포인트 지급">
+					</form>
 				</td>
 			</tr>	
-			</c:forEach>	
+		 </c:forEach>	
 		</tbody>					
 	</table>
 

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -276,5 +277,20 @@ public class AdminController {
 			return mv;
 		}
 	}
+
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
+	public ModelAndView adminGivePointToMemberForm(String id) {
+		MemberVO mvo = adminService.adminSearchMember(id);
+		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
+	public String adminGivePointToMember(MemberVO mvo) {
+		adminService.adminGivePointToMember(mvo);
+		return "redirect:adminSearchMember.do?id="+mvo.getId();
+	}
+	
 	
 }

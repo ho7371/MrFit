@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Resource
@@ -38,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrder()/시작 ovo : "+ovo);
 		orderDAO.registerOrder(ovo);
-		System.out.println("            OrderServiceImpl/findMyCart()/종료");
+		System.out.println("            OrderServiceImpl/registerOrder()/종료");
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/findCartOderproduct()/진행 ovo : "+ ovo);
 		OrderProductVO opCount=orderDAO.findCartOderproduct(ovo);
-		System.out.println("            OrderServiceImpl/findCartOderproduct()/종료"+ ovo);
+		System.out.println("            OrderServiceImpl/findCartOderproduct()/종료 opCount : "+ opCount);
 		return opCount;		
 		
 	}
@@ -79,5 +80,26 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
 	}
 
+	@Override
+	public String findPdno(ProductDetailVO pdvo) {
+		System.out.println("            OrderServiceImpl/findPdno()/시작 pdvo : "+ pdvo);
+		String pdno=orderDAO.findPdno(pdvo);
+		System.out.println("            OrderServiceImpl/findPdno()/종료");
+		return pdno;
+	}
+	//[석환][11.23] 주문 결제
+	@Transactional
+	@Override
+	public OrderVO productOrderPayment(MemberVO vo,int payPoint,int depositMethod,OrderVO ovo) {
+		//상품 구매시 포인트 차감
+		orderDAO.updatePointOrder(vo);
+		//무통장 입금시 입금대기로 변경
+		if(depositMethod==1) {
+		orderDAO.updateStatusOrder(ovo);
+		}	
+		//무통장 외 입금시 배송준비중으로 변경
+		orderDAO.updateStatusOrderEtc(ovo);
+		return null;
+	}
 	
 }

@@ -12,6 +12,7 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -56,8 +57,9 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+// 주석규칙 지키기
 	@RequestMapping("registerCart.do")
-	public String registerCart(HttpServletRequest request) {
+	public String registerCart(HttpServletRequest request,ProductVO productVO) {
 		System.out.println("   	OrderController/registerCart()/시작");
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
@@ -65,17 +67,23 @@ public class OrderController {
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		System.out.println("pvo : "+productVO);
 		int cartCount = orderService.findMyCartCount(mvo.getId());
-
+			System.out.println("cartCount : "+cartCount);
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
-		System.out.println("quantity : "+quantity);
-		int price = Integer.parseInt(request.getParameter("price"));
-		System.out.println("price : "+price);		
-		String pdno = "2";
+		
+		int price =quantity* Integer.parseInt(request.getParameter("price"));
+			System.out.println("price : "+price);
+			String psno =request.getParameter("psno");
+			System.out.println("psno : "+psno);
+			String pcno =request.getParameter("pcno");
+			System.out.println("pcno : "+pcno);
+			ProductDetailVO pdvo=new ProductDetailVO();
+			pdvo.setPcno(pcno);
+			pdvo.setPsno(psno);
+			String pdno = orderService.findPdno(pdvo);
+		
 		System.out.println("pdno : "+pdno);
-		String psno =request.getParameter("slsSize");
-		System.out.println("psno : "+psno);
 		
 		
 		opvo.setPdno(pdno);		
@@ -178,6 +186,11 @@ public class OrderController {
 	public ModelAndView myOrderList(String id) {
 		System.out.println("      OrderController/myOrderList()/시작");
 		List<OrderVO> list = orderService.myOrderList(id);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getStatus().equals("장바구니")) {
+				list.remove(i);
+			}
+		}
 		System.out.println("      OrderController/myOrderList()/중간" + list);
 		return new ModelAndView("order/myOrderList.tiles", "list", list);
 	}
@@ -207,5 +220,18 @@ public class OrderController {
 		orderService.updateOrderQuantity(opvo);
 		return "redirect:cartForm.do";
 	}
-
+	/* [석환][11.23][주문결제]
+	 * 
+	 */
+	@RequestMapping("order.do")
+	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
+		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		vo.setPoint(payPoint);
+		OrderVO uovo=orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		System.out.println("상품주문 변경 :  "+ovo);
+		System.out.println("ono: "+uovo);	
+		System.out.println(depositMethod);
+		return "redirect:myOrderList.do?id="+vo.getId();
+	}
 }

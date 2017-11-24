@@ -71,10 +71,18 @@ ${requestScope.pvo } --%>
 						<div class="flexslider">
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
+							${imgList.url }							
+		 
 							</ul>
 						</div>
 					</div>
 					<!-- 상품번호 -->
+					<form action="${pageContext.request.contextPath}/registerCart.do">
+						<%-- <input type="hidden" name="pvo" id="" value="${pvo}">
+						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
+						<input type="hidden" name="psno" id="sendPsno" value="">
+						<input type="hidden" name="pcno" id="sendPcno" value="">
+						<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
 						<div class="details-left-info simpleCart_shelfItem">
@@ -111,7 +119,7 @@ ${requestScope.pvo } --%>
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" min="0" value="1">
+									<input type="number" name="quantity" id="quantity" min="0">
 								</ul>
 							</div>
 							<div class="clearfix"></div>
@@ -119,6 +127,7 @@ ${requestScope.pvo } --%>
 								<input type="submit" value="장바구니담기" /> <input type="submit" value="즉시구매" />
 							</div>
 						</div>
+						</form>
 					</div>
 					<div class="clearfix"></div>
 					<br>
@@ -153,6 +162,7 @@ ${requestScope.pvo } --%>
 									</c:otherwise>
 								</c:choose>
 							</thead>
+	<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
 							<tbody>
 								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>

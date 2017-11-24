@@ -79,7 +79,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
 		OrderProductVO opCount=template.selectOne("order.findCartOderproduct",ovo);
-		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 cartCount : "+opCount);
+		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 opCount : "+opCount);
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
 		return opCount;
 	}
@@ -97,5 +97,28 @@ public class OrderDAOImpl implements OrderDAO {
 		template.update("order.deleteOrderProduct",ovo);
 		
 	}
-
+	
+	@Override
+	public String findPdno(ProductDetailVO pdvo) {
+		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdvo : "+pdvo);
+		
+		String pdno=template.selectOne("order.findPdno",pdvo);
+		System.out.println("                  OrderDAOImpl/findPdno()/종료");
+		return pdno;
+	}
+	//[석환][11.23] 주문시 포인트 차감
+	@Override
+	public void updatePointOrder(MemberVO vo) {
+		template.update("order.updatePointOrder", vo);
+	}
+	//[석환][11.23] 주문시 무통장일 경우 입금대기로 변경
+	@Override
+	public void updateStatusOrder(OrderVO ovo) {
+		template.update("order.updateStatusOrder", ovo);
+	}
+	//[석환][11.23] 
+	@Override 
+	public void updateStatusOrderEtc(OrderVO ovo) {
+		template.update("order.updateStatusOrderEtc",ovo);
+	}
 }
