@@ -5,61 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 
-	<!-- 
-
-	<resultMap type="postDTO" id="postRM">
-		<result column="name" property="memberDTO.name"/>
-	</resultMap> 
-	
-	<select id="getPostList" parameterType="map" resultMap="postRM" resultType="postDTO">
-		SELECT b.no,b.title,b.time_posted,b.hits,m.id,m.name 
-		FROM(SELECT row_number() over(order by no desc) as rnum,no,title, 
-		to_char(time_posted,'yyyy.MM.DD') as time_posted,hits,id 		
-		FROM spring_board_inst 
-		)b, spring_member m 
-		WHERE b.id=m.id and b.rnum between #{getStartRowNumber} and #{getEndRowNumber} 
-		ORDER BY b.no DESC
-	</select>
-	
-	 -->
- 	
  	<resultMap type="memberVO" id="MRM">
  		<result column="grade" property="gradeVO.grade"/>
  	</resultMap>
-    <select id="memberList" resultType="memberVO" resultMap="MRM" parameterType="pagingBean0">
-    	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
-  		from (
-  				select ROW_NUMBER() OVER(ORDER BY totalSpent DESC) AS rnum,
-  				id, name, phone, address, email, point, totalSpent, grade, status
-  				from member 
-  				where status=1  
-  				) 
-  		where rnum between #{startRowNumber} and #{endRowNumber}
-  				
-    </select>
-    
-    <select id="getTotalMemberCount" resultType="int">
-    	select count(*) 
-    	from member
-    	where status=1
-    </select>
-    
-    <select id="unregisterMemberList" resultType="memberVO" resultMap="MRM" parameterType="pagingBean0">
-    	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
-  		from (
-  				select ROW_NUMBER() OVER(ORDER BY totalSpent DESC) AS rnum,
-  				id, name, phone, address, email, point, totalSpent, grade, status
-  				from member 
-  				where status=0 
-  			 ) 
-  		where rnum between #{startRowNumber} and #{endRowNumber}
-    </select>
-    
-    <select id="getTotalUnregisterMemberCount" resultType="int">
-    	select count(*) 
-    	from member
-    	where status=0
-    </select>
     
     <update id="adminUpdateMemberStatus" parameterType="string">
     	update member
@@ -94,7 +42,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where status=#{value}
     </select>
     
-    
+    <update id="adminGivePointToMember" parameterType="memberVO">
+    	update member
+    	set point=point+#{point} 
+    	where id=#{id}
+    </update>
     
     
 </mapper>
