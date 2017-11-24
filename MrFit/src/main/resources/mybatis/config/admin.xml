@@ -94,7 +94,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where status=#{value}
     </select>
     
+    <resultMap type="orderVO" id="ORM">
+    	<result column="ono" property="ono"/>
+    	<result column="totalprice" property="totalprice"/>
+    	<result column="ordertime" property="ordertime"/>
+    	<result column="status" property="status"/>
+    </resultMap>
     
+    <select id="adminAllOrderList" resultMap="ORM">
+		SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
+		FROM orders o, order_product op, product_detail pd
+		WHERE o.ono = op.ono and pd.pdno = op.pdno and o.status <![CDATA[ <> ]]> '장바구니'
+    </select>
     
     
 </mapper>

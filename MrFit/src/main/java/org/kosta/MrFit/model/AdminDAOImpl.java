@@ -58,23 +58,16 @@ public class AdminDAOImpl implements AdminDAO {
 	public int getTotalCommonMemberCount(int status) {
 		return template.selectOne("admin.getTotalCommonMemberCount",status);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public List<OrderVO> adminAllOrderList() {
+		List<OrderVO> list =  template.selectList("admin.adminAllOrderList");
+		for (int i = 0; i < list.size(); i++) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
+			list.get(i).setOrderProductList(orderProductList);
+		}
+		return list;
+	}
 	
 
 }

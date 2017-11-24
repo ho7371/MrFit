@@ -97,32 +97,6 @@
             </ul>
             </c:forEach>
             <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
-            <%-- <ul class=" cart-header1">
-               <div class="close2"> </div>
-                  <li class="ring-in"><a href="single.html" >
-                  <!-- <img src="images/s-2.jpg" class="img-responsive" alt=""> -->
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-2.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
-                  </li>
-                  <li><span>Elliot Shoes</span></li>
-                  <li><span>$ 300.00</span></li>
-                  <li><span>In Stock</span></li>
-                  <li> <a href="single.html" class="add-cart cart-check">ADD TO CART</a></li>
-                  <div class="clearfix"> </div>
-            </ul>
-            <ul class="cart-header2">
-               <div class="close3"> </div>
-                  <li class="ring-in"><a href="single.html" >
-                  <!-- <img src="images/s-4.jpg" class="img-responsive" alt=""> -->
-                  <img src="${pageContext.request.contextPath}/resources/images/shoes-3.png" class="img-responsive" height="50%" width="50%"/>
-                  </a>
-                  </li>
-                  <li><span>Woo Dress</span></li>
-                  <li><span>$ 360.00</span></li>
-                  <li><span>In Stock</span></li>
-                  <li> <a href="single.html" class="add-cart cart-check">ADD TO CART</a></li>
-                  <div class="clearfix"> </div>
-            </ul> --%>
          </div>
          </div>  
        </div>

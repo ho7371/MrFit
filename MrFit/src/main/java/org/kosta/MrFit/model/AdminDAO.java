@@ -23,4 +23,6 @@ public interface AdminDAO {
 
 	int getTotalCommonMemberCount(int status);
 
+	List<OrderVO> adminAllOrderList();
+
 }

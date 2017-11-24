@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.PagingBean0;
 import org.kosta.MrFit.model.ProductService;
@@ -223,6 +224,18 @@ public class AdminController {
 			mv = new ModelAndView("admin/adminSearchMember_ok.tiles","member",mvo);
 			return mv;
 		}
+	}
+	
+	/**[현민][11/23][관리자 전체 주문 내역]
+	 * 
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminAllOrderList.do")
+	public ModelAndView adminAllOrderList() {
+		ModelAndView mv = new ModelAndView();
+		List<OrderVO> list = adminService.adminAllOrderList();
+		return mv;
 	}
 	
 }

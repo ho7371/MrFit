@@ -57,6 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	public int getTotalCommonMemberCount(int status) {
 		return adminDAO.getTotalCommonMemberCount(status);
 	}
+
+	@Override
+	public List<OrderVO> adminAllOrderList() {
+		return adminDAO.adminAllOrderList();
+	}
 	
 	
 	

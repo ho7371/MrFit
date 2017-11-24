@@ -23,4 +23,6 @@ public interface AdminService {
 
 	int getTotalCommonMemberCount(int status);
 
+	List<OrderVO> adminAllOrderList();
+
 }
