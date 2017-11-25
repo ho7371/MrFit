@@ -42,4 +42,6 @@ public interface OrderService {
 	void updateOrderMembetPoint(MemberVO mvo);
 
 	String findMemberGardeById(String id);
+
+	void updateProductDetailInventory(ProductDetailVO pdvo);
 }

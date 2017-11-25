@@ -50,4 +50,6 @@ public interface OrderDAO {
 	void updateOrderMembetPoint(MemberVO mvo);
 
 	String findMemberGardeById(String id);
+
+	void updateProductDetailInventory(ProductDetailVO pdvo);
 }
