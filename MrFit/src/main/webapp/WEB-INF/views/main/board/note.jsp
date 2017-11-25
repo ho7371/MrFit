@@ -29,7 +29,6 @@
 		});
 	});
 </script>
-
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
@@ -44,45 +43,52 @@
 				</c:if>
 				<div class="in-check">
 					<ul class="unit">
-					<%-- 쪽지함 돌릴 때 사용할 코드
+					<%-- 쪽지함 돌릴 때 사용할 코드--%>
 						<c:choose>
-							<c:when test="${isMember}">
+							<c:when test="${isAdmin}">
 								<li><span>쪽지번호</span></li>
-								<li><span>보낸사람</span></li>
+								<li><span>받는사람</span></li>
 								<li><span>받은내용</span></li>
 								<li><span>받은날짜</span></li>
 							</c:when>
 							<c:otherwise>
 								<li><span>쪽지번호</span></li>
-								<li><span>받는사람</span></li>
+								<li><span>보낸사람</span></li>
 								<li><span>보낸내용</span></li>
 								<li><span>보낸날짜</span></li>
 							</c:otherwise>
 						</c:choose>
-						--%>
+						
 						<div class="clearfix"></div>
 					</ul>
-						<%-- 쪽지함 돌릴 때 사용할 코드
+						<%-- 쪽지함 돌릴 때 사용할 코드 --%>
 						<c:choose>
-							<c:when test="${isMember}"> <!-- 회원이 보는 쪽지 리스트 -->
-								<c:forEach items="" var="">
-									<li><span>1</span></li>
-									<li><span>관리자</span></li>
-									<li><span>포인트가 지급되었습니다!</span></li>
-									<li><span>2017/11/19</span></li>
+							<c:when test="${isAdmin}"> <!-- 관리자가 보는 쪽지 리스트 -->
+								<c:forEach items="${requestScope.list}" var="i">
+									<ul class="cart-header">
+										<li><span>${i.note_no}</span></li>
+										<li><span>${i.id}</span></li>
+										<li><span>${i.content}</span></li>
+										<li><span>${i.send_date}</span></li>
+										<div class="clearfix"></div>
+									</ul>
 								</c:forEach>
 							</c:when>
-							<c:otherwise><!-- 관리자가 보는 쪽지 리스트 -->
-								<c:forEach items="" var="">
-									<li><span>1</span></li>
-									<li><span>회원 아이디</span></li>
-									<li><span>포인트가 지급되었습니다!</span></li>
-									<li><span>2017/11/19</span></li>
+							<c:otherwise><!-- 회원이 보는 쪽지 리스트 -->
+								<c:forEach items="${requestScope.list}" var="i">
+									<ul class="cart-header">
+										<li><span>${i.note_no}</span></li>
+										<li><span>관리자</span></li>
+										<li><span>${i.content}</span></li>
+										<li><span>${i.send_date}</span></li>
+										<div class="clearfix"></div>
+									</ul>
 								</c:forEach>
 							</c:otherwise>
-						</c:choose> --%>
+						</c:choose> 
 					
-					<ul class="cart-header">
+					
+					<!-- <ul class="cart-header">
 						<li><span>1</span></li>
 						<li><span>1번 쪽지 제목</span></li>
 						<li><span>포인트가 지급되었습니다!</span></li>
@@ -102,7 +108,7 @@
 						<li><span>크리스마스 이벤트!!</span></li>
 						<li><span>2017/11/19</span></li>
 						<div class="clearfix"></div>
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 		</div>

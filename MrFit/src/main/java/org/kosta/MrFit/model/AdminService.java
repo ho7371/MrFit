@@ -32,4 +32,6 @@ public interface AdminService {
 
 	void sendMessage(Map<String, Object> map);
 
+	List<NoteVO> getNoteList();
+
 }

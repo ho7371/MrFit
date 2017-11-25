@@ -33,5 +33,7 @@ public interface MemberDAO {
 
 	void updateMember(MemberVO vo);
 
+	List<NoteVO> memberNoteList(String id);
+
 	
 }

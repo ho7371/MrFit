@@ -30,4 +30,6 @@ public interface AdminDAO {
 	OrderVO adminfindOrderByOno(String ono);
 
 	void sendMessage(Map<String, Object> map);
+
+	List<NoteVO> getNoteList();
 }
