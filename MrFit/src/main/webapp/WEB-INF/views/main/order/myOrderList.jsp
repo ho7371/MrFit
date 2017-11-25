@@ -31,8 +31,9 @@
 						 <c:if test="${order.status=='배송완료'}">
 							<form action="${pageContext.request.contextPath}/myOrderStatusChange.do">
 								<input type="hidden" name="ono" value="${order.ono}">
+								<input type="hidden" name="totalprice" value="${order.totalprice }">
 								<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
-								<input type="submit" value="구매확정">
+								<input type="submit" value="상태변경">
 							</form>
  						 </c:if>
 						<div class="clearfix"></div>

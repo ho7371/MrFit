@@ -38,4 +38,18 @@ public interface OrderDAO {
 	String checkOrderProductStatus(String ono);
 
 	ProductReviewVO orderProductReviewForm(String pdno);
+	
+	void updateOrderCartTotalPrice(OrderVO ovo);
+
+	void updateOrderTotalpriceAndPoint(OrderVO ovo);
+
+	void updateMemberTotalSpent(MemberVO mvo);
+
+	int findMemberGradePointPercent(String grade);
+
+	void updateOrderMembetPoint(MemberVO mvo);
+
+	String findMemberGardeById(String id);
+
+	void updateProductDetailInventory(ProductDetailVO pdvo);
 }

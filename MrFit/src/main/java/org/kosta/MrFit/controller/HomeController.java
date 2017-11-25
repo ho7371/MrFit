@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.BoardService;
-import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
@@ -95,35 +94,7 @@ public class HomeController {
 		return mv;
 	}
 
-	@RequestMapping("notice.do")
-	public ModelAndView notice(HttpServletRequest  request){
-		ModelAndView mv = new ModelAndView();
-		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
-		System.out.println("      HomeController/notice()/시작");		
-		
-			/* 페이징 처리 공통 영역 */
-			int totalCount = boardService.getTotalNoticeCount();
-			int postCountPerPage = 9;
-			int postCountPerPageGroup = 5;
-			int nowPage = 1;
-			String pageNo = request.getParameter("pageNo");
-				if(pageNo != null) {
-					nowPage = Integer.parseInt(pageNo);
-				}
-			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		
-			List<BoardVO> nlist= boardService.noticeList(pb);
-		System.out.println("      HomeController/home()/진행 - nlist :"+nlist);
-		if(nlist!=null&&!nlist.isEmpty()) {
-			lvo.setList(nlist);
-			lvo.setPagingBean(pb);
-		}
-			
-		mv.addObject("lvo", lvo);		
-		mv.setViewName("board/notice.tiles");		
-		System.out.println("      HomeController/notice()/종료");
-		return mv;
-	}
+	
 	
 	@RequestMapping("inquiry.do")
 	public String inquiry(){

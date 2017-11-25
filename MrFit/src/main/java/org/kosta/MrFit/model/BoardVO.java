@@ -2,6 +2,7 @@ package org.kosta.MrFit.model;
 
 public class BoardVO {
 	private String bno;
+	private String id;
 	private String title;
 	private String content;
 	private String regdate;
@@ -47,9 +48,17 @@ public class BoardVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardVO(String bno, String title, String content, String regdate, String security, String category) {
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public BoardVO(String bno, String id, String title, String content, String regdate, String security,
+			String category) {
 		super();
 		this.bno = bno;
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.regdate = regdate;
@@ -58,10 +67,11 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", regdate=" + regdate
-				+ ", security=" + security + ", category=" + category + "]";
+		return "BoardVO [bno=" + bno + ", id=" + id + ", title=" + title + ", content=" + content + ", regdate="
+				+ regdate + ", security=" + security + ", category=" + category + "]";
 	}
 	
+
 	
 	
 	

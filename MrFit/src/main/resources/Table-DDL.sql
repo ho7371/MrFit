@@ -13,6 +13,7 @@ drop sequence iqrno_seq;
 drop sequence rno_seq;
 drop sequence pqno_seq;
 drop sequence ino_seq;
+drop sequence note_no_seq;
 drop sequence ono_seq;			
 drop sequence bno_seq;
 
@@ -56,6 +57,7 @@ create sequence rno_seq;
 create sequence pqno_seq;
 create sequence ino_seq;
 create sequence ono_seq;
+create sequence note_no_seq;
 create sequence bno_seq;
 
 /* 회원 등급 */
@@ -201,9 +203,11 @@ CREATE INDEX review_unique ON review(pdno,id);
 CREATE TABLE product_qna (
 	pqno NUMBER PRIMARY KEY,
 	id VARCHAR2(100) NOT NULL,
+	pno NUMBER NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
 	constraint fk_id_in_product_qna foreign key(id) references member(id)
+	constraint fk_pno_in_product_qna foreign key(pno) references product(pno)
 );
 
 
@@ -249,6 +253,14 @@ CREATE TABLE board (
 	constraint fk_id_in_board foreign key(id) references member(id)
 );
 
+/* 쪽지 */
+CREATE TABLE note(
+	note_no NUMBER PRIMARY KEY,
+	content CLOB NOT NULL,
+	send_date DATE NOT NULL,
+	id VARCHAR2(100) NOT NULL,
+	constraint fk_id_in_note foreign key(id) references member(id)
+);
 
 				
 ----------------------------------------------------- 테이블 생성 SQL 끝

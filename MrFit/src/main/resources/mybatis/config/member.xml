@@ -95,6 +95,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</update>
 
+	<select id="memberNoteList" parameterType="string" resultType="noteVO">
+		select note_no, content, send_date, id 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note where id = #{value} ) 
+	</select>
 </mapper>
 
 
