@@ -106,9 +106,16 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	//[영훈][2017.11.21][회원 주문내역 상태변경]
-		@Override
-		public void myOrderStatusChange(String ono) {
-			orderDAO.myOrderStatusChange(ono);
-		}
+	@Override
+	public void myOrderStatusChange(String ono) {
+		orderDAO.myOrderStatusChange(ono);
+	}
+	
+	//[영훈][2017.11.25][회원 주문상품의 주문상태 체크]
+	@Override
+	public String checkOrderProductStatus(String ono) {
+		return orderDAO.checkOrderProductStatus(ono);
+	}		
+		
 	
 }

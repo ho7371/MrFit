@@ -198,10 +198,15 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
 	public ModelAndView myOrderPrductList(String ono) {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작");
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
 		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
-		return new ModelAndView("order/myOrderProductList.tiles", "list", list);
+		mv.addObject("list", list);
+		String status = orderService.checkOrderProductStatus(ono);
+		mv.addObject("status", status);
+		mv.setViewName("order/myOrderProductList.tiles");
+		return mv;
 	}
 
 	/**[석환][11.22][장바구니 수량 수정]

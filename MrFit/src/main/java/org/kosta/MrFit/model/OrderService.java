@@ -28,5 +28,7 @@ public interface OrderService {
 	OrderVO productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
 
 	void myOrderStatusChange(String ono);
+
+	String checkOrderProductStatus(String ono);
 	
 }

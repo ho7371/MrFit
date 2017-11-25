@@ -4,7 +4,6 @@
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
 <h2>my OrderProduct List</h2>
-
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
@@ -21,6 +20,9 @@
 						<li><span>상품사이즈</span></li>
 						<li><span>수량</span></li>
 						<li><span>이미지</span></li>
+						<c:if test="${status=='구매확정'}">
+							<li><span>상품리뷰 작성</span></li>
+						</c:if>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${list}" var="orderProduct">
@@ -33,6 +35,13 @@
 						<li><span>${orderProduct.size_name}</span></li>
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
+						<c:if test="${status=='구매확정'}">
+						 <form action="${pageContext.request.contextPath}/orderStatusCheckNProductReviewForm.do">
+							<input type="hidden" name="ono" value="${orderProduct.ono}">
+							<input type="hidden" name="pdno" value="${orderProduct.ono}">
+							<input type="submit" value="리뷰작성 페이지로">
+						 </form>
+						</c:if>
 						<div class="clearfix"></div>
 					</ul>
 					</c:forEach>
@@ -42,14 +51,5 @@
 	</div>
 </div>
 <!--end-ckeckout-->
-
-
-
-
-
-
-
-
-
 
 
