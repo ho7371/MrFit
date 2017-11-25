@@ -29,6 +29,10 @@ public interface AdminDAO {
 
 	OrderVO adminfindOrderByOno(String ono);
 
+	int adminSearchOrderCountByOrderNumber(int parseInt);
+
+	OrderVO adminSearchOrderByOno(int ono);
+	
 	void sendMessage(Map<String, Object> map);
 
 	List<NoteVO> getNoteList();

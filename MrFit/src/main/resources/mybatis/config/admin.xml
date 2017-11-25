@@ -108,6 +108,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} and m.id = o.id 
 	</select>
 	
+	<!-- 주문번호로 주문 개수 찾기 : 진호 -->
+	<select id="adminSearchOrderCountByOrderNumber" parameterType="int" resultType="int">
+		select count(*) from orders where ono=#{value}
+	</select>
+	
+	<!-- 주문검색 (주문번호로) : 진호 -->
+	<select id="adminSearchOrderByOno" parameterType="int" resultType="orderVO" resultMap="MemberRM">
+		select * from orders where ono=#{value}
+	</select>
 	<!-- 주문 상태 변경 -->
 	<update id="updateOrderStatus" parameterType="map">
 		update orders set status = #{status} where ono = #{ono}

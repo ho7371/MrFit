@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select ono, id, totalprice, ordertime, status <!-- select시 destination 칼럼 추가 -->
  		from orders
  	</sql>
-
+	
     <resultMap type="orderVO" id="ORM">
     	<result column="ono" property="ono"/>
     	<result column="totalprice" property="totalprice"/>
