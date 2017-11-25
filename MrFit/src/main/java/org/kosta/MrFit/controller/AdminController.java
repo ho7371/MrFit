@@ -15,6 +15,7 @@ import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
+import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
@@ -505,6 +506,24 @@ public class AdminController {
 		adminService.sendMessage(map);
 		System.out.println("   	AdminController/message()/종료 ");
 		return new ModelAndView("admin/message_ok.tiles","id",id);
+	}
+	
+	/**[현민][11/25][주문 상품 상세보기]
+	 * 
+	 * @param ono
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("orderProductInfo.do")
+	public ModelAndView orderProductInfo(String ono) {
+		System.out.println("   	AdminController/orderProductInfo()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		List<OrderProductVO> list = adminService.orderProductInfo(ono);
+		System.out.println("   	AdminController/orderProductInfo()/진행 list : "+list);
+		mv.setViewName("admin/orderProductInfo.tiles");
+		mv.addObject("list", list);
+		System.out.println("   	AdminController/orderProductInfo()/종료 ");
+		return mv;
 	}
 }
 

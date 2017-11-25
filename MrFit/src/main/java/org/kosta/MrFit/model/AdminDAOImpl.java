@@ -117,6 +117,11 @@ public class AdminDAOImpl implements AdminDAO {
 		System.out.println("                  AdminDAOImpl/getNoteList()/종료 ");
 		return template.selectList("admin.getNoteList");
 	}
+
+	@Override
+	public List<OrderProductVO> orderProductInfo(String ono) {
+		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
+	}
 	
 	
 	

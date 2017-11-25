@@ -32,4 +32,6 @@ public interface AdminDAO {
 	void sendMessage(Map<String, Object> map);
 
 	List<NoteVO> getNoteList();
+
+	List<OrderProductVO> orderProductInfo(String ono);
 }

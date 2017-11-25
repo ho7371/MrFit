@@ -34,4 +34,6 @@ public interface AdminService {
 
 	List<NoteVO> getNoteList();
 
+	List<OrderProductVO> orderProductInfo(String ono);
+
 }
