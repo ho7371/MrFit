@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.AdminService;
+import org.kosta.MrFit.model.BoardService;
+import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
@@ -22,6 +24,7 @@ import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.kosta.MrFit.model.UploadVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -36,6 +39,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Resource
 	private ProductService productService;
+	@Resource 
+	private BoardService boardService;
 	private PagingBean pb;
 
 	@Secured("ROLE_ADMIN")
@@ -452,33 +457,81 @@ public class AdminController {
 		return mv;
 	}
 	
+	//[정현][11/25][ 공지사항 리스트 ]
+	
+	
+	@RequestMapping(value="notice.do", method=RequestMethod.GET)	
+	public ModelAndView notice(HttpServletRequest  request){
+		ModelAndView mv = new ModelAndView();
+		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
+		System.out.println("      HomeController/notice()/시작");		
+		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = boardService.getTotalNoticeCount();
+			int postCountPerPage = 10;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}		
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			
+			System.out.println("nowpage : "+nowPage+", endnumber"+pb.getEndRowNumber());
+			List<BoardVO> nlist= boardService.noticeList(pb);
+		System.out.println("      HomeController/home()/진행 - nlist :"+nlist);
+		if(nlist!=null&&!nlist.isEmpty()) {
+			lvo.setList(nlist);
+			lvo.setPagingBean(pb);
+		}			
+		mv.addObject("lvo", lvo);		
+		mv.setViewName("board/notice.tiles");		
+		System.out.println("      HomeController/notice()/종료");
+		return mv;
+	}
+	//[정현][11/25][ 공지사항 상세보기 ]
+	
+	@RequestMapping(value="noticeDetail.do", method=RequestMethod.GET)	
+	public ModelAndView noticeDetail(HttpServletRequest  request){
+		ModelAndView mv = new ModelAndView();
+		String bno=request.getParameter("bno");
+		BoardVO bvo=boardService.noticeDetail(bno);
+		mv.addObject("bvo",bvo);
+		mv.setViewName("board/noticeDetail.tiles");
+		return mv;
+	}
+	//[정현][11/25][ 공지사항 삭제 ]
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)
-	public String noticeForm() {
-		System.out.println("   	AdminController/noticeForm()/시작");
-		return "admin/registerNoticeForm.tiles";
+	@RequestMapping(value="deleteNotice.do", method=RequestMethod.GET)	
+	public String deleteNotice(HttpServletRequest  request){	
+		String bno=request.getParameter("bno");
+		boardService.deleteNotice(bno);			
+		return "redirect:notice.do";
 	}
 	
+	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNoteForm.do", method=RequestMethod.GET)
-	public String registerNoteForm() {
-		System.out.println("   	AdminController/registerNoteForm()/시작");
-		return "admin/registerNoteForm.tiles";
-	}
+	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)			
+		public String registerNoticeForm(HttpServletRequest  request){			
+			return "board/registerNoticeForm.tiles";
+		}
+		
+	//[정현][11/25][ 공지사항 등록 후 공지사항 리스트로 ]
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
 	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
-	public String adminNoteList() {
-		System.out.println("   	AdminController/adminNoteList()/시작");
-		return "board/note.tiles";
-	}
+		public String registerNotice(HttpServletRequest  request){
+			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			BoardVO bvo=new BoardVO();
+			String title=request.getParameter("title");
+			String content=request.getParameter("content");
+			bvo.setId(mvo.getId());
+			bvo.setTitle(title);
+			bvo.setContent(content);
+			boardService.registerNotice(bvo);	
+			return "redirect:notice.do";
+		}
 	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
-	public String adminNoticeList() {
-		System.out.println("   	AdminController/adminNoticeList()/시작");
-		return "board/notice.tiles";
-	}
 }
 
 

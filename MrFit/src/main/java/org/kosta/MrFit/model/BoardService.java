@@ -8,5 +8,11 @@ public interface BoardService {
 
 	int getTotalNoticeCount();
 
+	BoardVO noticeDetail(String bno);
+
+	void deleteNotice(String bno);
+
+	void registerNotice(BoardVO bvo);
+
 	
 }

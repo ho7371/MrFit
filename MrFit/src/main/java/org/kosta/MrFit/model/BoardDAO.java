@@ -6,4 +6,10 @@ public interface BoardDAO {
 	List<BoardVO> noticeList(PagingBean pb);
 
 	int getTotalNoticeCount();
+
+	BoardVO noticeDetail(String bno);
+
+	void deleteNotice(String bno);
+
+	void registerNotice(BoardVO bvo);
 }
