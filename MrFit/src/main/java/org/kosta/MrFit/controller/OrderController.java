@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.GradeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
@@ -204,8 +205,6 @@ public class OrderController {
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
 		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
 		mv.addObject("list", list);
-		String status = orderService.checkOrderProductStatus(ono);
-		mv.addObject("status", status);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}
@@ -235,38 +234,7 @@ public class OrderController {
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
 	
-	/**
-	 * [영훈][11/24][회원 주문내역 상태변경]
-	 * 
-	 * @param request
-	 * @return
-	 *//*
-	@Secured("ROLE_MEMBER")
-	@RequestMapping("myOrderStatusChange.do")
-	public String myOrderStatusChange(String ono,String id) {
-		orderService.myOrderStatusChange(ono);
-		return "redirect:myOrderList.do?id="+id;
-	}*/
 	
-	/*
-	*//**
-	 * [영훈][11/24][회원 상품 리뷰작성 페이지로]
-	 * 
-	 * @param request
-	 * @return
-	 *//*
-	@Secured("ROLE_MEMBER")
-	@RequestMapping("orderProductReviewForm.do")
-	public ModelAndView orderProductReviewForm(String pdno) {
-		System.out.println("      OrderController/orderProductReviewForm()/시작"+pdno);
-		ModelAndView mv = new ModelAndView();
-		ProductReviewVO prvo = orderService.orderProductReviewForm(pdno);
-		System.out.println("      OrderController/orderProductReviewForm()/시작"+prvo);
-		mv.addObject("prvo", prvo);
-		mv.setViewName("product/orderProductReview.tiles");
-		return mv;
-	}
-	*/
 	
 	
 }
