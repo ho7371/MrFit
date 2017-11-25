@@ -310,6 +310,15 @@ public class MemberController {
 		return "member/update_result.tiles";
 	}
 	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberNoteList.do")
+	public String memberNoteList(HttpServletRequest request, MemberVO memberVO) {
+		System.out.println("    MemberController/memberNoteList()/시작");
+		
+		return "board/note.tiles";
+	}
+	
+	
 	
 	
 }// class

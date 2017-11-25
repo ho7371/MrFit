@@ -429,6 +429,7 @@ public class AdminController {
 	 * @param ono
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("updateOrderStatus.do")
 	public ModelAndView updateOrderStatus(String ono) {
 		System.out.println("   	AdminController/updateOrderStatus()/시작 ono : "+ono);
@@ -449,6 +450,34 @@ public class AdminController {
 		mv.setViewName("admin/updateOrderStatus_ok.tiles");
 		System.out.println("   	AdminController/updateOrderStatus()/종료");
 		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)
+	public String noticeForm() {
+		System.out.println("   	AdminController/noticeForm()/시작");
+		return "admin/registerNoticeForm.tiles";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNoteForm.do", method=RequestMethod.GET)
+	public String registerNoteForm() {
+		System.out.println("   	AdminController/registerNoteForm()/시작");
+		return "admin/registerNoteForm.tiles";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
+	public String adminNoteList() {
+		System.out.println("   	AdminController/adminNoteList()/시작");
+		return "board/note.tiles";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
+	public String adminNoticeList() {
+		System.out.println("   	AdminController/adminNoticeList()/시작");
+		return "board/notice.tiles";
 	}
 }
 
