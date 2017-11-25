@@ -159,6 +159,15 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
  		set status='구매확정'
  		where ono=#{value}
  	</update>
+ 	
+ 	<!-- [영훈][11.25] 회원 주문내역의 주문상품 상태 체크 -->
+ 	<select id="checkOrderProductStatus" parameterType="string" resultType="string">
+ 		select status
+ 		from orders
+ 		where ono=#{value}
+ 	</select>
+ 	
+ 	
    
 </mapper>
 

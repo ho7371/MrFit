@@ -34,4 +34,6 @@ public interface OrderDAO {
 	void updateStatusOrderEtc(OrderVO ovo);
 
 	void myOrderStatusChange(String ono);
+
+	String checkOrderProductStatus(String ono);
 }
