@@ -227,10 +227,10 @@ public class OrderController {
 	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		System.out.println("totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		OrderVO uovo=orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
 		System.out.println("상품주문 변경 :  "+ovo);
-		System.out.println("ono: "+uovo);	
 		System.out.println(depositMethod);
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
