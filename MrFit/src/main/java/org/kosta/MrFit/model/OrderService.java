@@ -30,5 +30,7 @@ public interface OrderService {
 	void myOrderStatusChange(String ono);
 
 	String checkOrderProductStatus(String ono);
+
+	ProductReviewVO orderProductReviewForm(String pdno);
 	
 }

@@ -36,8 +36,7 @@
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
 						<c:if test="${status=='구매확정'}">
-						 <form action="${pageContext.request.contextPath}/orderStatusCheckNProductReviewForm.do">
-							<input type="hidden" name="ono" value="${orderProduct.ono}">
+						 <form action="${pageContext.request.contextPath}/orderProductReviewForm.do">
 							<input type="hidden" name="pdno" value="${orderProduct.ono}">
 							<input type="submit" value="리뷰작성 페이지로">
 						 </form>

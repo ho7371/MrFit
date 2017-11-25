@@ -116,6 +116,12 @@ public class OrderServiceImpl implements OrderService {
 	public String checkOrderProductStatus(String ono) {
 		return orderDAO.checkOrderProductStatus(ono);
 	}		
+	
+	//[영훈][2017.11.25][회원 상품리뷰 작성 폼으로(pdVO객체)]
+	@Override
+	public ProductReviewVO orderProductReviewForm(String pdno) {
+		return orderDAO.orderProductReviewForm(pdno);
+	}
 		
 	
 }
