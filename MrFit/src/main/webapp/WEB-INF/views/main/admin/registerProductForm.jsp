@@ -14,7 +14,7 @@
 							$("#bottomsize tbody tr").detach();
 							$("#colorlist tbody tr").detach();
 				category=$(this).val();
-			if(category=="하의"){
+			if(category=="bottom"){
 					$("#topsize").hide();
 					$("#bottomsize").show();
 					$("#colorlist").show();
@@ -32,10 +32,9 @@
 			var colid="";
 			var invid="";
 			var hidleng="";
-			var eqls="";
 		 $("#sizecheck input:checkbox").on("click",function() {
 			 	cbname = $(this).val();
-		     	cbstat = $(this).is(":checked"); // 체크박스 전체 갯수
+		     	cbstat = $(this).is(":checked"); 
 		     	cbleng= $("input:checked").length;
 		     	addcol="addC"+cbname;
 		     	delcol="delC"+cbname;
@@ -44,41 +43,41 @@
 		     	hidleng="hid"+cbname;
 		      // 만일 체크되면 누적테이블 + 언체크되면 테이블 - 하기
 		      if (cbstat==true){ // check될떄 true
-		    	  if(category!="하의"){
+		    	  if(category!="bottom"){
 					      $("#topsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
 								+'</tr>'	  
 					      );
 		    	  }else{
 			    		  $("#bottomsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
-									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)"></td>'
+									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
 								+'</tr>'	  
 					      ); 
 		    	  } //append else
-					    		  $("#colorlist tbody").append(
-											'<tr id="'+colid+'">'
-											+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-											+'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
-											+'<td ><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
-											+'<input type="hidden" name="colleng" value="'+eqls+'" id="'+hidleng+'"></td>'
-											+'</tr>'
-											+'<tr id="'+invid+'">'
-											+'<td><input type="text" name="" value="재고수량" readonly="readonly"></td>'
-											+'<td ><input type="text" name="inventory"  size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
-											+'</tr>'
-							      ); 
+				    		 $("#colorlist tbody").append(
+									'<tr id="'+colid+'">'
+									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
+									+'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td ><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
+									+'<input type="hidden" name="colleng" value="1" id="'+hidleng+'"></td>'
+									+'</tr>'
+									+'<tr id="'+invid+'">'
+									+'<td><input type="text" name="" value="재고수량" readonly="readonly"></td>'
+									+'<td ><input type="text" name="inventory"  size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'</tr>'
+						      );
 		      } // cbstat true
 		      if(cbstat==false){ // check 될때 false  
 		      	$("#"+cbname+"").detach();
@@ -88,15 +87,15 @@
 		      
 			  $("#"+addcol+"").on("click",function() {
 					  var eql=$(this).parent().parent().children().length;
-					  alert(eql-2);
-					  eqls=$("#"+hidleng+"").val(eql-1);
-
+					  alert($(this).parent().parent().html());
+					  $(this).parent().find("input[name='colleng']").val(eql-1);
+					  alert($(this).parent().find("input[name='colleng']").val());
 					  if( eql < 12){
 						$(this).parent().before(
-							'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'
+							'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
 						); 
 						$(this).parent().parent().next().append(
-							'<td ><input type="text" name="inventory" size="10" maxlength="10" oninput="maxLengthCheck(this)"></td>'	
+							'<td ><input type="text" name="inventory" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'	
 						);
 					  }else{
 						  alert("최대 색상 수는 10개 입니다");
@@ -104,7 +103,7 @@
 			  }); // on click addcolor
 			  $("#"+delcol+"").on("click",function() {
 					  var eql=$(this).parent().parent().children().length;
-					  $("#"+hidleng+"").val(eql-2);
+					  $(this).parent().find("input[name='colleng']").val(eql-3);
 					  if(eql > 3){
 						$(this).parent().parent().children().eq(eql-2).remove();	
 						$(this).parent().parent().next().children().last().remove();
@@ -122,37 +121,30 @@
 		    object.value = object.value.slice(0, object.maxLength);
 		   }    
 	  } // length check
-	  
-	function getFileList() {
-		var imageFile = document.getElementById("imageFile file");
-		var file = imageFile.file;
-		length = file.length;
-		if (length > 0) {
-			for (var i = 0; i < length; i++) {
-				if ('.jpg' in file[i]) {
-
-				} else {
-					return false;
-				}
-			}
-		} 
+</script>
+<script type="text/javascript">
+	function recheck() {
+		if($("#sizecheck input:checked").length==0){
+			alert("사이즈를 골라주세요!")			
+			return false;
+		}
+			return true;
 	}// file type recheck
 </script>
-		
 					<!-- Product -->
 <!--start-account-->
 	<div class="account">
 		<div class="container"> 
 			<div class="account-bottom">
 				<div class="col-md-6 account-left">
-				<form method="post" action="${pageContext.request.contextPath}/admin/registerProduct.do" id="regForm" enctype="multipart/form-data" >
+				<form method="post" action="${pageContext.request.contextPath}/admin/registerProduct.do" id="regForm" enctype="multipart/form-data" onsubmit="return recheck()">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
 					<div class="account-top heading">
 						<h3>REGISTER PRODUCT</h3>
 					</div>
 					<div class="address">
 						<span>상품명</span>
-						<input type="text" name="name" id="">
+						<input type="text" name="name" id="" required="required">
 					</div>
 					<div class="address">
 						<span>상품내용</span>
@@ -160,7 +152,7 @@
 					</div>
 					<div class="address">
 						<span>가격</span>
-						<input type="text" name="price" size="10">
+						<input type="text" name="price" size="10" required="required">
 					</div>		
 					<!-- image upload -->
 					<div class="address">
@@ -175,7 +167,7 @@
 					</div>
 					<div class="address">
 						<span>Category</span> <select id="category" name="category" required="required">
-							<option>-[필수] 카테고리를 선택해주세요-</option>
+							<option value="">-[필수] 카테고리를 선택해주세요-</option>
 							<option value="top">상의</option>
 							<option value="bottom">하의</option>
 							<option value="outer">아우터</option>
@@ -216,7 +208,7 @@
 							</tbody>
 						</table><br>
 					<div class="address new">
-						<input type="submit" value="등록" onsubmit="return getFileList()">
+						<input type="submit" value="등록">
 					</div>
 				</form>	
 				</div>

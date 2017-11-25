@@ -118,13 +118,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- [재현][이미지등록] -->
     <insert id="registerImage" parameterType="imageVO">
-    	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url});
+    	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url})
     </insert>
     
     <!-- [상품등록] -->
     <insert id="registerProduct" parameterType="productVO">
+        <selectKey keyProperty="pno" resultType="string" order="BEFORE">
+			select pno_seq.nextval from dual
+		</selectKey>
     insert into product(pno,name,price,content,category) 
-	values(pno_seq.nextval,#{name},#{price},#{content},#{category})
+	values(#{pno},#{name},#{price},#{content},#{category})
     </insert>
     
     <!-- [상품사이즈 등록] -->
@@ -148,6 +151,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registerProductDetail" parameterType="productDetailVO">
     insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, #{pno}, #{pcno}, #{psno}, #{inventory})
     </insert>
+    
+    <select id="findColorByName" parameterType="productDetailVO" resultType="string">
+    	select pcno from product_color where color_name=#{color_name}
+    </select>
 </mapper>
 
 

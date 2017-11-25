@@ -43,5 +43,9 @@ public interface ProductDAO {
 
 	void registerProductDetail(ProductDetailVO pdvo);
 
+	String findColorByName(ProductDetailVO pdvo);
+	
+	int reviewCheck(ProductReviewVO prvo);
+
 
 }

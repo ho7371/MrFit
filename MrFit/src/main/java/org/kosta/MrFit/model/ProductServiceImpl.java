@@ -64,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
 		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
 			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
+	//[정현][11/24] 해당 카테고리 리스트 받아오기
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
 		System.out.println("            ProductServiceImpl/ProductList()/시작");
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("      		ProductServiceImpl/ProductList()/종료");
 		return ProductList;
 	}
-	
+	//[정현][11/24] 해당 카테고리의 총갯수 파악
 	@Override
 	public int getCategoryProductCount(String category) {
 		// TODO Auto-generated method stub
@@ -254,29 +255,45 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		
 	}
+	@Transactional
 	@Override
 	public void registerImage(ImageVO ivo) {
 		productDAO.registerImage(ivo);
-		
 	}
+
+	//[영훈][11/25][리뷰작성 체크]
+	@Override
+	public int reviewCheck(ProductReviewVO prvo) {
+		return productDAO.reviewCheck(prvo);
+	}
+		
+	@Transactional
 	@Override
 	public void registerProduct(ProductVO productVO) {
 		productDAO.registerProduct(productVO);
 		
 	}
+	@Transactional
 	@Override
 	public void registerProductSize(ProductSizeVO psvo) {
 		productDAO.registerProductSize(psvo);
 		
 	}
+	@Transactional
 	@Override
 	public void registerColor(ProductDetailVO pdvo) {
 		productDAO.registerColor(pdvo);
 		
 	}
+	@Transactional
 	@Override
 	public void registerProductDetail(ProductDetailVO pdvo) {
 		productDAO.registerProductDetail(pdvo);
 		
+	}
+	@Override
+	public String findColorByName(ProductDetailVO pdvo) {
+		// TODO Auto-generated method stub
+		return productDAO.findColorByName(pdvo);
 	}
 }

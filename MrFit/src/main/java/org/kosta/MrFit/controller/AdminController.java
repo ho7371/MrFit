@@ -14,6 +14,7 @@ import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
@@ -136,7 +137,7 @@ public class AdminController {
 			// 젤 처음 pno 등록 name, price, content, category
 		System.out.println(productVO);
 			productService.registerProduct(productVO);
-		
+		System.out.println(productVO);
 		
 			ArrayList<String> psnolist=new ArrayList<String>(); // 등록한 사이즈 psno들
 			String[] size_name=request.getParameterValues("size_name");
@@ -164,9 +165,16 @@ public class AdminController {
 		
 			String[] color=request.getParameterValues("color");
 			ProductDetailVO pdvo=new ProductDetailVO();
+
 			for (int i=0;i<color.length;i++) {
 				pdvo.setColor_name(color[i]);
-				productService.registerColor(pdvo);
+				//중복확인 
+				String pcno=productService.findColorByName(pdvo);
+					if(pcno!=null) {
+						pdvo.setPcno(pcno);
+					}else {
+						productService.registerColor(pdvo);
+					}
 				pcnolist.add(pdvo.getPcno());
 			}
 			
@@ -176,7 +184,6 @@ public class AdminController {
 			int sn=0;
 			int en=0;
 			int mn=0;
-			System.out.println("colleng 확인 :"+colleng[0].toString());
 			pdvo.setPno(productVO.getPno());
 			for (int i=0;i<psnolist.size();i++) {
 				pdvo.setPsno(psnolist.get(i));
@@ -192,7 +199,9 @@ public class AdminController {
 				sn=mn;
 				}
 
-			
+			//워크스페이스 경로
+			//String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";
+			//서버 경로
 			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
 			if(uploadDir.exists()==false) {
@@ -200,31 +209,35 @@ public class AdminController {
 			}
 			
 			List<MultipartFile> list=vo.getFile();
-			ArrayList<String> nameList=new ArrayList<String>();		
+			//ArrayList<String> nameList=new ArrayList<String>();		
 			System.out.println("   	AdminController/registerProduct()/진행1");
 			
-			String thumbPath = uploadPath+"thumb/";
-			String imagePath = uploadPath+productVO.getCategory()+"/";
+			//String thumbPath = uploadPath+"thumb/";
+			//String imagePath = uploadPath+productVO.getCategory()+"/";
 			String fileName = productVO.getName();	
 			String realName=list.get(0).getOriginalFilename();
-			System.out.println(thumbPath);
-			System.out.println(imagePath);
+			//System.out.println(thumbPath);
+			System.out.println(uploadPath);
 			System.out.println(realName);
 			try {
-				if(!fileName.equals("")){
-					list.get(0).transferTo(new File(thumbPath+fileName+".jpg"));
+				if(!realName.equals("")){
+					list.get(0).transferTo(new File(uploadPath+"thumb/"+fileName+realName));
+					ImageVO ivo=new ImageVO(productVO.getPno(),"thumb/"+fileName+realName);
+					productService.registerImage(ivo);
 				}
 				
 				System.out.println("   	AdminController/registerProduct()/진행2 - 대표이미지 업로드");
 				
 				for(int i=1; i<list.size(); i++){
-					fileName =  productVO.getName()+i+".jpg";		
-					if(!fileName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
+					fileName =  productVO.getName()+i;		
+					realName=list.get(i).getOriginalFilename();
+					System.out.println(realName);
+					if(!realName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
 						try {
-							list.get(i).transferTo(new File(imagePath+fileName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
+							list.get(i).transferTo(new File(uploadPath+productVO.getCategory()+"/"+fileName+realName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
 							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
-							nameList.add(fileName);
-							ImageVO ivo=new ImageVO(vo.getPno(),fileName);
+							//nameList.add(fileName+realName);
+							ImageVO ivo=new ImageVO(productVO.getPno(),productVO.getCategory()+"/"+fileName+realName);
 							productService.registerImage(ivo);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -237,7 +250,7 @@ public class AdminController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/registerProductResult.tiles");
-		mv.addObject("nameList", nameList);
+		//mv.addObject("nameList", nameList);
 		System.out.println("   	AdminController/registerProduct()/종료 - 업로드 완료");
 		return mv;
 	}
@@ -259,34 +272,7 @@ public class AdminController {
 	}
 	
 	
-	/*@SuppressWarnings("null")
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("commonMemberList.do")
-	public ModelAndView commonMemberList(HttpServletRequest request,int status) {
-		ModelAndView mv = new ModelAndView();
-	//	int intStatus =Integer.parseInt(status);
-		int tmc = adminService.getTotalCommonMemberCount(status);
-		int nowPage = 1;
-		if(request.getParameter("listPage")!=null) {
-			nowPage = Integer.parseInt(request.getParameter("listPage"));
-		}
-		PagingBean0 pb = new PagingBean0(tmc,nowPage,3,2);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status", status);
-		map.put("pagingBean", pb);
-		List<MemberVO> list = adminService.commonMemberList(map);
-		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
-		mv.addObject("lvo",lvo);
-		if(status==1) {
-			mv.setViewName("admin/memberList.tiles");
-		}else {
-			mv.setViewName("admin/unregisterMemberList.tiles");
-		}
-		return mv;
-	}*/
-	
-	/** [영훈] - 수정자 : 진호
-	 * 
+	/** [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]
 	 * @param request
 	 * @param status
 	 * @return
@@ -334,6 +320,12 @@ public class AdminController {
 		return new ModelAndView("admin/adminUnregisterMember.tiles");
 	}
 	
+	/** [영훈][관리자 회원검색 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchMember.do")
 	public ModelAndView adminSearchMember(String id) {
@@ -347,7 +339,13 @@ public class AdminController {
 			return mv;
 		}
 	}
-
+	
+	/** [영훈][관리자 회원 포인트지급 폼 페이지 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
 	public ModelAndView adminGivePointToMemberForm(String id) {
@@ -355,6 +353,12 @@ public class AdminController {
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
+	/** [영훈][관리자 포인트지급 기능]
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
 	public String adminGivePointToMember(MemberVO mvo) {
@@ -384,17 +388,127 @@ public class AdminController {
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
-		System.out.println("주문개수 : "+totalOrderCount);
-		System.out.println(pb.getStartRowNumber()+"  "+pb.getEndRowNumber());
+		System.out.println("	AdminController/adminAllOrderList()/진행1 주문개수 : "+totalOrderCount);
 		List<OrderVO> list = adminService.adminAllOrderList(pb);
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-		System.out.println("   	AdminController/adminAllOrderList()/진행");
+		System.out.println("   	AdminController/adminAllOrderList()/진행2 lvo : "+lvo);
 		mv.setViewName("admin/adminAllOrderList.tiles");
 		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminAllOrderList()/종료");
 		return mv;
 	}
 	
+	/**[현민][11/24][아이디 검색]
+	 * 주문 내역에서 아이디를 검색 할 수 있다.
+	 * @param request
+	 * @param memberId
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchOrder.do")
+	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
+		System.out.println("   	AdminController/adminSearchOrder()/시작");
+		ModelAndView mv = new ModelAndView();
+		
+		/* 페이징 처리 공통 영역*/ 
+		int totalOrderCount = adminService.adminSearchMemberOrderCount(memberId);
+		int postCountPerPage = 3;
+		int postCountPerPageGroup = 2;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		map.put("pagingBean", pb);
+		
+		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문 개수 : "+totalOrderCount);
+		List<OrderVO> list = adminService.adminSearchOrder(map);
+		if(!list.isEmpty()) {
+			
+			ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+			System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
+			mv.setViewName("admin/adminSearchMemberOrder.tiles");
+			mv.addObject("lvo", lvo);
+		}else {
+			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
+		}
+		System.out.println("   	AdminController/adminSearchOrder()/종료");
+		return mv;
+	}
+	
+	/**[현민][11/24][주문 상태 변경]
+	 * 주문번호를 받아와 주문정보를 찾은 후 
+	 * 주문상태를 
+	 * 입금대기 -> 배송준비중 -> 배송중 -> 배송완료
+	 * 이 순서대로 변경한다.
+	 * @param ono
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateOrderStatus.do")
+	public ModelAndView updateOrderStatus(String ono) {
+		System.out.println("   	AdminController/updateOrderStatus()/시작 ono : "+ono);
+		ModelAndView mv = new ModelAndView();
+		OrderVO ovo = adminService.adminfindOrderByOno(ono);
+		System.out.println("   	AdminController/updateOrderStatus()/진행1 ");
+		Map<String, String> map = new HashMap<String, String>();
+		if(ovo.getStatus().equals("입금대기")) {
+			map.put("status", "배송준비중");
+		}else if(ovo.getStatus().equals("배송준비중")) {
+			map.put("status", "배송중");
+		}else if(ovo.getStatus().equals("배송중")) {
+			map.put("status", "배송완료");
+		}
+		map.put("ono", ono);
+		adminService.updateOrderStatus(map);
+		System.out.println("   	AdminController/updateOrderStatus()/진행2 ");
+		mv.setViewName("admin/updateOrderStatus_ok.tiles");
+		System.out.println("   	AdminController/updateOrderStatus()/종료");
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)
+	public String noticeForm() {
+		System.out.println("   	AdminController/noticeForm()/시작");
+		return "admin/registerNoticeForm.tiles";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNoteForm.do", method=RequestMethod.GET)
+	public String registerNoteForm() {
+		System.out.println("   	AdminController/registerNoteForm()/시작");
+		return "admin/registerNoteForm.tiles";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
+	public String adminNoteList() {
+		System.out.println("   	AdminController/adminNoteList()/시작");
+		return "board/note.tiles";
+	}
+	/**[현민][11/24][쪽지 보내기]
+	 * 회원 관리 페이지에서 각각의 회원에게 쪽지를 보낼수 있다.
+	 * @param message
+	 * @param id
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("sendMessage.do")
+	public ModelAndView sendMessage(String message,String id) {
+		System.out.println("   	AdminController/message()/시작 ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", message);
+		map.put("id", id);
+		System.out.println("   	AdminController/message()/진행 message : "+message+" id : "+id);
+		adminService.sendMessage(map);
+		System.out.println("   	AdminController/message()/종료 ");
+		return new ModelAndView("admin/message_ok.tiles","id",id);
+	}
 }
 
 
