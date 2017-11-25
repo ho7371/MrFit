@@ -123,7 +123,7 @@ ${requestScope.pvo } --%>
 								<ul class="product-qty">
 									<span>주문수량:</span>
 									<!-- quantity 주문갯수 -->
-									<input type="number" name="quantity" id="quantity" min="0">
+									<input type="number" name="quantity" id="quantity" min="0" required="required">
 								</ul>
 							</div>
 							<div class="clearfix"></div>

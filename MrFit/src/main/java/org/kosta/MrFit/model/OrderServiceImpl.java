@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
 	//[석환][11.23] 주문 결제
 	@Transactional
 	@Override
-	public OrderVO productOrderPayment(MemberVO vo,int payPoint,int depositMethod,OrderVO ovo) {
+	public void productOrderPayment(MemberVO vo,int payPoint,int depositMethod,OrderVO ovo) {
 		//상품 구매시 포인트 차감
 		orderDAO.updatePointOrder(vo);
 		//무통장 입금시 입금대기로 변경
@@ -102,7 +102,6 @@ public class OrderServiceImpl implements OrderService {
 		}	
 		//무통장 외 입금시 배송준비중으로 변경
 		orderDAO.updateStatusOrderEtc(ovo);
-		return null;
 	}
 	
 	//[영훈][2017.11.21][회원 주문내역 상태변경]
@@ -116,6 +115,40 @@ public class OrderServiceImpl implements OrderService {
 	public String checkOrderProductStatus(String ono) {
 		return orderDAO.checkOrderProductStatus(ono);
 	}		
-		
 	
+	//[영훈][2017.11.25][회원 상품리뷰 작성 폼으로(pdVO객체)]
+	@Override
+	public ProductReviewVO orderProductReviewForm(String pdno) {
+		return orderDAO.orderProductReviewForm(pdno);
+	}
+	//[석환][11.25]장바구니 수정시 총금액 변경
+		@Override
+		public void updateOrderCartTotalPrice(OrderVO ovo) {
+				orderDAO.updateOrderCartTotalPrice(ovo);
+			}
+		//[석환][11/25][멤버 총 토탈금액 수정]
+		@Override
+		public void updateMemberTotalSpent(MemberVO mvo) {
+			orderDAO.updateMemberTotalSpent(mvo);
+		}
+		//[석환][11.25]회원 등급 퍼센트 비율 검색
+		@Override
+		public int findMemberGradePointPercent(String grade) {
+			return orderDAO.findMemberGradePointPercent(grade);
+		}
+		//[석환[11.25]구매 후 회원 포인트 업데이트
+		@Override
+		public void updateOrderMembetPoint(MemberVO mvo) {
+			orderDAO.updateOrderMembetPoint(mvo);
+		}
+		//[석환][11.25]구매 시 회원 등급 찾기
+		@Override
+		public String findMemberGardeById(String id) {
+			return orderDAO.findMemberGardeById(id);
+		}	
+		//[석환][11.25]구매 시 상품재고 업데이트
+		@Override
+		public void updateProductDetailInventory(ProductDetailVO pdvo) {
+			orderDAO.updateProductDetailInventory(pdvo);
+		}
 }

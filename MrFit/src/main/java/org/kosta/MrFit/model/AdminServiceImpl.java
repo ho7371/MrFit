@@ -72,6 +72,20 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminfindOrderByOno(ono);
 	}
 
+	@Override
+	public void sendMessage(Map<String, Object> map) {
+		adminDAO.sendMessage(map);
+	}
+
+	@Override
+	public List<NoteVO> getNoteList() {
+		return adminDAO.getNoteList();
+	}
+
+	@Override
+	public List<OrderProductVO> orderProductInfo(String ono) {
+		return adminDAO.orderProductInfo(ono);
+	}
 	
 	@Override
 	public int adminSearchOrderCountByOrderNumber(int parseInt) {

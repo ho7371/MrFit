@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 	@Resource
 	private ProductService productService;
+	@Resource
+	private BoardService boardService;
 	private PagingBean pb;
 	// 주석 샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -91,13 +94,7 @@ public class HomeController {
 		return mv;
 	}
 
-	@RequestMapping("notice.do")
-	public String notice(){
-		System.out.println("      HomeController/notice()/시작");
-		// 공지사항 불러오는 빽단 작업 코드 필요
-		System.out.println("      HomeController/notice()/종료");
-		return "board/notice.tiles";
-	}
+	
 	
 	@RequestMapping("inquiry.do")
 	public String inquiry(){

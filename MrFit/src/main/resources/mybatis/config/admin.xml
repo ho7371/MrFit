@@ -117,7 +117,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="adminSearchOrderByOno" parameterType="int" resultType="orderVO" resultMap="MemberRM">
 		select * from orders where ono=#{value}
 	</select>
-	
 	<!-- 주문 상태 변경 -->
 	<update id="updateOrderStatus" parameterType="map">
 		update orders set status = #{status} where ono = #{ono}
@@ -128,8 +127,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from orders where ono = #{ono}
 	</select>
 	
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="map">
+		insert into note(note_no, content, send_date, id)
+		values(note_no_seq.nextval, #{message}, sysdate, #{id})
+	</insert>
 	
-		
+	<!-- 쪽지 리스트 -->
+	<select id="getNoteList" resultType="noteVO">
+		select note_no, content, send_date, id 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
+	</select>
 </mapper>
 
 

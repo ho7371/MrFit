@@ -115,7 +115,25 @@ public class AdminDAOImpl implements AdminDAO {
 		orderVO.setOrderProductList(list);
 		return orderVO;
 	}
+	
+	@Override
+	public void sendMessage(Map<String, Object> map) {
+		System.out.println("                  AdminDAOImpl/sendMessage()/시작 ");
+		System.out.println("                  AdminDAOImpl/sendMessage()/종료 ");
+		template.insert("admin.sendMessage", map);
+	}
 
+	@Override
+	public List<NoteVO> getNoteList() {
+		System.out.println("                  AdminDAOImpl/getNoteList()/시작 ");
+		System.out.println("                  AdminDAOImpl/getNoteList()/종료 ");
+		return template.selectList("admin.getNoteList");
+	}
+
+	@Override
+	public List<OrderProductVO> orderProductInfo(String ono) {
+		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
+	}
 	
 }
 
