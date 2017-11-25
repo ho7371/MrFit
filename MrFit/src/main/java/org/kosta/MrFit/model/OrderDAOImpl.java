@@ -30,7 +30,7 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
 		return list;
 	}
-	//정현 장바구니 담기 
+	//[정현][11/24] 해당아이디에 장바구니가 있는지 체크
 	@Override
 	public int findMyCartCount(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCartCount()/시작 ");
@@ -39,21 +39,21 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/findMyCartCount()/종료");
 		return cartCount;
 	}
-	//정현 장바구니 담기 
+	//[정현][11/24] 해당 아이디에 장바구니 생성
 	@Override
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ovo : "+ovo);
 		template.insert("order.registerOrder",ovo);		
 		System.out.println("                  OrderDAOImpl/registerOrder()/종료");		
 	}
-	//정현 장바구니 담기 
+	//[정현][11/24] 장바구니에 상품 상세 정보를 엮어 주문수량 저장 
 	@Override
 	public void registerOrderProduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/registerOrderProduct()/시작 ovo : "+ovo);
 		template.insert("order.registerOrderProduct",ovo);		
 		System.out.println("                  OrderDAOImpl/registerOrderProduct()/종료");	
 	}
-	//정현 장바구니 담기 
+	//[정현][11/24] 주문에서 해당 정보의 가격 수정 
 	@Override
 	public void updateOrder(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/updateOrder()/시작 ovo : "+ovo);
@@ -62,11 +62,13 @@ public class OrderDAOImpl implements OrderDAO {
 			
 	}
 	
+	//[영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
     public List<OrderVO> myOrderList(String id){
        return template.selectList("order.myOrderList",id);
     }
-    
+	
+	//[영훈][2017.11.24][회원 주문상품내역 리스트]
     @Override
     public List<OrderProductVO> myOrderPrductList(String ono){
        return template.selectList("order.myOrderPrductList",ono);
@@ -76,6 +78,7 @@ public class OrderDAOImpl implements OrderDAO {
   	public void updateOrderQuantity(OrderProductVO opvo) {
   		template.update("order.updateOrderQuantity", opvo);
   	}
+  //[정현][11/24] 해당 정보에 값이 order_Product에 존재하는지 체크
 	@Override
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
@@ -85,6 +88,7 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
 		return opCount;
 	}
+	
 	@Override
 	public void updateOrderProduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/updateOrderProduct()/시작 ovo : "+ovo);
@@ -92,6 +96,7 @@ public class OrderDAOImpl implements OrderDAO {
 		template.update("order.updateOrderProduct",ovo);
 		
 	}
+	//[정현][11/24] 주문 삭제  
 	@Override
 	public void deleteOrderProduct(OrderProductVO opvo) {
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : "+opvo);
@@ -99,7 +104,7 @@ public class OrderDAOImpl implements OrderDAO {
 		template.update("order.deleteOrderProduct",opvo);
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");
 	}
-	
+	//[정현][11/24] 해당 주문 정보가 있는지 체크  
 	@Override
 	public String findPdno(ProductDetailVO pdvo) {
 		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdvo : "+pdvo);
@@ -123,4 +128,53 @@ public class OrderDAOImpl implements OrderDAO {
 	public void updateStatusOrderEtc(OrderVO ovo) {
 		template.update("order.updateStatusOrderEtc",ovo);
 	}
+	
+	//[영훈][2017.11.24][ 주문내역 상태변경]
+	@Override
+	public void myOrderStatusChange(String ono) {
+		template.update("order.myOrderStatusChange", ono);
+	}
+		
+	//[영훈][2017.11.25][회원 주문상품의 주문상태 체크]
+	@Override
+	public String checkOrderProductStatus(String ono) {
+		return template.selectOne("order.checkOrderProductStatus",ono);
+	}
+	
+	//[영훈][2017.11.25][회원 상품리뷰 작성 폼으로(pdVO객체)]
+	@Override
+	public ProductReviewVO orderProductReviewForm(String pdno) {
+		return template.selectOne("order.orderProductReviewForm", pdno);
+	}
+	//[석환][11.25]장바구니 수정시 총금액 변경
+			@Override
+		public void updateOrderCartTotalPrice(OrderVO ovo) {
+				template.update("order.updateOrderCartTotalPrice", ovo);
+			}
+		//[석환][11.25]주문결제시 결제 금액 - 포인트
+			@Override
+		public void updateOrderTotalpriceAndPoint(OrderVO ovo) {
+				template.update("order.updateOrderTotalpriceAndPoint",ovo);
+			}
+		//[석환][11.25][구매 확정시  토탈금액 수정]
+		@Override
+		public void updateMemberTotalSpent(MemberVO mvo) {
+				template.update("order.updateMemberTotalSpent",mvo);
+		}
+		//[석환][11.25]회원 등급 퍼센트 비율 검색
+		@Override
+		public int findMemberGradePointPercent(String grade) {
+			return template.selectOne("order.findMemberGradePointPercent", grade);
+		}
+		//[석환[11.25]구매 후 회원 포인트 업데이트
+		@Override
+		public void updateOrderMembetPoint(MemberVO mvo) {
+					template.update("order.updateOrderMembetPoint", mvo);
+		}
+		//[석환][11.25]구매 시 회원 등급 찾기
+		@Override
+		public String findMemberGardeById(String id) {
+			return template.selectOne("order.findMemberGardeById", id);
+		}
+	
 }

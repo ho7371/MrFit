@@ -53,6 +53,7 @@ $(window).scroll(function(){
 							   	<p>
 							   		<sec:authentication property="principal.name" />님 <br>
 									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a>
+									<a href="${pageContext.request.contextPath}/adminNoteList.do">쪽지함</a>
 								</p>
 								<a href="#" id="logoutAction">로그아웃</a>
 								<form action="${pageContext.request.contextPath}/logout.do"
@@ -67,7 +68,7 @@ $(window).scroll(function(){
 									<img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />
 									 My Cart</a> <br>
 									<a href="${pageContext.request.contextPath}/myPage.do">MyPage</a>&nbsp;
-									<a href="${pageContext.request.contextPath}/note.do">쪽지함</a>&nbsp;
+									<a href="${pageContext.request.contextPath}/memberNoteList.do">쪽지함</a>
 								</p>
 								<a href="#" id="logoutAction">로그아웃</a>
 								<form action="${pageContext.request.contextPath}/logout.do"
@@ -95,21 +96,11 @@ $(window).scroll(function(){
 	<div class="container">
 		<div class="top-nav">
 			<ul class="memenu skyblue">
-				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=outer">OUTER</a>
-				</li>
-				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=top">TOP</a>
-				</li>
-				<li class="grid">
-					<a href="${pageContext.request.contextPath}/findProductByCategory.do?category=bottom">BOTTOM</a>
-				</li>
-				<li class="grid">
-					<a href="${pageContext.request.contextPath}/notice.do">공지사항</a>
-				</li>
-				<li class="grid">
-					<a href="${pageContext.request.contextPath}/inquiry.do">고객문의</a>
-				</li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=outer">OUTER</a></li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=top">TOP</a></li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=bottom">BOTTOM</a></li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/inquiry.do">고객문의</a></li>
 			</ul>
 		</div>
 		<div class="clearfix"></div>

@@ -122,5 +122,10 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public List<NoteVO> memberNoteList(String id) {
+		return memberDAO.memberNoteList(id);
+	}
+
 	
 }

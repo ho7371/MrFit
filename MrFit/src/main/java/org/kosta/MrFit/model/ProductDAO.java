@@ -35,6 +35,7 @@ public interface ProductDAO {
 
 	void registerImage(ImageVO ivo);
 
+
 	void registerProduct(ProductVO productVO);
 
 	void registerProductSize(ProductSizeVO psvo);

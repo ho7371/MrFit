@@ -54,6 +54,7 @@ public class ProductController {
 	 */
 	
 	
+
 	/**[정현][2017.11.20][분류별 상품 리스트 뽑기]
 	    * 
 	    * @param category
@@ -157,15 +158,27 @@ public class ProductController {
 	}
 	
 	/**[재현][2017.11.21]
-	 * 상품 리뷰 작성 미완
-	 * @param prvo
+	 * 상품 리뷰 작성 
+	 * @param prvo 
 	 * @return 미정
 	 */
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
-	public String registerProductReview(ProductReviewVO prvo) {
-		productService.registerProductReview(prvo);
-		return "";
+	public ModelAndView registerProductReview(ProductReviewVO prvo,String ono) {
+		ModelAndView mv = new ModelAndView();
+		/* 진영훈 추가 코드수정 
+		 * 
+		 */
+		int reviewCheck = productService.reviewCheck(prvo);
+		if(reviewCheck==1) {
+			mv.addObject("ono",ono);
+			mv.setViewName("product/productReviewCheck_fail.tiles");
+		}else {
+			productService.registerProductReview(prvo);
+			mv.addObject("ono",ono);
+			mv.setViewName("product/productReviewCheck_ok.tiles");
+		}
+		return mv;
 	}
 	
 	

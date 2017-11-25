@@ -296,4 +296,6 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.findColorByName(pdvo);
 	}
+
+		
 }

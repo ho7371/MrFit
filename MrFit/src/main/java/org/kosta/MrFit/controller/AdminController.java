@@ -485,12 +485,27 @@ public class AdminController {
 		return "admin/registerNoteForm.tiles";
 	}
 	
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
-	public String adminNoteList() {
+	public ModelAndView adminNoteList() {
 		System.out.println("   	AdminController/adminNoteList()/시작");
-		return "board/note.tiles";
+		ModelAndView mv = new ModelAndView();
+		List<NoteVO> list = adminService.getNoteList();
+		System.out.println("   	AdminController/adminNoteList()/진행 list : "+ list);
+		mv.setViewName("board/note.tiles");
+		mv.addObject("list", list);
+		System.out.println("   	AdminController/adminNoteList()/종료");
+		return mv;
 	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
+	public String adminNoticeList() {
+		System.out.println("   	AdminController/adminNoticeList()/시작");
+		return "board/notice.tiles";
+	}
+
 	/**[현민][11/24][쪽지 보내기]
 	 * 회원 관리 페이지에서 각각의 회원에게 쪽지를 보낼수 있다.
 	 * @param message

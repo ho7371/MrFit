@@ -172,6 +172,7 @@ public class ProductDAOImpl implements ProductDAO {
 		template.insert("product.registerImage", ivo);
 		
 	}
+
 	@Override
 	public void registerProduct(ProductVO productVO) {
 		template.insert("product.registerProduct", productVO);

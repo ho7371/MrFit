@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="id" property="memberVO.id"/>
  	</resultMap>
  	
- 	<!-- 주문 내역 보기  -->
+ 	<!-- [영훈][11.21] 주문 내역 보기  -->
  	<select id="myOrderList" parameterType="string" resultType="orderVO" resultMap="ORM2">
  		select ono, totalprice, ordertime, status, id, destination
  		from orders
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		order by ono desc
  	</select>
 
- 	<!-- 주문 상품 정보 가져오기 -->
+ 	<!-- [영훈][11.21] 주문 상품 내역 보기  -->
  	<select id="myOrderPrductList" parameterType="string" resultType="orderProductVO">
  		select op.ono, op.pdno, op.quantity,
 				p.name, p.price, p.category,
@@ -152,7 +152,61 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
    		update orders set status='배송준비중', destination=#{destination}, ordertime=sysdate
 		where ono=#{ono}
    	</update>
-   
+   	
+   		<!-- [영훈][11.24] 회원 주문내역 중 상태변경 -->
+ 	<update id="myOrderStatusChange" parameterType="string">
+ 		update orders 
+ 		set status='구매확정'
+ 		where ono=#{value}
+ 	</update>
+ 	
+ 	<!-- [영훈][11.25] 회원 주문내역의 주문상품 상태 체크 -->
+ 	<select id="checkOrderProductStatus" parameterType="string" resultType="string">
+ 		select status
+ 		from orders
+ 		where ono=#{value}
+ 	</select>
+ 	
+ 	<select id="orderProductReviewForm" parameterType="string" resultType="productReviewVO">
+ 		select pd.pdno, p.name, pc.color_name, ps.size_name 
+		from product_detail pd, product p, PRODUCT_COLOR pc, PRODUCT_SIZE ps
+		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
+ 	</select>
+ 	
+ 	<!-- [영훈][11.25] 회원 상품 리뷰작성 후 리뷰작성 유무 체크  -->
+ 	<select id="reviewCheck" parameterType="productReviewVO" resultType="int">
+ 		select count(*)
+ 		from review
+ 		where id=#{id} and pdno=#{pdno}
+ 	</select> 	
+      <!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
+   <update id="updateOrderCartTotalPrice" parameterType="orderVO">
+   	update orders set totalprice=#{totalprice}
+	where ono=#{ono}
+   </update>
+   <!-- [석환][11.25]주문 결제시 총금액 -포인트-->
+   <update id="updateOrderTotalpriceAndPoint" parameterType="orderVO">
+   update orders set totalprice=totalprice-#{totalprice}
+   where ono=#{ono}
+   </update>
+   <!-- [석환][11.25]주문 결제시 멤버 총결제비용 업데이트 -->
+   <update id="updateMemberTotalSpent" parameterType="memberVO">
+   update member set totalSpent=totalSpent+#{totalSpent}
+   where id=#{id}
+   </update>
+   	<!-- [석환][11.25]회원 등급 포인트 비율 검색 -->
+	<select id="findMemberGradePointPercent" parameterType="string" resultType="int">
+		select percent from grade where grade=#{value}
+	</select>
+	<!-- [석환][11.25]구매 후 회원 포인트 업데이트 -->
+	<update id="updateOrderMembetPoint" parameterType="memberVO">
+		update member set point=point+#{point}
+   		where id=#{id}
+	</update>
+	<!-- [석환][11.25]구매 시 회원 등급 찾기 -->
+	<select id="findMemberGardeById" parameterType="string" resultType="string">
+		select grade from member where id=#{id}
+	</select>
 </mapper>
 
 

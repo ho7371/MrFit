@@ -5,15 +5,17 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
-import org.kosta.MrFit.model.PointVO;
+import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -165,7 +167,7 @@ public class MemberController {
 		return "member/updatePassword_ok.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입 폼]
 	 * 
 	 * @return
 	 */
@@ -177,7 +179,7 @@ public class MemberController {
 		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입]
 	 * 
 	 * @param vo
 	 * @return
@@ -192,7 +194,7 @@ public class MemberController {
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입 후 결과 뷰]
 	 * 
 	 * @param id
 	 * @return
@@ -205,7 +207,7 @@ public class MemberController {
 		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
 	}
 	
-	/**[][][]
+	/**[영훈][회원가입시 id 중복확인 Ajax]
 	 * 
 	 * @param id
 	 * @return
@@ -254,7 +256,7 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
-	/**[][][]
+	/**[][myPage]
 	 * 
 	 * @return
 	 */
@@ -266,7 +268,7 @@ public class MemberController {
 		return "member/myPage.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][myPage의 회원(사용자 자신)정보]
 	 * 
 	 * @return
 	 */
@@ -278,7 +280,7 @@ public class MemberController {
 		return new ModelAndView("member/myPage_info.tiles");
 	}
 	
-	/**[][][]
+	/**[영훈][회원정보 수정 폼]
 	 * 
 	 * @return
 	 */
@@ -290,7 +292,7 @@ public class MemberController {
 		return"member/updateMemberForm.tiles";
 	}
 	
-	/**[][][]
+	/**[영훈][회원정보 수정]
 	 * 
 	 * @param request
 	 * @param memberVO
@@ -309,6 +311,25 @@ public class MemberController {
 		System.out.println("    MemberController/updateMemberAction()/종료");
 		return "member/update_result.tiles";
 	}
+	
+	/**[현민][11/24][쪽지함]
+	 * 관리자가 회원에게 보낸 쪽지를 볼 수 있다.
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberNoteList.do")
+	public ModelAndView memberNoteList() {
+		System.out.println("    MemberController/memberNoteList()/시작");
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView mv = new ModelAndView();
+		List<NoteVO> list = memberService.memberNoteList(pvo.getId());
+		System.out.println("    MemberController/memberNoteList()/진행 list : "+list);
+		mv.setViewName("board/note.tiles");
+		mv.addObject("list", list);
+		System.out.println("    MemberController/memberNoteList()/종료");
+		return mv;
+	}
+	
 	
 	
 	

@@ -20,4 +20,16 @@ public interface AdminDAO {
 	int adminTotalOrderCount();
 
 	void adminGivePointToMember(MemberVO mvo);
+
+	List<OrderVO> adminSearchOrder(Map<String, Object> map);
+
+	int adminSearchMemberOrderCount(String memberId);
+
+	void updateOrderStatus(Map<String, String> map);
+
+	OrderVO adminfindOrderByOno(String ono);
+
+	void sendMessage(Map<String, Object> map);
+
+	List<NoteVO> getNoteList();
 }

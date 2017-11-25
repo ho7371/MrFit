@@ -1,7 +1,6 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +11,7 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,8 +53,11 @@ public class OrderController {
 	}
 
 	/**
-	 * [정현][11/20][장바구니 담기]
-	 * 
+	 * [정현][11/24][장바구니 담기]
+	 *  해당 아이디에 장바구니가 있는지 조회후 
+	 *  없으면 order에 주문번호를 생성해 주고 
+	 *  order_Product에 어떤 상품을 주문했는지 생성한다.
+	 *  만약 장바구니가 존재한다면 orders에서 총가격만 수정해준다.
 	 * @param request
 	 * @return
 	 */
@@ -65,8 +68,7 @@ public class OrderController {
 		OrderVO ovo = new OrderVO();
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
-		HashMap<String,Object> map=new HashMap<String,Object>();
-		
+			
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		int cartCount = orderService.findMyCartCount(mvo.getId());
@@ -110,8 +112,9 @@ public class OrderController {
 	}
 
 	/**
-	 * [정현][11/21][장바구니삭제]
-	 * 
+	 * [정현][11/24][장바구니삭제]
+	 * order_product에서 해당 데이터를 삭제하고
+	 * orders에서 가격을 계산해준다. 
 	 * @param request
 	 * @return
 	 */
@@ -196,10 +199,15 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
 	public ModelAndView myOrderPrductList(String ono) {
+		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작");
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
 		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
-		return new ModelAndView("order/myOrderProductList.tiles", "list", list);
+		mv.addObject("list", list);
+		String status = orderService.checkOrderProductStatus(ono);
+		mv.addObject("status", status);
+		mv.setViewName("order/myOrderProductList.tiles");
+		return mv;
 	}
 
 	/**[석환][11.22][장바구니 수량 수정]
@@ -209,6 +217,13 @@ public class OrderController {
 	 */
 	@RequestMapping("updateOrderQuantity.do")
 	public String updateOrderQuantity(OrderProductVO opvo) {
+		System.out.println("주문번호 : "+opvo.getOno()+"가격 : "+opvo.getPrice()+"수량 : "+opvo.getQuantity());
+		System.out.println("총 가격 :"+(opvo.getPrice()*opvo.getQuantity()) );
+		int totalprice=opvo.getPrice()*opvo.getQuantity();
+		OrderVO ovo=new OrderVO();
+		ovo.setOno(opvo.getOno());
+		ovo.setTotalprice(totalprice);
+		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
 		return "redirect:cartForm.do";
 	}
@@ -219,11 +234,46 @@ public class OrderController {
 	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		System.out.println("totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		OrderVO uovo=orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
 		System.out.println("상품주문 변경 :  "+ovo);
-		System.out.println("ono: "+uovo);	
 		System.out.println(depositMethod);
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
+	
+	/**
+	 * [영훈][11/24][회원 주문내역 상태변경]
+	 * 
+	 * @param request
+	 * @return
+	 *//*
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("myOrderStatusChange.do")
+	public String myOrderStatusChange(String ono,String id) {
+		orderService.myOrderStatusChange(ono);
+		return "redirect:myOrderList.do?id="+id;
+	}*/
+	
+	/*
+	*//**
+	 * [영훈][11/24][회원 상품 리뷰작성 페이지로]
+	 * 
+	 * @param request
+	 * @return
+	 *//*
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("orderProductReviewForm.do")
+	public ModelAndView orderProductReviewForm(String pdno) {
+		System.out.println("      OrderController/orderProductReviewForm()/시작"+pdno);
+		ModelAndView mv = new ModelAndView();
+		ProductReviewVO prvo = orderService.orderProductReviewForm(pdno);
+		System.out.println("      OrderController/orderProductReviewForm()/시작"+prvo);
+		mv.addObject("prvo", prvo);
+		mv.setViewName("product/orderProductReview.tiles");
+		return mv;
+	}
+	*/
+	
+	
 }

@@ -24,7 +24,7 @@
         	$("#updateGround").on("click", "#updateBtn1", function(){
         		location.href="${pageContext.request.contextPath}/updateOrderQuantity.do?ono="
         			+$(".findOno").attr("id")+"&pdno="+$(".findPdno").attr("id")
-        			+"&quantity="+$("#updateQuantity").val();
+        			+"&quantity="+$("#updateQuantity").val()+"&price="+$(".findPrice").attr("id");
         	});
           });//ready
           </script>
@@ -86,6 +86,7 @@
 						<span id="updateField" style="font-size: 20px;">수량 : ${j.quantity}</span>
 						</span></li>
 						<span class="findQuantity" id="${j.quantity}"></span>
+						<span class="findPrice" id="${j.price}"></span>
 <a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${i.ono}&pdno=${j.pdno}&price=${j.price}" > <div class="close1"></div></a>                  
  
 				  </c:forEach>

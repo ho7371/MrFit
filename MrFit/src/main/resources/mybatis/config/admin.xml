@@ -4,27 +4,32 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
-
+	
+	<!--  -->
  	<resultMap type="memberVO" id="MRM">
  		<result column="grade" property="gradeVO.grade"/>
  	</resultMap>
     
+    <!-- 회원 활성상태 업데이트 -->
     <update id="adminUpdateMemberStatus" parameterType="string">
     	update member
     	set status=0
     	where id=#{value}
     </update>
     
+    <!-- 회원 권한 삭제 -->
     <delete id="adminDeleteMemberAuthority" parameterType="string">
     	delete from auth where id=#{value}
     </delete>
     
+    <!-- 회원 검색 -->
     <select id="adminSearchMember" parameterType="string" resultType="memberVO">
     	select id, name, phone, address, email, point, totalSpent, grade, status
     	from member
     	where id=#{value} and status=1
     </select>
     
+    <!-- 회원 리스트 -->
     <select id="commonMemberList" parameterType="map" resultType="memberVO" resultMap="MRM">
     	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
   		from (
@@ -36,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
     </select>
     
+    <!-- 활성상태인 회원 수 -->
     <select id="getTotalCommonMemberCount" parameterType="int" resultType="int">
     	select count(*) 
     	from member
@@ -55,25 +61,73 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE o.ono = op.ono and pd.pdno = op.pdno and o.status <![CDATA[ <> ]]> '장바구니'
     </select> -->
 
+	<!-- 회원 포인트 지급 -->
     <update id="adminGivePointToMember" parameterType="memberVO">
     	update member
     	set point=point+#{point} 
     	where id=#{id}
     </update>
     
-    <select id="adminAllOrderList" resultType="orderVO" parameterType="pagingBean">
-		select o.ono, o.id, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
+    <resultMap type="orderVO" id="MemberRM">
+    	<result column="ono" property="ono"/>
+    	<result column="id" property="memberVO.id"/>
+    	<result column="name" property="memberVO.name"/>
+    </resultMap>
+    
+    <!-- 모든 주문 내역 리스트 -->
+    <select id="adminAllOrderList" resultType="orderVO" parameterType="pagingBean" resultMap="MemberRM">
+		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
 		from 
 		( select ROW_NUMBER() OVER(ORDER BY ono DESC) AS rnum,
 		  ono, id, totalprice, ordertime, status, destination
 		  from orders where status <![CDATA[ <> ]]> '장바구니'
-		) o 
-		where rnum between #{startRowNumber} and #{endRowNumber}	
+		) o, member m 
+		where rnum between #{startRowNumber} and #{endRowNumber} and m.id = o.id 
     </select>
-
+	
+	<!-- 주문 리스트 개수 -->
 	<select id="adminTotalOrderCount" resultType="int">
 		select count(*) from orders 
 		where status <![CDATA[ <> ]]> '장바구니'
+	</select>
+	
+	<!-- 주문 검색 (아이디로) 개수 -->
+	<select id="adminSearchMemberOrderCount" parameterType="string" resultType="int">
+		select count(*) from orders 
+		where status <![CDATA[ <> ]]> '장바구니' and id = #{value}
+	</select>
+	
+	<!-- 주문 검색 (아이디로) -->
+	<select id="adminSearchOrder" parameterType="map" resultMap="MemberRM">
+		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
+		from 
+		( select ROW_NUMBER() OVER(ORDER BY ono DESC) AS rnum,
+		  ono, id, totalprice, ordertime, status, destination
+		  from orders where status <![CDATA[ <> ]]> '장바구니' and id = #{memberId}
+		) o, member m 
+		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} and m.id = o.id 
+	</select>
+	
+	<!-- 주문 상태 변경 -->
+	<update id="updateOrderStatus" parameterType="map">
+		update orders set status = #{status} where ono = #{ono}
+	</update>
+	
+	<!-- 주문 상태 변경 하기위해 주문 번호로 주문정보 찾기 -->
+	<select id="adminfindOrderByOno" parameterType="string" resultType="orderVO">
+		select * from orders where ono = #{ono}
+	</select>
+	
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="map">
+		insert into note(note_no, content, send_date, id)
+		values(note_no_seq.nextval, #{message}, sysdate, #{id})
+	</insert>
+	
+	<!-- 쪽지 리스트 -->
+	<select id="getNoteList" resultType="noteVO">
+		select note_no, content, send_date, id 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
 	</select>
 </mapper>
 

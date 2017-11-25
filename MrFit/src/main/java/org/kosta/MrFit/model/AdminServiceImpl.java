@@ -51,6 +51,36 @@ public class AdminServiceImpl implements AdminService {
 	public void adminGivePointToMember(MemberVO mvo) {
 		adminDAO.adminGivePointToMember(mvo);
 	}
+
+	@Override
+	public List<OrderVO> adminSearchOrder(Map<String, Object> map) {
+		return adminDAO.adminSearchOrder(map);
+	}
+
+	@Override
+	public int adminSearchMemberOrderCount(String memberId) {
+		return adminDAO.adminSearchMemberOrderCount(memberId);
+	}
+
+	@Override
+	public void updateOrderStatus(Map<String, String> map) {
+		adminDAO.updateOrderStatus(map);
+	}
+
+	@Override
+	public OrderVO adminfindOrderByOno(String ono) {
+		return adminDAO.adminfindOrderByOno(ono);
+	}
+
+	@Override
+	public void sendMessage(Map<String, Object> map) {
+		adminDAO.sendMessage(map);
+	}
+
+	@Override
+	public List<NoteVO> getNoteList() {
+		return adminDAO.getNoteList();
+	}
 	
 	
 	

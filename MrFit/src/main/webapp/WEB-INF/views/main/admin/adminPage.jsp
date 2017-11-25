@@ -8,11 +8,11 @@
 <div class="product">
 	<div class="container">
 		<div class="product-main">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
 				<div class="product-one">
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem">
+						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
 							<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
 								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
 								<p>주문 관리</p>
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem">
+						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
 							<a href="${pageContext.request.contextPath}/adminProductList.do">
 								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
 								<p>상품 관리</p>
@@ -28,16 +28,24 @@
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem">
+						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
 							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
 								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
 								<p>회원 관리</p>
 							</a>
 						</div>
 					</div>
+					<div class="col-md-4 product-left single-left">
+						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
+								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
+								<p>게시글 관리</p>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-1"></div>
 			<div class="clearfix"></div>
 		</div>
 	</div>

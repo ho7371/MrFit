@@ -25,6 +25,21 @@ public interface OrderService {
 
 	String findPdno(ProductDetailVO pdvo);
 
-	OrderVO productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
+	void productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
+
+	void myOrderStatusChange(String ono);
+
+	String checkOrderProductStatus(String ono);
+
+	ProductReviewVO orderProductReviewForm(String pdno);
 	
+	void updateOrderCartTotalPrice(OrderVO ovo);
+
+	void updateMemberTotalSpent(MemberVO mvo);
+
+	int findMemberGradePointPercent(String grade);
+
+	void updateOrderMembetPoint(MemberVO mvo);
+
+	String findMemberGardeById(String id);
 }

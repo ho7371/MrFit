@@ -3,6 +3,7 @@ package org.kosta.MrFit.model;
 public class ProductReviewVO {
 	private String rno;
 	private String pdno;
+	private String name;
 	private String color_name;
 	private String size_name;
 	private String id;
@@ -12,11 +13,12 @@ public class ProductReviewVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductReviewVO(String rno, String pdno, String color_name, String size_name, String id, String content,
-			String regdate) {
+	public ProductReviewVO(String rno, String pdno, String name, String color_name, String size_name, String id,
+			String content, String regdate) {
 		super();
 		this.rno = rno;
 		this.pdno = pdno;
+		this.name = name;
 		this.color_name = color_name;
 		this.size_name = size_name;
 		this.id = id;
@@ -34,6 +36,12 @@ public class ProductReviewVO {
 	}
 	public void setPdno(String pdno) {
 		this.pdno = pdno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getColor_name() {
 		return color_name;
@@ -67,8 +75,9 @@ public class ProductReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "ProductReviewVO [rno=" + rno + ", pdno=" + pdno + ", color_name=" + color_name + ", size_name="
-				+ size_name + ", id=" + id + ", content=" + content + ", regdate=" + regdate + "]";
+		return "ProductReviewVO [rno=" + rno + ", pdno=" + pdno + ", name=" + name + ", color_name=" + color_name
+				+ ", size_name=" + size_name + ", id=" + id + ", content=" + content + ", regdate=" + regdate + "]";
 	}
+	
 	
 }
