@@ -9,7 +9,7 @@ import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
-import org.kosta.MrFit.model.PointVO;
+import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -312,12 +312,22 @@ public class MemberController {
 		return "member/update_result.tiles";
 	}
 	
+	/**[현민][11/24][쪽지함]
+	 * 관리자가 회원에게 보낸 쪽지를 볼 수 있다.
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("memberNoteList.do")
-	public String memberNoteList(HttpServletRequest request, MemberVO memberVO) {
+	public ModelAndView memberNoteList() {
 		System.out.println("    MemberController/memberNoteList()/시작");
-		
-		return "board/note.tiles";
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ModelAndView mv = new ModelAndView();
+		List<NoteVO> list = memberService.memberNoteList(pvo.getId());
+		System.out.println("    MemberController/memberNoteList()/진행 list : "+list);
+		mv.setViewName("board/note.tiles");
+		mv.addObject("list", list);
+		System.out.println("    MemberController/memberNoteList()/종료");
+		return mv;
 	}
 	
 	

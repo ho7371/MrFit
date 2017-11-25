@@ -4,7 +4,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <h2>상품리뷰작성</h2>
-<form action="${pageContext.request.contextPath}/orderProductReview.do">
+<form action="${pageContext.request.contextPath}/registerProductReview.do">
 	<input type="hidden" name="pdno" value="${prvo.pdno}">
 상품 명 : ${prvo.name}<br>
 상품 색상 : ${prvo.color_name}<br>

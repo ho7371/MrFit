@@ -146,6 +146,35 @@ public class OrderDAOImpl implements OrderDAO {
 	public ProductReviewVO orderProductReviewForm(String pdno) {
 		return template.selectOne("order.orderProductReviewForm", pdno);
 	}
-	
+	//[석환][11.25]장바구니 수정시 총금액 변경
+			@Override
+		public void updateOrderCartTotalPrice(OrderVO ovo) {
+				template.update("order.updateOrderCartTotalPrice", ovo);
+			}
+		//[석환][11.25]주문결제시 결제 금액 - 포인트
+			@Override
+		public void updateOrderTotalpriceAndPoint(OrderVO ovo) {
+				template.update("order.updateOrderTotalpriceAndPoint",ovo);
+			}
+		//[석환][11.25][구매 확정시  토탈금액 수정]
+		@Override
+		public void updateMemberTotalSpent(MemberVO mvo) {
+				template.update("order.updateMemberTotalSpent",mvo);
+		}
+		//[석환][11.25]회원 등급 퍼센트 비율 검색
+		@Override
+		public int findMemberGradePointPercent(String grade) {
+			return template.selectOne("order.findMemberGradePointPercent", grade);
+		}
+		//[석환[11.25]구매 후 회원 포인트 업데이트
+		@Override
+		public void updateOrderMembetPoint(MemberVO mvo) {
+					template.update("order.updateOrderMembetPoint", mvo);
+		}
+		//[석환][11.25]구매 시 회원 등급 찾기
+		@Override
+		public String findMemberGardeById(String id) {
+			return template.selectOne("order.findMemberGardeById", id);
+		}
 	
 }

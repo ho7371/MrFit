@@ -173,7 +173,40 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
  	</select>
  	
-   
+ 	<!-- [영훈][11.25] 회원 상품 리뷰작성 후 리뷰작성 유무 체크  -->
+ 	<select id="reviewCheck" parameterType="productReviewVO" resultType="int">
+ 		select count(*)
+ 		from review
+ 		where id=#{id} and pdno=#{pdno}
+ 	</select> 	
+      <!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
+   <update id="updateOrderCartTotalPrice" parameterType="orderVO">
+   	update orders set totalprice=#{totalprice}
+	where ono=#{ono}
+   </update>
+   <!-- [석환][11.25]주문 결제시 총금액 -포인트-->
+   <update id="updateOrderTotalpriceAndPoint" parameterType="orderVO">
+   update orders set totalprice=totalprice-#{totalprice}
+   where ono=#{ono}
+   </update>
+   <!-- [석환][11.25]주문 결제시 멤버 총결제비용 업데이트 -->
+   <update id="updateMemberTotalSpent" parameterType="memberVO">
+   update member set totalSpent=totalSpent+#{totalSpent}
+   where id=#{id}
+   </update>
+   	<!-- [석환][11.25]회원 등급 포인트 비율 검색 -->
+	<select id="findMemberGradePointPercent" parameterType="string" resultType="int">
+		select percent from grade where grade=#{value}
+	</select>
+	<!-- [석환][11.25]구매 후 회원 포인트 업데이트 -->
+	<update id="updateOrderMembetPoint" parameterType="memberVO">
+		update member set point=point+#{point}
+   		where id=#{id}
+	</update>
+	<!-- [석환][11.25]구매 시 회원 등급 찾기 -->
+	<select id="findMemberGardeById" parameterType="string" resultType="string">
+		select grade from member where id=#{id}
+	</select>
 </mapper>
 
 

@@ -16,6 +16,7 @@ import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
@@ -119,7 +120,7 @@ public class AdminController {
 	}
 	
 	
-	/** [진호][상품등록]
+	/** [진호, 재현, 석환][상품등록]
 	 * 	nameList : view 화면에 업로드 된 파일 목록을 전달하기 위한 리스트 
 	 * 	thumbPath : 상품의 대표이미지가 저장될 위치
 	 * 	imagePath : 대표이미지를 제외한 이미지들이 저장될 위치
@@ -139,9 +140,9 @@ public class AdminController {
 	public ModelAndView registerProduct(UploadVO vo, ProductVO productVO, HttpServletRequest request) {
 		System.out.println("   	AdminController/registerProduct()/시작");
 			// 젤 처음 pno 등록 name, price, content, category
-			//productService.registerProduct(productVO);
-			System.out.println(productVO);
-		
+		System.out.println(productVO);
+			productService.registerProduct(productVO);
+		System.out.println(productVO);
 		
 			ArrayList<String> psnolist=new ArrayList<String>(); // 등록한 사이즈 psno들
 			String[] size_name=request.getParameterValues("size_name");
@@ -151,9 +152,7 @@ public class AdminController {
 			String[] size4=request.getParameterValues("size4");
 			String[] size5=request.getParameterValues("size5");
 			ProductSizeVO psvo=new ProductSizeVO();
-			System.out.println(size_name);
-			System.out.println(size1);
-			System.out.println(size2);
+
 			for (int i=0;i<size_name.length;i++) {		
 				psvo.setSize_name(size_name[i]);
 				psvo.setSize1(Integer.parseInt(size1[i]));
@@ -161,37 +160,53 @@ public class AdminController {
 				psvo.setSize3(Integer.parseInt(size3[i]));
 				psvo.setSize4(Integer.parseInt(size4[i]));
 				psvo.setSize5(Integer.parseInt(size5[i]));
-				//productService.registerProductSize(psvo);
+				productService.registerProductSize(psvo);
 				psnolist.add(psvo.getPsno());
 			}
 
 
 			
 			ArrayList<String> pcnolist=new ArrayList<String>(); // 등록한 색상 pcno들 
-			String[] colleng=request.getParameterValues("colleng");
-			String[] color=request.getParameterValues("colorS");
+		
+			String[] color=request.getParameterValues("color");
 			ProductDetailVO pdvo=new ProductDetailVO();
+
 			for (int i=0;i<color.length;i++) {
 				pdvo.setColor_name(color[i]);
-				//productService.registerColor(pdvo);
+				//중복확인 
+				String pcno=productService.findColorByName(pdvo);
+					if(pcno!=null) {
+						pdvo.setPcno(pcno);
+					}else {
+						productService.registerColor(pdvo);
+					}
 				pcnolist.add(pdvo.getPcno());
 			}
-			System.out.println(colleng);
-			System.out.println(color);
-			//if(size_name==size)
-				
+			
 			//inventory
 			String[] inventory=request.getParameterValues("inventory");
-			
-
-			System.out.println(inventory);
-			
+			String[] colleng=request.getParameterValues("colleng");
+			int sn=0;
+			int en=0;
+			int mn=0;
+			pdvo.setPno(productVO.getPno());
 			for (int i=0;i<psnolist.size();i++) {
-				
-				pdvo.setColor_name(inventory[i]);
-				//productService.registerProductDetail(pdvo);
-			}
-			
+				pdvo.setPsno(psnolist.get(i));
+				en=Integer.parseInt(colleng[i]);
+				//5,3,4
+				mn=sn+en;
+			for (int j=sn;j<(mn);j++) {
+					//1,2,3,4,5,6,7,8,9,10,11,12		
+					pdvo.setPcno(pcnolist.get(j));
+					pdvo.setInventory(Integer.parseInt(inventory[j]));
+					productService.registerProductDetail(pdvo);
+					}
+				sn=mn;
+				}
+
+			//워크스페이스 경로
+			//String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";
+			//서버 경로
 			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
 			if(uploadDir.exists()==false) {
@@ -199,32 +214,36 @@ public class AdminController {
 			}
 			
 			List<MultipartFile> list=vo.getFile();
-			ArrayList<String> nameList=new ArrayList<String>();		
+			//ArrayList<String> nameList=new ArrayList<String>();		
 			System.out.println("   	AdminController/registerProduct()/진행1");
 			
-			String thumbPath = uploadPath+"thumb/";
-			String imagePath = uploadPath+productVO.getCategory()+"/";
+			//String thumbPath = uploadPath+"thumb/";
+			//String imagePath = uploadPath+productVO.getCategory()+"/";
 			String fileName = productVO.getName();	
 			String realName=list.get(0).getOriginalFilename();
-			System.out.println(thumbPath);
-			System.out.println(imagePath);
+			//System.out.println(thumbPath);
+			System.out.println(uploadPath);
 			System.out.println(realName);
 			try {
-				if(!fileName.equals("")){
-					list.get(0).transferTo(new File(thumbPath+fileName+".jpg"));
+				if(!realName.equals("")){
+					list.get(0).transferTo(new File(uploadPath+"thumb/"+fileName+realName));
+					ImageVO ivo=new ImageVO(productVO.getPno(),"thumb/"+fileName+realName);
+					productService.registerImage(ivo);
 				}
 				
 				System.out.println("   	AdminController/registerProduct()/진행2 - 대표이미지 업로드");
 				
 				for(int i=1; i<list.size(); i++){
-					fileName =  productVO.getName()+i+".jpg";		
-					if(!fileName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
+					fileName =  productVO.getName()+i;		
+					realName=list.get(i).getOriginalFilename();
+					System.out.println(realName);
+					if(!realName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
 						try {
-							list.get(i).transferTo(new File(imagePath+fileName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
+							list.get(i).transferTo(new File(uploadPath+productVO.getCategory()+"/"+fileName+realName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
 							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
-							nameList.add(fileName);
-							ImageVO ivo=new ImageVO(vo.getPno(),fileName);
-							//productService.registerImage(ivo);
+							//nameList.add(fileName+realName);
+							ImageVO ivo=new ImageVO(productVO.getPno(),productVO.getCategory()+"/"+fileName+realName);
+							productService.registerImage(ivo);
 						} catch (Exception e) {
 							e.printStackTrace();
 						} 
@@ -236,7 +255,7 @@ public class AdminController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/registerProductResult.tiles");
-		mv.addObject("nameList", nameList);
+		//mv.addObject("nameList", nameList);
 		System.out.println("   	AdminController/registerProduct()/종료 - 업로드 완료");
 		return mv;
 	}
@@ -519,7 +538,6 @@ public class AdminController {
 	//[정현][11/25][ 공지사항 등록 후 공지사항 리스트로 ]
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
-	
 		public String registerNotice(HttpServletRequest  request){
 			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			BoardVO bvo=new BoardVO();
@@ -531,7 +549,52 @@ public class AdminController {
 			boardService.registerNotice(bvo);	
 			return "redirect:notice.do";
 		}
+	@RequestMapping(value="registerNoteForm.do", method=RequestMethod.GET)
+	public String registerNoteForm() {
+		System.out.println("   	AdminController/registerNoteForm()/시작");
+		return "admin/registerNoteForm.tiles";
+	}
 	
+
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
+	public ModelAndView adminNoteList() {
+		System.out.println("   	AdminController/adminNoteList()/시작");
+		ModelAndView mv = new ModelAndView();
+		List<NoteVO> list = adminService.getNoteList();
+		System.out.println("   	AdminController/adminNoteList()/진행 list : "+ list);
+		mv.setViewName("board/note.tiles");
+		mv.addObject("list", list);
+		System.out.println("   	AdminController/adminNoteList()/종료");
+		return mv;
+	}
+
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
+	public String adminNoticeList() {
+		System.out.println("   	AdminController/adminNoticeList()/시작");
+		return "board/notice.tiles";
+	}
+
+	/**[현민][11/24][쪽지 보내기]
+	 * 회원 관리 페이지에서 각각의 회원에게 쪽지를 보낼수 있다.
+	 * @param message
+	 * @param id
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("sendMessage.do")
+	public ModelAndView sendMessage(String message,String id) {
+		System.out.println("   	AdminController/message()/시작 ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", message);
+		map.put("id", id);
+		System.out.println("   	AdminController/message()/진행 message : "+message+" id : "+id);
+		adminService.sendMessage(map);
+		System.out.println("   	AdminController/message()/종료 ");
+		return new ModelAndView("admin/message_ok.tiles","id",id);
+	}
+
 }
 
 

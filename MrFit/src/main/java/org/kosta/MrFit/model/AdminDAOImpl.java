@@ -103,6 +103,20 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		return template.selectOne("admin.adminfindOrderByOno",ono);
 	}
+
+	@Override
+	public void sendMessage(Map<String, Object> map) {
+		System.out.println("                  AdminDAOImpl/sendMessage()/시작 ");
+		System.out.println("                  AdminDAOImpl/sendMessage()/종료 ");
+		template.insert("admin.sendMessage", map);
+	}
+
+	@Override
+	public List<NoteVO> getNoteList() {
+		System.out.println("                  AdminDAOImpl/getNoteList()/시작 ");
+		System.out.println("                  AdminDAOImpl/getNoteList()/종료 ");
+		return template.selectList("admin.getNoteList");
+	}
 	
 	
 	

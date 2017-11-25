@@ -36,4 +36,17 @@ public interface ProductService {
 
 	void registerImage(ImageVO ivo);
 
+	void registerProduct(ProductVO productVO);
+
+	void registerProductSize(ProductSizeVO psvo);
+
+	void registerColor(ProductDetailVO pdvo);
+
+	void registerProductDetail(ProductDetailVO pdvo);
+
+	String findColorByName(ProductDetailVO pdvo);
+	
+	int reviewCheck(ProductReviewVO prvo);
+
+
 }

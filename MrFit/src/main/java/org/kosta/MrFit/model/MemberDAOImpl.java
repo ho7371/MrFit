@@ -123,6 +123,13 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("      		      MemberDAOImpl/updateMember()/종료");
 		template.update("member.updateMember",vo);			
 	}
+
+	@Override
+	public List<NoteVO> memberNoteList(String id) {
+		System.out.println("                  MemberDAOImpl/memberNoteList()/시작");
+		System.out.println("      		      MemberDAOImpl/memberNoteList()/종료");
+		return template.selectList("member.memberNoteList", id);
+	}
 	
 }
 
