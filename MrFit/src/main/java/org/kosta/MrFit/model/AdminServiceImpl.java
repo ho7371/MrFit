@@ -71,6 +71,11 @@ public class AdminServiceImpl implements AdminService {
 	public OrderVO adminfindOrderByOno(String ono) {
 		return adminDAO.adminfindOrderByOno(ono);
 	}
+
+	@Override
+	public void sendMessage(Map<String, Object> map) {
+		adminDAO.sendMessage(map);
+	}
 	
 	
 	

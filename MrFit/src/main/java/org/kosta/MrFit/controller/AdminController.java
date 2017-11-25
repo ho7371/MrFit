@@ -479,6 +479,19 @@ public class AdminController {
 		System.out.println("   	AdminController/adminNoticeList()/시작");
 		return "board/notice.tiles";
 	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("sendMessage.do")
+	public ModelAndView sendMessage(String message,String id) {
+		System.out.println("   	AdminController/message()/시작 ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("message", message);
+		map.put("id", id);
+		System.out.println("   	AdminController/message()/진행 message : "+message+" id : "+id);
+		adminService.sendMessage(map);
+		System.out.println("   	AdminController/message()/종료 ");
+		return new ModelAndView("admin/message_ok.tiles","id",id);
+	}
 }
 
 

@@ -30,4 +30,6 @@ public interface AdminService {
 
 	OrderVO adminfindOrderByOno(String ono);
 
+	void sendMessage(Map<String, Object> map);
+
 }

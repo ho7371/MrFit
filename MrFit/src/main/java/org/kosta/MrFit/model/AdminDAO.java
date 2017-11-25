@@ -28,4 +28,6 @@ public interface AdminDAO {
 	void updateOrderStatus(Map<String, String> map);
 
 	OrderVO adminfindOrderByOno(String ono);
+
+	void sendMessage(Map<String, Object> map);
 }
