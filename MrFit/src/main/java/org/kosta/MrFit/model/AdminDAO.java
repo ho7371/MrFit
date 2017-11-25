@@ -28,4 +28,9 @@ public interface AdminDAO {
 	void updateOrderStatus(Map<String, String> map);
 
 	OrderVO adminfindOrderByOno(String ono);
+
+	int adminSearchOrderCountByOrderNumber(int parseInt);
+
+	OrderVO adminSearchOrderByOno(int ono);
+
 }

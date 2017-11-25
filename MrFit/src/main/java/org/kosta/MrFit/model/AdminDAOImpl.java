@@ -14,7 +14,6 @@ public class AdminDAOImpl implements AdminDAO {
 	private SqlSessionTemplate template;
 	
 	
-	
 	@Override
 	public void adminUpdateMemberStatus(String id) {
 		template.update("admin.adminUpdateMemberStatus", id);
@@ -103,22 +102,21 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		return template.selectOne("admin.adminfindOrderByOno",ono);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public int adminSearchOrderCountByOrderNumber(int ono) {
+		return template.selectOne("admin.adminSearchOrderCountByOrderNumber",ono);
+	}
+
+	@Override
+	public OrderVO adminSearchOrderByOno(int ono) {
+		OrderVO orderVO = template.selectOne("admin.adminfindOrderByOno",ono);
+		List<OrderProductVO> list = template.selectList("admin.findOrderProductInfoByPdnoAndOno",ono);
+		orderVO.setOrderProductList(list);
+		return orderVO;
+	}
 
 	
-
 }
 
 

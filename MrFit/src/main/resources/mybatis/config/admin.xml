@@ -103,9 +103,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from 
 		( select ROW_NUMBER() OVER(ORDER BY ono DESC) AS rnum,
 		  ono, id, totalprice, ordertime, status, destination
-		  from orders where status <![CDATA[ <> ]]> '장바구니' and upper (id) = #{memberId}
+		  from orders where status <![CDATA[ <> ]]> '장바구니' and id = #{memberId}
 		) o, member m 
 		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} and m.id = o.id 
+	</select>
+	
+	<!-- 주문번호로 주문 개수 찾기 : 진호 -->
+	<select id="adminSearchOrderCountByOrderNumber" parameterType="int" resultType="int">
+		select count(*) from orders where ono=#{value}
+	</select>
+	
+	<!-- 주문검색 (주문번호로) : 진호 -->
+	<select id="adminSearchOrderByOno" parameterType="int" resultType="orderVO" resultMap="MemberRM">
+		select * from orders where ono=#{value}
 	</select>
 	
 	<!-- 주문 상태 변경 -->
@@ -117,6 +127,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="adminfindOrderByOno" parameterType="string" resultType="orderVO">
 		select * from orders where ono = #{ono}
 	</select>
+	
+	
+		
 </mapper>
 
 

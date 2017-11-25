@@ -13,10 +13,15 @@
 <h3>주문 관리</h3>
 <%-- 주문 검색 --%>
 <div align="right">
-<form action="${pageContext.request.contextPath}/adminSearchOrder.do">
-	<input type="text" name="memberId">
-	<input type="submit" value="검색">
-</form>
+	<a href="${pageContext.request.contextPath}/adminAllOrderList.do">전체 주문 보기</a> &nbsp;
+	<form action="${pageContext.request.contextPath}/adminSearchOrder.do">
+		<select name="searchType">
+			<option value="memberId">회원아이디</option>
+			<option value="orderNo">주문번호</option>
+		</select>
+		<input type="text" name="searchKeyword">
+		<input type="submit" value="검색">
+	</form>
 </div>
 <br><hr><br>
 

@@ -71,8 +71,18 @@ public class AdminServiceImpl implements AdminService {
 	public OrderVO adminfindOrderByOno(String ono) {
 		return adminDAO.adminfindOrderByOno(ono);
 	}
+
 	
-	
+	@Override
+	public int adminSearchOrderCountByOrderNumber(int parseInt) {
+		return adminDAO.adminSearchOrderCountByOrderNumber(parseInt);
+	}
+
+	@Override
+	public OrderVO adminSearchOrderByOno(int ono) {
+		return adminDAO.adminSearchOrderByOno(ono);
+	}
+
 	
 }
 

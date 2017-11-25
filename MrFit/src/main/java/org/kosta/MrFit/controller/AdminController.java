@@ -385,13 +385,14 @@ public class AdminController {
 	 * @param memberId
 	 * @return
 	 */
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchOrder.do")
 	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
 		System.out.println("   	AdminController/adminSearchOrder()/시작");
 		ModelAndView mv = new ModelAndView();
 		
-		/* 페이징 처리 공통 영역*/ 
+		 페이징 처리 공통 영역 
 		int totalOrderCount = adminService.adminSearchMemberOrderCount(memberId);
 		int postCountPerPage = 3;
 		int postCountPerPageGroup = 2;
@@ -406,18 +407,76 @@ public class AdminController {
 		map.put("memberId", memberId);
 		map.put("pagingBean", pb);
 		
-		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문 개수 : "+totalOrderCount);
 		List<OrderVO> list = adminService.adminSearchOrder(map);
+		System.out.println("	AdminController/adminSearchOrder()/진행1 - 주문 개수 : "+totalOrderCount+", 주문 목록 : "+list);
 		if(!list.isEmpty()) {
-			
 			ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-			System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
-			mv.setViewName("admin/adminSearchMemberOrder.tiles");
+			// System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
+			mv.setViewName("admin/adminAllOrderList.tiles");
 			mv.addObject("lvo", lvo);
 		}else {
 			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
 		}
 		System.out.println("   	AdminController/adminSearchOrder()/종료");
+		return mv;
+	}
+	*/
+	
+	/** [진호][키워드별 주문 검색]
+	 * 
+	 * @param request
+	 * @param memberId
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchOrder.do")
+	public ModelAndView adminSearchOrderByKeyword(HttpServletRequest request, String searchType, String searchKeyword) {
+		System.out.println("   	AdminController/adminSearchOrderByKeyword()/시작");
+		
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		/* 페이징 처리 공통 영역*/ 
+		int totalOrderCount = 0;
+		int postCountPerPage = 10;
+		int postCountPerPageGroup = 5;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+			
+		if(searchType.equals("memberId")) {
+			totalOrderCount = adminService.adminSearchMemberOrderCount(searchKeyword);
+			pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			map.put("memberId", searchKeyword);
+			map.put("pagingBean", pb);
+			List<OrderVO> list = adminService.adminSearchOrder(map);
+			
+			if(!list.isEmpty()) {
+				ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+				mv.addObject("lvo", lvo);
+				mv.addObject("searchType","memberId");
+				mv.setViewName("admin/adminAllOrderList.tiles");
+			}else {
+				mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
+			}
+			
+		}else {
+			int ono = Integer.parseInt(searchKeyword);
+			totalOrderCount = adminService.adminSearchOrderCountByOrderNumber(Integer.parseInt(searchKeyword));
+			if(totalOrderCount != 0) {
+				pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+				OrderVO ovo = adminService.adminSearchOrderByOno(ono);
+				mv.addObject("orderVO", ovo);
+				mv.addObject("searchType","orderNo");
+				mv.setViewName("admin/adminSearchOrderList.tiles");
+			}else {
+				mv.setViewName("admin/adminsearchOrder_fail.tiles");
+			}
+		}
+		
 		return mv;
 	}
 	
