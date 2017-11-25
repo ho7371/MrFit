@@ -257,6 +257,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void registerImage(ImageVO ivo) {
 		productDAO.registerImage(ivo);
-		
 	}
+
+	//[영훈][11/25][리뷰작성 체크]
+	@Override
+	public int reviewCheck(ProductReviewVO prvo) {
+		return productDAO.reviewCheck(prvo);
+	}
+		
 }

@@ -172,5 +172,12 @@ public class ProductDAOImpl implements ProductDAO {
 		template.insert("product.registerImage", ivo);
 		
 	}
+	
+	//[영훈][11/25][리뷰작성 체크]
+	@Override
+	public int reviewCheck(ProductReviewVO prvo) {
+		return template.selectOne("order.reviewCheck", prvo);
+	}
+	
 }
 

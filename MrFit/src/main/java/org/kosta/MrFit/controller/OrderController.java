@@ -240,20 +240,21 @@ public class OrderController {
 	 * 
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderStatusChange.do")
 	public String myOrderStatusChange(String ono,String id) {
 		orderService.myOrderStatusChange(ono);
 		return "redirect:myOrderList.do?id="+id;
-	}
+	}*/
 	
-	/**
+	/*
+	*//**
 	 * [영훈][11/24][회원 상품 리뷰작성 페이지로]
 	 * 
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("orderProductReviewForm.do")
 	public ModelAndView orderProductReviewForm(String pdno) {
@@ -265,7 +266,7 @@ public class OrderController {
 		mv.setViewName("product/orderProductReview.tiles");
 		return mv;
 	}
-	
+	*/
 	
 	
 }

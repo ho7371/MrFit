@@ -35,5 +35,8 @@ public interface ProductDAO {
 
 	void registerImage(ImageVO ivo);
 
+	int reviewCheck(ProductReviewVO prvo);
+
+
 
 }

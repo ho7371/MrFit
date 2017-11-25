@@ -20,9 +20,7 @@
 						<li><span>상품사이즈</span></li>
 						<li><span>수량</span></li>
 						<li><span>이미지</span></li>
-						<c:if test="${status=='구매확정'}">
-							<li><span>상품리뷰 작성</span></li>
-						</c:if>
+						<li><span>상품리뷰 작성</span></li>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${list}" var="orderProduct">
@@ -35,12 +33,16 @@
 						<li><span>${orderProduct.size_name}</span></li>
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
-						<c:if test="${status=='구매확정'}">
-						 <form action="${pageContext.request.contextPath}/orderProductReviewForm.do">
-							<input type="hidden" name="pdno" value="${orderProduct.ono}">
-							<input type="submit" value="리뷰작성 페이지로">
+						 <form action="${pageContext.request.contextPath}/registerProductReview.do">
+						 	<input type="hidden" name="ono" value="${orderProduct.ono}">
+							<input type="hidden" name="pdno" value="${orderProduct.pdno}">
+							<input type="hidden" name="name" value="${orderProduct.name}">
+							<input type="hidden" name="color_name" value="${orderProduct.color_name}">
+							<input type="hidden" name="size_name" value="${orderProduct.size_name}">
+							<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
+							<input type="text" name="content" required="required">
+							<input type="submit" value="리뷰작성">
 						 </form>
-						</c:if>
 						<div class="clearfix"></div>
 					</ul>
 					</c:forEach>

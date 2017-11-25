@@ -173,6 +173,12 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
  	</select>
  	
+ 	<!-- [영훈][11.25] 회원 상품 리뷰작성 후 리뷰작성 유무 체크  -->
+ 	<select id="reviewCheck" parameterType="productReviewVO" resultType="int">
+ 		select count(*)
+ 		from review
+ 		where id=#{id} and pdno=#{pdno}
+ 	</select> 	
    
 </mapper>
 
