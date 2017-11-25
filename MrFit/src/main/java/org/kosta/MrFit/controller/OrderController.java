@@ -217,6 +217,13 @@ public class OrderController {
 	 */
 	@RequestMapping("updateOrderQuantity.do")
 	public String updateOrderQuantity(OrderProductVO opvo) {
+		System.out.println("주문번호 : "+opvo.getOno()+"가격 : "+opvo.getPrice()+"수량 : "+opvo.getQuantity());
+		System.out.println("총 가격 :"+(opvo.getPrice()*opvo.getQuantity()) );
+		int totalprice=opvo.getPrice()*opvo.getQuantity();
+		OrderVO ovo=new OrderVO();
+		ovo.setOno(opvo.getOno());
+		ovo.setTotalprice(totalprice);
+		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
 		return "redirect:cartForm.do";
 	}
