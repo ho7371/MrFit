@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function(c) {
 		$('.close1').on('click', function(c) {
@@ -34,15 +35,53 @@
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
+			<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+			<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+						  
 				<h3>쪽지함</h3>
+				<c:if test="${isAdmin}">
+					<a href="${pageContext.request.contextPath}/registerNoteForm.do">쪽지보내기</a>
+				</c:if>
 				<div class="in-check">
 					<ul class="unit">
-						<li><span>번호</span></li>
-						<li><span>제목</span></li>
-						<li><span>내용</span></li>
-						<li><span>날짜</span></li>
+					<%-- 쪽지함 돌릴 때 사용할 코드
+						<c:choose>
+							<c:when test="${isMember}">
+								<li><span>쪽지번호</span></li>
+								<li><span>보낸사람</span></li>
+								<li><span>받은내용</span></li>
+								<li><span>받은날짜</span></li>
+							</c:when>
+							<c:otherwise>
+								<li><span>쪽지번호</span></li>
+								<li><span>받는사람</span></li>
+								<li><span>보낸내용</span></li>
+								<li><span>보낸날짜</span></li>
+							</c:otherwise>
+						</c:choose>
+						--%>
 						<div class="clearfix"></div>
 					</ul>
+						<%-- 쪽지함 돌릴 때 사용할 코드
+						<c:choose>
+							<c:when test="${isMember}"> <!-- 회원이 보는 쪽지 리스트 -->
+								<c:forEach items="" var="">
+									<li><span>1</span></li>
+									<li><span>관리자</span></li>
+									<li><span>포인트가 지급되었습니다!</span></li>
+									<li><span>2017/11/19</span></li>
+								</c:forEach>
+							</c:when>
+							<c:otherwise><!-- 관리자가 보는 쪽지 리스트 -->
+								<c:forEach items="" var="">
+									<li><span>1</span></li>
+									<li><span>회원 아이디</span></li>
+									<li><span>포인트가 지급되었습니다!</span></li>
+									<li><span>2017/11/19</span></li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose> --%>
+					
 					<ul class="cart-header">
 						<li><span>1</span></li>
 						<li><span>1번 쪽지 제목</span></li>

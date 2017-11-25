@@ -167,6 +167,11 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
  		where ono=#{value}
  	</select>
  	
+ 	<select id="orderProductReviewForm" parameterType="string" resultType="productReviewVO">
+ 		select pd.pdno, p.name, pc.color_name, ps.size_name 
+		from product_detail pd, product p, PRODUCT_COLOR pc, PRODUCT_SIZE ps
+		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
+ 	</select>
  	
    
 </mapper>
