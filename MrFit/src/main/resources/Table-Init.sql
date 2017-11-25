@@ -17,7 +17,7 @@ delete * from table member_size;
 delete * from table member;
 delete * from table question;
 delete * from table grade;
-
+delete * from table board;
 ------------------------------ 테이블 만든 순서대로 select 종료
 
 select * from grade;
@@ -37,6 +37,7 @@ select * from product_qna;
 select * from image;
 select * from orders;
 select * from order_product;
+select * from board;
 
 ------------------------------ 샘플데이터 insert
 
@@ -268,6 +269,20 @@ insert into order_product(ono,pdno,quantity) values(3,1,2);
 insert into order_product(ono,pdno,quantity) values(3,2,6);
 insert into order_product(ono,pdno,quantity) values(3,7,2);
 	
+
+--------------- 게시판
+
+insert into board(bno,id,title,content,regdate,security,category) 
+values(bno_seq.nextval,'java1','글작성 테스트1','테스트중 1',sysdate,'on','공지');	
+
+insert into board(bno,id,title,content,regdate,security,category) 
+values(bno_seq.nextval,'java1','글작성 테스트2','테스트중 2',sysdate,'on','공지');	
+insert into board(bno,id,title,content,regdate,security,category) 
+values(bno_seq.nextval,'java1','글작성 테스트3','테스트중 3',sysdate,'off','공지');	
+insert into board(bno,id,title,content,regdate,security,category) 
+values(bno_seq.nextval,'java1','글작성 테스트4','테스트중 4',sysdate,'on','공지');	
+select * from BOARD
+
 --------------- 테이블 select
 
 select * from GRADE;
@@ -286,5 +301,6 @@ select * from ORDERS;
 select * from PRODUCT_DETAIL;
 select * from ORDER_PRODUCT;
 select * from PRODUCT_SIZE;
+select * from BOARD;
 
 ------------------------------ 테이블 만든 순서대로 select 종료

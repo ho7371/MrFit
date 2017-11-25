@@ -13,7 +13,8 @@ drop sequence iqrno_seq;
 drop sequence rno_seq;
 drop sequence pqno_seq;
 drop sequence ino_seq;
-drop sequence ono_seq;
+drop sequence ono_seq;			
+drop sequence bno_seq;
 
 drop table order_product;
 drop table orders;
@@ -32,6 +33,7 @@ drop table member_size;
 drop table member;
 drop table question;
 drop table grade;
+drop table board
 	
 ----------------------------------------------------- 삭제 SQL 종료
 
@@ -54,7 +56,7 @@ create sequence rno_seq;
 create sequence pqno_seq;
 create sequence ino_seq;
 create sequence ono_seq;
-
+create sequence bno_seq;
 
 /* 회원 등급 */
 CREATE TABLE grade (
@@ -234,7 +236,18 @@ CREATE TABLE order_product (
 	constraint fk_pdno_in_product_detail foreign key(pdno) references product_detail(pdno),
 	constraint pk_order_product primary key(ono, pdno)
 );
-			
+
+/* 게시판 */		
+CREATE TABLE board (
+	bno NUMBER PRIMARY KEY, 
+	title VARCHAR2(100) NOT NULL, 
+	id VARCHAR2(100) NOT NULL,
+	content CLOB NOT NULL,
+	regdate DATE NOT NULL,
+	security VARCHAR2(100) NOT NULL,
+	category VARCHAR2(100) NOT NULL,
+	constraint fk_id_in_board foreign key(id) references member(id)
+);
 
 
 				
@@ -259,3 +272,4 @@ select * from ORDER_PRODUCT;
 select * from PRODUCT_SIZE;
 select * from REVIEW;
 select * from PRODUCT_QNA;
+select * from BOARD;

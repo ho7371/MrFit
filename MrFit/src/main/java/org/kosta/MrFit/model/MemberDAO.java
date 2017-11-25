@@ -34,4 +34,6 @@ public interface MemberDAO {
 	void updateMember(MemberVO vo);
 
 	
+
+	
 }
