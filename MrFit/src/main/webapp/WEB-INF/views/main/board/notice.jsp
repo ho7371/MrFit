@@ -45,55 +45,61 @@
 					<ul class="unit">
 						<li><span>No</span></li>
 						<li><span>Title</span></li>
-						<li><span>Writer</span></li>
-						<li><span>hit</span></li>
+						<li><span>Writer</span></li>					
 						<li><span>작성일</span></li>
 						<div class="clearfix"></div>
 					</ul>
 					
-					<%--공지사항 읽어오기 백단 완료되면 이것 사용함
-						<c:forEach items="" var="">
+					<%--공지사항 읽어오기 백단 완료되면 이것 사용함--%>
+						<c:forEach items="${lvo.list}" var="nlist">
+						<a href="${pageContext.request.contextPath}/noticeDetail.do?bno=${nlist.bno}">
 							<ul class="cart-header">
-								<li><span>1</span></li>
-								<li><span>공지사항 1번</span></li>
-								<li><span>관리자</span></li>
-								<li><span>조회수</span></li>
-								<li><span>2017/11/19</span></li>
-								<c:if test="${isAdmin}">
-									<a href="${pageContext.request.contextPath}/deleteNotice.do?글번호=${글번호}">${글번호} 공지 삭제</a>
+								<li><span>${nlist.bno }</span></li>
+								<li><span>${nlist.title}</span></li>
+								<li><span>${nlist.id}</span></li>
+								<li><span>${nlist.regdate}</span></li>
+								 <c:if test="${isAdmin}">
+									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${nlist.bno}">${nlist.bno}번 공지 삭제</a>
 								</c:if>
 								<div class="clearfix"></div>
 							</ul>
+							</a>
 						</c:forEach> 
-					--%>
 					
-					<ul class="cart-header">
-						<li><span>1</span></li>
-						<li><span>공지사항 1번</span></li>
-						<li><span>관리자</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>2</span></li>
-						<li><span>공지사항 2번</span></li>
-						<li><span>관리자</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>3</span></li>
-						<li><span>공지사항 3번</span></li>
-						<li><span>관리자</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
+					
+		
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!--end-ckeckout-->
+<c:set value="${lvo.pagingBean}" var="pb" />
+<div class="pagingInfo" align="center">
+	<ul class="pagination">
+		<c:if test="${pb.previousPageGroup==true}">
+   			<li>
+   				<a href="notice.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
+   			</li>
+   			</c:if>
+   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+	   				<c:choose>
+	   					<c:when test="${pageNum==pb.nowPage}">
+							<li>${pageNum}&nbsp;&nbsp;</li>
+						</c:when>
+					<c:otherwise>
+						<li>
+							<a href="notice.do?pageNo=${pageNum}">${pageNum}</a>
+							&nbsp;&nbsp;
+						</li>
+					</c:otherwise>
+   				</c:choose>
+   			</c:forEach>
+   			<c:if test="${pb.nextPageGroup==true}">
+    			<li>
+    				<a href="notice.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    			</li>
+    		</c:if>
+	</ul>	 		
+</div> 	
+

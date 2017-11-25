@@ -33,17 +33,34 @@
 						<li><span>${orderProduct.size_name}</span></li>
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
+						
+						<!-- <script type="text/javascript">
+							var id = $("#reviewId").val();
+						 	$.ajax({
+					          	type:"get",
+					         	url:"${pageContext.request.contextPath}/reviewFormView.do",
+					         	data:"id="+id+"&pdno=${orderProduct.pdno}",
+					         	dataType:"json",
+					         	success:function(data){
+					         		
+					        	}
+					     	}); //ajax
+						</script> -->
+						
+						<%-- <c:if test=""> --%>
 						 <form action="${pageContext.request.contextPath}/registerProductReview.do">
 						 	<input type="hidden" name="ono" value="${orderProduct.ono}">
 							<input type="hidden" name="pdno" value="${orderProduct.pdno}">
 							<input type="hidden" name="name" value="${orderProduct.name}">
 							<input type="hidden" name="color_name" value="${orderProduct.color_name}">
 							<input type="hidden" name="size_name" value="${orderProduct.size_name}">
-							<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
+							<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>" 
+								id="reviewId">
 							<input type="text" name="content" required="required">
 							<input type="submit" value="리뷰작성">
 						 </form>
-						<div class="clearfix"></div>
+						 <div class="clearfix"></div>
+						<%-- </c:if> --%>
 					</ul>
 					</c:forEach>
 				</div>

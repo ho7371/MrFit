@@ -131,6 +131,9 @@
 	                  <c:forEach items="${i.orderProductList}" var="j">
 							<li><span>${j.name}</span></li>
 							<li><span>${j.size_name} / ${j.color_name} / ${j.quantity}</span></li>
+							<input type="hidden" name="pdno" value="${j.pdno}" style="display:none">
+							<!-- 주문수량과 총수량을 줄여주기 위해서 -->
+							<input type="hidden" name="quantity" value="${j.quantity}" style="display:none">
 					  </c:forEach>
 							<li><span>${i.totalprice}</span></li>
 	               <div class="clearfix"> </div>

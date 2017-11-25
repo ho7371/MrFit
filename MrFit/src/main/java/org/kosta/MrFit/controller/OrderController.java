@@ -6,12 +6,12 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.GradeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
-import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -204,8 +204,6 @@ public class OrderController {
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
 		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
 		mv.addObject("list", list);
-		String status = orderService.checkOrderProductStatus(ono);
-		mv.addObject("status", status);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}
@@ -230,50 +228,56 @@ public class OrderController {
 	/* [석환][11.23][주문결제]
 	 * 
 	 */
+	@Transactional
 	@RequestMapping("order.do")
-	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
+	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo,HttpServletRequest request) {
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String[] pdno=request.getParameterValues("pdno");
+		String[] quantity=request.getParameterValues("quantity");
 		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
 		System.out.println("totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
 		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
 		System.out.println("상품주문 변경 :  "+ovo);
 		System.out.println(depositMethod);
+		for(int i=0;i<pdno.length;i++) {
+			ProductDetailVO pdvo=new ProductDetailVO();
+			System.out.println(pdno[i]);
+			System.out.println(Integer.parseInt(quantity[i]));
+			pdvo.setPdno(pdno[i]);
+			pdvo.setInventory(Integer.parseInt(quantity[i]));
+			orderService.updateProductDetailInventory(pdvo);
+			
+		}
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
 	
 	/**
 	 * [영훈][11/24][회원 주문내역 상태변경]
-	 * 
+	 * [석환][11/25][구매 확정시 포인트 및 멤버 총 토탈금액 수정]
 	 * @param request
 	 * @return
-	 *//*
+	 */
 	@Secured("ROLE_MEMBER")
+	@Transactional
 	@RequestMapping("myOrderStatusChange.do")
-	public String myOrderStatusChange(String ono,String id) {
+	public String myOrderStatusChange(String ono,String id,int totalprice) {
 		orderService.myOrderStatusChange(ono);
+		MemberVO mvo = new MemberVO();
+		GradeVO gvo=new GradeVO();
+		mvo.setId(id);
+		mvo.setTotalSpent(totalprice);
+		orderService.updateMemberTotalSpent(mvo);
+		//회원 등급 찾기		
+		String grade=orderService.findMemberGardeById(id);
+		gvo.setGrade(grade);
+		//포인트 적립 비율 
+		int percent=orderService.findMemberGradePointPercent(gvo.getGrade());		
+		mvo.setPoint(totalprice*percent/100);
+		orderService.updateOrderMembetPoint(mvo);
 		return "redirect:myOrderList.do?id="+id;
-	}*/
-	
-	/*
-	*//**
-	 * [영훈][11/24][회원 상품 리뷰작성 페이지로]
-	 * 
-	 * @param request
-	 * @return
-	 *//*
-	@Secured("ROLE_MEMBER")
-	@RequestMapping("orderProductReviewForm.do")
-	public ModelAndView orderProductReviewForm(String pdno) {
-		System.out.println("      OrderController/orderProductReviewForm()/시작"+pdno);
-		ModelAndView mv = new ModelAndView();
-		ProductReviewVO prvo = orderService.orderProductReviewForm(pdno);
-		System.out.println("      OrderController/orderProductReviewForm()/시작"+prvo);
-		mv.addObject("prvo", prvo);
-		mv.setViewName("product/orderProductReview.tiles");
-		return mv;
 	}
-	*/
+	
 	
 	
 }

@@ -176,5 +176,10 @@ public class OrderDAOImpl implements OrderDAO {
 		public String findMemberGardeById(String id) {
 			return template.selectOne("order.findMemberGardeById", id);
 		}
+		//[석환][11.25]구매 시 상품재고 업데이트
+		@Override
+		public void updateProductDetailInventory(ProductDetailVO pdvo) {
+			template.update("order.updateProductDetailInventory", pdvo);		
+		}
 	
 }

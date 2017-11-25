@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -254,6 +255,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		
 	}
+	@Transactional
 	@Override
 	public void registerImage(ImageVO ivo) {
 		productDAO.registerImage(ivo);
@@ -264,5 +266,36 @@ public class ProductServiceImpl implements ProductService {
 	public int reviewCheck(ProductReviewVO prvo) {
 		return productDAO.reviewCheck(prvo);
 	}
+		
+	@Transactional
+	@Override
+	public void registerProduct(ProductVO productVO) {
+		productDAO.registerProduct(productVO);
+		
+	}
+	@Transactional
+	@Override
+	public void registerProductSize(ProductSizeVO psvo) {
+		productDAO.registerProductSize(psvo);
+		
+	}
+	@Transactional
+	@Override
+	public void registerColor(ProductDetailVO pdvo) {
+		productDAO.registerColor(pdvo);
+		
+	}
+	@Transactional
+	@Override
+	public void registerProductDetail(ProductDetailVO pdvo) {
+		productDAO.registerProductDetail(pdvo);
+		
+	}
+	@Override
+	public String findColorByName(ProductDetailVO pdvo) {
+		// TODO Auto-generated method stub
+		return productDAO.findColorByName(pdvo);
+	}
+
 		
 }
