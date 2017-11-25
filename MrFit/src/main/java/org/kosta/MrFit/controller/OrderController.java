@@ -11,6 +11,7 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -216,6 +217,13 @@ public class OrderController {
 	 */
 	@RequestMapping("updateOrderQuantity.do")
 	public String updateOrderQuantity(OrderProductVO opvo) {
+		System.out.println("주문번호 : "+opvo.getOno()+"가격 : "+opvo.getPrice()+"수량 : "+opvo.getQuantity());
+		System.out.println("총 가격 :"+(opvo.getPrice()*opvo.getQuantity()) );
+		int totalprice=opvo.getPrice()*opvo.getQuantity();
+		OrderVO ovo=new OrderVO();
+		ovo.setOno(opvo.getOno());
+		ovo.setTotalprice(totalprice);
+		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
 		return "redirect:cartForm.do";
 	}
@@ -226,10 +234,10 @@ public class OrderController {
 	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo) {
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		System.out.println("totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		OrderVO uovo=orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
 		System.out.println("상품주문 변경 :  "+ovo);
-		System.out.println("ono: "+uovo);	
 		System.out.println(depositMethod);
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
@@ -239,12 +247,33 @@ public class OrderController {
 	 * 
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderStatusChange.do")
 	public String myOrderStatusChange(String ono,String id) {
 		orderService.myOrderStatusChange(ono);
 		return "redirect:myOrderList.do?id="+id;
+	}*/
+	
+	/*
+	*//**
+	 * [영훈][11/24][회원 상품 리뷰작성 페이지로]
+	 * 
+	 * @param request
+	 * @return
+	 *//*
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("orderProductReviewForm.do")
+	public ModelAndView orderProductReviewForm(String pdno) {
+		System.out.println("      OrderController/orderProductReviewForm()/시작"+pdno);
+		ModelAndView mv = new ModelAndView();
+		ProductReviewVO prvo = orderService.orderProductReviewForm(pdno);
+		System.out.println("      OrderController/orderProductReviewForm()/시작"+prvo);
+		mv.addObject("prvo", prvo);
+		mv.setViewName("product/orderProductReview.tiles");
+		return mv;
 	}
+	*/
+	
 	
 }

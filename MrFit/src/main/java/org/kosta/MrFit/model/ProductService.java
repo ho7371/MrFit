@@ -36,4 +36,7 @@ public interface ProductService {
 
 	void registerImage(ImageVO ivo);
 
+	int reviewCheck(ProductReviewVO prvo);
+
+
 }

@@ -12,6 +12,11 @@
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
 			var pointCharge=$(this).val();
+			if(pointCharge%1000!=0){
+				alert("포인트는 1000단위로 사용가능 합니다");
+				$(this).val(0).focus();
+				return false;
+			}
 			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
 		});
 		$("#equalMemberInfo").click(function() {
@@ -146,12 +151,12 @@
 	            <table class="cart-header">
 	            	<tr>
 	            		<th>
-	            			<div id = "totalprice" align="center"></div>
+	            			<div id = "totalprice"></div>
 	            		</th>
 	            	</tr>
 	            	<tr>
 	            		<th>
-	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "text" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" /> )</div>
+	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" /> )</div>
 	            		</th>
 	            	</tr>
 	            </table>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.BoardService;
+import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 	@Resource
 	private ProductService productService;
+	@Resource
+	private BoardService boardService;
 	private PagingBean pb;
 	// 주석 샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -92,11 +96,33 @@ public class HomeController {
 	}
 
 	@RequestMapping("notice.do")
-	public String notice(){
-		System.out.println("      HomeController/notice()/시작");
-		// 공지사항 불러오는 빽단 작업 코드 필요
+	public ModelAndView notice(HttpServletRequest  request){
+		ModelAndView mv = new ModelAndView();
+		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
+		System.out.println("      HomeController/notice()/시작");		
+		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = boardService.getTotalNoticeCount();
+			int postCountPerPage = 9;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+			List<BoardVO> nlist= boardService.noticeList(pb);
+		System.out.println("      HomeController/home()/진행 - nlist :"+nlist);
+		if(nlist!=null&&!nlist.isEmpty()) {
+			lvo.setList(nlist);
+			lvo.setPagingBean(pb);
+		}
+			
+		mv.addObject("lvo", lvo);		
+		mv.setViewName("board/notice.tiles");		
 		System.out.println("      HomeController/notice()/종료");
-		return "board/notice.tiles";
+		return mv;
 	}
 	
 	@RequestMapping("inquiry.do")
