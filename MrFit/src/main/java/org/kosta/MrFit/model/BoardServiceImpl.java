@@ -54,5 +54,13 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/registerNotice()/종료");
 		
 	}
+	@Override
+	public void updateNotice(BoardVO bvo) {
+		System.out.println("            BoardServiceImpl/updateNotice()/시작 bvo : "+bvo);
+		boardDAO.updateNotice(bvo);
+		System.out.println("            BoardServiceImpl/updateNotice()/진행 ");		
+		System.out.println("            BoardServiceImpl/updateNotice()/종료");
+		
+	}
 
 }
