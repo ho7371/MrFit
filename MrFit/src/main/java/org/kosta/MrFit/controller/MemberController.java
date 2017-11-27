@@ -276,8 +276,9 @@ public class MemberController {
 	@RequestMapping("myPageInfo.do")
 	public ModelAndView myPageInfo() {
 		System.out.println("   	MemberController/myPageInfo()/시작");
+		List<QuestionVO> list = memberService.findQuestionList(); 
 		System.out.println("    MemberController/myPageInfo()/종료");
-		return new ModelAndView("member/myPage_info.tiles");
+		return new ModelAndView("member/myPage_info.tiles","list",list);
 	}
 	
 	/**[영훈][회원정보 수정 폼]
@@ -298,7 +299,8 @@ public class MemberController {
 	 * @param memberVO
 	 * @return
 	 */
-	@RequestMapping("updateMemberAction.do")
+	@Secured("ROLE_MEMBER")
+	@RequestMapping(value="updateMemberAction.do", method=RequestMethod.POST)
 	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
 		System.out.println("   	MemberController/updateMemberAction()/시작");
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -306,9 +308,10 @@ public class MemberController {
 		memberService.updateMember(memberVO);
 		pvo.setPassword(memberVO.getPassword());
 		pvo.setName(memberVO.getName());
+		pvo.setPhone(memberVO.getPhone());
 		pvo.setAddress(memberVO.getAddress());
 		pvo.setEmail(memberVO.getEmail());
-		System.out.println("    MemberController/updateMemberAction()/종료");
+		System.out.println("    MemberController/updateMemberAction()/종료1");
 		return "member/update_result.tiles";
 	}
 	

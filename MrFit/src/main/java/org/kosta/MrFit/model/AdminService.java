@@ -15,7 +15,6 @@ public interface AdminService {
 
 	int getTotalCommonMemberCount(int status);
 
-
 	List<OrderVO> adminAllOrderList(PagingBean pb);
 
 	int adminTotalOrderCount();
@@ -23,6 +22,7 @@ public interface AdminService {
 	void adminGivePointToMember(MemberVO mvo);
 
 	List<OrderVO> adminSearchOrder(Map<String, Object> map);
+	
 
 	int adminSearchMemberOrderCount(String memberId);
 
@@ -30,8 +30,16 @@ public interface AdminService {
 
 	OrderVO adminfindOrderByOno(String ono);
 
+	int adminSearchOrderCountByOrderNumber(int parseInt);
+
+	OrderVO adminSearchOrderByOno(int ono);
+	
 	void sendMessage(Map<String, Object> map);
 
 	List<NoteVO> getNoteList();
+
+	List<OrderProductVO> orderProductInfo(String ono);
+
+	void deleteProduct(String pno);
 
 }

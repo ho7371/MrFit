@@ -146,5 +146,9 @@ public class OrderServiceImpl implements OrderService {
 		public String findMemberGardeById(String id) {
 			return orderDAO.findMemberGardeById(id);
 		}	
-	
+		//[석환][11.25]구매 시 상품재고 업데이트
+		@Override
+		public void updateProductDetailInventory(ProductDetailVO pdvo) {
+			orderDAO.updateProductDetailInventory(pdvo);
+		}
 }

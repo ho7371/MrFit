@@ -17,7 +17,7 @@
 <div class="ckeckout">
 	<div class="container">
 	
-		<form action="${pageContext.request.contextPath}/adminFindProductByName.do">
+		<form action="${pageContext.request.contextPath}/admin/FindProductByName.do">
 			<input type="text" name="keyword" placeholder="상품검색">
 			<input type="submit" value="검색">
 		</form>
@@ -35,7 +35,7 @@
 						<div class="clearfix"></div>
 					</ul>
 					
-					<c:forEach items="${ProductList}" var="item">
+					<c:forEach items="${lvo.list }" var="item">
 						<ul class="cart-header">
 							<li>
 								<span>
@@ -47,12 +47,12 @@
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/updateProduct.do?pno=${item.pno}">수정</a>
+									<a href="${pageContext.request.contextPath}/admin/updateProduct.do?pno=${item.pno}">수정</a>
 								</span>
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/updateProduct.do?pno=${item.pno}">수정</a>
+									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}">삭제</a>
 								</span>
 							</li>
 							<div class="clearfix"></div>

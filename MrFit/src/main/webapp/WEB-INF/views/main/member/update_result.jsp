@@ -5,6 +5,6 @@
 <%--  <sec:authentication property="principal.name"/>님 회원정보수정되었습니다.  --%>
 <sec:csrfInput/>
 <script type="text/javascript">
-	alert("<sec:authentication property="principal.name"/>님 회원정보수정되었습니다. ");
+	alert("회원정보수정되었습니다. ");
 	location.href="${pageContext.request.contextPath}/myPageInfo.do";
 </script>

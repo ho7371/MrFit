@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select ono, id, totalprice, ordertime, status <!-- select시 destination 칼럼 추가 -->
  		from orders
  	</sql>
-
+	
     <resultMap type="orderVO" id="ORM">
     	<result column="ono" property="ono"/>
     	<result column="totalprice" property="totalprice"/>
@@ -207,6 +207,11 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 	<select id="findMemberGardeById" parameterType="string" resultType="string">
 		select grade from member where id=#{id}
 	</select>
+	<!-- [석환][11.25]상품 구매시 재고 업데이트 -->
+	<update id="updateProductDetailInventory" parameterType="productDetailVO">
+		update product_detail set inventory=inventory-#{inventory}
+		where pdno=#{pdno}
+	</update>
 </mapper>
 
 

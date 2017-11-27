@@ -81,8 +81,28 @@ public class AdminServiceImpl implements AdminService {
 	public List<NoteVO> getNoteList() {
 		return adminDAO.getNoteList();
 	}
+
+	@Override
+	public List<OrderProductVO> orderProductInfo(String ono) {
+		return adminDAO.orderProductInfo(ono);
+	}
 	
-	
+	@Override
+	public int adminSearchOrderCountByOrderNumber(int parseInt) {
+		return adminDAO.adminSearchOrderCountByOrderNumber(parseInt);
+	}
+
+	@Override
+	public OrderVO adminSearchOrderByOno(int ono) {
+		return adminDAO.adminSearchOrderByOno(ono);
+	}
+
+	@Override
+	public void deleteProduct(String pno) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
 

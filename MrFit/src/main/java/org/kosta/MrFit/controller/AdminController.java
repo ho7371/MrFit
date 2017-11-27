@@ -17,6 +17,7 @@ import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
+import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
@@ -272,8 +273,8 @@ public class AdminController {
 	@RequestMapping("admin/deleteProduct.do")
 	public String deleteProduct(String pno) {
 		System.out.println("   	AdminController/deleteProduct()/시작");
-		// 현재는 null
-		return null;
+		adminService.deleteProduct(pno);
+		return "";
 	}
 	
 	
@@ -409,13 +410,14 @@ public class AdminController {
 	 * @param memberId
 	 * @return
 	 */
+	/*
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchOrder.do")
 	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
 		System.out.println("   	AdminController/adminSearchOrder()/시작");
 		ModelAndView mv = new ModelAndView();
 		
-		/* 페이징 처리 공통 영역*/ 
+		 페이징 처리 공통 영역 
 		int totalOrderCount = adminService.adminSearchMemberOrderCount(memberId);
 		int postCountPerPage = 3;
 		int postCountPerPageGroup = 2;
@@ -430,18 +432,76 @@ public class AdminController {
 		map.put("memberId", memberId);
 		map.put("pagingBean", pb);
 		
-		//System.out.println("	AdminController/adminSearchOrder()/진행1 주문 개수 : "+totalOrderCount);
 		List<OrderVO> list = adminService.adminSearchOrder(map);
+		System.out.println("	AdminController/adminSearchOrder()/진행1 - 주문 개수 : "+totalOrderCount+", 주문 목록 : "+list);
 		if(!list.isEmpty()) {
-			
 			ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-			System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
-			mv.setViewName("admin/adminSearchMemberOrder.tiles");
+			// System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
+			mv.setViewName("admin/adminAllOrderList.tiles");
 			mv.addObject("lvo", lvo);
 		}else {
 			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
 		}
 		System.out.println("   	AdminController/adminSearchOrder()/종료");
+		return mv;
+	}
+	*/
+	
+	/** [진호][키워드별 주문 검색]
+	 * 
+	 * @param request
+	 * @param memberId
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchOrder.do")
+	public ModelAndView adminSearchOrderByKeyword(HttpServletRequest request, String searchType, String searchKeyword) {
+		System.out.println("   	AdminController/adminSearchOrderByKeyword()/시작");
+		
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		/* 페이징 처리 공통 영역*/ 
+		int totalOrderCount = 0;
+		int postCountPerPage = 10;
+		int postCountPerPageGroup = 5;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+			
+		if(searchType.equals("memberId")) {
+			totalOrderCount = adminService.adminSearchMemberOrderCount(searchKeyword);
+			pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			map.put("memberId", searchKeyword);
+			map.put("pagingBean", pb);
+			List<OrderVO> list = adminService.adminSearchOrder(map);
+			
+			if(!list.isEmpty()) {
+				ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+				mv.addObject("lvo", lvo);
+				mv.addObject("searchType","memberId");
+				mv.setViewName("admin/adminAllOrderList.tiles");
+			}else {
+				mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
+			}
+			
+		}else {
+			int ono = Integer.parseInt(searchKeyword);
+			totalOrderCount = adminService.adminSearchOrderCountByOrderNumber(Integer.parseInt(searchKeyword));
+			if(totalOrderCount != 0) {
+				pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+				OrderVO ovo = adminService.adminSearchOrderByOno(ono);
+				mv.addObject("orderVO", ovo);
+				mv.addObject("searchType","orderNo");
+				mv.setViewName("admin/adminSearchOrderList.tiles");
+			}else {
+				mv.setViewName("admin/adminsearchOrder_fail.tiles");
+			}
+		}
+		
 		return mv;
 	}
 	
@@ -616,14 +676,14 @@ public class AdminController {
 		System.out.println("   	AdminController/adminNoteList()/종료");
 		return mv;
 	}
-
+	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
 	public String adminNoticeList() {
 		System.out.println("   	AdminController/adminNoticeList()/시작");
 		return "board/notice.tiles";
 	}
-
+	
 	/**[현민][11/24][쪽지 보내기]
 	 * 회원 관리 페이지에서 각각의 회원에게 쪽지를 보낼수 있다.
 	 * @param message
@@ -642,7 +702,24 @@ public class AdminController {
 		System.out.println("   	AdminController/message()/종료 ");
 		return new ModelAndView("admin/message_ok.tiles","id",id);
 	}
-
+	
+	/**[현민][11/25][주문 상품 상세보기]
+	 * 
+	 * @param ono
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("orderProductInfo.do")
+	public ModelAndView orderProductInfo(String ono) {
+		System.out.println("   	AdminController/orderProductInfo()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		List<OrderProductVO> list = adminService.orderProductInfo(ono);
+		System.out.println("   	AdminController/orderProductInfo()/진행 list : "+list);
+		mv.setViewName("admin/orderProductInfo.tiles");
+		mv.addObject("list", list);
+		System.out.println("   	AdminController/orderProductInfo()/종료 ");
+		return mv;
+	}
 }
 
 
