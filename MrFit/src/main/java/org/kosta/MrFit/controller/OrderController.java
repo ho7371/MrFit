@@ -14,7 +14,6 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
-import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller

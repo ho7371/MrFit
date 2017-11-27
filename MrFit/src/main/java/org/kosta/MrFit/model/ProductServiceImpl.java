@@ -45,9 +45,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductByName(keyword);
 	}
 	@Override
-	public ProductVO findProductDtailByPno(String pno) {	
+	public ProductVO findProductDetailByPno(String pno) {	
 		System.out.println("            ProductServiceImpl/findProductDtailByPno()/시작");
-		return productDAO.findProductDtailByPno(pno);
+		return productDAO.findProductDetailByPno(pno);
 	}
 	@Override
 	public int getTotalProductCount() {	
@@ -250,41 +250,52 @@ public class ProductServiceImpl implements ProductService {
 		return psgList;
 	}
 	
+
 	@Override
 	public void uploadImages(UploadVO vo) {
 		// TODO Auto-generated method stub
 		
 	}
+	//[재현][이미지 등록]
 	@Transactional
 	@Override
 	public void registerImage(ImageVO ivo) {
 		productDAO.registerImage(ivo);
 	}
-
+	
+	//[재현][상품 등록]	
 	@Transactional
 	@Override
 	public void registerProduct(ProductVO productVO) {
 		productDAO.registerProduct(productVO);
 		
 	}
+	
+	//[재현][상품 치수 등록]
 	@Transactional
 	@Override
 	public void registerProductSize(ProductSizeVO psvo) {
 		productDAO.registerProductSize(psvo);
 		
 	}
+	
+	//[재현][상품 색상 등록]
 	@Transactional
 	@Override
 	public void registerColor(ProductDetailVO pdvo) {
 		productDAO.registerColor(pdvo);
 		
 	}
+	
+	//[재현][상품 상세 등록]
 	@Transactional
 	@Override
 	public void registerProductDetail(ProductDetailVO pdvo) {
 		productDAO.registerProductDetail(pdvo);
 		
 	}
+	
+	
 	@Override
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub
