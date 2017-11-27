@@ -127,7 +127,7 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
     <!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
    <select id="findPdno" parameterType="productDetailVO" resultType="String">
    	select pdno from product_detail
-   	where pcno=#{pcno} and  psno=#{psno}
+   	where pcno=#{pcno} and  psno=#{psno} and pno=#{pno}
    </select>
     
     

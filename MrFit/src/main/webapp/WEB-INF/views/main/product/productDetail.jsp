@@ -86,6 +86,7 @@ ${requestScope.pvo } --%>
 						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
 						<input type="hidden" name="psno" id="sendPsno" value="">
 						<input type="hidden" name="pcno" id="sendPcno" value="">
+						<input type="hidden" name="pno"  value="${pvo.pno}">
 						<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">

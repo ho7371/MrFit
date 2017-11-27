@@ -20,6 +20,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -76,7 +77,7 @@ public class OrderController {
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 			
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		System.out.println(prodeuctVO.getPno());
 		int cartCount = orderService.findMyCartCount(mvo.getId());
 
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
@@ -86,6 +87,7 @@ public class OrderController {
 			ProductDetailVO pdvo=new ProductDetailVO();
 			pdvo.setPcno(request.getParameter("pcno"));
 			pdvo.setPsno(request.getParameter("psno"));
+			pdvo.setPno(request.getParameter("pno"));
 			
 		opvo.setPdno(orderService.findPdno(pdvo));		
 		opvo.setQuantity(quantity);
@@ -293,7 +295,42 @@ public class OrderController {
 		orderService.updateOrderMembetPoint(mvo);
 		return "redirect:myOrderList.do?id="+id;
 	}
-	
+	//석환
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("immediatelyPay.do")
+	public String immediatelyPay(int quantity,ProductDetailVO pdvo,String image,Model model) {
+		String pdno=orderService.findPdno(pdvo);
+		ProductVO pvo=orderService.findProductDetailByPdno(pdno);
+		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);
+		int price=pvo.getPrice();
+		int totalprice=quantity*price;
+		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시결제",mvo,null);
+		orderService.immediatelyPayRegisterOrder(ovo);
+		OrderProductVO opvo=new OrderProductVO();
+		String ono=ovo.getOno();
+		opvo.setOno(ono);
+		opvo.setPdno(pdno);
+		opvo.setQuantity(quantity);
+		orderService.immediatelyPayRegisterOrderpProduct(opvo);
+		model.addAttribute("image", image);
+		model.addAttribute("totalprice", totalprice);
+		model.addAttribute("pvo", pvo);
+		model.addAttribute("pdvo", npdvo);
+		model.addAttribute("quantity", quantity);
+		model.addAttribute("ono", ono);
+		return "order/immediatelyOrderForm.tiles";
+	}
+	//[석환][11.27] 즉시 구매 취소시 관련 테이블 삭제
+	@Transactional
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("immediatelyPayOrderCancle.do")
+	public String immediatelyPayOrderCancle(OrderProductVO opvo) {
+		System.out.println("즉시 구매 pdno : "+opvo.getPdno()+" 즉시 구매 ono : "+opvo.getOno());
+		orderService.deleteImmediatelyPayOrdersProduct(opvo);
+		orderService.deleteImmediatelyPayOrders(opvo);
+		return "redirect:home.do";
+	}
 	
 	
 }
