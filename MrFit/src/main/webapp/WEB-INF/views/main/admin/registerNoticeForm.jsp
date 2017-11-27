@@ -46,7 +46,7 @@
 					</div>
 					<div class="col-md-6 contact-left">
 						<textarea name="content" placeholder="공지사항 본문"></textarea>
-						<input type="submit" value="SEND">
+						<input type="submit" value="공지사항 등록">
 					</div>
 					</form>	
 					<div class="clearfix"> </div>

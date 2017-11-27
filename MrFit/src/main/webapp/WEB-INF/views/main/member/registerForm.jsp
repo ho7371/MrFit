@@ -29,7 +29,12 @@
 					</div>
 					<div class="address">
 						<span>비밀번호</span>
-						<input type="password" name="password">
+						<input type="password" name="password" id="password">
+					</div>
+					<div class="address">
+						<span>비밀번호 확인</span>
+						<input type="password" id="CheckPassword">
+						<span id="passwordCheckView"></span>
 					</div>
 					<div class="address">
 						<span>이름</span>
@@ -76,7 +81,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var checkResultId="";		
+		var checkResultId="";	
+		var checkResultPassword="";
 		$("#regForm").submit(function(){			
 			if($("#regForm :input[name=id]").val().trim()==""){
 				alert("아이디를 입력하세요");				
@@ -97,7 +103,11 @@
 			if(checkResultId==""){
 				alert("아이디 중복확인을 하세요");
 				return false;
-			}		
+			}	
+			if(checkResultPassword==""){
+				alert("비밀번호 확인을 하세요");
+				return false;
+			}
 		});
 		$("#regForm :input[name=id]").keyup(function(){
 			var id=$(this).val().trim();
@@ -127,29 +137,23 @@
 				}//callback			
 			});//ajax
 		});//keyup
+		
+		$("#CheckPassword").keyup(function(){
+			var password=$("#password").val().trim();
+			var passwordCheck=$("#CheckPassword").val().trim();
+			if(password==passwordCheck){
+				$("#passwordCheckView").html("비밀번호 일치").css("background","yellow");		
+				checkResultPassword=password;
+				return;
+			}else{
+				$("#passwordCheckView").html("비밀번호 불일치").css("background","red");
+				checkResultPassword="";
+				return;
+			}
+		});
+		
+		
 	});//ready
 </script>
-
-<%-- 	위에 있는 REGISTER CUSTOMER 부분에 적용시킬 것 - 진호 
-<form method="post" action="${pageContext.request.contextPath}/registerMember.do" id="regForm">
-<sec:csrfInput/>csrf 토큰
-아이디 <input type="text" name="id" id="memberId"><span id="idCheckView"></span><br>
-비밀번호 <input type="password" name="password"><br>
-이름 <input type="text" name="name"><br>
-전화 <input type="text" name="phone"><br>
-주소 <input type="text" name="address"><br>
-이메일 <input type="text" name="email"><br>
-<input type="submit" value="가입하기">
-</form>
- --%>
-
-<%--	  register.jsp -- MemberController
-								|
-								register_result.jsp 
-								가입정보 출력 
-								새로고침시 재등록 되지 않는다 
-				ajax(jquery)로 
-				id 중복확인을 한다 				
-		 --%>
 
 
