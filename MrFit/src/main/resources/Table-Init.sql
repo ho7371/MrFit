@@ -66,13 +66,13 @@ commit
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
 --------------- 회원 치수
-
+/*
 insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
 values(42,51,63,23,71,37,25,23,14,91,'test1');
 
 insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
 values(44,53,64,24,72,39,26,25,15,92,'test2');
-
+*/
 
 ------------------------------------------ 상품등록
 
