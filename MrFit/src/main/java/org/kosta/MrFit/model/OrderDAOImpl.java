@@ -181,5 +181,10 @@ public class OrderDAOImpl implements OrderDAO {
 		public void updateProductDetailInventory(ProductDetailVO pdvo) {
 			template.update("order.updateProductDetailInventory", pdvo);		
 		}
+		//[영훈][11.27]리뷰작성 확인 Ajax
+		@Override
+		public int reviewCheckAjax(ProductReviewVO rvo) {
+			return template.selectOne("order.reviewCheckAjax",rvo);
+		}
 	
 }

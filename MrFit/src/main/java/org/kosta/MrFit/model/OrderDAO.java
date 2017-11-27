@@ -52,4 +52,6 @@ public interface OrderDAO {
 	String findMemberGardeById(String id);
 
 	void updateProductDetailInventory(ProductDetailVO pdvo);
+
+	int reviewCheckAjax(ProductReviewVO rvo);
 }

@@ -12,4 +12,6 @@ public interface BoardDAO {
 	void deleteNotice(String bno);
 
 	void registerNotice(BoardVO bvo);
+
+	void updateNotice(BoardVO bvo);
 }

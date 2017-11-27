@@ -143,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 상품삭제 -->
-	<delete id="deletePost" parameterType="string">
+	<delete id="deleteProduct" parameterType="string">
 		delete from product where pno=#{value}
 	</delete>
 </mapper>

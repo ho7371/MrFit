@@ -151,4 +151,12 @@ public class OrderServiceImpl implements OrderService {
 		public void updateProductDetailInventory(ProductDetailVO pdvo) {
 			orderDAO.updateProductDetailInventory(pdvo);
 		}
+		//[영훈][11.27]리뷰작성 확인 Ajax
+		@Override
+		public String reviewCheckAjax(ProductReviewVO rvo) {
+			System.out.println("            OrderServiceImpl/reviewCheckAjax()/시작 rvo : "+ rvo);
+			int count=orderDAO.reviewCheckAjax(rvo);
+			System.out.println("            OrderServiceImpl/reviewCheckAjax()/종료 count : "+ count);
+			return (count == 0) ? "ok" : "fail";
+		}
 }

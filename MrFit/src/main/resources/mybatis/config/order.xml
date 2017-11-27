@@ -212,6 +212,21 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		update product_detail set inventory=inventory-#{inventory}
 		where pdno=#{pdno}
 	</update>
+	
+ 	<!-- 
+ 	<select id="idcheck" parameterType="string" resultType="int">
+		select count(*) from member where id=#{value}
+	</select> -->
+	
+	<select id="reviewCheckAjax" parameterType="productReviewVo" resultType="int">
+		select count(*) 
+		from review
+		where id=#{id} and pdno=#{pdno}
+	</select>
+	
+	
+	
+	
 </mapper>
 
 

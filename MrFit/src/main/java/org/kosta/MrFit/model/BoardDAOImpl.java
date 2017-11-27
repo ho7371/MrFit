@@ -59,4 +59,12 @@ public class BoardDAOImpl  implements BoardDAO{
 		
 	}
 
+	@Override
+	public void updateNotice(BoardVO bvo) {
+		System.out.println("                  BoardDAOImpl/updateNotice()/시작 bvo : "+bvo);
+		template.update("board.updateNotice",bvo);
+		System.out.println("                  BoardDAOImpl/updateNotice()/진행 ");
+		System.out.println("                  BoardDAOImpl/updateNotice()/종료 ");
+	}
+
 }

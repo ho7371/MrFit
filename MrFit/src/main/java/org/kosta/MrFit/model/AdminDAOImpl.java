@@ -135,9 +135,10 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
 	}
 
+	//[재현][상품 삭제]
 	@Override
 	public void deleteProduct(String pno) {
-		template.delete("admin.deletePost",pno);
+		template.delete("admin.deleteProduct",pno);
 		
 	}
 	

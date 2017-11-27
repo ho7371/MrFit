@@ -167,32 +167,43 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductSizeVO> sizeGapMemberAndProduct(String pno){
 		return template.selectList("product.sizeGapMemberAndProduct", pno);
 	}
+	
+	//[재현][이미지 업로드]
 	@Override
 	public void registerImage(ImageVO ivo) {
 		template.insert("product.registerImage", ivo);
 		
 	}
 
+	//[재현][상품 등록]
 	@Override
 	public void registerProduct(ProductVO productVO) {
 		template.insert("product.registerProduct", productVO);
 		
 	}
+	
+	//[재현][상품 치수 등록]
 	@Override
 	public void registerProductSize(ProductSizeVO psvo) {
 		template.insert("product.registerProductSize",psvo);
 		
 	}
+	
+	//[재현][상품 색상 등록]
 	@Override
 	public void registerColor(ProductDetailVO pdvo) {
 		template.insert("product.registerColor",pdvo);
 		
 	}
+	
+	//[재현][상품 상세 등록]
 	@Override
 	public void registerProductDetail(ProductDetailVO pdvo) {
 		template.insert("product.registerProductDetail", pdvo);
 		
 	}
+	
+	
 	@Override
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub

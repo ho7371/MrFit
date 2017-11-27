@@ -39,7 +39,7 @@
 				<!-- 관리자 입장시 공지사항 등록/삭제 버튼 생성 -->
 				<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 					<c:if test="${isAdmin}">
-						<a href="${pageContext.request.contextPath}/updateNoticeForm.do">공지사항 수정</a>
+						<a href="${pageContext.request.contextPath}/updateNoticeForm.do?bno=${bvo.bno }">공지사항 수정</a>
 						
 					</c:if>
 				<div class="in-check">
