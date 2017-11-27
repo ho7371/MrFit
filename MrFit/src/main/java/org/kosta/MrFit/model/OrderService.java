@@ -44,4 +44,6 @@ public interface OrderService {
 	String findMemberGardeById(String id);
 
 	void updateProductDetailInventory(ProductDetailVO pdvo);
+
+	String reviewCheckAjax(ProductReviewVO rvo);
 }

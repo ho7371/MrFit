@@ -33,15 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="registerNotice" parameterType="boardVO">
    	 insert into board(bno,id,title,content,regdate,security,category) 
 		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'on','공지')
-		<!-- 
-		 <selectKey resultType="int" keyProperty="bno" order="AFTER">
-                SELECT bno
-                FROM board        
-                WHERE bno = bno
-        </selectKey> -->
-
+		
     </insert>
-    
+    <update id="updateNotice">
+    	update board set title=#{title},content=#{content}
+		where bno=#{bno}
+    </update>
 </mapper>
 
 
