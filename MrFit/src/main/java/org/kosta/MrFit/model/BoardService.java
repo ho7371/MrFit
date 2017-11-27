@@ -14,5 +14,7 @@ public interface BoardService {
 
 	void registerNotice(BoardVO bvo);
 
+	void updateNotice(BoardVO bvo);
+
 	
 }

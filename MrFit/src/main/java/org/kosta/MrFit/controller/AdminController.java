@@ -543,7 +543,7 @@ public class AdminController {
 	public ModelAndView notice(HttpServletRequest  request){
 		ModelAndView mv = new ModelAndView();
 		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
-		System.out.println("      HomeController/notice()/시작");		
+		System.out.println("      AdminController/notice()/시작");		
 		
 			/* 페이징 처리 공통 영역 */
 			int totalCount = boardService.getTotalNoticeCount();
@@ -558,40 +558,49 @@ public class AdminController {
 			
 			System.out.println("nowpage : "+nowPage+", endnumber"+pb.getEndRowNumber());
 			List<BoardVO> nlist= boardService.noticeList(pb);
-		System.out.println("      HomeController/home()/진행 - nlist :"+nlist);
+		System.out.println("      AdminController/notice()/진행 - nlist :"+nlist);
 		if(nlist!=null&&!nlist.isEmpty()) {
 			lvo.setList(nlist);
 			lvo.setPagingBean(pb);
 		}			
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("board/notice.tiles");		
-		System.out.println("      HomeController/notice()/종료");
+		System.out.println("      AdminController/notice()/종료");
 		return mv;
 	}
 	//[정현][11/25][ 공지사항 상세보기 ]
 	
 	@RequestMapping(value="noticeDetail.do", method=RequestMethod.GET)	
 	public ModelAndView noticeDetail(HttpServletRequest  request){
+		System.out.println("   	AdminController/noticeDetail()/시작");	
 		ModelAndView mv = new ModelAndView();
 		String bno=request.getParameter("bno");
 		BoardVO bvo=boardService.noticeDetail(bno);
+		System.out.println("   	AdminController/noticeDetail()/진행");	
 		mv.addObject("bvo",bvo);
 		mv.setViewName("board/noticeDetail.tiles");
+		System.out.println("   	AdminController/noticeDetail()/종료");	
 		return mv;
 	}
 	//[정현][11/25][ 공지사항 삭제 ]
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="deleteNotice.do", method=RequestMethod.GET)	
 	public String deleteNotice(HttpServletRequest  request){	
+		System.out.println("   	AdminController/deleteNotice()/시작");		
 		String bno=request.getParameter("bno");
-		boardService.deleteNotice(bno);			
+		System.out.println("   	AdminController/deleteNotice()/진행");		
+		boardService.deleteNotice(bno);		
+		System.out.println("   	AdminController/deleteNotice()/종료");
+		
 		return "redirect:notice.do";
 	}
 	
 	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)			
-		public String registerNoticeForm(HttpServletRequest  request){			
+		public String registerNoticeForm(HttpServletRequest  request){		
+		System.out.println("   	AdminController/registerNoticeForm()/시작");
+		System.out.println("   	AdminController/registerNoticeForm()/종료");		
 			return "board/registerNoticeForm.tiles";
 		}
 		
@@ -599,6 +608,7 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
 		public String registerNotice(HttpServletRequest  request){
+		System.out.println("   	AdminController/registerNotice()/시작");
 			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			BoardVO bvo=new BoardVO();
 			String title=request.getParameter("title");
@@ -606,16 +616,54 @@ public class AdminController {
 			bvo.setId(mvo.getId());
 			bvo.setTitle(title);
 			bvo.setContent(content);
+			System.out.println("   	AdminController/registerNotice()/진행");
 			boardService.registerNotice(bvo);	
+			System.out.println("   	AdminController/registerNotice()/종료");
 			return "redirect:notice.do";
 		}
-	@RequestMapping(value="registerNoteForm.do", method=RequestMethod.GET)
+	
+	//[정현][11/25][ 공지사항 등록 폼으로 ]
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)
 	public String registerNoteForm() {
 		System.out.println("   	AdminController/registerNoteForm()/시작");
-		return "admin/registerNoteForm.tiles";
+		System.out.println("   	AdminController/registerNoteForm()/종료");
+		return "admin/registerNoticeForm.tiles";
 	}
 	
-
+	//[정현][11/27]공지사항 수정폼 
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="updateNoticeForm.do", method=RequestMethod.GET)
+	public ModelAndView updateNoteForm(HttpServletRequest  request) {
+		System.out.println("   	AdminController/updateNoteForm()/시작");
+		ModelAndView mv = new ModelAndView();
+		String bno=request.getParameter("bno");
+		BoardVO bvo=boardService.noticeDetail(bno);
+		System.out.println("   	AdminController/updateNoteForm()/진행");
+		mv.addObject("bvo",bvo);
+		mv.setViewName("admin/updateNoticeForm.tiles");
+		System.out.println("   	AdminController/updateNoteForm()/종료");
+		return mv;
+	}
+	//공지사항 수정 
+		@Secured("ROLE_ADMIN")
+		@RequestMapping(value="updateNotice.do", method=RequestMethod.GET)
+		public String updateNotice(HttpServletRequest  request) {
+			System.out.println("   	AdminController/updateNotice()/시작");
+			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String bno=request.getParameter("bno");
+			BoardVO bvo=new BoardVO();
+			String title=request.getParameter("title");
+			String content=request.getParameter("content");
+			System.out.println("   	AdminController/updateNotice()/진행");
+			bvo.setId(mvo.getId());
+			bvo.setBno(bno);
+			bvo.setTitle(title);
+			bvo.setContent(content);		
+			boardService.updateNotice(bvo);		
+			System.out.println("   	AdminController/updateNotice()/종료");
+			return "redirect:notice.do";
+		}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
 	public ModelAndView adminNoteList() {
