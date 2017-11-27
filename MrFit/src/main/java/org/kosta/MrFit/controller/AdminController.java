@@ -273,8 +273,8 @@ public class AdminController {
 	@RequestMapping("admin/deleteProduct.do")
 	public String deleteProduct(String pno) {
 		System.out.println("   	AdminController/deleteProduct()/시작");
-		// 현재는 null
-		return null;
+		adminService.deleteProduct(pno);
+		return "";
 	}
 	
 	

@@ -97,6 +97,12 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminSearchOrderByOno(ono);
 	}
 
+	@Override
+	public void deleteProduct(String pno) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
 
