@@ -88,21 +88,20 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public int adminSearchOrderCountByOrderNumber(int parseInt) {
-		return adminDAO.adminSearchOrderCountByOrderNumber(parseInt);
+	public int adminSearchOrderCountByOrderNumber(String ono) {
+		return adminDAO.adminSearchOrderCountByOrderNumber(ono);
 	}
 
 	@Override
-	public OrderVO adminSearchOrderByOno(int ono) {
+	public OrderVO adminSearchOrderByOno(String ono) {
+		System.out.println("            AdminServiceImpl/adminSearchOrderByOno()/시작");
 		return adminDAO.adminSearchOrderByOno(ono);
 	}
 
 	@Override
 	public void deleteProduct(String pno) {
-		// TODO Auto-generated method stub
 		
 	}
-
 	
 }
 

@@ -42,7 +42,7 @@
 				<c:forEach var="order" items="${lvo.list}" varStatus="i">	
 					<tbody>						
 						<tr>
-						    <td>${order.ono}</td>				
+						    <td><a href="${pageContext.request.contextPath}/orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>				
 							<td>${order.memberVO.id} / ${order.memberVO.name }</td>
 							<c:forEach items="${order.orderProductList}" var="product">
 								<td>${product.name}</td>
@@ -68,7 +68,7 @@
 			<c:otherwise> <!--  검색 타입이 주문 번호일 경우 -->
 				<c:set value="${orderVO}" var="order"></c:set>
 				<tr>
-				    <td>${order.ono}</td>	
+				    <td><a href="${pageContext.request.contextPath}/orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>	
 				    <td>${order.memberVO.id}</td>	
 					<td>${order.memberVO.name}</td>
 					<td>${order.ordertime}</td>
@@ -88,27 +88,29 @@
 	</table>
 	
 <%-- 페이징 처리 --%>
-<c:set value="${lvo.pagingBean}" var="pb" />
-<div class="container" align="center">
-	<ul class="pager">
-		<c:if test="${pb.previousPageGroup==true}">
-			<li><a
-				href="adminSearchOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
-		</c:if>
-		<c:forEach begin="${pb.startPageOfPageGroup}"
-			end="${pb.endPageOfPageGroup}" var="pageNum">
-			<c:choose>
-				<c:when test="${pageNum==pb.nowPage}">
-					<li>${pageNum}&nbsp;&nbsp;</li>
-				</c:when>
-				<c:otherwise>
-					<li><a href="adminSearchOrderList.do?&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pb.nextPageGroup==true}">
-			<li><a
-				href="adminSearchOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
-		</c:if>
-	</ul>
-</div>
+<c:if test="${searchType == 'memberId'}">
+	<c:set value="${lvo.pagingBean}" var="pb" />
+	<div class="container" align="center">
+		<ul class="pager">
+			<c:if test="${pb.previousPageGroup==true}">
+				<li><a
+					href="adminSearchOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+			</c:if>
+			<c:forEach begin="${pb.startPageOfPageGroup}"
+				end="${pb.endPageOfPageGroup}" var="pageNum">
+				<c:choose>
+					<c:when test="${pageNum==pb.nowPage}">
+						<li>${pageNum}&nbsp;&nbsp;</li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="adminSearchOrderList.do?&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${pb.nextPageGroup==true}">
+				<li><a
+					href="adminSearchOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+			</c:if>
+		</ul>
+	</div>
+</c:if>

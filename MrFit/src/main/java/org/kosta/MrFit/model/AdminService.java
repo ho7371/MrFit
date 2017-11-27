@@ -30,9 +30,9 @@ public interface AdminService {
 
 	OrderVO adminfindOrderByOno(String ono);
 
-	int adminSearchOrderCountByOrderNumber(int parseInt);
+	int adminSearchOrderCountByOrderNumber(String searchKeyword);
 
-	OrderVO adminSearchOrderByOno(int ono);
+	OrderVO adminSearchOrderByOno(String ono);
 	
 	void sendMessage(Map<String, Object> map);
 
