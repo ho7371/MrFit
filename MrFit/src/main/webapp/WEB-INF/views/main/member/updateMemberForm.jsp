@@ -11,7 +11,8 @@
 					<div class="account-top heading">
 						<h3>회원 정보 수정</h3>
 					</div>
-				<form method="post" action="${pageContext.request.contextPath}/updateMemberAction.do">
+				<form method="post" action="${pageContext.request.contextPath}/updateMemberAction.do"
+					id="updateForm">
 					<sec:csrfInput/>
 					<div class="address">
 						<span>아이디</span>
@@ -21,7 +22,12 @@
 					</div>
 					<div class="address">
 						<span>비밀번호</span>
-						<input type="password" name="password" required="required">
+						<input type="password" name="password" id="password">
+					</div>
+					<div class="address">
+						<span>비밀번호 확인</span>
+						<input type="password" id="CheckPassword">
+						<span id="passwordCheckView"></span>
 					</div>
 					<div class="address">
 						<span>이름</span>
@@ -58,23 +64,27 @@
 	</div>
 </sec:authorize>    
     
-    
-   
-
- <%-- <form method="post" action="${pageContext.request.contextPath}/updateMemberAction.do">
- <sec:csrfInput/>csrf 토큰
-		<input type="hidden" name="command" value="update">
-		아이디 : <input type="text" name="id"
-		value="<sec:authentication property="principal.id"/>" readonly><br>
-		패스워드 : <input type="password" name="password" required="required"><br>
-		이름 : <input type="text" name="name" 
-		value="<sec:authentication property="principal.name"/>" required="required"><br>	
-		주소 : <input type="text" name="address" 
-		value="<sec:authentication property="principal.address"/>" required="required"><br>
-		email : <input type="text" name="email" 
-		value="<sec:authentication property="principal.email"/>" required="required"><br>	
-		<input type="submit" value="회원정보수정">
-		</form>
-</sec:authorize>
-<h3>회원정보수정</h3> --%>
-		
+<script type="text/javascript">
+	var checkResultPassword="";
+	$("#updateForm").submit(function(){
+		if(checkResultPassword==""){
+			alert("비밀번호 확인을 하세요");
+			return false;
+		}
+	});
+	$(document).ready(function(){ 
+		$("#CheckPassword").keyup(function(){
+			var password=$("#password").val().trim();
+			var passwordCheck=$("#CheckPassword").val().trim();
+			if(password==passwordCheck){
+				$("#passwordCheckView").html("비밀번호 일치").css("background","yellow");		
+				checkResultPassword=password;
+				return;
+			}else{
+				$("#passwordCheckView").html("비밀번호 불일치").css("background","red");
+				checkResultPassword="";
+				return;
+			}
+		});
+	});//ready
+</script>
