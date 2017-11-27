@@ -9,7 +9,7 @@ public interface ProductDAO {
 
 	List<ImageVO> findProductImageList(String pno);
 
-	ProductVO findProductDtailByPno(String pno);
+	ProductVO findProductDetailByPno(String pno);
 
 	List<ProductVO> findProductByName(String keyword);
 	

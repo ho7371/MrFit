@@ -141,6 +141,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select note_no, content, send_date, id 
 		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
 	</select>
+	
+	<!-- 상품삭제 -->
+	<delete id="deleteProduct" parameterType="string">
+		delete from product where pno=#{value}
+	</delete>
 </mapper>
 
 

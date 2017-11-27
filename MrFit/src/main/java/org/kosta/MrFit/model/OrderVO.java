@@ -13,7 +13,7 @@ public class OrderVO {
 	public OrderVO() {
 		super();
 	}
-
+	
 	public OrderVO(String ono, int totalprice, String destination, String ordertime, String status, MemberVO memberVO,
 			List<OrderProductVO> orderProductList) {
 		super();

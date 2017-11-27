@@ -38,4 +38,6 @@ public interface AdminDAO {
 	List<NoteVO> getNoteList();
 
 	List<OrderProductVO> orderProductInfo(String ono);
+
+	void deleteProduct(String pno);
 }

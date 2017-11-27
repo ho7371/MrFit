@@ -126,7 +126,7 @@ public class ProductController {
 	@RequestMapping("findProductDetailByPno.do")
 	public ModelAndView findProductDetailByPno(String pno) {
 		ModelAndView mv=new ModelAndView();
-		ProductVO pvo=productService.findProductDtailByPno(pno);
+		ProductVO pvo=productService.findProductDetailByPno(pno);
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
 		System.out.println("    ProductController/findProductDetailByPno()/진행1 - @@@@@ " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			

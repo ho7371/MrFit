@@ -21,7 +21,7 @@
 			<input type="text" name="keyword" placeholder="상품검색">
 			<input type="submit" value="검색">
 		</form>
-		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">상품등록</a> &nbsp; 
+		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do" type="button" class="btn btn-default">상품등록</a> &nbsp; 
 	
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
@@ -47,12 +47,12 @@
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/admin/updateProduct.do?pno=${item.pno}">수정</a>
+									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()"type="button" class="btn btn-default">수정</a>
 								</span>
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}">삭제</a>
+									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
 								</span>
 							</li>
 							<div class="clearfix"></div>

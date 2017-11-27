@@ -46,7 +46,6 @@ drop TABLE grade;
 /* 시퀀스 생성 */
 
 
-
 /* 회원 등급 */
 CREATE TABLE grade (
 	grade VARCHAR2(100) PRIMARY KEY, 
@@ -152,9 +151,9 @@ CREATE TABLE product (
 			pcno NUMBER NOT NULL, 
 			psno NUMBER NOT NULL,
 			inventory NUMBER NOT NULL,
-			constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
-			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
-			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
+			constraint fk_pno_in_product_detail foreign key(pno) references product(pno) on delete cascade,
+			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno) on delete cascade,
+			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno) on delete cascade
 		);
 			CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
 			/* CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); */
@@ -204,7 +203,7 @@ CREATE TABLE product_qna (
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
 	constraint fk_id_in_product_qna foreign key(id) references member(id),
-	constraint fk_pno_in_product_qna foreign key(pno) references product(pno)
+	constraint fk_pno_in_product_qna foreign key(pno) references product(pno) on delete cascade
 );
 
 
@@ -215,7 +214,7 @@ CREATE TABLE image (
 	ino NUMBER PRIMARY KEY, 
 	pno NUMBER NOT NULL, 
 	url VARCHAR2(300) NOT NULL,
-	constraint fk_pno_in_image foreign key(pno) references product(pno)
+	constraint fk_pno_in_image foreign key(pno) references product(pno) on delete cascade
 );
 
 /* 주문 */
