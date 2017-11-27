@@ -61,7 +61,7 @@ insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료�
 -- 관리자용 테스트  id: admin / pwd:admin
 -- 회원용 테스트  id: test1 / pwd:test1
 -- 회원용 테스트  id: test2 / pwd:test2
-
+commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
