@@ -3,7 +3,7 @@ package org.kosta.MrFit.model;
 import java.util.List;
 
 public interface OrderDAO {
-	List<OrderVO> findMyCart(String id);
+	OrderVO findMyCart(String id);
 
 	List<OrderVO> myOrderList(String id);
 

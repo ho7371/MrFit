@@ -1,23 +1,23 @@
 --------------- 테이블 데이터 삭제
-
-delete * from table order_product;
-delete * from table orders;
-delete * from table image;
-delete * from table product_qna;
-delete * from table review;
-delete * from table inquiry_reply;
-delete * from table inquiry;
-delete * from table product_detail;
-delete * from table product_size;
-delete * from table product_color;
-delete * from table product;
-delete * from table auth;
-delete * from table point;
-delete * from table member_size;
-delete * from table member;
-delete * from table question;
-delete * from table grade;
-delete * from table board;
+delete from order_product;
+delete from orders;
+delete from image;
+delete from product_qna;
+delete from review;
+delete from inquiry_reply;
+delete from inquiry;
+delete from product_detail;
+delete from product_size;
+delete from product_color;
+delete from product;
+delete from auth;
+delete from point;
+delete from member_size;
+delete from note;
+delete from board;
+delete from member;
+delete from question;
+delete from grade;
 ------------------------------ 테이블 만든 순서대로 select 종료
 
 select * from grade;

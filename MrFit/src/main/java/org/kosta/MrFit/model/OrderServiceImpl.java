@@ -11,8 +11,9 @@ public class OrderServiceImpl implements OrderService {
 	@Resource
 	private OrderDAO orderDAO;
 	
+	//[현민][11/21][장바구니 보기]
 	@Override
-	public List<OrderVO> findMyCart(String id) {
+	public OrderVO findMyCart(String id) {
 		System.out.println("            OrderServiceImpl/findMyCart()/시작");
 		return orderDAO.findMyCart(id);
 	}

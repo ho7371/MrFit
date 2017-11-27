@@ -104,7 +104,7 @@ public class AdminController {
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminFindProductByName.do")
+	@RequestMapping("admin/FindProductByName.do")
 	public ModelAndView findProductByName(String keyword, HttpServletRequest request){
 		System.out.println("   	AdminController/findProductByName()/시작");
 		ModelAndView mv = new ModelAndView();
