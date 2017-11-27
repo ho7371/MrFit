@@ -292,7 +292,6 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 
 
 
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 </mapper>
 
 
