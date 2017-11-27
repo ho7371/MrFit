@@ -46,10 +46,14 @@ public class OrderController {
 		System.out.println("    OrderController/cartForm()/진행1");
 		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2");
-		ovo.setMemberVO(mvo);
-		System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
-		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		if(ovo != null) {
+			ovo.setMemberVO(mvo);
+			System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
+			System.out.println("    OrderController/cartForm()/종료");
+			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		}else {
+			return new ModelAndView("product/myCart_fail.tiles"); 
+		}
 	}
 
 	/**

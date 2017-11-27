@@ -23,8 +23,11 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
 		OrderVO ovo = template.selectOne("order.findMyCart",id);
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - ovo :"+ovo);
-		List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",ovo.getOno());
-		ovo.setOrderProductList(orderProductList);
+		if(ovo != null) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",ovo.getOno());
+			ovo.setOrderProductList(orderProductList);
+			System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - ovo :"+ovo);
+		}
 		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
 		return ovo;
 	}
