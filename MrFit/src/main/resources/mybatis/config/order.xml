@@ -5,228 +5,289 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
 	<!-- 주문 테이블 정보 가져오기 -->
- 	<sql id="selectall">
- 		select ono, id, totalprice, ordertime, status <!-- select시 destination 칼럼 추가 -->
- 		from orders
- 	</sql>
-	
-    <resultMap type="orderVO" id="ORM">
-    	<result column="ono" property="ono"/>
-    	<result column="totalprice" property="totalprice"/>
-    	<result column="ordertime" property="ordertime"/>
-    	<result column="status" property="status"/>
-    </resultMap>
-    <!-- 장바구니 보기기능 --> 		<!-- select 하지 않을 칼럼을 From문과 where문에 적을 필요가 있는지? -->
-    <select id="findMyCart" parameterType="string" resultType="orderVO" resultMap="ORM">
-    	SELECT *
+	<sql id="selectall">
+		select ono, id, totalprice, ordertime, status <!-- select시 destination 칼럼 
+			추가 -->
+		from orders
+	</sql>
+
+	<resultMap type="orderVO" id="ORM">
+		<result column="ono" property="ono" />
+		<result column="totalprice" property="totalprice" />
+		<result column="ordertime" property="ordertime" />
+		<result column="status" property="status" />
+	</resultMap>
+	<!-- 장바구니 보기기능 --> 		<!-- select 하지 않을 칼럼을 From문과 where문에 적을 필요가 있는지? -->
+	<select id="findMyCart" parameterType="string" resultType="orderVO"
+		resultMap="ORM">
+		SELECT *
 		FROM orders o
 		WHERE o.id = #{value} and o.status = '장바구니'
-    </select>
-    
-    <resultMap type="orderProductVO" id="OPRM">
-    	<result column="p.pno" property="pno"/>
-    	<result column="pd.pdno" property="pdno"/>
-    	<result column="op.quantity" property="quantity"/>
-    	<result column="p.name" property="name"/>
-    	<result column="p.price" property="price"/>
-    	<result column="p.category" property="category"/>
-    	<result column="pc.color_name" property="color_name"/>
-    	<result column="ps.size_name" property="size_name"/>
-    	<result column="i.url" property="url"/>
-    </resultMap>
-    <!-- 주문 테이블에서 받은 주문 번호로 상품 정보 가져오기 -->
-    <select id="findOrderProductInfoByPdnoAndOno" parameterType="string" resultMap="OPRM">
-    	SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name, i.url
-		FROM product_detail pd, product p, product_color pc, product_size ps, order_product op, orders o , image i 
-		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno = i.pno 
-		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url like '%' || 'thumb' || '%'
-    </select>
-<!-- 사용되지 않는 resultMap 지우기 -->
-    <resultMap type="orderProductVO" id="orderProductRM">
-    	<result column="pdno" property="pdno"/>
-    	<result column="quantity" property="quantity"/>
-    </resultMap>
-    
-    <resultMap type="orderVO" id="ORM2">
-		<result column="id" property="memberVO.id"/>
- 	</resultMap>
- 	
- 	<!-- [영훈][11.21] 주문 내역 보기  -->
- 	<select id="myOrderList" parameterType="string" resultType="orderVO" resultMap="ORM2">
- 		select ono, totalprice, ordertime, status, id, destination
- 		from orders
- 		where id=#{value}
- 		order by ono desc
- 	</select>
+	</select>
 
- 	<!-- [영훈][11.21] 주문 상품 내역 보기  -->
- 	<select id="myOrderPrductList" parameterType="string" resultType="orderProductVO">
- 		select op.ono, op.pdno, op.quantity,
-				p.name, p.price, p.category,
-				pd.pno,
-				pc.color_name,
-				ps.size_name,
-				i.url
-		from ORDER_PRODUCT op, PRODUCT p, PRODUCT_DETAIL pd, product_color pc, product_size ps, IMAGE i
-		where ono=#{value} 
-		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and pd.pcno = pc.pcno
+	<resultMap type="orderProductVO" id="OPRM">
+		<result column="p.pno" property="pno" />
+		<result column="pd.pdno" property="pdno" />
+		<result column="op.quantity" property="quantity" />
+		<result column="p.name" property="name" />
+		<result column="p.price" property="price" />
+		<result column="p.category" property="category" />
+		<result column="pc.color_name" property="color_name" />
+		<result column="ps.size_name" property="size_name" />
+		<result column="i.url" property="url" />
+	</resultMap>
+	<!-- 주문 테이블에서 받은 주문 번호로 상품 정보 가져오기 -->
+	<select id="findOrderProductInfoByPdnoAndOno" parameterType="string"
+		resultMap="OPRM">
+		SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category,
+		pc.color_name, ps.size_name, i.url
+		FROM product_detail pd, product p,
+		product_color pc, product_size ps, order_product op, orders o , image
+		i
+		WHERE o.ono = #{value} and o.ono = op.ono and op.pdno=pd.pdno and p.pno =
+		i.pno
+		and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno and i.url
+		like '%' || 'thumb' || '%'
+	</select>
+	<!-- 사용되지 않는 resultMap 지우기 -->
+	<resultMap type="orderProductVO" id="orderProductRM">
+		<result column="pdno" property="pdno" />
+		<result column="quantity" property="quantity" />
+	</resultMap>
+
+	<resultMap type="orderVO" id="ORM2">
+		<result column="id" property="memberVO.id" />
+	</resultMap>
+
+	<!-- [영훈][11.21] 주문 내역 보기 -->
+	<select id="myOrderList" parameterType="string" resultType="orderVO"
+		resultMap="ORM2">
+		select ono, totalprice, ordertime, status, id, destination
+		from orders
+		where id=#{value}
+		order by ono desc
+	</select>
+
+	<!-- [영훈][11.21] 주문 상품 내역 보기 -->
+	<select id="myOrderPrductList" parameterType="string"
+		resultType="orderProductVO">
+		select op.ono, op.pdno, op.quantity,
+		p.name, p.price, p.category,
+		pd.pno,
+		pc.color_name,
+		ps.size_name,
+		i.url
+		from ORDER_PRODUCT op, PRODUCT p, PRODUCT_DETAIL pd, product_color pc,
+		product_size ps, IMAGE i
+		where ono=#{value}
+		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and
+		pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and  i.url like '%' || 'thumb' || '%'		<!-- main이 아닌 thumb -->
- 	</select>
-    
-    <resultMap type="productVO" id="PRM">
-    	<result column="pc.color_name" property="productDetailVO.color"/>
-       	<result column="ps.size_name" property="productDetailVO.productSizeVO.size_type"/>
-    </resultMap>
-    
-    <select id="findProductDetailByPdno" parameterType="string" resultType="productVO" resultMap="PRM">
-    	SELECT p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name, ps.size_name
-		FROM product_detail pd, product p, product_color pc, product_size ps
-		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno = pc.pcno and pd.psno = ps.psno
-    </select>
-    
-     <!--[정현[11/22]  장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인-->
-    <select id="findMyCartCount" resultType="int">
-   		 select count(*) from ORDERS
+		and i.url like '%' || 'thumb' || '%'		<!-- 
+			main이 아닌 thumb -->
+	</select>
+
+	<resultMap type="productVO" id="PRM">
+		<result column="pc.color_name" property="productDetailVO.color" />
+		<result column="ps.size_name" property="productDetailVO.productSizeVO.size_type" />
+	</resultMap>
+
+	<select id="findProductDetailByPdno" parameterType="string"
+		resultType="productVO" resultMap="PRM">
+		SELECT p.pno, pd.pdno, p.name, p.price, p.category, pc.color_name,
+		ps.size_name
+		FROM product_detail pd, product p, product_color pc,
+		product_size ps
+		WHERE pdno = #{value} and p.pno = pd.pno and pd.pcno =
+		pc.pcno and pd.psno = ps.psno
+	</select>
+
+	<!--[정현[11/22] 장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인 -->
+	<select id="findMyCartCount" resultType="int">
+		select count(*) from ORDERS
 		where id=#{value} and status='장바구니'
-    </select>
-     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 만들기-->
-    <insert id="registerOrder" parameterType="orderVO">
-    	insert into orders(ono,totalprice,ordertime,status,id,destination) 
+	</select>
+	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니 만들기 -->
+	<insert id="registerOrder" parameterType="orderVO">
+		insert into orders(ono,totalprice,ordertime,status,id,destination)
 		values(ono_seq.nextval,#{totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
-    </insert>
-    
-     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니와 상품상세정보 연결-->
-    <insert id="registerOrderProduct" parameterType="orderVO">
-    	insert into order_product(ono,pdno,quantity)    
-values((select ono      from orders      where id=#{memberVO.id} and status='장바구니'),#{orderProductList[0].pdno},#{orderProductList[0].quantity})			
-    </insert>
-    
-     <!--[정현][11/22]  장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
-    <select id="findCartOderproduct" parameterType="orderVO" resultType="orderProductVO">
-    	select ono,pdno,quantity from order_product 
-    	where ono=(select ono 
-				from orders 
-				where id=#{memberVO.id} and status='장바구니') and 				
-				pdno=#{orderProductList[0].pdno} 
-    </select>
-    <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 총합 가격 올리기-->
-    <update id="updateOrder" parameterType="orderVO">
-		update orders 
-		set totalprice=totalprice+#{totalprice},ordertime=sysdate  
+	</insert>
+
+	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니와 상품상세정보 연결 -->
+	<insert id="registerOrderProduct" parameterType="orderVO">
+		insert into order_product(ono,pdno,quantity)
+		values((select ono from orders where id=#{memberVO.id} and
+		status='장바구니'),#{orderProductList[0].pdno},#{orderProductList[0].quantity})
+	</insert>
+
+	<!--[정현][11/22] 장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
+	<select id="findCartOderproduct" parameterType="orderVO"
+		resultType="orderProductVO">
+		select ono,pdno,quantity from order_product
+		where ono=(select ono
+		from orders
+		where id=#{memberVO.id} and status='장바구니') and
+		pdno=#{orderProductList[0].pdno}
+	</select>
+	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니 총합 가격 올리기 -->
+	<update id="updateOrder" parameterType="orderVO">
+		update orders
+		set totalprice=totalprice+#{totalprice},ordertime=sysdate
 		where id=#{memberVO.id} and status='장바구니'
-    </update>
-    
-    <!-- 장바구니 담기 마무리 -->
-    <!--[정현][11/22]  장바구니에서 상품 삭제 장바구니에서 상품 삭제-->
-    <delete id="deleteOrderProduct" parameterType="orderProductVO">
-    	delete from order_product
-    	 where ono=#{ono} and pdno=#{pdno}
-    </delete>
-    
-    <!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
-   <select id="findPdno" parameterType="productDetailVO" resultType="String">
-   	select pdno from product_detail
-   	where pcno=#{pcno} and  psno=#{psno}
-   </select>
-    
-    
-    
-      <!-- [석환][11.22] 장바구니 수량 수정 -->
-    <update id="updateOrderQuantity" parameterType="orderProductVO">
- 		update order_product set quantity=#{quantity}
- 		where ono=#{ono} and pdno=#{pdno}
- 	</update>
-   	   	  <!-- [석환][11.23] 포인트 차감 -->
-   	<update id="updatePointOrder" parameterType="memberVO">
-   		update member set point=point-#{point}
+	</update>
+
+	<!-- 장바구니 담기 마무리 -->
+	<!--[정현][11/22] 장바구니에서 상품 삭제 장바구니에서 상품 삭제 -->
+	<delete id="deleteOrderProduct" parameterType="orderProductVO">
+		delete from order_product
+		where ono=#{ono} and pdno=#{pdno}
+	</delete>
+
+	<!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
+	<select id="findPdno" parameterType="productDetailVO"
+		resultType="String">
+		select pdno from product_detail
+		where pcno=#{pcno} and psno=#{psno}
+	</select>
+
+
+
+	<!-- [석환][11.22] 장바구니 수량 수정 -->
+	<update id="updateOrderQuantity" parameterType="orderProductVO">
+		update order_product set quantity=#{quantity}
+		where ono=#{ono} and pdno=#{pdno}
+	</update>
+	<!-- [석환][11.23] 포인트 차감 -->
+	<update id="updatePointOrder" parameterType="memberVO">
+		update member set point=point-#{point}
 		where id=#{id}
-   	</update>
-   	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
-   	<update id="updateStatusOrder" parameterType="orderVO">
-   		update orders set status='입금대기', destination=#{destination}, ordertime=sysdate
+	</update>
+	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
+	<update id="updateStatusOrder" parameterType="orderVO">
+		update orders set status='입금대기', destination=#{destination},
+		ordertime=sysdate
 		where ono=#{ono}
-   	</update>
-   	<!-- [석환][11.23] 상품 주문시 무통장 외 배송준비중으로 변경 -->
-   	<update id="updateStatusOrderEtc" parameterType="orderVO">
-   		update orders set status='배송준비중', destination=#{destination}, ordertime=sysdate
+	</update>
+	<!-- [석환][11.23] 상품 주문시 무통장 외 배송준비중으로 변경 -->
+	<update id="updateStatusOrderEtc" parameterType="orderVO">
+		update orders set status='배송준비중', destination=#{destination},
+		ordertime=sysdate
 		where ono=#{ono}
-   	</update>
-   	
-   		<!-- [영훈][11.24] 회원 주문내역 중 상태변경 -->
- 	<update id="myOrderStatusChange" parameterType="string">
- 		update orders 
- 		set status='구매확정'
- 		where ono=#{value}
- 	</update>
- 	
- 	<!-- [영훈][11.25] 회원 주문내역의 주문상품 상태 체크 -->
- 	<select id="checkOrderProductStatus" parameterType="string" resultType="string">
- 		select status
- 		from orders
- 		where ono=#{value}
- 	</select>
- 	
- 	<select id="orderProductReviewForm" parameterType="string" resultType="productReviewVO">
- 		select pd.pdno, p.name, pc.color_name, ps.size_name 
+	</update>
+
+	<!-- [영훈][11.24] 회원 주문내역 중 상태변경 -->
+	<update id="myOrderStatusChange" parameterType="string">
+		update orders
+		set status='구매확정'
+		where ono=#{value}
+	</update>
+
+	<!-- [영훈][11.25] 회원 주문내역의 주문상품 상태 체크 -->
+	<select id="checkOrderProductStatus" parameterType="string"
+		resultType="string">
+		select status
+		from orders
+		where ono=#{value}
+	</select>
+
+	<select id="orderProductReviewForm" parameterType="string"
+		resultType="productReviewVO">
+		select pd.pdno, p.name, pc.color_name, ps.size_name
 		from product_detail pd, product p, PRODUCT_COLOR pc, PRODUCT_SIZE ps
-		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
- 	</select>
- 	
- 	<!-- [영훈][11.25] 회원 상품 리뷰작성 후 리뷰작성 유무 체크  -->
- 	<select id="reviewCheck" parameterType="productReviewVO" resultType="int">
- 		select count(*)
- 		from review
- 		where id=#{id} and pdno=#{pdno}
- 	</select> 	
-      <!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
-   <update id="updateOrderCartTotalPrice" parameterType="orderVO">
-   	update orders set totalprice=#{totalprice}
-	where ono=#{ono}
-   </update>
-   <!-- [석환][11.25]주문 결제시 총금액 -포인트-->
-   <update id="updateOrderTotalpriceAndPoint" parameterType="orderVO">
-   update orders set totalprice=totalprice-#{totalprice}
-   where ono=#{ono}
-   </update>
-   <!-- [석환][11.25]주문 결제시 멤버 총결제비용 업데이트 -->
-   <update id="updateMemberTotalSpent" parameterType="memberVO">
-   update member set totalSpent=totalSpent+#{totalSpent}
-   where id=#{id}
-   </update>
-   	<!-- [석환][11.25]회원 등급 포인트 비율 검색 -->
-	<select id="findMemberGradePointPercent" parameterType="string" resultType="int">
+		where
+		pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and
+		pd.psno=ps.psno
+	</select>
+
+	<!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
+	<update id="updateOrderCartTotalPrice" parameterType="orderVO">
+		update orders set totalprice=#{totalprice}
+		where ono=#{ono}
+	</update>
+	<!-- [석환][11.25]주문 결제시 총금액 -포인트 -->
+	<update id="updateOrderTotalpriceAndPoint" parameterType="orderVO">
+		update orders set totalprice=totalprice-#{totalprice}
+		where ono=#{ono}
+	</update>
+	<!-- [석환][11.25]주문 결제시 멤버 총결제비용 업데이트 -->
+	<update id="updateMemberTotalSpent" parameterType="memberVO">
+		update member set totalSpent=totalSpent+#{totalSpent}
+		where id=#{id}
+	</update>
+	<!-- [석환][11.25]회원 등급 포인트 비율 검색 -->
+	<select id="findMemberGradePointPercent" parameterType="string"
+		resultType="int">
 		select percent from grade where grade=#{value}
 	</select>
 	<!-- [석환][11.25]구매 후 회원 포인트 업데이트 -->
 	<update id="updateOrderMembetPoint" parameterType="memberVO">
-		update member set point=point+#{point}
-   		where id=#{id}
+		update member
+		set point=point+#{point}
+		where id=#{id}
 	</update>
 	<!-- [석환][11.25]구매 시 회원 등급 찾기 -->
-	<select id="findMemberGardeById" parameterType="string" resultType="string">
+	<select id="findMemberGardeById" parameterType="string"
+		resultType="string">
 		select grade from member where id=#{id}
 	</select>
 	<!-- [석환][11.25]상품 구매시 재고 업데이트 -->
 	<update id="updateProductDetailInventory" parameterType="productDetailVO">
-		update product_detail set inventory=inventory-#{inventory}
+		update
+		product_detail set inventory=inventory-#{inventory}
 		where pdno=#{pdno}
 	</update>
-	
- 	<!-- 
- 	<select id="idcheck" parameterType="string" resultType="int">
-		select count(*) from member where id=#{value}
-	</select> -->
-	
-	<select id="reviewCheckAjax" parameterType="productReviewVo" resultType="int">
-		select count(*) 
+
+	<!-- [영훈][11.27] 리뷰작성 유무 체크 -->
+	<select id="reviewCheck" parameterType="map" resultType="int">
+		select
+		count(*)
 		from review
 		where id=#{id} and pdno=#{pdno}
 	</select>
-	
-	
-	
-	
+	<!--[석환][11.27] 즉시 구매시 orders 테이블 등록 -->
+	<insert id="immediatelyPayRegisterOrder" parameterType="orderVO">
+		<selectKey keyProperty="ono" resultType="String" order="BEFORE">
+			select ono_seq.nextval from dual
+		</selectKey>
+		insert into orders(ono,totalprice,ordertime,status,id,destination)
+		values(#{ono},#{totalprice},sysdate,'즉시결제',#{memberVO.id},#{memberVO.address})
+	</insert>
+	<!--[석환][11.27] 즉시 구매시 orders_product 테이블 등록 -->
+	<insert id="immediatelyPayRegisterOrderpProduct" parameterType="orderProductVO">
+		insert into order_product(ono,pdno,quantity)
+		values(#{ono},#{pdno},#{quantity})
+	</insert>
+	<!--[석환]productDetailVO에 ProductSizeVO가 Has A 관계 -->
+	<resultMap type="productDetailVO" id="productImmediatelyRM">
+		<result column="psno" property="productSizeVO.psno" />
+		<result column="size_name" property="productSizeVO.size_name" />
+		<result column="size1" property="productSizeVO.size1" />
+		<result column="size2" property="productSizeVO.size2" />
+		<result column="size3" property="productSizeVO.size3" />
+		<result column="size4" property="productSizeVO.size4" />
+		<result column="size5" property="productSizeVO.size5" />
+	</resultMap>
+
+	<!--[석환] 즉시구매 상품 -->
+	<select id="findProductImmediatelyPay" parameterType="string"
+		resultMap="productImmediatelyRM">
+		SELECT pd.pdno, pd.pno, pc.pcno, pc.color_name, ps.psno as psno,
+		ps.size_name
+		FROM product_detail pd, product_color pc, product_size ps
+		WHERE
+		pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pdno=#{value}
+	</select>
+	<!--[석환][11.27] 즉시구매 취소 시 orders_product 테이블 삭제 -->
+	<delete id="deleteImmediatelyPayOrdersProduct" parameterType="orderProductVO">
+		delete from order_product where ono=#{ono} and pdno=#{pdno}
+	</delete>
+	<!--[석환][11.27] 즉시 구매 취소시 orders 테이블 삭제 -->
+	<delete id="deleteImmediatelyPayOrders">
+		delete from orders where ono=#{ono}
+	</delete>
+
+
+
 </mapper>
 
 

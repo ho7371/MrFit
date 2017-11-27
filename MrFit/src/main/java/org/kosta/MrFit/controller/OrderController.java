@@ -1,7 +1,9 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +14,13 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
-import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -46,10 +47,14 @@ public class OrderController {
 		System.out.println("    OrderController/cartForm()/진행1");
 		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2");
-		ovo.setMemberVO(mvo);
-		System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
-		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		if(ovo != null) {
+			ovo.setMemberVO(mvo);
+			System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
+			System.out.println("    OrderController/cartForm()/종료");
+			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		}else {
+			return new ModelAndView("product/myCart_fail.tiles"); 
+		}
 	}
 
 	/**
@@ -196,11 +201,23 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
-	public ModelAndView myOrderPrductList(String ono) {
+	public ModelAndView myOrderPrductList(String ono,String id) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작");
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
-		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
+		System.out.println("      OrderController/myOrderPrductList()/중간 list:" + list);
+		for(int i=0;i<list.size();i++) {
+			Map<String, String> map = new HashMap<String, String>();
+			System.out.println("      OrderController/myOrderPrductList()/for문 id:" + id);
+			map.put("id", id);
+			String pdno = list.get(i).getPdno();
+			System.out.println("      OrderController/myOrderPrductList()/for문 pdno:" + pdno);
+			map.put("pdno", pdno);
+			int reviewCheck = orderService.reviewCheck(map);
+			System.out.println("      OrderController/myOrderPrductList()/for문 reviewCheck:" + reviewCheck);
+			list.get(i).setReviewCheck(reviewCheck);
+		}
+		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
 		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
@@ -275,16 +292,42 @@ public class OrderController {
 		orderService.updateOrderMembetPoint(mvo);
 		return "redirect:myOrderList.do?id="+id;
 	}
-	
-	@RequestMapping("reviewCheckAjax.do")
-	@ResponseBody
-	public String reviewCheckAjax(ProductReviewVO rvo) {
-		System.out.println("   	OrderController/reviewCheckAjax()/시작 rvo:"+rvo);
-		String message = orderService.reviewCheckAjax(rvo);
-		System.out.println("   	OrderController/reviewCheckAjax()/종료 message:"+message);
-		return message;
+	//석환
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("immediatelyPay.do")
+	public String immediatelyPay(int quantity,ProductDetailVO pdvo,String image,Model model) {
+		String pdno=orderService.findPdno(pdvo);
+		ProductVO pvo=orderService.findProductDetailByPdno(pdno);
+		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);
+		int price=pvo.getPrice();
+		int totalprice=quantity*price;
+		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시결제",mvo,null);
+		orderService.immediatelyPayRegisterOrder(ovo);
+		OrderProductVO opvo=new OrderProductVO();
+		String ono=ovo.getOno();
+		opvo.setOno(ono);
+		opvo.setPdno(pdno);
+		opvo.setQuantity(quantity);
+		orderService.immediatelyPayRegisterOrderpProduct(opvo);
+		model.addAttribute("image", image);
+		model.addAttribute("totalprice", totalprice);
+		model.addAttribute("pvo", pvo);
+		model.addAttribute("pdvo", npdvo);
+		model.addAttribute("quantity", quantity);
+		model.addAttribute("ono", ono);
+		return "order/immediatelyOrderForm.tiles";
 	}
-	
+	//[석환][11.27] 즉시 구매 취소시 관련 테이블 삭제
+	@Transactional
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("immediatelyPayOrderCancle.do")
+	public String immediatelyPayOrderCancle(OrderProductVO opvo) {
+		System.out.println("즉시 구매 pdno : "+opvo.getPdno()+" 즉시 구매 ono : "+opvo.getOno());
+		orderService.deleteImmediatelyPayOrdersProduct(opvo);
+		orderService.deleteImmediatelyPayOrders(opvo);
+		return "redirect:home.do";
+	}
 	
 	
 }
