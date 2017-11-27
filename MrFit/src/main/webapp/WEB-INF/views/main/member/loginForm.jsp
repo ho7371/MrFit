@@ -17,8 +17,8 @@
 	<div class="account">
 		<div class="container"> 
 			<div class="account-bottom">
-				<div class="col-md-6 account-left">
-					<div style="width: 500px; height: 250px; background-color: gray;"></div>
+				<div class="col-md-6 account-left" style="text-align: center;">
+					<img alt="" src="${pageContext.request.contextPath}/resources/images/Logo.jpg" style="width: 250px;">
 				</div>
 				<div class="col-md-6 account-left">
 					<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm">
@@ -30,11 +30,11 @@
 					</div>
 					<div class="address">
 						<span>아이디</span>
-						<input type="text" name="id" size="10">
+						<input type="text" name="id" size="10" required="required">
 					</div>
 					<div class="address">
 						<span>패스워드</span>
-						 <input type="password" name="password" size="10">
+						 <input type="password" name="password" size="10" required="required">
 					</div>
 					<div class="address">
 						<input type="submit" value="Login">
