@@ -55,6 +55,8 @@ public interface OrderDAO {
 	void updateProductDetailInventory(ProductDetailVO pdvo);
 
 	int reviewCheck(Map<String, String> map);
+
+	int statusCheck(Map<String, String> map);
 	
 	ProductVO findProductDetailByPdno(String pdno);
 

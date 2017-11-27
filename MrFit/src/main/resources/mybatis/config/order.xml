@@ -240,6 +240,14 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		from review
 		where id=#{id} and pdno=#{pdno}
 	</select>
+	
+	<select id="statusCheck" parameterType="map" resultType="int">
+		select count(*)
+		from orders
+		where ono=#{ono} and status='구매확정'
+	</select>
+	
+	
 	<!--[석환][11.27] 즉시 구매시 orders 테이블 등록 -->
 	<insert id="immediatelyPayRegisterOrder" parameterType="orderVO">
 		<selectKey keyProperty="ono" resultType="String" order="BEFORE">

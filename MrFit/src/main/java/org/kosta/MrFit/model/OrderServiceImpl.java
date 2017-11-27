@@ -130,6 +130,12 @@ public class OrderServiceImpl implements OrderService {
 	public ProductReviewVO orderProductReviewForm(String pdno) {
 		return orderDAO.orderProductReviewForm(pdno);
 	}
+		//[영훈][11.27]리뷰작성 주문상태확인
+		@Override
+		public int statusCheck(Map<String, String> map) {
+			System.out.println("            OrderServiceImpl/statusCheck()/시작 map : "+ map);
+			return orderDAO.statusCheck(map);
+		}
 
 	// [석환][11.25]장바구니 수정시 총금액 변경
 	@Override

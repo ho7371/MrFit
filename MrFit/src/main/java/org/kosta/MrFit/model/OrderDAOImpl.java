@@ -159,18 +159,24 @@ public class OrderDAOImpl implements OrderDAO {
 	public ProductReviewVO orderProductReviewForm(String pdno) {
 		return template.selectOne("order.orderProductReviewForm", pdno);
 	}
-
-	// [석환][11.25]장바구니 수정시 총금액 변경
-	@Override
-	public void updateOrderCartTotalPrice(OrderVO ovo) {
-		template.update("order.updateOrderCartTotalPrice", ovo);
-	}
-
-	// [석환][11.25]주문결제시 결제 금액 - 포인트
-	@Override
-	public void updateOrderTotalpriceAndPoint(OrderVO ovo) {
-		template.update("order.updateOrderTotalpriceAndPoint", ovo);
-	}
+	//[석환][11.25]장바구니 수정시 총금액 변경
+			@Override
+		public void updateOrderCartTotalPrice(OrderVO ovo) {
+				template.update("order.updateOrderCartTotalPrice", ovo);
+			}
+		//[석환][11.25]주문결제시 결제 금액 - 포인트
+			@Override
+		public void updateOrderTotalpriceAndPoint(OrderVO ovo) {
+				template.update("order.updateOrderTotalpriceAndPoint",ovo);
+			}
+		
+		//[영훈][11.27]리뷰작성 주문상태확인
+		@Override
+		public int statusCheck(Map<String, String> map) {
+			System.out.println("                  OrderDAOImpl/statusCheck()/시작 map : "+map);
+			return template.selectOne("order.statusCheck", map);
+		}
+	
 
 	// [석환][11.25][구매 확정시 토탈금액 수정]
 	@Override
