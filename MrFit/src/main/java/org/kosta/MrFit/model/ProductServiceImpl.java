@@ -45,9 +45,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductByName(keyword);
 	}
 	@Override
-	public ProductVO findProductDtailByPno(String pno) {	
+	public ProductVO findProductDetailByPno(String pno) {	
 		System.out.println("            ProductServiceImpl/findProductDtailByPno()/시작");
-		return productDAO.findProductDtailByPno(pno);
+		return productDAO.findProductDetailByPno(pno);
 	}
 	@Override
 	public int getTotalProductCount() {	

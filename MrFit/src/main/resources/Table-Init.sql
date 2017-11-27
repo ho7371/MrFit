@@ -84,7 +84,7 @@ insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval
 
 insert into auth(id, auth) values('java','ROLE_MEMBER');
 insert into auth(id, auth) values('spring','ROLE_MEMBER');
-insert into auth(id, auth) values('spring','ROLE_ADMIN');
+insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
 --------------- 상품등록
 

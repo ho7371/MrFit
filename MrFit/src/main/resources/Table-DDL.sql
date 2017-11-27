@@ -34,8 +34,9 @@ drop table member_size;
 drop table member;
 drop table question;
 drop table grade;
-drop table board
+drop table board;
 	
+commit
 ----------------------------------------------------- 삭제 SQL 종료
 
 -------------------------------------------------------- 테이블 생성 SQL
@@ -159,9 +160,9 @@ CREATE TABLE product (
 			pcno NUMBER NOT NULL, 
 			psno NUMBER NOT NULL,
 			inventory NUMBER NOT NULL,
-			constraint fk_pno_in_product_detail foreign key(pno) references product(pno),
-			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno),
-			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno)
+			constraint fk_pno_in_product_detail foreign key(pno) references product(pno) on delete cascade,
+			constraint fk_color_in_product_detail foreign key(pcno) references product_color(pcno) on delete cascade,
+			constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno) on delete cascade
 		);
 			CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
 			/* CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); */
@@ -194,7 +195,7 @@ CREATE TABLE review (
 	id VARCHAR2(100) NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
-	constraint fk_pdno_in_review foreign key(pdno) references product_detail(pdno),
+	constraint fk_pdno_in_review foreign key(pdno) references product_detail(pdno) on delete cascade,
 	constraint fk_id_in_review foreign key(id) references member(id)
 );
 CREATE INDEX review_unique ON review(pdno,id);
@@ -206,8 +207,8 @@ CREATE TABLE product_qna (
 	pno NUMBER NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
-	constraint fk_id_in_product_qna foreign key(id) references member(id)
-	constraint fk_pno_in_product_qna foreign key(pno) references product(pno)
+	constraint fk_id_in_product_qna foreign key(id) references member(id),
+	constraint fk_pno_in_product_qna foreign key(pno) references product(pno) on delete cascade
 );
 
 
@@ -217,7 +218,7 @@ CREATE TABLE image (
 	pno NUMBER NOT NULL, 
 	url VARCHAR2(300) NOT NULL,
 	
-	constraint fk_pno_in_image foreign key(pno) references product(pno)
+	constraint fk_pno_in_image foreign key(pno) references product(pno) on delete cascade
 );
 
 /* 주문 */
@@ -285,3 +286,4 @@ select * from PRODUCT_SIZE;
 select * from REVIEW;
 select * from PRODUCT_QNA;
 select * from BOARD;
+commit

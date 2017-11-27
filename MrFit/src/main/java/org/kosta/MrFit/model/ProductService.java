@@ -10,7 +10,7 @@ public interface ProductService {
 
 	List<ProductVO> findProductByName(String keyword);
 
-	ProductVO findProductDtailByPno(String pno);
+	ProductVO findProductDetailByPno(String pno);
 	
 	int getTotalProductCount();
 

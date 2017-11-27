@@ -18,7 +18,7 @@ public class ProductDAOImpl implements ProductDAO {
     * 상품 상세보기 메서드(상품번호로 검색)
     */
    @Override
-   public ProductVO findProductDtailByPno(String pno) {
+   public ProductVO findProductDetailByPno(String pno) {
       System.out.println("                  ProductDAOImpl/findProductDtailByPno()/시작");
       ProductVO pvo=template.selectOne("product.findProductDetail", pno);
       pvo.setImageList(template.selectList("product.findProductImageList",pno));

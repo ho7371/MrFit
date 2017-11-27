@@ -47,12 +47,12 @@
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/admin/updateProduct.do?pno=${item.pno}">수정</a>
+									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()">수정</a>
 								</span>
 							</li>
 							<li>
 								<span>
-									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}">삭제</a>
+									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()">삭제</a>
 								</span>
 							</li>
 							<div class="clearfix"></div>

@@ -109,14 +109,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 주문번호로 주문 개수 찾기 : 진호 -->
-	<select id="adminSearchOrderCountByOrderNumber" parameterType="int" resultType="int">
+	<select id="adminSearchOrderCountByOrderNumber" parameterType="string" resultType="int">
 		select count(*) from orders where ono=#{value}
 	</select>
 	
 	<!-- 주문검색 (주문번호로) : 진호 -->
-	<select id="adminSearchOrderByOno" parameterType="int" resultType="orderVO" resultMap="MemberRM">
-		select * from orders where ono=#{value}
+	<select id="adminSearchOrderByOno" parameterType="string" resultType="orderVO" resultMap="MemberRM">
+		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination 
+		from orders o, member m	where o.ono=#{value} and o.id=m.id
 	</select>
+
+	
 	<!-- 주문 상태 변경 -->
 	<update id="updateOrderStatus" parameterType="map">
 		update orders set status = #{status} where ono = #{ono}
@@ -138,6 +141,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select note_no, content, send_date, id 
 		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
 	</select>
+	
+	<!-- 상품삭제 -->
+	<delete id="deletePost" parameterType="string">
+		delete from product where pno=#{value}
+	</delete>
 </mapper>
 
 

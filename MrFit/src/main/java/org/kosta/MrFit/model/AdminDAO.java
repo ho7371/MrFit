@@ -29,13 +29,15 @@ public interface AdminDAO {
 
 	OrderVO adminfindOrderByOno(String ono);
 
-	int adminSearchOrderCountByOrderNumber(int parseInt);
+	int adminSearchOrderCountByOrderNumber(String ono);
 
-	OrderVO adminSearchOrderByOno(int ono);
+	OrderVO adminSearchOrderByOno(String ono);
 	
 	void sendMessage(Map<String, Object> map);
 
 	List<NoteVO> getNoteList();
 
 	List<OrderProductVO> orderProductInfo(String ono);
+
+	void deleteProduct(String pno);
 }
