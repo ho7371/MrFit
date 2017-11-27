@@ -75,7 +75,7 @@ public class OrderController {
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 			
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		System.out.println(prodeuctVO.getPno());
 		int cartCount = orderService.findMyCartCount(mvo.getId());
 
 		int quantity =Integer.parseInt( request.getParameter("quantity"));
@@ -85,6 +85,7 @@ public class OrderController {
 			ProductDetailVO pdvo=new ProductDetailVO();
 			pdvo.setPcno(request.getParameter("pcno"));
 			pdvo.setPsno(request.getParameter("psno"));
+			pdvo.setPno(request.getParameter("pno"));
 			
 		opvo.setPdno(orderService.findPdno(pdvo));		
 		opvo.setQuantity(quantity);

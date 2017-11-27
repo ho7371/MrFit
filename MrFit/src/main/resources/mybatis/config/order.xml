@@ -106,60 +106,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findMyCartCount" resultType="int">
 		select count(*) from ORDERS
 		where id=#{value} and status='장바구니'
-	</select>
-	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니 만들기 -->
-	<insert id="registerOrder" parameterType="orderVO">
-		insert into orders(ono,totalprice,ordertime,status,id,destination)
+    </select>
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 만들기-->
+    <insert id="registerOrder" parameterType="orderVO">
+    	insert into orders(ono,totalprice,ordertime,status,id,destination) 
 		values(ono_seq.nextval,#{totalprice},sysdate,'장바구니',#{memberVO.id},#{memberVO.address})
-	</insert>
-
-	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니와 상품상세정보 연결 -->
-	<insert id="registerOrderProduct" parameterType="orderVO">
-		insert into order_product(ono,pdno,quantity)
-		values((select ono from orders where id=#{memberVO.id} and
-		status='장바구니'),#{orderProductList[0].pdno},#{orderProductList[0].quantity})
-	</insert>
-
-	<!--[정현][11/22] 장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
-	<select id="findCartOderproduct" parameterType="orderVO"
-		resultType="orderProductVO">
-		select ono,pdno,quantity from order_product
-		where ono=(select ono
-		from orders
-		where id=#{memberVO.id} and status='장바구니') and
-		pdno=#{orderProductList[0].pdno}
-	</select>
-	<!--[정현][11/22] 장바구니에서 상품 담기 장바구니 총합 가격 올리기 -->
-	<update id="updateOrder" parameterType="orderVO">
-		update orders
-		set totalprice=totalprice+#{totalprice},ordertime=sysdate
+    </insert>
+    
+     <!--[정현][11/22]  장바구니에서 상품 담기 장바구니와 상품상세정보 연결-->
+    <insert id="registerOrderProduct" parameterType="orderVO">
+    	insert into order_product(ono,pdno,quantity)    
+values((select ono      from orders      where id=#{memberVO.id} and status='장바구니'),#{orderProductList[0].pdno},#{orderProductList[0].quantity})			
+    </insert>
+    
+     <!--[정현][11/22]  장바구니에 해당 상품이 같은 색상 사이즈로 들어있는지 확인 -->
+    <select id="findCartOderproduct" parameterType="orderVO" resultType="orderProductVO">
+    	select ono,pdno,quantity from order_product 
+    	where ono=(select ono 
+				from orders 
+				where id=#{memberVO.id} and status='장바구니') and 				
+				pdno=#{orderProductList[0].pdno} 
+    </select>
+    <!--[정현][11/22]  장바구니에서 상품 담기 장바구니 총합 가격 올리기-->
+    <update id="updateOrder" parameterType="orderVO">
+		update orders 
+		set totalprice=totalprice+#{totalprice},ordertime=sysdate  
 		where id=#{memberVO.id} and status='장바구니'
-	</update>
-
-	<!-- 장바구니 담기 마무리 -->
-	<!--[정현][11/22] 장바구니에서 상품 삭제 장바구니에서 상품 삭제 -->
-	<delete id="deleteOrderProduct" parameterType="orderProductVO">
-		delete from order_product
-		where ono=#{ono} and pdno=#{pdno}
-	</delete>
-
-	<!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
-	<select id="findPdno" parameterType="productDetailVO"
-		resultType="String">
-		select pdno from product_detail
-		where pcno=#{pcno} and psno=#{psno}
-	</select>
-
-
-
-	<!-- [석환][11.22] 장바구니 수량 수정 -->
-	<update id="updateOrderQuantity" parameterType="orderProductVO">
-		update order_product set quantity=#{quantity}
-		where ono=#{ono} and pdno=#{pdno}
-	</update>
-	<!-- [석환][11.23] 포인트 차감 -->
-	<update id="updatePointOrder" parameterType="memberVO">
-		update member set point=point-#{point}
+    </update>
+    
+    <!-- 장바구니 담기 마무리 -->
+    <!--[정현][11/22]  장바구니에서 상품 삭제 장바구니에서 상품 삭제-->
+    <delete id="deleteOrderProduct" parameterType="orderProductVO">
+    	delete from order_product
+    	 where ono=#{ono} and pdno=#{pdno}
+    </delete>
+    
+    <!--[정현][11/22] 장바구니에서 사용할 pcno와 psno로 pdno찾기 -->
+   <select id="findPdno" parameterType="productDetailVO" resultType="String">
+   	select pdno from product_detail
+   	where pcno=#{pcno} and  psno=#{psno} and pno=#{pno}
+   </select>
+    
+    
+    
+      <!-- [석환][11.22] 장바구니 수량 수정 -->
+    <update id="updateOrderQuantity" parameterType="orderProductVO">
+ 		update order_product set quantity=#{quantity}
+ 		where ono=#{ono} and pdno=#{pdno}
+ 	</update>
+   	   	  <!-- [석환][11.23] 포인트 차감 -->
+   	<update id="updatePointOrder" parameterType="memberVO">
+   		update member set point=point-#{point}
 		where id=#{id}
 	</update>
 	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
@@ -239,8 +236,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- [영훈][11.27] 리뷰작성 유무 체크 -->
 	<select id="reviewCheck" parameterType="map" resultType="int">
-		select
-		count(*)
+		select count(*) 
 		from review
 		where id=#{id} and pdno=#{pdno}
 	</select>

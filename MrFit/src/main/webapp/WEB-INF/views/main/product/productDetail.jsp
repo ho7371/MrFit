@@ -103,6 +103,7 @@ ${requestScope.pvo } --%>
 						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
 						<input type="hidden" name="psno" id="sendPsno" value="">
 						<input type="hidden" name="pcno" id="sendPcno" value="">
+						<input type="hidden" name="pno"  value="${pvo.pno}">
 						<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
@@ -184,7 +185,7 @@ ${requestScope.pvo } --%>
 									</c:otherwise>
 								</c:choose>
 							</thead>
-	<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
+							<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
 							<tbody>
 								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>
