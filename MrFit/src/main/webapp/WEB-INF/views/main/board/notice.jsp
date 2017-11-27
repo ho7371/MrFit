@@ -85,12 +85,12 @@
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
 	   				<c:choose>
 	   					<c:when test="${pageNum==pb.nowPage}">
-							<li>${pageNum}&nbsp;&nbsp;</li>
+							<li><a>${pageNum}</a>&nbsp;</li>
 						</c:when>
 					<c:otherwise>
 						<li>
 							<a href="notice.do?pageNo=${pageNum}">${pageNum}</a>
-							&nbsp;&nbsp;
+							&nbsp;
 						</li>
 					</c:otherwise>
    				</c:choose>

@@ -595,9 +595,8 @@ public class AdminController {
 		return "redirect:notice.do";
 	}
 	
-	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)			
+	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]	
+	@RequestMapping("registerNoticeForm.do")			
 		public String registerNoticeForm(HttpServletRequest  request){		
 		System.out.println("   	AdminController/registerNoticeForm()/시작");
 		System.out.println("   	AdminController/registerNoticeForm()/종료");		
@@ -622,18 +621,10 @@ public class AdminController {
 			return "redirect:notice.do";
 		}
 	
-	//[정현][11/25][ 공지사항 등록 폼으로 ]
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNoticeForm.do", method=RequestMethod.GET)
-	public String registerNoteForm() {
-		System.out.println("   	AdminController/registerNoteForm()/시작");
-		System.out.println("   	AdminController/registerNoteForm()/종료");
-		return "admin/registerNoticeForm.tiles";
-	}
 	
 	//[정현][11/27]공지사항 수정폼 
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="updateNoticeForm.do", method=RequestMethod.GET)
+
+	@RequestMapping("updateNoticeForm.do")
 	public ModelAndView updateNoteForm(HttpServletRequest  request) {
 		System.out.println("   	AdminController/updateNoteForm()/시작");
 		ModelAndView mv = new ModelAndView();
@@ -664,8 +655,8 @@ public class AdminController {
 			System.out.println("   	AdminController/updateNotice()/종료");
 			return "redirect:notice.do";
 		}
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="adminNoteList.do", method=RequestMethod.GET)
+	
+	@RequestMapping("adminNoteList.do")
 	public ModelAndView adminNoteList() {
 		System.out.println("   	AdminController/adminNoteList()/시작");
 		ModelAndView mv = new ModelAndView();
@@ -677,8 +668,8 @@ public class AdminController {
 		return mv;
 	}
 	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="adminNoticeList.do", method=RequestMethod.GET)
+
+	@RequestMapping("adminNoticeList.do")
 	public String adminNoticeList() {
 		System.out.println("   	AdminController/adminNoticeList()/시작");
 		return "board/notice.tiles";
