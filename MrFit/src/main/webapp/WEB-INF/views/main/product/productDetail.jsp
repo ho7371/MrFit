@@ -44,7 +44,22 @@ $(document).ready(function() {
 	$("#insertCart").click(function() {
 		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
 		$("#sendPcno").val(pcno);  
-	});//click 
+	});//click
+	
+	//즉시구매
+	$("#immediatelyPay").click(function() {
+		pcno=$("#colorCheck").val();
+		var psno=$("#sizeSelectAjax").val();
+		var quantity=$("#quantity").val();
+		var image=$(".imageSpend").attr("id");
+		alert(image);
+		location.href="${pageContext.request.contextPath}/immediatelyPay.do?pcno="+pcno+
+		"&psno="+psno+"&pno="+pno+"&quantity="+quantity+"&image="+image;
+/* 		alert(quantity);
+		alert(psno);
+		alert(pcno);
+		alert(1); */
+	});//immediatelyPay click
 });//ready
 </script>
 <script>
@@ -73,6 +88,8 @@ ${requestScope.pvo } --%>
 				<div class="sngl-top">
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
+							<!--아래 div는 이미지 url 보내기 위해 생성한 영역 -->
+							<div class="imageSpend" id="${requestScope.pvo.imageList[0].url}"></div>
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
 							${imgList.url }							
@@ -128,7 +145,8 @@ ${requestScope.pvo } --%>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" id= "insertCart"/> <input type="submit" value="즉시구매" />
+								<input type="submit" value="장바구니담기" id= "insertCart"/> 
+								<input type="button" id="immediatelyPay" value="즉시구매"  style="background-color: orange; "/>
 							</div>
 						</div>
 						</form>
