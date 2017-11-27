@@ -173,12 +173,6 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		where pd.pdno=#{value} and pd.pno=p.pno and pd.pcno=pc.pcno and pd.psno=ps.psno
  	</select>
  	
- 	<!-- [영훈][11.25] 회원 상품 리뷰작성 후 리뷰작성 유무 체크  -->
- 	<select id="reviewCheck" parameterType="productReviewVO" resultType="int">
- 		select count(*)
- 		from review
- 		where id=#{id} and pdno=#{pdno}
- 	</select> 	
       <!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
    <update id="updateOrderCartTotalPrice" parameterType="orderVO">
    	update orders set totalprice=#{totalprice}
@@ -213,12 +207,8 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		where pdno=#{pdno}
 	</update>
 	
- 	<!-- 
- 	<select id="idcheck" parameterType="string" resultType="int">
-		select count(*) from member where id=#{value}
-	</select> -->
-	
-	<select id="reviewCheckAjax" parameterType="productReviewVo" resultType="int">
+	<!-- [영훈][11.27] 리뷰작성 유무 체크  -->
+	<select id="reviewCheck" parameterType="map" resultType="int">
 		select count(*) 
 		from review
 		where id=#{id} and pdno=#{pdno}

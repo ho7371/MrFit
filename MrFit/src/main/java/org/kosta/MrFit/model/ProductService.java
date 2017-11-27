@@ -46,7 +46,5 @@ public interface ProductService {
 
 	String findColorByName(ProductDetailVO pdvo);
 	
-	int reviewCheck(ProductReviewVO prvo);
-
 
 }

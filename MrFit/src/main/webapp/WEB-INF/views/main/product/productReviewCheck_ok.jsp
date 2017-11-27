@@ -4,5 +4,5 @@
 
 <script type="text/javascript">
 	alert("리뷰를 성공적으로 작성하셨습니다");
-	location.href = "${pageContext.request.contextPath}/myOrderPrductList.do?ono=${ono}";
+	location.href = "${pageContext.request.contextPath}/myOrderPrductList.do?ono=${ono}&id=${id}";
 </script>

@@ -23,7 +23,7 @@
 					</ul>
 					<c:forEach items="${list}" var="order">
 					<ul class="cart-header">
-						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}">${order.ono}</a></span></li>
+						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}&id=<sec:authentication property="principal.id"/>">${order.ono}</a></span></li>
 						<li><span>${order.totalprice}</span></li>
 						<li><span>${order.destination}</span></li>
 						<li><span>${order.status}</span></li>

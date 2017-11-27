@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -181,10 +182,11 @@ public class OrderDAOImpl implements OrderDAO {
 		public void updateProductDetailInventory(ProductDetailVO pdvo) {
 			template.update("order.updateProductDetailInventory", pdvo);		
 		}
-		//[영훈][11.27]리뷰작성 확인 Ajax
+		//[영훈][11.27]리뷰작성 확인
 		@Override
-		public int reviewCheckAjax(ProductReviewVO rvo) {
-			return template.selectOne("order.reviewCheckAjax",rvo);
+		public int reviewCheck(Map<String, String> map) {
+			System.out.println("                  OrderDAOImpl/reviewCheck()/시작 map : "+map);
+			return template.selectOne("order.reviewCheck",map);
 		}
 	
 }
