@@ -13,7 +13,7 @@
 				<input type="hidden" name="bno" value="${bvo.bno}">
 				제목 : <input type="text" id="title" name="title" value="${bvo.title}"><br>
 				내용<br>
-				<textarea rows="30" cols="30" id="content" name="content">
+				<textarea rows="20" cols="90" id="content" name="content">
 				${bvo.content}
 				</textarea>	<br>
 				<input type="submit" value="공지사항 수정">

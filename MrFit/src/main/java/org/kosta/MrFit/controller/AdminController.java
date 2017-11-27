@@ -457,7 +457,6 @@ public class AdminController {
 	@RequestMapping("adminSearchOrder.do")
 	public ModelAndView adminSearchOrderByKeyword(HttpServletRequest request, String searchType, String searchKeyword) {
 		System.out.println("   	AdminController/adminSearchOrderByKeyword()/시작");
-		
 		ModelAndView mv = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -539,7 +538,7 @@ public class AdminController {
 	//[정현][11/25][ 공지사항 리스트 ]
 	
 	
-	@RequestMapping(value="notice.do", method=RequestMethod.GET)	
+	@RequestMapping("notice.do")	
 	public ModelAndView notice(HttpServletRequest  request){
 		ModelAndView mv = new ModelAndView();
 		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
