@@ -108,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
 		// 무통장 입금시 입금대기로 변경
 		if (depositMethod == 1) {
 			orderDAO.updateStatusOrder(ovo);
-		}
+		}else
 		// 무통장 외 입금시 배송준비중으로 변경
 		orderDAO.updateStatusOrderEtc(ovo);
 	}
