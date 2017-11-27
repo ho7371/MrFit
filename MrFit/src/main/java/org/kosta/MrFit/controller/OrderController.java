@@ -211,12 +211,18 @@ public class OrderController {
 			Map<String, String> map = new HashMap<String, String>();
 			System.out.println("      OrderController/myOrderPrductList()/for문 id:" + id);
 			map.put("id", id);
+			map.put("ono", ono);
 			String pdno = list.get(i).getPdno();
 			System.out.println("      OrderController/myOrderPrductList()/for문 pdno:" + pdno);
 			map.put("pdno", pdno);
 			int reviewCheck = orderService.reviewCheck(map);
 			System.out.println("      OrderController/myOrderPrductList()/for문 reviewCheck:" + reviewCheck);
+			int statusCheck = orderService.statusCheck(map);
+			if(statusCheck==0) {
+				list.get(i).setReviewCheck(1);
+			}else {
 			list.get(i).setReviewCheck(reviewCheck);
+			}
 		}
 		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
 		mv.addObject("list", list);

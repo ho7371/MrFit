@@ -190,5 +190,12 @@ public class OrderDAOImpl implements OrderDAO {
 			System.out.println("                  OrderDAOImpl/reviewCheck()/시작 map : "+map);
 			return template.selectOne("order.reviewCheck",map);
 		}
+		
+		//[영훈][11.27]리뷰작성 주문상태확인
+		@Override
+		public int statusCheck(Map<String, String> map) {
+			System.out.println("                  OrderDAOImpl/statusCheck()/시작 map : "+map);
+			return template.selectOne("order.statusCheck", map);
+		}
 	
 }

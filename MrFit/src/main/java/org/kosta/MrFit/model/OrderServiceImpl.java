@@ -153,10 +153,16 @@ public class OrderServiceImpl implements OrderService {
 		public void updateProductDetailInventory(ProductDetailVO pdvo) {
 			orderDAO.updateProductDetailInventory(pdvo);
 		}
-		//[영훈][11.27]리뷰작성 확인 Ajax
+		//[영훈][11.27]리뷰작성 확인 
 		@Override
 		public int reviewCheck(Map<String, String> map) {
 			System.out.println("            OrderServiceImpl/reviewCheck()/시작 map : "+ map);
 			return orderDAO.reviewCheck(map);
+		}
+		//[영훈][11.27]리뷰작성 주문상태확인
+		@Override
+		public int statusCheck(Map<String, String> map) {
+			System.out.println("            OrderServiceImpl/statusCheck()/시작 map : "+ map);
+			return orderDAO.statusCheck(map);
 		}
 }

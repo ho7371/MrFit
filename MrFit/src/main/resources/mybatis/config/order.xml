@@ -214,7 +214,11 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		where id=#{id} and pdno=#{pdno}
 	</select>
 	
-	
+	<select id="statusCheck" parameterType="map" resultType="int">
+		select count(*)
+		from orders
+		where ono=#{ono} and status='구매확정'
+	</select>
 	
 	
 </mapper>
