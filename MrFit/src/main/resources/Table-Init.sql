@@ -1,4 +1,5 @@
 --------------- 테이블 데이터 삭제
+<<<<<<< HEAD
 delete from note;
 delete from board;
 delete from order_product;
@@ -15,6 +16,24 @@ delete from product;
 delete from auth;
 delete from point;
 delete from member_size;
+=======
+delete from order_product;
+delete from orders;
+delete from image;
+delete from product_qna;
+delete from review;
+delete from inquiry_reply;
+delete from inquiry;
+delete from product_detail;
+delete from product_size;
+delete from product_color;
+delete from product;
+delete from auth;
+delete from point;
+delete from member_size;
+delete from note;
+delete from board;
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 delete from member;
 delete from question;
 delete from grade;

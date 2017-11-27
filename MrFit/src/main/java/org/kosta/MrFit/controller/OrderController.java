@@ -12,12 +12,14 @@ import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -42,14 +44,12 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
-		}
-		System.out.println("    OrderController/cartForm()/진행3 ovoList : " + ovoList);
+		ovo.setMemberVO(mvo);
+		System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
 		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart.tiles", "ovoList", ovoList);
+		return new ModelAndView("product/myCart.tiles", "ovo", ovo);
 	}
 
 	/**
@@ -160,14 +160,12 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
-		}
-		System.out.println("    OrderController/orderForm()/진행3 ovoList : " + ovoList);
+		ovo.setMemberVO(mvo);
+		System.out.println("    OrderController/orderForm()/진행3 ovo : " + ovo);
 		System.out.println("    OrderController/orderForm()/종료");
-		return new ModelAndView("order/orderForm.tiles", "ovoList", ovoList);
+		return new ModelAndView("order/orderForm.tiles", "ovo", ovo);
 	}
 
 	/**
@@ -276,6 +274,15 @@ public class OrderController {
 		mvo.setPoint(totalprice*percent/100);
 		orderService.updateOrderMembetPoint(mvo);
 		return "redirect:myOrderList.do?id="+id;
+	}
+	
+	@RequestMapping("reviewCheckAjax.do")
+	@ResponseBody
+	public String reviewCheckAjax(ProductReviewVO rvo) {
+		System.out.println("   	OrderController/reviewCheckAjax()/시작 rvo:"+rvo);
+		String message = orderService.reviewCheckAjax(rvo);
+		System.out.println("   	OrderController/reviewCheckAjax()/종료 message:"+message);
+		return message;
 	}
 	
 	

@@ -3,7 +3,7 @@ package org.kosta.MrFit.model;
 import java.util.List;
 
 public interface OrderService {
-	List<OrderVO> findMyCart(String id);
+	OrderVO findMyCart(String id);
 
 	List<OrderVO> myOrderList(String id);
 
@@ -44,4 +44,6 @@ public interface OrderService {
 	String findMemberGardeById(String id);
 
 	void updateProductDetailInventory(ProductDetailVO pdvo);
+
+	String reviewCheckAjax(ProductReviewVO rvo);
 }

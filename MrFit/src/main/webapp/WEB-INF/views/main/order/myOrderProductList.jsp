@@ -19,7 +19,7 @@
 						<li><span>상품사이즈</span></li>
 						<li><span>수량</span></li>
 						<li><span>이미지</span></li>
-						<li><span>상품리뷰 작성</span></li>
+						<li><span id="reviewFrom"></span></li>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${list}" var="orderProduct">
@@ -33,20 +33,7 @@
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
 						
-						<!-- <script type="text/javascript">
-							var id = $("#reviewId").val();
-						 	$.ajax({
-					          	type:"get",
-					         	url:"${pageContext.request.contextPath}/reviewFormView.do",
-					         	data:"id="+id+"&pdno=${orderProduct.pdno}",
-					         	dataType:"json",
-					         	success:function(data){
-					         		
-					        	}
-					     	}); //ajax
-						</script> -->
-						
-						<%-- <c:if test=""> --%>
+						<c:if test="">
 						 <form action="${pageContext.request.contextPath}/registerProductReview.do">
 						 	<input type="hidden" name="ono" value="${orderProduct.ono}">
 							<input type="hidden" name="pdno" value="${orderProduct.pdno}">
@@ -59,7 +46,27 @@
 							<input type="submit" value="리뷰작성">
 						 </form>
 						 <div class="clearfix"></div>
-						<%-- </c:if> --%>
+						</c:if>
+						
+						<script type="text/javascript">
+							var id = $("#reviewId").val();
+						 	$.ajax({
+					          	type:"post",
+					         	url:"${pageContext.request.contextPath}/reviewCheckAjax.do",
+					         	data:"id="+id+"&pdno=${orderProduct.pdno}",
+					         	beforeSend : function(xhr){  
+				                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+				                },
+					         	success:function(data){
+					         		if(data=="fail"){
+					         			$("#reviewFrom").html("");
+									}else{						
+										$("#reviewFrom").html("상품후기");
+									}			
+					        	}
+					     	}); //ajax
+						</script>
+						
 					</ul>
 					</c:forEach>
 				</div>

@@ -18,9 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
     <!-- 장바구니 보기기능 --> 		<!-- select 하지 않을 칼럼을 From문과 where문에 적을 필요가 있는지? -->
     <select id="findMyCart" parameterType="string" resultType="orderVO" resultMap="ORM">
-    	SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
-		FROM orders o, order_product op, product_detail pd
-		WHERE o.id = #{value} and o.status = '장바구니' and o.ono = op.ono and pd.pdno = op.pdno
+    	SELECT *
+		FROM orders o
+		WHERE o.id = #{value} and o.status = '장바구니'
     </select>
     
     <resultMap type="orderProductVO" id="OPRM">
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ono=#{value} 
 		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and  i.url like 'main%'		<!-- main이 아닌 thumb -->
+		and  i.url like '%' || 'thumb' || '%'		<!-- main이 아닌 thumb -->
  	</select>
     
     <resultMap type="productVO" id="PRM">
@@ -212,6 +212,21 @@ values((select ono      from orders      where id=#{memberVO.id} and status='장
 		update product_detail set inventory=inventory-#{inventory}
 		where pdno=#{pdno}
 	</update>
+	
+ 	<!-- 
+ 	<select id="idcheck" parameterType="string" resultType="int">
+		select count(*) from member where id=#{value}
+	</select> -->
+	
+	<select id="reviewCheckAjax" parameterType="productReviewVo" resultType="int">
+		select count(*) 
+		from review
+		where id=#{id} and pdno=#{pdno}
+	</select>
+	
+	
+	
+	
 </mapper>
 
 
