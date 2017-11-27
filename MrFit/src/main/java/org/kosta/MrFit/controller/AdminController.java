@@ -460,7 +460,6 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		
 		/* 페이징 처리 공통 영역*/ 
 		int totalOrderCount = 0;
 		int postCountPerPage = 10;
@@ -472,6 +471,7 @@ public class AdminController {
 			}
 			
 		if(searchType.equals("memberId")) {
+			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색 - 회원아이디 : "+searchKeyword);
 			totalOrderCount = adminService.adminSearchMemberOrderCount(searchKeyword);
 			pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 			map.put("memberId", searchKeyword);
@@ -488,16 +488,19 @@ public class AdminController {
 			}
 			
 		}else {
-			int ono = Integer.parseInt(searchKeyword);
-			totalOrderCount = adminService.adminSearchOrderCountByOrderNumber(Integer.parseInt(searchKeyword));
+			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 진행 - 주문번호로 주문검색1 - 주문번호 :"+searchKeyword);
+			totalOrderCount = adminService.adminSearchOrderCountByOrderNumber(searchKeyword);
 			if(totalOrderCount != 0) {
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 진행 - 주문번호로 주문검색2");
 				pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
-				OrderVO ovo = adminService.adminSearchOrderByOno(ono);
+				OrderVO ovo = adminService.adminSearchOrderByOno(searchKeyword);
 				mv.addObject("orderVO", ovo);
 				mv.addObject("searchType","orderNo");
 				mv.setViewName("admin/adminSearchOrderList.tiles");
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료");
 			}else {
 				mv.setViewName("admin/adminsearchOrder_fail.tiles");
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료 - 검색 실패");
 			}
 		}
 		

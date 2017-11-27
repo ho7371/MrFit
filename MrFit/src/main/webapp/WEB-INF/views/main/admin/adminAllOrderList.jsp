@@ -9,12 +9,25 @@
 			location.href="${pageContext.request.contextPath}/updateOrderStatus.do?ono="+ono;
 		}
 	}
+	$(document).ready(function(){
+		$("#searchTypeForm").submit(function(){
+			if($("#searchTypeForm select").val()=="orderNo"){
+				var orderNumber = $("#searchTypeForm [name=searchKeyword]").val();
+				if(isNaN(orderNumber)){
+					alert('주문번호를 숫자로 입력해주세요.');
+					return false;
+				}else{
+					return true;
+				}
+			}
+		});
+	});
 </script>
 <h3>주문 관리</h3>
 <%-- 주문 검색 --%>
 <div align="right">
 	<a href="${pageContext.request.contextPath}/adminAllOrderList.do">전체 주문 보기</a> &nbsp;
-	<form action="${pageContext.request.contextPath}/adminSearchOrder.do">
+	<form action="${pageContext.request.contextPath}/adminSearchOrder.do" id="searchTypeForm">
 		<select name="searchType">
 			<option value="memberId">회원아이디</option>
 			<option value="orderNo">주문번호</option>
@@ -42,7 +55,7 @@
 		<c:forEach var="order" items="${lvo.list}" varStatus="i">	
 			<tbody>						
 				<tr>
-				    <td><a href = "orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>				
+				    <td><a href = "${pageContext.request.contextPath}/orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>				
 					<td>${order.memberVO.id} / ${order.memberVO.name }</td>
 					<%-- <c:forEach items="${order.orderProductList}" var="product">
 						<td><a href = "">${product.name}</a></td>
@@ -67,27 +80,27 @@
 	</table>
 	
 <%-- 페이징 처리 --%>
-<c:set value="${lvo.pagingBean}" var="pb" />
-<div class="container" align="center">
-	<ul class="pager">
-		<c:if test="${pb.previousPageGroup==true}">
-			<li><a
-				href="adminAllOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
-		</c:if>
-		<c:forEach begin="${pb.startPageOfPageGroup}"
-			end="${pb.endPageOfPageGroup}" var="pageNum">
-			<c:choose>
-				<c:when test="${pageNum==pb.nowPage}">
-					<li>${pageNum}&nbsp;&nbsp;</li>
-				</c:when>
-				<c:otherwise>
-					<li><a href="adminAllOrderList.do?&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${pb.nextPageGroup==true}">
-			<li><a
-				href="adminAllOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
-		</c:if>
-	</ul>
-</div>
+	<c:set value="${lvo.pagingBean}" var="pb" />
+	<div class="container" align="center">
+		<ul class="pager">
+			<c:if test="${pb.previousPageGroup==true}">
+				<li><a
+					href="adminAllOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+			</c:if>
+			<c:forEach begin="${pb.startPageOfPageGroup}"
+				end="${pb.endPageOfPageGroup}" var="pageNum">
+				<c:choose>
+					<c:when test="${pageNum==pb.nowPage}">
+						<li>${pageNum}&nbsp;&nbsp;</li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="adminAllOrderList.do?&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${pb.nextPageGroup==true}">
+				<li><a
+					href="adminAllOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+			</c:if>
+		</ul>
+	</div>

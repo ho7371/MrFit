@@ -104,15 +104,15 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public int adminSearchOrderCountByOrderNumber(int ono) {
+	public int adminSearchOrderCountByOrderNumber(String ono) {
 		return template.selectOne("admin.adminSearchOrderCountByOrderNumber",ono);
 	}
 
 	@Override
-	public OrderVO adminSearchOrderByOno(int ono) {
-		OrderVO orderVO = template.selectOne("admin.adminfindOrderByOno",ono);
-		List<OrderProductVO> list = template.selectList("admin.findOrderProductInfoByPdnoAndOno",ono);
-		orderVO.setOrderProductList(list);
+	public OrderVO adminSearchOrderByOno(String ono) {
+		System.out.println("                  AdminDAOImpl/adminSearchOrderByOno()/시작 ");
+		OrderVO orderVO = template.selectOne("admin.adminSearchOrderByOno",ono);
+		System.out.println("                  AdminDAOImpl/adminSearchOrderByOno()/종료 - 찾은 주문 :"+orderVO);
 		return orderVO;
 	}
 	
