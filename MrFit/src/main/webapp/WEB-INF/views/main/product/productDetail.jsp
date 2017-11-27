@@ -128,6 +128,10 @@ ${requestScope.pvo } --%>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
+								<c:choose>
+									<c:when test=""></c:when>
+									<c:otherwise></c:otherwise>
+								</c:choose>
 								<input type="submit" value="장바구니담기" id= "insertCart"/> <input type="submit" value="즉시구매" />
 							</div>
 						</div>

@@ -204,7 +204,7 @@ public class MemberController {
 		System.out.println("   	MemberController/registerResultView()/시작");
 		MemberVO vo = memberService.findMemberById(id);
 		System.out.println("    MemberController/registerResultView()/종료");
-		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
+		return new ModelAndView("member/registerMemberResult.tiles", "memberVO", vo);
 	}
 	
 	/**[영훈][회원가입시 id 중복확인 Ajax]
