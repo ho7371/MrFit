@@ -578,6 +578,7 @@ ol.breadcrumb {
 .p-one {
 	border: 1px solid rgba(24, 27, 42, 0.13);
 	padding: 40px 15px;
+	margin-bottom: 10px;
 }
 .product-left:hover .p-one{
 	border: 1px solid #8c2830;

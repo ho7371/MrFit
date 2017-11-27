@@ -20,16 +20,17 @@ public class OrderDAOImpl implements OrderDAO {
 	 * List로 반환한다.
 	 */
 	@Override
-	public List<OrderVO> findMyCart(String id) {
+	public OrderVO findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
-		List<OrderVO> list = template.selectList("order.findMyCart",id);
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list :"+list);
-		for (int i = 0; i < list.size(); i++) {
-			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
-			list.get(i).setOrderProductList(orderProductList);
+		OrderVO ovo = template.selectOne("order.findMyCart",id);
+		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - ovo :"+ovo);
+		if(ovo != null) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",ovo.getOno());
+			ovo.setOrderProductList(orderProductList);
+			System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - ovo :"+ovo);
 		}
 		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
-		return list;
+		return ovo;
 	}
 	//[정현][11/24] 해당아이디에 장바구니가 있는지 체크
 	@Override
@@ -73,6 +74,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<OrderProductVO> myOrderPrductList(String ono){
        return template.selectList("order.myOrderPrductList",ono);
+    	/*return template.selectList("order.findOrderProductInfoByPdnoAndOno",ono);*/
     }
     //[김석환][2017.11.22][장바구니 상품 수량 수정]
   	@Override

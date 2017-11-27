@@ -12,7 +12,7 @@
 				<form action="${pageContext.request.contextPath}/registerNotice.do">
 				제목 : <input type="text" id="title" name="title"><br>
 				내용<br>
-				<textarea rows="30" cols="30" id="content" name="content">
+				<textarea rows="20" cols="90" id="content" name="content">
 				</textarea>	<br>
 				<input type="submit" value="상품 등록">
 					</form>			

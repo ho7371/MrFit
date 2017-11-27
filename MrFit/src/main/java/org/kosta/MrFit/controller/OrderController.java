@@ -46,14 +46,16 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
+		if(ovo != null) {
+			ovo.setMemberVO(mvo);
+			System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
+			System.out.println("    OrderController/cartForm()/종료");
+			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		}else {
+			return new ModelAndView("product/myCart_fail.tiles"); 
 		}
-		System.out.println("    OrderController/cartForm()/진행3 ovoList : " + ovoList);
-		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart.tiles", "ovoList", ovoList);
 	}
 
 	/**
@@ -164,14 +166,12 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
-		}
-		System.out.println("    OrderController/orderForm()/진행3 ovoList : " + ovoList);
+		ovo.setMemberVO(mvo);
+		System.out.println("    OrderController/orderForm()/진행3 ovo : " + ovo);
 		System.out.println("    OrderController/orderForm()/종료");
-		return new ModelAndView("order/orderForm.tiles", "ovoList", ovoList);
+		return new ModelAndView("order/orderForm.tiles", "ovo", ovo);
 	}
 
 	/**

@@ -3,13 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
-<h2>my OrderProduct List</h2>
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>(특정 주문의)주문 내역</h3>
+				<h3>주문 상세 내역</h3>
 				<div class="in-check">
 					<ul class="unit">
 						<li><span>주문번호</span></li>

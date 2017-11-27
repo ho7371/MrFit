@@ -17,8 +17,8 @@
 	<div class="account">
 		<div class="container"> 
 			<div class="account-bottom">
-				<div class="col-md-6 account-left">
-					<div style="width: 500px; height: 250px; background-color: gray;"></div>
+				<div class="col-md-6 account-left" style="text-align: center;">
+					<img alt="" src="${pageContext.request.contextPath}/resources/images/Logo.jpg" style="width: 250px;">
 				</div>
 				<div class="col-md-6 account-left">
 					<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm">

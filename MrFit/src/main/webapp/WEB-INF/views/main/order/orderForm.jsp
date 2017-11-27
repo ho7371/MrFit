@@ -5,10 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function(c) {
-		var totalprice = 0;
-		<c:forEach items="${requestScope.ovoList}" var="list">
-			totalprice += ${list.totalprice}
-		</c:forEach>
+		var totalprice = ${ovo.totalprice};
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
 			var pointCharge=$(this).val();
@@ -58,11 +55,12 @@
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
+				
 				$("#payMethod1").prop("checked", true);
 			}
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable1").show();
 		}); // click
 		$("#payMethod2").click(function() {
@@ -70,11 +68,12 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
+				
 				$("#payMethod2").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable2").show();
 		}); // click
 		$("#payMethod3").click(function() {
@@ -82,11 +81,12 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable4").hide();
+				
 				$("#payMethod3").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable3").show();
 		}); // click
 		$("#payMethod4").click(function() {
@@ -94,11 +94,12 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
+				
 				$("#payMethod4").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
 			$("#payMethodTable4").show();
 		}); // click
 	});// ready
@@ -118,27 +119,21 @@
 	               <li><span>Item</span></li>
 					<li><span>Product Name</span></li>		
 					<li><span>Size / Color / Quantity</span> </li>
-					<li><span>Total Price</span></li>
 	               <div class="clearfix"> </div>
 	            </ul>
-				<c:forEach items="${requestScope.ovoList}" var="i">
+	            <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
 	            <ul class="cart-header">
-	                  <li class="ring-in"><a href="single.html" >
-	                  <%-- <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/> --%>
-	                  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>
-	                  </a>
-	                  </li>
-	                  <c:forEach items="${i.orderProductList}" var="j">
+	                  		<li class="ring-in"><a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
+	                  		<img alt="이미지~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
+	                  		</a></li>
 							<li><span>${j.name}</span></li>
 							<li><span>${j.size_name} / ${j.color_name} / ${j.quantity}</span></li>
 							<input type="hidden" name="pdno" value="${j.pdno}" style="display:none">
 							<!-- 주문수량과 총수량을 줄여주기 위해서 -->
 							<input type="hidden" name="quantity" value="${j.quantity}" style="display:none">
-					  </c:forEach>
-							<li><span>${i.totalprice}</span></li>
 	               <div class="clearfix"> </div>
 	            </ul>
-	            </c:forEach>
+				</c:forEach>
 	         </div>
 	         <br><br><br>
 <%-- 주문 정보 --%>
@@ -154,7 +149,7 @@
 	            <table class="cart-header">
 	            	<tr>
 	            		<th>
-	            			<div id = "totalprice"></div>
+	            			<div id = "totalprice"><%-- 총 상품 금액 : ${ovo.totalprice} --%></div>
 	            		</th>
 	            	</tr>
 	            	<tr>
@@ -178,19 +173,19 @@
 	            <div>
 		          	<table class="cart-header">
 		          		<tr>
-		          			<th>이름 : <span id = "memberName">${ovoList[0].memberVO.name}</span>  </th>
+		          			<th>이름 : <span id = "memberName">${ovo.memberVO.name}</span>  </th>
 		          		</tr>
 		          		<tr>
-		          			<th>등급 : [ ${ovoList[0].memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovoList[0].memberVO.gradeVO.percent} ]</th>
+		          			<th>등급 : [ ${ovo.memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovo.memberVO.gradeVO.percent} ]</th>
 		          		</tr>
 		          		<tr>
-		          			<th>이메일 : ${ovoList[0].memberVO.email}</th>
+		          			<th>이메일 : ${ovo.memberVO.email}</th>
 		          		</tr>
 		          		<tr>
-		          			<th>연락처 : <span id = "memberPhone" value ="${ovoList[0].memberVO.phone}">${ovoList[0].memberVO.phone}</span></th>
+		          			<th>연락처 : <span id = "memberPhone" value ="${ovo.memberVO.phone}">${ovo.memberVO.phone}</span></th>
 		          		</tr>
 		          		<tr>
-		          			<th>주소 : <span id = "memberAddress" value ="${ovoList[0].memberVO.address}">${ovoList[0].memberVO.address}</span></th>
+		          			<th>주소 : <span id = "memberAddress" value ="${ovo.memberVO.address}">${ovo.memberVO.address}</span></th>
 		          		</tr>
 		          	</table>
 		         </div>
@@ -289,7 +284,7 @@
          </div>  
          <div align="right">
          	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
-         	<input type="hidden" name="ono" value="${ovoList[0].ono}">
+         	<input type="hidden" name="ono" value="${ovo.ono}">
          	<input class="add-cart cart-check" type ="submit" id="order" value="주문하기">
          	<!-- <a href="order.do" class="add-cart cart-check" id = "order">주문하기</a> -->
          </div> 

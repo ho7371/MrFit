@@ -1,40 +1,39 @@
 ----------------------------------------------------- 삭제 SQL
 ------------ 삭제순서 : 1. 시퀀스 삭제  		2. 테이블 삭제
 ------------ 시퀀스 삭제
-
-drop sequence qno_seq;
-drop sequence point_no_seq;
-drop sequence pno_seq;
-drop sequence pcno_seq;
-drop sequence psno_seq;
-drop sequence pdno_seq;
-drop sequence iqno_seq;
-drop sequence iqrno_seq;
-drop sequence rno_seq;
-drop sequence pqno_seq;
-drop sequence ino_seq;
 drop sequence note_no_seq;
-drop sequence ono_seq;			
+drop table note;
 drop sequence bno_seq;
-
-drop table order_product;
-drop table orders;
-drop table image;
-drop table product_qna;
-drop table review;
-drop table inquiry_reply;
-drop table inquiry;
-drop table product_detail;
-drop table product_size;
-drop table product_color;
-drop table product;
-drop table auth;
-drop table point;
-drop table member_size;
-drop table member;
-drop table question;
-drop table grade;
-drop table board
+drop table board;
+drop TABLE order_product;
+drop sequence ono_seq;
+drop TABLE orders;
+drop sequence ino_seq;
+drop TABLE image;
+drop sequence pqno_seq;
+drop TABLE product_qna;
+drop sequence rno_seq;
+drop TABLE review;
+drop sequence iqrno_seq;
+drop TABLE inquiry_reply;
+drop sequence iqno_seq;
+drop TABLE inquiry;
+drop sequence pdno_seq;
+drop TABLE product_detail;
+drop sequence psno_seq;
+drop TABLE product_size;
+drop sequence pcno_seq;
+drop TABLE product_color;
+drop sequence pno_seq;
+drop TABLE product;
+drop TABLE auth;
+drop sequence point_no_seq;
+drop TABLE point;
+drop TABLE member_size;
+drop TABLE member;
+drop sequence qno_seq;
+drop TABLE question;
+drop TABLE grade;
 	
 ----------------------------------------------------- 삭제 SQL 종료
 
@@ -45,20 +44,8 @@ drop table board
 ------------ 외래키 이름은 일단 지어놨고, 규칙 정해서 나중에 확정할 것 : 진호
 
 /* 시퀀스 생성 */
-create sequence qno_seq;
-create sequence point_no_seq;
-create sequence pno_seq;
-create sequence pcno_seq;
-create sequence psno_seq;
-create sequence pdno_seq;
-create sequence iqno_seq;
-create sequence iqrno_seq;
-create sequence rno_seq;
-create sequence pqno_seq;
-create sequence ino_seq;
-create sequence ono_seq;
-create sequence note_no_seq;
-create sequence bno_seq;
+
+
 
 /* 회원 등급 */
 CREATE TABLE grade (
@@ -67,6 +54,7 @@ CREATE TABLE grade (
 );
 
 /* 비밀번호 찾기 질문 */  
+create sequence qno_seq;
 CREATE TABLE question (
 	qno NUMBER PRIMARY KEY, 
 	question VARCHAR2(100) NOT NULL 
@@ -109,6 +97,7 @@ CREATE TABLE member (
 
 
 /* 포인트 */
+create sequence point_no_seq;
 CREATE TABLE point (
 	point_no NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL, 
@@ -127,6 +116,7 @@ CREATE TABLE auth (
 
 
 /* 상품 */
+create sequence pno_seq;
 CREATE TABLE product (
 	pno NUMBER PRIMARY KEY, 
 	name VARCHAR2(100) NOT NULL,
@@ -135,13 +125,15 @@ CREATE TABLE product (
 	category VARCHAR2(100) NOT NULL
 );
 
-		/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */			
+		/* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */	
+		create sequence pcno_seq;
 		CREATE TABLE product_color (
 			pcno NUMBER PRIMARY KEY,
 			color_name VARCHAR2(100) NOT NULL
 		);
 			
 		/* 상품치수 [작업중인 테이블]*/
+		create sequence psno_seq;
 		CREATE TABLE product_size (
 			psno NUMBER PRIMARY KEY,
 			size_name VARCHAR2(100) NOT NULL, /* 칼럼명 변경 */
@@ -153,6 +145,7 @@ CREATE TABLE product (
 		);
 		
 		/* 상품상세 [작업중인 테이블]*/
+		create sequence pdno_seq;
 		CREATE TABLE product_detail (
 			pdno NUMBER PRIMARY KEY,
 			pno NUMBER NOT NULL,
@@ -168,6 +161,7 @@ CREATE TABLE product (
 
 
 /* 고객문의 게시판 */
+create sequence iqno_seq;
 CREATE TABLE inquiry (
 	iqno NUMBER PRIMARY KEY, 
 	content CLOB NOT NULL, 
@@ -178,6 +172,7 @@ CREATE TABLE inquiry (
 );
 
 		/* 고객문의 댓글 */
+		create sequence iqrno_seq;
 		CREATE TABLE inquiry_reply (
 			iqrno NUMBER PRIMARY KEY,
 			content CLOB NOT NULL,
@@ -188,6 +183,7 @@ CREATE TABLE inquiry (
 		);
 
 /* 리뷰 */
+create sequence rno_seq;
 CREATE TABLE review (
 	rno NUMBER PRIMARY KEY,
 	pdno NUMBER NOT NULL,
@@ -200,27 +196,30 @@ CREATE TABLE review (
 CREATE INDEX review_unique ON review(pdno,id);
 
 /* 상품 문의 */
+create sequence pqno_seq;
 CREATE TABLE product_qna (
 	pqno NUMBER PRIMARY KEY,
 	id VARCHAR2(100) NOT NULL,
 	pno NUMBER NOT NULL,
 	content CLOB NOT NULL,
 	regdate DATE NOT NULL,
-	constraint fk_id_in_product_qna foreign key(id) references member(id)
+	constraint fk_id_in_product_qna foreign key(id) references member(id),
 	constraint fk_pno_in_product_qna foreign key(pno) references product(pno)
 );
 
 
 /* 이미지 */
+
+create sequence ino_seq;
 CREATE TABLE image (
 	ino NUMBER PRIMARY KEY, 
 	pno NUMBER NOT NULL, 
 	url VARCHAR2(300) NOT NULL,
-	
 	constraint fk_pno_in_image foreign key(pno) references product(pno)
 );
 
 /* 주문 */
+create sequence ono_seq;
 CREATE TABLE orders (
 	ono NUMBER PRIMARY KEY, 
 	id VARCHAR2(100) NOT NULL, 
@@ -242,6 +241,7 @@ CREATE TABLE order_product (
 );
 
 /* 게시판 */		
+create sequence bno_seq;
 CREATE TABLE board (
 	bno NUMBER PRIMARY KEY, 
 	title VARCHAR2(100) NOT NULL, 
@@ -254,6 +254,7 @@ CREATE TABLE board (
 );
 
 /* 쪽지 */
+create sequence note_no_seq;
 CREATE TABLE note(
 	note_no NUMBER PRIMARY KEY,
 	content CLOB NOT NULL,
@@ -261,7 +262,6 @@ CREATE TABLE note(
 	id VARCHAR2(100) NOT NULL,
 	constraint fk_id_in_note foreign key(id) references member(id)
 );
-
 				
 ----------------------------------------------------- 테이블 생성 SQL 끝
 
