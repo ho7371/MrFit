@@ -166,18 +166,11 @@ public class ProductController {
 	@ResponseBody
 	public ModelAndView registerProductReview(ProductReviewVO prvo,String ono) {
 		ModelAndView mv = new ModelAndView();
-		/* 진영훈 추가 코드수정 
-		 * 
-		 */
-		int reviewCheck = productService.reviewCheck(prvo);
-		if(reviewCheck==1) {
-			mv.addObject("ono",ono);
-			mv.setViewName("product/productReviewCheck_fail.tiles");
-		}else {
+		// 영훈 추가 수정 후 jsp name 수정
 			productService.registerProductReview(prvo);
 			mv.addObject("ono",ono);
+			mv.addObject("id", prvo.getId());
 			mv.setViewName("product/productReviewCheck_ok.tiles");
-		}
 		return mv;
 	}
 	

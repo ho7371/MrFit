@@ -1,7 +1,9 @@
 package org.kosta.MrFit.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -44,14 +46,16 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
+		if(ovo != null) {
+			ovo.setMemberVO(mvo);
+			System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
+			System.out.println("    OrderController/cartForm()/종료");
+			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
+		}else {
+			return new ModelAndView("product/myCart_fail.tiles"); 
 		}
-		System.out.println("    OrderController/cartForm()/진행3 ovoList : " + ovoList);
-		System.out.println("    OrderController/cartForm()/종료");
-		return new ModelAndView("product/myCart.tiles", "ovoList", ovoList);
 	}
 
 	/**
@@ -162,14 +166,12 @@ public class OrderController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행1");
-		List<OrderVO> ovoList = orderService.findMyCart(mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행2");
-		for (int i = 0; i < ovoList.size(); i++) {
-			ovoList.get(i).setMemberVO(mvo);
-		}
-		System.out.println("    OrderController/orderForm()/진행3 ovoList : " + ovoList);
+		ovo.setMemberVO(mvo);
+		System.out.println("    OrderController/orderForm()/진행3 ovo : " + ovo);
 		System.out.println("    OrderController/orderForm()/종료");
-		return new ModelAndView("order/orderForm.tiles", "ovoList", ovoList);
+		return new ModelAndView("order/orderForm.tiles", "ovo", ovo);
 	}
 
 	/**
@@ -200,11 +202,23 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
-	public ModelAndView myOrderPrductList(String ono) {
+	public ModelAndView myOrderPrductList(String ono,String id) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작");
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
-		System.out.println("      OrderController/myOrderPrductList()/중간" + list);
+		System.out.println("      OrderController/myOrderPrductList()/중간 list:" + list);
+		for(int i=0;i<list.size();i++) {
+			Map<String, String> map = new HashMap<String, String>();
+			System.out.println("      OrderController/myOrderPrductList()/for문 id:" + id);
+			map.put("id", id);
+			String pdno = list.get(i).getPdno();
+			System.out.println("      OrderController/myOrderPrductList()/for문 pdno:" + pdno);
+			map.put("pdno", pdno);
+			int reviewCheck = orderService.reviewCheck(map);
+			System.out.println("      OrderController/myOrderPrductList()/for문 reviewCheck:" + reviewCheck);
+			list.get(i).setReviewCheck(reviewCheck);
+		}
+		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
 		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
@@ -278,15 +292,6 @@ public class OrderController {
 		mvo.setPoint(totalprice*percent/100);
 		orderService.updateOrderMembetPoint(mvo);
 		return "redirect:myOrderList.do?id="+id;
-	}
-	
-	@RequestMapping("reviewCheckAjax.do")
-	@ResponseBody
-	public String reviewCheckAjax(ProductReviewVO rvo) {
-		System.out.println("   	OrderController/reviewCheckAjax()/시작 rvo:"+rvo);
-		String message = orderService.reviewCheckAjax(rvo);
-		System.out.println("   	OrderController/reviewCheckAjax()/종료 message:"+message);
-		return message;
 	}
 	
 	

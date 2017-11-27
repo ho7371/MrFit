@@ -7,7 +7,7 @@
       <div class="container">
          <div class="ckeckout-top">
          <div class=" cart-items heading">
-          <h3>My Shopping Bag ( ${requestScope.ovoList.size()} )</h3>
+          <h3>My Shopping Bag ( ${requestScope.ovo.orderProductList.size()} )</h3>
           <script type="text/javascript">
           $(document).ready(function() {
         	  var quantity=$(".findQuantity").attr("id");
@@ -66,40 +66,41 @@
                <li><span>Item</span></li>
 				<li><span>Product Name</span></li>		
 				<li><span>Size / Color / Quantity</span> </li>
-				<li><span>Total Price</span></li>
 				<li><span>Note</span></li>
 			
                <div class="clearfix"></div>
             </ul>
-			<c:forEach items="${requestScope.ovoList}" var="i">
-			<div class="findOno" id="${i.ono}"></div>
-            <ul class="cart-header">
-             <li class="ring-in">
-                  <a href="single.html" >
-                  <img src="${pageContext.request.contextPath}/resources/upload/${i.orderProductList[0].url}" class="img-responsive" height="50%" width="50%"/>                  </a>
-                  </li>
-                  <c:forEach items="${i.orderProductList}" var="j">
-                  		<div class="findPdno" id="${j.pdno}"></div>
-						<li><span>${j.name}</span></li>
-						<li><span>size: ${j.size_name}<br>
-						color: ${j.color_name}<br>
+			<%-- <c:forEach items="${requestScope.ovoList}" var="i"> --%>
+	      <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
+	            <ul class="cart-header">
+					<div class="findOno" id="${ovo.ono}"></div>
+	                <div class="findPdno" id="${j.pdno}"></div>
+	                <li>
+	                	<a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${ovo.ono}&pdno=${j.pdno}&price=${j.price}" > 
+						<div class="close1"></div>
+						</a>
+	                </li>
+	                <li class="ring-in">		
+		                <a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
+		                <img alt="사진~~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
+		                </a>
+	                </li>
+					<li><span>${j.name}</span></li>
+					<li>
+						<span>size: ${j.size_name}<br> color: ${j.color_name}<br></span>
 						<span id="updateField" style="font-size: 20px;">수량 : ${j.quantity}</span>
-						</span></li>
+					</li>
+					<li>
 						<span class="findQuantity" id="${j.quantity}"></span>
 						<span class="findPrice" id="${j.price}"></span>
-<a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${i.ono}&pdno=${j.pdno}&price=${j.price}" > <div class="close1"></div></a>                  
- 
-				  </c:forEach>
-						<li><span>${i.totalprice}</span></li>
-						
-						   <li id="updateGround">
-					     	<a href="#" class="add-cart cart-check" id="updateBtan">수정하기</a>
-						</li>						
-               <div class="clearfix"> </div>
-            </ul>
-            </c:forEach>
+					</li>
+					 <li id="updateGround">
+						<a href="#" class="add-cart cart-check" id="updateBtan">수정하기</a>
+					 </li>						
+	               <div class="clearfix"> </div>
+	            </ul>
+			</c:forEach>
             <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
-          
          </div>
          </div>  
        </div>

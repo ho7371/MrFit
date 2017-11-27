@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
-<h2>my Order List</h2>
-
 
 <!--start-ckeckout-->
 <div class="ckeckout">
@@ -23,7 +21,7 @@
 					</ul>
 					<c:forEach items="${list}" var="order">
 					<ul class="cart-header">
-						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}">${order.ono}</a></span></li>
+						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}&id=<sec:authentication property="principal.id"/>">${order.ono}</a></span></li>
 						<li><span>${order.totalprice}</span></li>
 						<li><span>${order.destination}</span></li>
 						<li><span>${order.status}</span></li>

@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -19,16 +20,17 @@ public class OrderDAOImpl implements OrderDAO {
 	 * List로 반환한다.
 	 */
 	@Override
-	public List<OrderVO> findMyCart(String id) {
+	public OrderVO findMyCart(String id) {
 		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :"+template);
-		List<OrderVO> list = template.selectList("order.findMyCart",id);
-		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - list :"+list);
-		for (int i = 0; i < list.size(); i++) {
-			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",list.get(i).getOno());
-			list.get(i).setOrderProductList(orderProductList);
+		OrderVO ovo = template.selectOne("order.findMyCart",id);
+		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - ovo :"+ovo);
+		if(ovo != null) {
+			List<OrderProductVO> orderProductList = template.selectList("order.findOrderProductInfoByPdnoAndOno",ovo.getOno());
+			ovo.setOrderProductList(orderProductList);
+			System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - ovo :"+ovo);
 		}
 		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
-		return list;
+		return ovo;
 	}
 	//[정현][11/24] 해당아이디에 장바구니가 있는지 체크
 	@Override
@@ -72,6 +74,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<OrderProductVO> myOrderPrductList(String ono){
        return template.selectList("order.myOrderPrductList",ono);
+    	/*return template.selectList("order.findOrderProductInfoByPdnoAndOno",ono);*/
     }
     //[김석환][2017.11.22][장바구니 상품 수량 수정]
   	@Override
@@ -181,10 +184,11 @@ public class OrderDAOImpl implements OrderDAO {
 		public void updateProductDetailInventory(ProductDetailVO pdvo) {
 			template.update("order.updateProductDetailInventory", pdvo);		
 		}
-		//[영훈][11.27]리뷰작성 확인 Ajax
+		//[영훈][11.27]리뷰작성 확인
 		@Override
-		public int reviewCheckAjax(ProductReviewVO rvo) {
-			return template.selectOne("order.reviewCheckAjax",rvo);
+		public int reviewCheck(Map<String, String> map) {
+			System.out.println("                  OrderDAOImpl/reviewCheck()/시작 map : "+map);
+			return template.selectOne("order.reviewCheck",map);
 		}
 	
 }

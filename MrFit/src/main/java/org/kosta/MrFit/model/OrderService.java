@@ -1,9 +1,10 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
-	List<OrderVO> findMyCart(String id);
+	OrderVO findMyCart(String id);
 
 	List<OrderVO> myOrderList(String id);
 
@@ -45,5 +46,5 @@ public interface OrderService {
 
 	void updateProductDetailInventory(ProductDetailVO pdvo);
 
-	String reviewCheckAjax(ProductReviewVO rvo);
+	int reviewCheck(Map<String, String> map);
 }

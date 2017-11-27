@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,8 +12,9 @@ public class OrderServiceImpl implements OrderService {
 	@Resource
 	private OrderDAO orderDAO;
 	
+	//[현민][11/21][장바구니 보기]
 	@Override
-	public List<OrderVO> findMyCart(String id) {
+	public OrderVO findMyCart(String id) {
 		System.out.println("            OrderServiceImpl/findMyCart()/시작");
 		return orderDAO.findMyCart(id);
 	}
@@ -153,10 +155,8 @@ public class OrderServiceImpl implements OrderService {
 		}
 		//[영훈][11.27]리뷰작성 확인 Ajax
 		@Override
-		public String reviewCheckAjax(ProductReviewVO rvo) {
-			System.out.println("            OrderServiceImpl/reviewCheckAjax()/시작 rvo : "+ rvo);
-			int count=orderDAO.reviewCheckAjax(rvo);
-			System.out.println("            OrderServiceImpl/reviewCheckAjax()/종료 count : "+ count);
-			return (count == 0) ? "ok" : "fail";
+		public int reviewCheck(Map<String, String> map) {
+			System.out.println("            OrderServiceImpl/reviewCheck()/시작 map : "+ map);
+			return orderDAO.reviewCheck(map);
 		}
 }

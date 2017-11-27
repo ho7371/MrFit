@@ -1,3 +1,4 @@
+
 --------------- 테이블 데이터 삭제
 delete from note;
 delete from board;
