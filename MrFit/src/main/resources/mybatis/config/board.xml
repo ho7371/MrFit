@@ -6,14 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="board">
  	<!--[정현][공지사항 갯수 확인]  -->
  		<select id="getTotalNoticeCount" resultType="int">
- 			select count(*) from board where category='공지' and security='on'
+ 			select count(*) from board where category='공지' and security='public'
  		</select>
  	
  	<!--[정현][공지사항 리스트 받기]  -->
  	<select id="noticeList" parameterType="pagingBean" resultType="boardVO">
  	 SELECT bno,id,title,content,regdate,security,category 
 		from (select row_number() over(order by bno desc) as rnum,bno,id,title,content,regdate,security,category  from board 
-				where category='공지' and security='on')
+				where category='공지' and security='public')
 		board
 		where rnum between #{startRowNumber} and #{endRowNumber}
 		ORDER BY bno DESC  
@@ -32,13 +32,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="registerNotice" parameterType="boardVO">
    	 insert into board(bno,id,title,content,regdate,security,category) 
-		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'on','공지')
+		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'public','공지')
 		
     </insert>
     <update id="updateNotice">
     	update board set title=#{title},content=#{content}
 		where bno=#{bno}
     </update>
+    
+    <!-- [현민][고객문의 목록] -->
+    <select id="inquiry" resultType="boardVO">
+    	select iqno as bno, title,content, regdate, security, id
+    	from inquiry
+    </select>
+    
+    <!-- [진호,현민] 고객문의 상세보기 -->
+    <select id="inquiryDetail" parameterType="string" resultMap="inquiryRM">
+    	select i.iqno as "iqno1", i.title as "title1", i.content as "content1", i.regdate as "regdate1", i.security as "security1", i.id, 
+    		   ir.iqrno, ir.content as "content2", ir.regdate as "regdate2", ir.security as"security2"
+		from inquiry i, inquiry_reply ir
+		where i.iqno = #{value}
+		and i.iqno = ir.iqno
+    </select>
+    
+    <resultMap type="inquiryVO" id="inquiryRM">
+    	<result column="iqno1" property="iqno"/>
+    	<result column="title1" property="title"/>
+    	<result column="content1" property="content"/>
+    	<result column="regdate1" property="regdate"/>
+    	<result column="security1" property="security"/>
+    	<result column="id" property="id"/>
+    	<result column="iqrno" property="inquiryReplyVO.iqrno"/>
+    	<result column="content2" property="inquiryReplyVO.content"/>
+    	<result column="regdate2" property="inquiryReplyVO.regdate"/>
+    	<result column="security2" property="inquiryReplyVO.security"/>
+    </resultMap>
+    
+    <!-- [진호, 현민][고객 문의에 관리자 답변이 있는지 체크] -->
+    <select id="inquiryReplyCheck" parameterType="string" resultType="int">
+    	select count(*) from inquiry_reply where iqno = #{value}
+    </select>
+    
+    <!-- [진호, 현민][고객문의에서 관리자 답변이 없는 경우] -->
+    <select id="inquiryDetailNotReply" parameterType="string" resultType="inquiryVO">
+    	select * from inquiry where iqno = #{value}
+    </select>
+ 	
+ 	<!-- [진호,현민][고객문의에서 관리자가 댓글 달기] -->
+ 	<insert id="inquiryReply" parameterType="map">
+ 		insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+ 		values(iqrno_seq.nextval, #{message},sysdate, 'public',#{iqno})
+ 	</insert>
 </mapper>
 
 

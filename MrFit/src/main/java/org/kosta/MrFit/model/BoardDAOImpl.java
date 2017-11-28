@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -66,5 +67,39 @@ public class BoardDAOImpl  implements BoardDAO{
 		System.out.println("                  BoardDAOImpl/updateNotice()/진행 ");
 		System.out.println("                  BoardDAOImpl/updateNotice()/종료 ");
 	}
+	
+	//[진호, 현민][11/28][고객문의]
+	@Override
+	public List<BoardVO> inquiry() {
+		System.out.println("                  BoardDAOImpl/inquiry()/시작 ");
+		System.out.println("                  BoardDAOImpl/inquiry()/종료 ");
+		return template.selectList("board.inquiry");
+	}
+	
+	//[진호, 현민][11/28][고객문의 상세보기]
+	@Override
+	public InquiryVO inquiryDetail(String bno) {
+		System.out.println("                  BoardDAOImpl/inquiryDetail()/시작 ");
+		InquiryVO vo = null;
+		int count = template.selectOne("board.inquiryReplyCheck", bno);
+		if(count==1) {
+			System.out.println("                  BoardDAOImpl/inquiryDetail()/진행 - 고객문의에서 댓글이 있을경우");
+			vo = template.selectOne("board.inquiryDetail",bno);
+		}else {
+			System.out.println("                  BoardDAOImpl/inquiryDetail()/진행 - 고객문의에서 댓글이 없을경우");
+			vo = template.selectOne("board.inquiryDetailNotReply", bno);
+		}
+		System.out.println("                  BoardDAOImpl/inquiryDetail()/종료 ");
+		return vo;
+	}
+	
+	//[진호, 현민][11/28][고객문의 댓글]
+	@Override
+	public void inquiryReply(Map<String, String> map) {
+		System.out.println("                  BoardDAOImpl/inquiryReply()/시작 ");
+		System.out.println("                  BoardDAOImpl/inquiryReply()/종료 ");
+		template.insert("board.inquiryReply",map);
+	}
 
+		
 }

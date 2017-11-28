@@ -55,4 +55,18 @@ public interface OrderDAO {
 	void updateProductDetailInventory(ProductDetailVO pdvo);
 
 	int reviewCheck(Map<String, String> map);
+
+	int statusCheck(Map<String, String> map);
+	
+	ProductVO findProductDetailByPdno(String pdno);
+
+	void immediatelyPayRegisterOrder(OrderVO ovo);
+
+	void immediatelyPayRegisterOrderpProduct(OrderProductVO opvo);
+
+	ProductDetailVO findProductImmediatelyPay(String pdno);
+
+	void deleteImmediatelyPayOrdersProduct(OrderProductVO opvo);
+
+	void deleteImmediatelyPayOrders(OrderProductVO opvo);
 }

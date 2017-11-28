@@ -108,6 +108,7 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 2, 2,170);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 2, 3,180);
+
 --------------- 상품 이미지 등록
 insert into image(ino,pno,url) values(ino_seq.nextval,1,'thumb/기본상의상품1.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,2,'thumb/기본하의상품1.jpg');
@@ -130,11 +131,11 @@ insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval
 
 -----------------------------------------------------------------------
 
-insert into inquiry(iqno, content, regdate, security, id)
-values(iqno_seq.nextval,'test1이 작성한 첫번째 고객문의', sysdate, 'public','test1');
+insert into inquiry(iqno, title, content, regdate, security, id)
+values(iqno_seq.nextval,'첫번째 제목','test1이 작성한 첫번째 고객문의', sysdate, 'public','test1');
 
-insert into inquiry(iqno, content, regdate, security, id)
-values(iqno_seq.nextval,'test2가 작성한 첫번째 고객문의', sysdate, 'private','test2');
+insert into inquiry(iqno, title, content, regdate, security, id)
+values(iqno_seq.nextval,'두번째 제목','test2가 작성한 첫번째 고객문의', sysdate, 'private','test2');
 
 
 --------------- 고객문의 답글 등록

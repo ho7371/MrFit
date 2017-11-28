@@ -39,7 +39,7 @@
 						  
 				<h3>쪽지함</h3>
 				<c:if test="${isAdmin}">
-					<a href="${pageContext.request.contextPath}/registerNoteForm.do">쪽지보내기</a>
+					<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">쪽지보내기</a>
 				</c:if>
 				<div class="in-check">
 					<ul class="unit">

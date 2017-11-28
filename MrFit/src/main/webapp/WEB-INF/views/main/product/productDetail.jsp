@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -44,7 +44,22 @@ $(document).ready(function() {
 	$("#insertCart").click(function() {
 		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
 		$("#sendPcno").val(pcno);  
-	});//click 
+	});//click
+	
+	//즉시구매
+	$("#immediatelyPay").click(function() {
+		pcno=$("#colorCheck").val();
+		var psno=$("#sizeSelectAjax").val();
+		var quantity=$("#quantity").val();
+		var image=$(".imageSpend").attr("id");
+		alert(image);
+		location.href="${pageContext.request.contextPath}/immediatelyPay.do?pcno="+pcno+
+		"&psno="+psno+"&pno="+pno+"&quantity="+quantity+"&image="+image;
+/* 		alert(quantity);
+		alert(psno);
+		alert(pcno);
+		alert(1); */
+	});//immediatelyPay click
 });//ready
 </script>
 <script>
@@ -73,6 +88,8 @@ ${requestScope.pvo } --%>
 				<div class="sngl-top">
 					<div class="col-md-5 single-top-left">
 						<div class="flexslider">
+							<!--아래 div는 이미지 url 보내기 위해 생성한 영역 -->
+							<div class="imageSpend" id="${requestScope.pvo.imageList[0].url}"></div>
 							<ul class="slides">
 								<li data-thumb="images/s1.jpg"><img height=350px; width=250px; src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[0].url}" />
 							${imgList.url }							
@@ -86,6 +103,7 @@ ${requestScope.pvo } --%>
 						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
 						<input type="hidden" name="psno" id="sendPsno" value="">
 						<input type="hidden" name="pcno" id="sendPcno" value="">
+						<input type="hidden" name="pno"  value="${pvo.pno}">
 						<input type="hidden" name="price" value="${pvo.price}">
 					<div class="productPno" id="${requestScope.pvo.pno}"></div>
 					<div class="col-md-7 single-top-right">
@@ -128,7 +146,17 @@ ${requestScope.pvo } --%>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" id= "insertCart"/> <input type="submit" value="즉시구매" />
+							<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+							<c:choose>
+								<c:when test="${isMember}">
+									<input type="submit" value="장바구니담기" id= "insertCart"/> 
+									<input type="button" id="immediatelyPay" value="즉시구매"  style="background-color: orange; "/>
+								</c:when>
+								<c:otherwise>
+									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
+									<input type="button" id="immediatelyPay" value="즉시구매" disabled="disabled"  style="background-color: orange; "/>
+								</c:otherwise>
+							</c:choose>
 							</div>
 						</div>
 						</form>
@@ -136,8 +164,7 @@ ${requestScope.pvo } --%>
 					<div class="clearfix"></div>
 					<br>
 					<br>
-					<div class="memberSize1"
-						id=<sec:authentication property="principal.id"/>>
+					<div class="memberSize1" id=${requestScope.id}>
 						<h3>오차범위</h3>
 						<table class="table table-bordered">
 							<thead>
@@ -166,7 +193,7 @@ ${requestScope.pvo } --%>
 									</c:otherwise>
 								</c:choose>
 							</thead>
-	<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
+							<!-- 치수 등록을 하지 않은 경우  css 처리하지 않아야 함 -->
 							<tbody>
 								 <c:forEach items="${requestScope.psList}" var="psList" varStatus="i">
 									<tr>

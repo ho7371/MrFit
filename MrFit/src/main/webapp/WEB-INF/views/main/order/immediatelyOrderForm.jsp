@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function(c) {
-		var totalprice = ${ovo.totalprice};
+/* 		var totalprice = 0;
+		<c:forEach items="${requestScope.ovoList}" var="list">
+			totalprice += ${list.totalprice}
+		</c:forEach> */
+		var totalprice=$("#checkTotalprice").text();
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
 			var pointCharge=$(this).val();
@@ -13,13 +16,6 @@
 				alert("포인트는 1000단위로 사용가능 합니다");
 				$(this).val(0).focus();
 				return false;
-			}
-			if(pointCharge>$("#membersPoint").val()){
-				alert("가지고 계신 포인트보다 많이 기입하셨습니다");
-				$(this).val(0).focus();
-			}else if(pointCharge<0){
-				alert("포인트는 0이상만 기입이 가능합니다");
-				$(this).val(0).focus();
 			}
 			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
 		});
@@ -62,12 +58,11 @@
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				
+				$("#payMethodTable2").hide();
+				$("#payMethodTable3").hide();
+				$("#payMethodTable4").hide();
 				$("#payMethod1").prop("checked", true);
 			}
-			$("#payMethodTable2").hide();
-			$("#payMethodTable3").hide();
-			$("#payMethodTable4").hide();
 			$("#payMethodTable1").show();
 		}); // click
 		$("#payMethod2").click(function() {
@@ -75,12 +70,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				
+				$("#payMethodTable1").hide();
+				$("#payMethodTable3").hide();
+				$("#payMethodTable4").hide();
 				$("#payMethod2").prop("checked", true);
 			}
-			$("#payMethodTable1").hide();
-			$("#payMethodTable3").hide();
-			$("#payMethodTable4").hide();
 			$("#payMethodTable2").show();
 		}); // click
 		$("#payMethod3").click(function() {
@@ -88,12 +82,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				
+				$("#payMethodTable1").hide();
+				$("#payMethodTable2").hide();
+				$("#payMethodTable4").hide();
 				$("#payMethod3").prop("checked", true);
 			}
-			$("#payMethodTable1").hide();
-			$("#payMethodTable2").hide();
-			$("#payMethodTable4").hide();
 			$("#payMethodTable3").show();
 		}); // click
 		$("#payMethod4").click(function() {
@@ -101,14 +94,20 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
-				
+				$("#payMethodTable1").hide();
+				$("#payMethodTable2").hide();
+				$("#payMethodTable3").hide();
 				$("#payMethod4").prop("checked", true);
 			}
-			$("#payMethodTable1").hide();
-			$("#payMethodTable2").hide();
-			$("#payMethodTable3").hide();
 			$("#payMethodTable4").show();
 		}); // click
+		$("#immediatelyPayOrderCancle").click(function() {
+			if(confirm("정말로 취소하시겠습니까?")){
+				var ono=$("#ono").val();
+				var pdno=$("#pdno").val();
+				location.href="immediatelyPayOrderCancle.do?ono="+ono+"&pdno="+pdno;
+			}
+		});
 	});// ready
 </script>
 <!--start-ckeckout-->
@@ -126,21 +125,20 @@
 	               <li><span>Item</span></li>
 					<li><span>Product Name</span></li>		
 					<li><span>Size / Color / Quantity</span> </li>
+					<li><span>Total Price</span></li>
 	               <div class="clearfix"> </div>
 	            </ul>
-	            <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
 	            <ul class="cart-header">
-	                  		<li class="ring-in"><a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
-	                  		<img alt="이미지~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
-	                  		</a></li>
-							<li><span>${j.name}</span></li>
-							<li><span>${j.size_name} / ${j.color_name} / ${j.quantity}</span></li>
-							<input type="hidden" name="pdno" value="${j.pdno}" style="display:none">
-							<!-- 주문수량과 총수량을 줄여주기 위해서 -->
-							<input type="hidden" name="quantity" value="${j.quantity}" style="display:none">
+	                  <li class="ring-in"><a href="single.html" >
+	                  <%-- <img src="${pageContext.request.contextPath}/resources/images/shoes-1.png" class="img-responsive" height="50%" width="50%"/> --%>
+	                  <img src="${pageContext.request.contextPath}/resources/upload/${requestScope.image}" class="img-responsive" height="50%" width="50%"/>
+	                  </a>
+	                  </li>    
+							<li><span>${requestScope.pvo.name}</span></li>
+							<li><span>${requestScope.pdvo.productSizeVO.size_name} / ${requestScope.pdvo.color_name} / ${requestScope.quantity}</span></li>
+							<li><span id="checkTotalprice">${requestScope.totalprice}</span></li>
 	               <div class="clearfix"> </div>
 	            </ul>
-				</c:forEach>
 	         </div>
 	         <br><br><br>
 <%-- 주문 정보 --%>
@@ -156,13 +154,12 @@
 	            <table class="cart-header">
 	            	<tr>
 	            		<th>
-	            			<div id = "totalprice"><%-- 총 상품 금액 : ${ovo.totalprice} --%></div>
+	            			<div id = "totalprice"></div>
 	            		</th>
 	            	</tr>
 	            	<tr>
 	            		<th>
-	            			<input id="membersPoint" value="<sec:authentication property="principal.point" />" style="display: none;">
-	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" min="0" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" />)</div>
+	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" /> )</div>
 	            		</th>
 	            	</tr>
 	            </table>
@@ -181,19 +178,19 @@
 	            <div>
 		          	<table class="cart-header">
 		          		<tr>
-		          			<th>이름 : <span id = "memberName">${ovo.memberVO.name}</span>  </th>
+		          			<th>이름 : <span id = "memberName"><sec:authentication property="principal.name"/></span>  </th>
 		          		</tr>
 		          		<tr>
-		          			<th>등급 : [ ${ovo.memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovo.memberVO.gradeVO.percent} ]</th>
+		          			<th>등급 : [<sec:authentication property="principal.gradeVO.grade"/> ] &nbsp;  적립 비율 : [ <sec:authentication property="principal.gradeVO.percent"/>% ]</th>
 		          		</tr>
 		          		<tr>
-		          			<th>이메일 : ${ovo.memberVO.email}</th>
+		          			<th>이메일 : <sec:authentication property="principal.email"/></th>
 		          		</tr>
 		          		<tr>
-		          			<th>연락처 : <span id = "memberPhone" value ="${ovo.memberVO.phone}">${ovo.memberVO.phone}</span></th>
+		          			<th>연락처 : <span id = "memberPhone" value ="<sec:authentication property="principal.phone"/>"><sec:authentication property="principal.phone"/></span></th>
 		          		</tr>
 		          		<tr>
-		          			<th>주소 : <span id = "memberAddress" value ="${ovo.memberVO.address}">${ovo.memberVO.address}</span></th>
+		          			<th>주소 : <span id = "memberAddress" value ="<sec:authentication property="principal.address"/>"><sec:authentication property="principal.address"/></span></th>
 		          		</tr>
 		          	</table>
 		         </div>
@@ -292,8 +289,12 @@
          </div>  
          <div align="right">
          	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
-         	<input type="hidden" name="ono" value="${ovo.ono}">
+         	<input type="hidden" id="ono" name="ono" value="${requestScope.ono}">
+         	<input type="hidden" id="pdno" name="pdno" value="${requestScope.pdvo.pdno}" style="display:none">
+			<!-- 주문수량과 총수량을 줄여주기 위해서 -->
+			<input type="hidden" name="quantity" value="${requestScope.quantity}" style="display:none">
          	<input class="add-cart cart-check" type ="submit" id="order" value="주문하기">
+         	<input type="button" id="immediatelyPayOrderCancle" value="취소하기">
          	<!-- <a href="order.do" class="add-cart cart-check" id = "order">주문하기</a> -->
          </div> 
        </div>
