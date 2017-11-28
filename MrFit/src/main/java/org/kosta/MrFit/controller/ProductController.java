@@ -153,6 +153,7 @@ public class ProductController {
 			MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
 			ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
 			mv.addObject("psglist", psglist);
+			mv.addObject("id", vo.getId());
 		}
 		mv.addObject("psList", psList);
 		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
@@ -162,6 +163,8 @@ public class ProductController {
 			mv.addObject("clist", clist);
 			mv.addObject("pvo", pvo);	
 			mv.addObject("prvolist", prvolist);
+			mv.addObject("id", null);
+			System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}
 	

@@ -107,7 +107,8 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 -------3번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 2, 2,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 2, 2,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 3, 2, 3,180);
+
 --------------- 상품 이미지 등록
 insert into image(ino,pno,url) values(ino_seq.nextval,1,'thumb/기본상의상품1.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,2,'thumb/기본하의상품1.jpg');

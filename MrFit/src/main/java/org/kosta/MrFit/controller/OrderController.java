@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -66,6 +67,7 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_MEMBER")
 	@Transactional
 	@RequestMapping("registerCart.do")
 	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
@@ -236,16 +238,23 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("updateOrderQuantity.do")
-	public String updateOrderQuantity(OrderProductVO opvo) {
-		System.out.println("주문번호 : "+opvo.getOno()+"가격 : "+opvo.getPrice()+"수량 : "+opvo.getQuantity());
-		System.out.println("총 가격 :"+(opvo.getPrice()*opvo.getQuantity()) );
-		int totalprice=opvo.getPrice()*opvo.getQuantity();
+	@ResponseBody
+	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
+		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
+		
+	/*	int totalprice=opvo.getPrice()*opvo.getQuantity();
 		OrderVO ovo=new OrderVO();
 		ovo.setOno(opvo.getOno());
 		ovo.setTotalprice(totalprice);
-		orderService.updateOrderCartTotalPrice(ovo);
+		orderService.updateOrderCartTotalPrice(ovo);*/
+		System.out.println("수량 변경 ono : "+opvo.getOno()+"수량 변경 pdno : "+opvo.getPdno()+
+				"수량 변경 quantity : "+opvo.getQuantity());
 		orderService.updateOrderQuantity(opvo);
-		return "redirect:cartForm.do";
+/*		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("count", opvo.getQuantity());
+		map.put("totalPrice", totalprice);*/
+		System.out.println("      OrderController/updateOrderQuantity()/종료 ");
+		return opvo;
 	}
 	/* [석환][11.23][주문결제]
 	 * 

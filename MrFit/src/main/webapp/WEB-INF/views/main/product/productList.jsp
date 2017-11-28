@@ -11,7 +11,7 @@
 			<c:forEach items="${productList}" var="pvo">
 				<div class="col-md-3 product-left" >
 					<div class="p-one simpleCart_shelfItem">
-						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" style="max-width: 100%; height: 30px;" />
+						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> <img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="상품이미지" style="max-width: 300px;  max-height: 300px;" />
 							<div class="mask">
 								<span>상세보기</span>
 							</div>
