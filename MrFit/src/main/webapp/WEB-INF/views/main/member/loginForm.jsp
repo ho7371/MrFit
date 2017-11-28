@@ -30,11 +30,11 @@
 					</div>
 					<div class="address">
 						<span>아이디</span>
-						<input type="text" name="id" size="10">
+						<input type="text" name="id" size="10" required="required">
 					</div>
 					<div class="address">
 						<span>패스워드</span>
-						 <input type="password" name="password" size="10">
+						 <input type="password" name="password" size="10" required="required">
 					</div>
 					<div class="address">
 						<input type="submit" value="Login">

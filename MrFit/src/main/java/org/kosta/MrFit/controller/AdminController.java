@@ -90,7 +90,11 @@ public class AdminController {
 		System.out.println("      AdminController/adminProductList()/종료");
 		return mv;
 	}
-	
+	/**[재현][11/25][상품등록폼 보기]
+	 * 
+	 * @param 
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProductForm.do")
 	public String registerProductForm() {
@@ -134,7 +138,6 @@ public class AdminController {
 		이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다. 
 		<Context reloadable="true" allowCasualMultipartParsing="true">
 	 */
-	
 	@Transactional
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
@@ -264,17 +267,27 @@ public class AdminController {
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/updateProductForm.do")
-	public String updateProductForm() {
+	public ModelAndView updateProductForm(String pno) {
 		System.out.println("   	AdminController/updateProductForm()/시작");
-		return "admin/updateProductForm.tiles";
+		ProductVO pvo=productService.findProductDetailByPno(pno);
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("admin/updateProductForm.tiles");
+		mv.addObject("pvo", pvo);	
+		return mv;
 	}
 	
+	
+	/**[재현][11/27][상품삭제]
+	 * 
+	 * @param 
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/deleteProduct.do")
 	public String deleteProduct(String pno) {
 		System.out.println("   	AdminController/deleteProduct()/시작");
 		adminService.deleteProduct(pno);
-		return "";
+		return "admin/deleteProductResult.tiles";
 	}
 	
 	

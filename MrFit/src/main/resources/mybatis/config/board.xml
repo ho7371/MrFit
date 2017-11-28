@@ -6,14 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="board">
  	<!--[정현][공지사항 갯수 확인]  -->
  		<select id="getTotalNoticeCount" resultType="int">
- 			select count(*) from board where category='공지' and security='on'
+ 			select count(*) from board where category='공지' and security='public'
  		</select>
  	
  	<!--[정현][공지사항 리스트 받기]  -->
  	<select id="noticeList" parameterType="pagingBean" resultType="boardVO">
  	 SELECT bno,id,title,content,regdate,security,category 
 		from (select row_number() over(order by bno desc) as rnum,bno,id,title,content,regdate,security,category  from board 
-				where category='공지' and security='on')
+				where category='공지' and security='public')
 		board
 		where rnum between #{startRowNumber} and #{endRowNumber}
 		ORDER BY bno DESC  
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="registerNotice" parameterType="boardVO">
    	 insert into board(bno,id,title,content,regdate,security,category) 
-		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'on','공지')
+		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'public','공지')
 		
     </insert>
     <update id="updateNotice">

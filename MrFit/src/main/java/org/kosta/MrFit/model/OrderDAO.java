@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderDAO {
 	OrderVO findMyCart(String id);
@@ -53,5 +54,19 @@ public interface OrderDAO {
 
 	void updateProductDetailInventory(ProductDetailVO pdvo);
 
-	int reviewCheckAjax(ProductReviewVO rvo);
+	int reviewCheck(Map<String, String> map);
+
+	int statusCheck(Map<String, String> map);
+	
+	ProductVO findProductDetailByPdno(String pdno);
+
+	void immediatelyPayRegisterOrder(OrderVO ovo);
+
+	void immediatelyPayRegisterOrderpProduct(OrderProductVO opvo);
+
+	ProductDetailVO findProductImmediatelyPay(String pdno);
+
+	void deleteImmediatelyPayOrdersProduct(OrderProductVO opvo);
+
+	void deleteImmediatelyPayOrders(OrderProductVO opvo);
 }

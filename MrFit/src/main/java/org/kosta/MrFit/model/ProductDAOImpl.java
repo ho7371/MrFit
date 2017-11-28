@@ -18,7 +18,7 @@ public class ProductDAOImpl implements ProductDAO {
     * 상품 상세보기 메서드(상품번호로 검색)
     */
    @Override
-   public ProductVO findProductDtailByPno(String pno) {
+   public ProductVO findProductDetailByPno(String pno) {
       System.out.println("                  ProductDAOImpl/findProductDtailByPno()/시작");
       ProductVO pvo=template.selectOne("product.findProductDetail", pno);
       pvo.setImageList(template.selectList("product.findProductImageList",pno));
@@ -167,42 +167,47 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductSizeVO> sizeGapMemberAndProduct(String pno){
 		return template.selectList("product.sizeGapMemberAndProduct", pno);
 	}
+	
+	//[재현][이미지 업로드]
 	@Override
 	public void registerImage(ImageVO ivo) {
 		template.insert("product.registerImage", ivo);
 		
 	}
 
+	//[재현][상품 등록]
 	@Override
 	public void registerProduct(ProductVO productVO) {
 		template.insert("product.registerProduct", productVO);
 		
 	}
+	
+	//[재현][상품 치수 등록]
 	@Override
 	public void registerProductSize(ProductSizeVO psvo) {
 		template.insert("product.registerProductSize",psvo);
 		
 	}
+	
+	//[재현][상품 색상 등록]
 	@Override
 	public void registerColor(ProductDetailVO pdvo) {
 		template.insert("product.registerColor",pdvo);
 		
 	}
+	
+	//[재현][상품 상세 등록]
 	@Override
 	public void registerProductDetail(ProductDetailVO pdvo) {
 		template.insert("product.registerProductDetail", pdvo);
 		
 	}
+	
+	
 	@Override
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub
 		return template.selectOne("product.findColorByName", pdvo);
-	}
-	
-	//[영훈][11/25][리뷰작성 체크]
-	@Override
-	public int reviewCheck(ProductReviewVO prvo) {
-		return template.selectOne("order.reviewCheck", prvo);
 	}
 	
 }

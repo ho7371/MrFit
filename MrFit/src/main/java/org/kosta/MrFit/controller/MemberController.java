@@ -29,7 +29,12 @@ public class MemberController {
 	
 	@Resource 		
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
+	/**[재현][][로그인 실패]
+	 * 
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
 		System.out.println("   	MemberController/loginFail()/시작");
@@ -64,7 +69,7 @@ public class MemberController {
 		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
 	}
-	/**[][][]
+	/**[재현][로그인][]
 	 * 
 	 * @return
 	 */
@@ -75,8 +80,9 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
-	/**[][][]
+	/**[재현][][아이디패스워드 찾기 폼]
 	 * 
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findIdPasswordForm.do")
@@ -86,9 +92,9 @@ public class MemberController {
 		return "member/findIdPasswordForm.tiles";
 	}
 	
-	/**[][][]
+	/**[재현][][아이디 찾기]
 	 * 
-	 * @param memberVO
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findIdByEmailAndName.do")
@@ -106,9 +112,9 @@ public class MemberController {
 		return mv;
 	}
 	
-	/**[][][]
+	/**[재현][][질문 보여주기]
 	 * 
-	 * @param memberVO
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findQnaByIdNameEmail.do")
@@ -127,9 +133,9 @@ public class MemberController {
 		return mv;
 	}
 	
-	/**[][][]
+	/**[재현][][비밀번호 찾기]
 	 * 
-	 * @param memberVO
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findMemberByQna.do")
@@ -141,9 +147,9 @@ public class MemberController {
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
 	
-	/**[][][]
+	/**[재현][][새 비밀번호 업데이트]
 	 * 
-	 * @param memberVO
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping(value = "updatePasswordById.do", method = RequestMethod.POST)
@@ -155,8 +161,9 @@ public class MemberController {
 		return "redirect:updatePassword_ok.do";
 	}
 	
-	/**[][][]
+	/**[재현][][비밀번호 업데이트 완료]
 	 * 
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("updatePassword_ok.do")
@@ -204,7 +211,7 @@ public class MemberController {
 		System.out.println("   	MemberController/registerResultView()/시작");
 		MemberVO vo = memberService.findMemberById(id);
 		System.out.println("    MemberController/registerResultView()/종료");
-		return new ModelAndView("member/register_result.tiles", "memberVO", vo);
+		return new ModelAndView("member/registerMemberResult.tiles", "memberVO", vo);
 	}
 	
 	/**[영훈][회원가입시 id 중복확인 Ajax]
@@ -220,9 +227,9 @@ public class MemberController {
 		return memberService.idcheck(id);
 	}
 	
-	/**[][][]
+	/**[재현][][아이디로 회원치수 보기]
 	 * 
-	 * @param id
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findMemberSizeById.do")
@@ -231,8 +238,9 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
-	/**[][][]
+	/**[재현][][회원치수 수정폼]
 	 * 
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("updateMemberSizeForm.do")
@@ -241,9 +249,9 @@ public class MemberController {
 		return "member/updateMemberSizeForm.tiles";
 	}
 	
-	/**[][][]
+	/**[재현][][회원치수 수정]
 	 * 
-	 * @param msizeVO
+	 * @param 
 	 * @return
 	 */
 	@RequestMapping("updateMemberSize.do")
