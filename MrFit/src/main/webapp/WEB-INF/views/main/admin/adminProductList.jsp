@@ -31,7 +31,7 @@
 						<li><span>사진</span></li>
 						<li><span>상품명</span></li>
 						<li><span>내용</span></li>
-						<li><span>날짜</span></li>
+						<li><span>분류</span></li>
 						<div class="clearfix"></div>
 					</ul>
 					
@@ -45,16 +45,19 @@
 							<li>
 								<span>${item.name}</span>
 							</li>
+								<li>
+								<span>${item.content}</span>
+							</li>
+								<li>
+								<span>${item.category}</span>
+							</li>
 							<li>
 								<span>
 									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()"type="button" class="btn btn-default">수정</a>
+									&nbsp;<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
 								</span>
 							</li>
-							<li>
-								<span>
-									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
-								</span>
-							</li>
+						
 							<div class="clearfix"></div>
 						</ul>
 					</c:forEach>
