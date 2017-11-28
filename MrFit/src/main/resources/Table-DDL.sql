@@ -163,12 +163,16 @@ CREATE TABLE product (
 create sequence iqno_seq;
 CREATE TABLE inquiry (
    iqno NUMBER PRIMARY KEY, 
+   title VARCHAR2(100) NOT NULL,
    content CLOB NOT NULL, 
    regdate DATE NOT NULL, 
    security VARCHAR2(100) NOT NULL, 
    id VARCHAR2(100) NOT NULL,
    constraint fk_id_in_inquiry foreign key(id) references member(id)
 );
+delete from INQUIRY;
+delete from INQUIRY_REPLY;
+alter table inquiry add title VARCHAR2(100) NOT NULL;
 
       /* 고객문의 댓글 */
       create sequence iqrno_seq;

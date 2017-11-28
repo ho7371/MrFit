@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.AdminService;
+import org.kosta.MrFit.model.BoardService;
+import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
@@ -23,6 +25,9 @@ public class UnitTest {
 	 private MemberService memberService;
 	@Resource
 	private ProductService productService;
+	
+	@Resource
+	private BoardService boardService;
 	
 	@Resource
 	private OrderService orderService;
@@ -57,6 +62,12 @@ public class UnitTest {
 		// System.out.println(adminService.adminAllOrderList());
 	//	 System.out.println(orderService.orderProductReviewForm("5"));
 		 
+	 }
+	 
+	 @Test
+	 public void inquiryTest() {
+		 InquiryVO ivo = boardService.inquiryDetail("21");
+		 System.out.println("고객문의 : " + ivo);
 	 }
 	 
 

@@ -45,6 +45,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select iqno as bno, content, regdate, security, id
     	from inquiry
     </select>
+    
+    <!-- [진호,현민] 고객문의 상세보기 -->
+    <select id="inquiryDetail" parameterType="string" resultMap="inquiryRM">
+    	select i.iqno as "iqno1", i.title as "title1", i.content as "content1", i.regdate as "regdate1", i.security as "security1", i.id, 
+    		   ir.iqrno, ir.content as "content2", ir.regdate as "regdate2", ir.security as"security2"
+		from inquiry i, inquiry_reply ir
+		where i.iqno = #{value}
+		and i.iqno = ir.iqno
+    </select>
+    
+    <resultMap type="inquiryVO" id="inquiryRM">
+    	<result column="iqno1" property="iqno"/>
+    	<result column="title1" property="title"/>
+    	<result column="content1" property="content"/>
+    	<result column="regdate1" property="regdate"/>
+    	<result column="security1" property="security"/>
+    	<result column="id" property="id"/>
+    	<result column="iqrno" property="inquiryReplyVO.iqrno"/>
+    	<result column="content2" property="inquiryReplyVO.content"/>
+    	<result column="regdate2" property="inquiryReplyVO.regdate"/>
+    	<result column="security2" property="inquiryReplyVO.security"/>
+    </resultMap>
+    
+ 	
 </mapper>
 
 

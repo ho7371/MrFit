@@ -130,11 +130,11 @@ insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval
 
 -----------------------------------------------------------------------
 
-insert into inquiry(iqno, content, regdate, security, id)
-values(iqno_seq.nextval,'test1이 작성한 첫번째 고객문의', sysdate, 'public','test1');
+insert into inquiry(iqno, title, content, regdate, security, id)
+values(iqno_seq.nextval,'첫번째 제목','test1이 작성한 첫번째 고객문의', sysdate, 'public','test1');
 
-insert into inquiry(iqno, content, regdate, security, id)
-values(iqno_seq.nextval,'test2가 작성한 첫번째 고객문의', sysdate, 'private','test2');
+insert into inquiry(iqno, title, content, regdate, security, id)
+values(iqno_seq.nextval,'두번째 제목','test2가 작성한 첫번째 고객문의', sysdate, 'private','test2');
 
 
 --------------- 고객문의 답글 등록

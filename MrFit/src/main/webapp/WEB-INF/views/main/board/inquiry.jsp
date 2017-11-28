@@ -56,7 +56,7 @@
 									<li><span>비밀글입니다.</span></li>
 								</c:when>
 								<c:otherwise>
-									<li><span>${i.content}</span></li>
+									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.content}</a></span></li>
 								</c:otherwise>
 							</c:choose>
 							<li><span>${i.id}</span></li>

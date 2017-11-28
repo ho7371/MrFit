@@ -69,5 +69,9 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/inquiry()/종료");
 		return boardDAO.inquiry();
 	}
+	@Override
+	public InquiryVO inquiryDetail(String bno) {
+		return boardDAO.inquiryDetail(bno);
+	}
 
 }

@@ -18,5 +18,7 @@ public interface BoardService {
 
 	List<BoardVO> inquiry();
 
+	InquiryVO inquiryDetail(String bno);
+
 	
 }
