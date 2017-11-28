@@ -6,10 +6,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.BoardService;
+import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ListVO;
+import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -95,11 +98,20 @@ public class HomeController {
 	}
 
 	
-	
+	/**[현민][11/27][고객문의 리스트]
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("inquiry.do")
-	public String inquiry(){
+	public String inquiry(Model model){
 		System.out.println("      HomeController/inquiry()/시작");
-		// 고객문의 불러오는 빽단 작업 코드 필요
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<BoardVO> bvoList = boardService.inquiry();
+		System.out.println("      HomeController/inquiry()/진행 list : "+bvoList);
+		System.out.println("      HomeController/inquiry()/진행 mvo : "+ mvo);
+		model.addAttribute("list", bvoList);
+		model.addAttribute("mvo", mvo);
 		System.out.println("      HomeController/inquiry()/종료");
 		return "board/inquiry.tiles";
 	}

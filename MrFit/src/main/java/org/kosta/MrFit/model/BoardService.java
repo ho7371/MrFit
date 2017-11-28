@@ -16,5 +16,7 @@ public interface BoardService {
 
 	void updateNotice(BoardVO bvo);
 
+	List<BoardVO> inquiry();
+
 	
 }

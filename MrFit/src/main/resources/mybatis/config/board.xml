@@ -39,6 +39,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	update board set title=#{title},content=#{content}
 		where bno=#{bno}
     </update>
+    
+    <!-- [현민][고객문의 목록] -->
+    <select id="inquiry" resultType="boardVO">
+    	select iqno as bno, content, regdate, security, id
+    	from inquiry
+    </select>
 </mapper>
 
 

@@ -67,4 +67,11 @@ public class BoardDAOImpl  implements BoardDAO{
 		System.out.println("                  BoardDAOImpl/updateNotice()/종료 ");
 	}
 
+	@Override
+	public List<BoardVO> inquiry() {
+		System.out.println("                  BoardDAOImpl/inquiry()/시작 ");
+		System.out.println("                  BoardDAOImpl/inquiry()/종료 ");
+		return template.selectList("board.inquiry");
+	}
+
 }

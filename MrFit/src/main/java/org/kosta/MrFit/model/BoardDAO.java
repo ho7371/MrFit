@@ -14,4 +14,6 @@ public interface BoardDAO {
 	void registerNotice(BoardVO bvo);
 
 	void updateNotice(BoardVO bvo);
+
+	List<BoardVO> inquiry();
 }

@@ -62,5 +62,12 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/updateNotice()/종료");
 		
 	}
+	//[현민][고객 목록]
+	@Override
+	public List<BoardVO> inquiry() {
+		System.out.println("            BoardServiceImpl/inquiry()/시작 ");
+		System.out.println("            BoardServiceImpl/inquiry()/종료");
+		return boardDAO.inquiry();
+	}
 
 }
