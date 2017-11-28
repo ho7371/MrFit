@@ -46,52 +46,23 @@
 						<li><span>작성일</span></li>
 						<div class="clearfix"></div>
 					</ul>
-					<%-- <c:set value="<sec:authentication property="principal.id"/>" var="id"/>
-					${id} --%>
 					<c:forEach items="${requestScope.list}" var="i">
 						<ul class="cart-header">
 							<li><span>${i.bno}</span></li>
 							<c:choose>
-								<%-- <c:when test="${i.security =='private'}">
-									<li><span>비밀글입니다.</span></li>
-								</c:when> --%>
 								<c:when test="${i.id != mvo.id && i.security=='private'}">
 									<li><span>비밀글입니다.</span></li>
 								</c:when>
 								<c:otherwise>
-									<li><span>${i.content}</span></li>
+									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.content}</a></span></li>
 								</c:otherwise>
 							</c:choose>
 							
 							<li><span>${i.id}</span></li>
-							<li><span>${i.regdate} / ${i.id} / ${mvo.id }</span></li>
+							<li><span>${i.regdate}</span></li>
 							<div class="clearfix"></div>
 						</ul>
 					</c:forEach>
-					<!-- <ul class="cart-header">
-						<li><span>1</span></li>
-						<li><span>고객 문의글 1번</span></li>
-						<li><span>현진호</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>2</span></li>
-						<li><span>고객 문의글 2번</span></li>
-						<li><span>김석환</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>3</span></li>
-						<li><span>고객 문의글 3번</span></li>
-						<li><span>신재현</span></li>
-						<li><span>조회수</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul> -->
 				</div>
 			</div>
 		</div>

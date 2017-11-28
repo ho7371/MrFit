@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.BoardVO;
+import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.PagingBean;
@@ -116,14 +117,18 @@ public class HomeController {
 		return "board/inquiry.tiles";
 	}
 	
-	@RequestMapping("note.do")
-	public String note(){
-		System.out.println("      HomeController/note()/시작");
-		// 쪽지함 불러오는 빽단 작업 코드 필요
-		System.out.println("      HomeController/note()/종료");
+	/**	[현민,진호]
+	 * 	고객문의 상세보기
+	 * @param bno
+	 * @return
+	 */
+	@RequestMapping("inquiryDetail.do")
+	public String inquiryDetail(String bno){
+		System.out.println("      HomeController/inquiryDetail()/시작");
+		InquiryVO inquiryVO = boardService.inquiryDetail(bno);
+		System.out.println("      HomeController/inquiryDetail()/종료");
 		return "board/note.tiles";
 	}
-	
 	
 		/* 단순 페이지 맵핑 */
 	@RequestMapping("{viewName}.do")

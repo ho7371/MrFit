@@ -74,4 +74,9 @@ public class BoardDAOImpl  implements BoardDAO{
 		return template.selectList("board.inquiry");
 	}
 
+	@Override
+	public InquiryVO inquiryDetail(String bno) {
+		return template.selectOne("board.inquiryDetail",bno);
+	}
+
 }

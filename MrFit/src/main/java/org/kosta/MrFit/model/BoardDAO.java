@@ -16,4 +16,6 @@ public interface BoardDAO {
 	void updateNotice(BoardVO bvo);
 
 	List<BoardVO> inquiry();
+
+	InquiryVO inquiryDetail(String bno);
 }
