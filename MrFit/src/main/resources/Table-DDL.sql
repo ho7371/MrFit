@@ -170,9 +170,12 @@ CREATE TABLE inquiry (
    id VARCHAR2(100) NOT NULL,
    constraint fk_id_in_inquiry foreign key(id) references member(id)
 );
-delete from INQUIRY;
+/*
+ *	delete from INQUIRY;
 delete from INQUIRY_REPLY;
 alter table inquiry add title VARCHAR2(100) NOT NULL;
+ 
+ */
 
       /* 고객문의 댓글 */
       create sequence iqrno_seq;

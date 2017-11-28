@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -69,9 +70,20 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/inquiry()/종료");
 		return boardDAO.inquiry();
 	}
+	//[진호, 현민][고객 문의]
 	@Override
 	public InquiryVO inquiryDetail(String bno) {
+		System.out.println("            BoardServiceImpl/inquiryDetail()/시작 ");
+		System.out.println("            BoardServiceImpl/inquiryDetail()/종료");
 		return boardDAO.inquiryDetail(bno);
+	}
+	
+	//[진호, 현민][고객 문의 댓글]
+	@Override
+	public void inquiryReply(Map<String, String> map) {
+		System.out.println("            BoardServiceImpl/inquiryReply()/시작 ");
+		System.out.println("            BoardServiceImpl/inquiryReply()/종료");
+		boardDAO.inquiryReply(map);
 	}
 
 }

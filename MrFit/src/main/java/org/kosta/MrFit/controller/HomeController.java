@@ -1,6 +1,8 @@
 package org.kosta.MrFit.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -123,12 +125,34 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping("inquiryDetail.do")
-	public String inquiryDetail(String bno){
+	public String inquiryDetail(String bno, Model model){
 		System.out.println("      HomeController/inquiryDetail()/시작");
+		System.out.println("      HomeController/inquiryDetail()/진행1 bno : "+bno);
 		InquiryVO inquiryVO = boardService.inquiryDetail(bno);
+		System.out.println("      HomeController/inquiryDetail()/진행2 inquiryVO : "+inquiryVO);
+		model.addAttribute("ivo", inquiryVO);
 		System.out.println("      HomeController/inquiryDetail()/종료");
-		return "board/note.tiles";
+		return "board/inquiryDetail.tiles";
 	}
+	
+	/**[진호, 현민][고객문의 댓글]
+	 * 
+	 * @param message
+	 * @param iqno
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("inquiryReply.do")
+	public String inquiryReply(String message, String iqno, Model model) {
+		System.out.println("      HomeController/inquiryReply()/시작");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("message", message);
+		map.put("iqno", iqno);
+		boardService.inquiryReply(map);
+		System.out.println("      HomeController/inquiryDetail()/종료");
+		return "board/inquiryReply_ok.tiles";
+	}
+	
 	
 		/* 단순 페이지 맵핑 */
 	@RequestMapping("{viewName}.do")
