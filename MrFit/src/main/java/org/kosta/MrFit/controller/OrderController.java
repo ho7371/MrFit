@@ -66,6 +66,7 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_MEMBER")
 	@Transactional
 	@RequestMapping("registerCart.do")
 	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
