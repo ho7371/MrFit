@@ -3,6 +3,7 @@ package org.kosta.MrFit.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -40,9 +41,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductVO> findProductByName(String keyword) {
+	public List<ProductVO> findProductByName(Map<String, Object> map) {
 		System.out.println("            ProductServiceImpl/findProductByName()/시작");
-		return productDAO.findProductByName(keyword);
+		return productDAO.findProductByName(map);
 	}
 	@Override
 	public ProductVO findProductDetailByPno(String pno) {	
@@ -295,11 +296,14 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 	
-	
 	@Override
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub
 		return productDAO.findColorByName(pdvo);
+	}
+	@Override
+	public int productTotalCount(String keyword) {
+		return productDAO.productTotalCount(keyword);
 	}
 
 		

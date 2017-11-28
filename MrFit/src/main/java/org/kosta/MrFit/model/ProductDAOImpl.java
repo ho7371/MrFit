@@ -2,6 +2,7 @@ package org.kosta.MrFit.model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -39,9 +40,10 @@ public class ProductDAOImpl implements ProductDAO {
     * 리턴한다.
     */
    @Override
-   public List<ProductVO> findProductByName(String keyword) {
+   public List<ProductVO> findProductByName(Map<String, Object> map) {
       System.out.println("                  ProductDAOImpl/findProductByName(keyword)/시작");
-      List<ProductVO> list = template.selectList("product.findProductByName",keyword);
+      List<ProductVO> list = template.selectList("product.findProductByName",map);
+      System.out.println("                  ProductDAOImpl/findProductByName(keyword)/진행 1 list : "+list);
       if(!list.isEmpty()) {
          for (int i = 0; i < list.size(); i++) {
              List<ImageVO> iList=template.selectList("product.findProductImageList",list.get(i).getPno());
@@ -208,6 +210,11 @@ public class ProductDAOImpl implements ProductDAO {
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub
 		return template.selectOne("product.findColorByName", pdvo);
+	}
+	//[현민][상품검색 개수]
+	@Override
+	public int productTotalCount(String keyword) {
+		return template.selectOne("product.productTotalCount", keyword);
 	}
 	
 }

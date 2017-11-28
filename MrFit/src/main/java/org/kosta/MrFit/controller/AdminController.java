@@ -108,17 +108,33 @@ public class AdminController {
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminFindProductByName.do")
+	@RequestMapping("admin/FindProductByName.do")
 	public ModelAndView findProductByName(String keyword, HttpServletRequest request){
 		System.out.println("   	AdminController/findProductByName()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<ProductVO> list = productService.findProductByName(keyword);
-		
+		int totalOrderCount = productService.productTotalCount(keyword);
+		int postCountPerPage = 4;
+		int postCountPerPageGroup = 2;
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("pagingBean", pb);
+		List<ProductVO> list = productService.findProductByName(map);
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list,pb);
 		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 리스트 : "+list);
 		if(list!= null) {
-			mv.addObject("list", list);
+			/*mv.addObject("list", list);*/
+			mv.addObject("lvo",lvo);
+			mv.setViewName("admin/adminProductSearchList.tiles");
+		}else {
+			mv.setViewName("main/product/findProductByName_fail");
 		}
-		mv.setViewName("admin/adminProductList.tiles");
+		
 		System.out.println("    AdminController/findProductByName()/종료");
 		return mv;
 		

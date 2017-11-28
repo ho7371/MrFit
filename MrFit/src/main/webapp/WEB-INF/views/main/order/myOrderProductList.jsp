@@ -32,6 +32,7 @@
 						<li><span>${orderProduct.size_name}</span></li>
 						<li><span>${orderProduct.quantity}</span></li>
 						<li><span>${orderProduct.url}</span></li>
+						<div class="clearfix"></div>
 						<c:if test="${orderProduct.reviewCheck==0}">
 						 <form action="${pageContext.request.contextPath}/registerProductReview.do">
 						 	<input type="hidden" name="ono" value="${orderProduct.ono}">
