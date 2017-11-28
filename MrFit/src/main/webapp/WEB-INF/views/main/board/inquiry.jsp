@@ -29,7 +29,7 @@
 		});
 	});
 </script>
-<!--start-ckeckout-->
+<!--start-ckeckout--> 
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 <sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
 <div class="ckeckout">
@@ -44,20 +44,24 @@
 						<li><span>Title</span></li>
 						<li><span>Writer</span></li>
 						<li><span>작성일</span></li>
+						<c:if test="">
+						</c:if>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${requestScope.list}" var="i">
 						<ul class="cart-header">
 							<li><span>${i.bno}</span></li>
 							<c:choose>
-								<c:when test="${i.id != mvo.id && i.security=='private'}">
+								<c:when test="${isAdmin}">
+									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
+								</c:when>
+								<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
 									<li><span>비밀글입니다.</span></li>
 								</c:when>
 								<c:otherwise>
-									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.content}</a></span></li>
+									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
 								</c:otherwise>
 							</c:choose>
-							
 							<li><span>${i.id}</span></li>
 							<li><span>${i.regdate}</span></li>
 							<div class="clearfix"></div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -146,8 +146,17 @@ ${requestScope.pvo } --%>
 							</div>
 							<div class="clearfix"></div>
 							<div class="single-but item_add">
-								<input type="submit" value="장바구니담기" id= "insertCart"/> 
-								<input type="button" id="immediatelyPay" value="즉시구매"  style="background-color: orange; "/>
+							<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+							<c:choose>
+								<c:when test="${isMember}">
+									<input type="submit" value="장바구니담기" id= "insertCart"/> 
+									<input type="button" id="immediatelyPay" value="즉시구매"  style="background-color: orange; "/>
+								</c:when>
+								<c:otherwise>
+									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
+									<input type="button" id="immediatelyPay" value="즉시구매" disabled="disabled"  style="background-color: orange; "/>
+								</c:otherwise>
+							</c:choose>
 							</div>
 						</div>
 						</form>
@@ -155,8 +164,7 @@ ${requestScope.pvo } --%>
 					<div class="clearfix"></div>
 					<br>
 					<br>
-					<div class="memberSize1"
-						id=<sec:authentication property="principal.id"/>>
+					<div class="memberSize1" id=${requestScope.id}>
 						<h3>오차범위</h3>
 						<table class="table table-bordered">
 							<thead>

@@ -209,9 +209,9 @@ public class AdminController {
 				}
 
 			//워크스페이스 경로
-			//String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";
+			String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";
 			//서버 경로
-			String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
+			//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
 			File uploadDir=new File(uploadPath);
 			if(uploadDir.exists()==false) {
 				uploadDir.mkdirs();

@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- [현민][고객문의 목록] -->
     <select id="inquiry" resultType="boardVO">
-    	select iqno as bno, content, regdate, security, id
+    	select iqno as bno, title,content, regdate, security, id
     	from inquiry
     </select>
     
@@ -68,7 +68,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<result column="security2" property="inquiryReplyVO.security"/>
     </resultMap>
     
+    <!-- [진호, 현민][고객 문의에 관리자 답변이 있는지 체크] -->
+    <select id="inquiryReplyCheck" parameterType="string" resultType="int">
+    	select count(*) from inquiry_reply where iqno = #{value}
+    </select>
+    
+    <!-- [진호, 현민][고객문의에서 관리자 답변이 없는 경우] -->
+    <select id="inquiryDetailNotReply" parameterType="string" resultType="inquiryVO">
+    	select * from inquiry where iqno = #{value}
+    </select>
  	
+ 	<!-- [진호,현민][고객문의에서 관리자가 댓글 달기] -->
+ 	<insert id="inquiryReply" parameterType="map">
+ 		insert into inquiry_reply(iqrno, content, regdate, security, iqno)
+ 		values(iqrno_seq.nextval, #{message},sysdate, 'public',#{iqno})
+ 	</insert>
 </mapper>
 
 

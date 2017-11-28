@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
 
@@ -19,6 +20,8 @@ public interface BoardService {
 	List<BoardVO> inquiry();
 
 	InquiryVO inquiryDetail(String bno);
+
+	void inquiryReply(Map<String, String> map);
 
 	
 }
