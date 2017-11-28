@@ -2,6 +2,7 @@ package org.kosta.MrFit.model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ProductDAO {
 
@@ -11,7 +12,7 @@ public interface ProductDAO {
 
 	ProductVO findProductDetailByPno(String pno);
 
-	List<ProductVO> findProductByName(String keyword);
+	List<ProductVO> findProductByName(Map<String, Object> map);
 	
 	int getTotalProductCount();
 
@@ -45,6 +46,8 @@ public interface ProductDAO {
 	void registerProductDetail(ProductDetailVO pdvo);
 
 	String findColorByName(ProductDetailVO pdvo);
+
+	int productTotalCount(String keyword);
 	
 
 }

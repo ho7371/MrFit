@@ -8,7 +8,7 @@
 	$(document).ready(function() {
 		$("#searchProductBtn").click(
 			function() {
-			location.href = "findProductByName.do?keyword="+ $("#searchProduct").val();
+			location.href = "findProductByName.do?nowPage=1&keyword="+ $("#searchProduct").val();
 		}); // click
 		$("#logoutAction").click(function() {
 			$("#logoutForm").submit();
@@ -30,6 +30,7 @@ $(window).scroll(function(){
 <div class="top-header">
 	<div class="container">
 		<div class="top-header-main">
+			<%-- 검색 --%>
 			<div class="col-md-4 top-header-left">
 				<div class="search-bar">
 					<input type="text" value="Search" onfocus="this.value = '';"
@@ -38,12 +39,15 @@ $(window).scroll(function(){
 						id="searchProductBtn">
 				</div>
 			</div>
+			
+			<%-- 로고 --%>
 			<div class="col-md-4 top-header-middle">
 				<a href="${pageContext.request.contextPath}/home.do">
 				<%-- <img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" width="80px"/></a> --%>
 				<img src="${pageContext.request.contextPath}/resources/images/TextLogo.jpg" alt="" width="270px"/></a>
 			</div>
 			
+			<%-- 회원 페이지 --%>
 			<div class="col-md-4 top-header-right">
 				<div class="cart box_1" align="right">
 					<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
