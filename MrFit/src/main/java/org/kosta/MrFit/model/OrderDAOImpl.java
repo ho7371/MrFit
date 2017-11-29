@@ -249,5 +249,19 @@ public class OrderDAOImpl implements OrderDAO {
 	public void deleteImmediatelyPayOrders(OrderProductVO opvo) {
 		template.delete("order.deleteImmediatelyPayOrders", opvo);
 	}
-
+	// [석환][11.27] 즉시 결제 취소시 home.do 에서 즉시 결제 값 삭제
+	@Override
+	public List<OrderVO> findImmediatelyPayGarbage(String id) {
+		return template.selectList("order.findImmediatelyPayGarbage", id);
+	}
+	// [석환][11.27] 즉시 결제 값을 가지고 있는 테이블 order_product 삭제
+	@Override
+	public void deleteImmediatelyPayGarbageOrdersProduct(String ono) {
+		template.delete("order.deleteImmediatelyPayGarbageOrdersProduct",ono);
+	}
+	// [석환][11.27] 즉시 결제 값을 가지고 있는 테이블 orders 삭제
+	@Override
+	public void deleteImmediatelyPayGarbageOrders(String ono) {
+		template.delete("order.deleteImmediatelyPayGarbageOrders",ono);
+	}
 }

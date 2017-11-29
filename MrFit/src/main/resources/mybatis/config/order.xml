@@ -305,7 +305,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteImmediatelyPayOrders">
 		delete from orders where ono=#{ono}
 	</delete>
+<<<<<<< HEAD
 
+=======
+	<!-- [석환][11.27] 즉시 결제 값 검색 -->
+	<select id="findImmediatelyPayGarbage" parameterType="string" resultType="orderVO">
+	select ono,status from orders where id=#{value}
+	</select>
+	<!-- [석환] -->
+	<delete id="deleteImmediatelyPayGarbageOrders" parameterType="string">
+		delete from orders where ono=#{ono}
+	</delete>
+	<!-- [석환] -->
+	<delete id="deleteImmediatelyPayGarbageOrdersProduct" parameterType="string">
+		delete from order_product where ono=#{ono}
+	</delete>
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 </mapper>
 
 

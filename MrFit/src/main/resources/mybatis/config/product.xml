@@ -4,167 +4,186 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="product">
- 	<sql id="selectall">
- 		select pno, name, price, content, category from product
- 	</sql>
- 	
-	<!-- 상품 검색 -->
+	<sql id="selectall">
+		select pno, name, price, content, category from product
+	</sql>
+
+	<!-- [현민][상품 검색] -->
 	<select id="findProductByName" parameterType="map" resultType="productVO">
-		select pno, name, price, content, category 
-		from 
-		( select row_number() over(order by pno desc) as rnum, 
-		  pno, name, price, content, category from product 
-		  where name like '%' || #{keyword} || '%' )
-		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+		select pno, name, price, content, category
+		from
+		( select row_number() over(order by pno desc) as rnum,
+		pno, name, price, content, category from product
+		where name like '%' || #{keyword} || '%' )
+		where rnum between
+		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
 	</select>
-	
-	<!-- 상품 검색 개수 -->
+
+	<!-- [현민][상품 검색 개수] -->
 	<select id="productTotalCount" parameterType="string" resultType="int">
 		select count(*) from product
-		where name like '%' || #{value} || '%'
+		where name like '%' || #{value}	|| '%'
 	</select>
-	
-	<!-- 상품상세정보 중 상품값-->
-    <select id="findProductDetail" parameterType="string" resultType="productVO">
-    	select pno,name,price,content,category from product where pno=#{value}
-    </select>
-    
-    <!-- 상품 상세정보 ProductDetailVO에 ProductSizeVO가 Has A 관계-->
-     <resultMap type="productDetailVO" id="productSizeListRM">
-	<result column="psno" property="productSizeVO.psno"/>
-	<result column="size_name" property="productSizeVO.size_name"/>
-	<result column="size1" property="productSizeVO.size1"/>
-	<result column="size2" property="productSizeVO.size2"/>
-	<result column="size3" property="productSizeVO.size3"/>
-	<result column="size4" property="productSizeVO.size4"/>
-	<result column="size5" property="productSizeVO.size5"/>
+
+	<!-- [석환][상품상세정보 중 상품값] -->
+	<select id="findProductDetail" parameterType="string" resultType="productVO">
+		select pno,name,price,content,category from product where pno=#{value}
+	</select>
+
+	<!-- [석환][상품 상세정보 ProductDetailVO에 ProductSizeVO가 Has A 관계] -->
+	<resultMap type="productDetailVO" id="productSizeListRM">
+		<result column="psno" property="productSizeVO.psno" />
+		<result column="size_name" property="productSizeVO.size_name" />
+		<result column="size1" property="productSizeVO.size1" />
+		<result column="size2" property="productSizeVO.size2" />
+		<result column="size3" property="productSizeVO.size3" />
+		<result column="size4" property="productSizeVO.size4" />
+		<result column="size5" property="productSizeVO.size5" />
 	</resultMap>
-	   
-    <!--  상품상세정보 중 productDetail List값   -->
-    <select id="findProductDetailList" parameterType="string" resultMap="productSizeListRM">
-    	SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno, ps.size_name,ps.size1,
-    	 ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
-    	FROM  product_detail pd, product_color pc, product_size ps
+
+	<!-- [석환][상품상세정보 중 productDetail List값] -->
+	<select id="findProductDetailList" parameterType="string"
+		resultMap="productSizeListRM">
+		SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno,ps.size_name,ps.size1,
+			   ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
+		FROM product_detail pd, product_color pc, product_size ps
 		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pno=#{value}
-    </select>
-    
-    <!--  상품상세정보 중 ImageVO List값 -->
-    <select id="findProductImageList" parameterType="string" resultType="imageVO">
-    	SELECT i.ino,i.url, i.pno
-		FROM  product p, image i
-		WHERE i.pno=p.pno and p.pno=#{value}
-    </select>
-    
-    <!-- 상품상세정보 중 SizeVO List값 -->
-    <select id="findProductColorList" parameterType="string" resultType="productDetailVO">
-    	SELECT distinct pd.pcno,color_name
+	</select>
+
+	<!-- [석환][상품상세정보 중 ImageVO List값] -->
+	<select id="findProductImageList" parameterType="string"
+		resultType="imageVO">
+		SELECT i.ino,i.url, i.pno
+		FROM product p, image i
+		WHERE i.pno=p.pno and
+		p.pno=#{value}
+	</select>
+
+	<!-- [석환][상품상세정보 중 SizeVO List값] -->
+	<select id="findProductColorList" parameterType="string"
+		resultType="productDetailVO">
+		SELECT distinct pd.pcno,color_name
 		FROM product_color pc, product_detail pd
 		WHERE pd.pcno=pc.pcno and pd.pno=#{value}
-    </select>
-    
-    <!-- 색상에 맞춰 size리스트를 가지고옴 ajax용 -->
-    <select id="findProductListByPcnoAjax" parameterType="productDetailVO" resultType="productSizeVO">
-    	SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4, ps.size5,pd.inventory
-    	FROM  product_detail pd, product_color pc, product_size ps
-		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{pcno} and pd.pno=#{pno} 
-    </select>
-    
-    <!-- 상품리스트 -->
-    <select id="ProductList" parameterType="pagingBean" resultType="productVO">
-       SELECT  pno, name, price, content, category 
-		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content from Product)
-		product
-		where rnum between #{startRowNumber} and #{endRowNumber}
-		ORDER BY pno DESC   
-    </select>
-    
-    <!-- 상품 개수 -->
-    <select id="getTotalProductCount" resultType="int">
-    	select count(*) from product
-    </select>
-    
-    <!-- 카테고리에 따른 상품 개수 -->
-    <select id="getCategoryProductCount" parameterType="string" resultType="int">
-    	select count(*) from product where category=#{value}
-    </select>
-    
-    <!-- 카테고리에 따른 상품 찾기 -->
-    <select id="findProductByCategory"  resultType="productVO">
-       SELECT  pno, name, price, content, category 
-		from (select row_number() over(order by pno desc) as rnum,pno,price,name,category,content 
-			from Product where category=#{category})
-		product
-		where rnum between #{startNumber} and #{endNumber}
-		ORDER BY pno DESC   
-    </select>
+	</select>
 
-    <!-- [석환][11.21][ajax 사이즈비교] -->
-    <select id="findProductDetailBySizeAjax" resultType="productSizeVO">
-    	SELECT psno,size1, size2, size3, size4, size5
+	<!-- [석환][색상에 맞춰 size리스트를 가지고옴 ajax용] -->
+	<select id="findProductListByPcnoAjax" parameterType="productDetailVO"
+		resultType="productSizeVO">
+		SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4,
+		ps.size5,pd.inventory
+		FROM product_detail pd, product_color pc, product_size ps
+		WHERE
+		pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pcno=#{pcno} and
+		pd.pno=#{pno}
+	</select>
+
+	<!-- [정현][상품리스트] -->
+	<select id="ProductList" parameterType="pagingBean" resultType="productVO">
+		SELECT pno, name, price, content, category
+		from (select row_number() over(order by pno desc) as
+		rnum,pno,price,name,category,content from Product)
+		product
+		where rnum
+		between #{startRowNumber} and #{endRowNumber}
+		ORDER BY pno DESC
+	</select>
+
+	<!-- [정현][상품 개수] -->
+	<select id="getTotalProductCount" resultType="int">
+		select count(*) from product
+	</select>
+
+	<!-- [정현][카테고리에 따른 상품 개수] -->
+	<select id="getCategoryProductCount" parameterType="string" resultType="int">
+		select count(*) from product where category=#{value}
+	</select>
+
+	<!-- [정현][카테고리에 따른 상품 찾기] -->
+	<select id="findProductByCategory" resultType="productVO">
+		SELECT pno, name, price, content, category
+		from (select row_number() over(order by pno desc) as
+		rnum,pno,price,name,category,content
+		from Product where category=#{category})
+		product
+		where rnum between
+		#{startNumber} and #{endNumber}
+		ORDER BY pno DESC
+	</select>
+
+	<!-- [석환][ajax 사이즈비교] -->
+	<select id="findProductDetailBySizeAjax" resultType="productSizeVO">
+		SELECT psno,size1, size2, size3, size4, size5
 		FROM product_size
 		WHERE psno=#{value}
-    </select>
-    <!-- [재현][상품리뷰리스트] -->
-    <select id="findProductReplyByPno" parameterType="string" resultType="productReviewVO">
-    	select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content, r.regdate 
-		from review r, 
-			(select pdno,pno,pcno,psno from product_detail) pd, 
-			(select pcno,color_name from product_color) pc, 
-			(select psno,size_name from product_size) ps
+	</select>
+	<!-- [재현][상품리뷰리스트] -->
+	<select id="findProductReplyByPno" parameterType="string"
+		resultType="productReviewVO">
+		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,
+		r.regdate
+		from review r,
+		(select pdno,pno,pcno,psno from product_detail) pd,
+		(select pcno,color_name from product_color) pc,
+		(select psno,size_name from product_size) ps
 		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) and pd.pno=#{value}
-    </select>
-    <!-- [재현][상품리뷰등록] -->
-    <insert id="registerProductReview">
-    	insert into review values (rno_seq.nextval, #{pdno}, #{id},#{content},sysdate )
-    </insert>
-    
-    <!-- [석환][11.22][치수 비교] -->
-    <select id="sizeGapMemberAndProduct" parameterType="string" resultType="productSizeVO">
-    select distinct ps.size_name, ps.size1, ps.size2, ps.size3, ps.size4, ps.size5
-	from PRODUCT_DETAIL pd, PRODUCT_SIZE ps, product p
-	where p.pno=pd.pno and ps.psno=pd.psno and p.pno=#{value}
-	order by ps.size_name desc
-    </select>
-    
-    <!-- [재현][이미지등록] -->
-    <insert id="registerImage" parameterType="imageVO">
-    	insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url})
-    </insert>
-    
-    <!-- [상품등록] -->
-    <insert id="registerProduct" parameterType="productVO">
-        <selectKey keyProperty="pno" resultType="string" order="BEFORE">
+	</select>
+	<!-- [재현][상품리뷰등록] -->
+	<insert id="registerProductReview">
+		insert into review values (rno_seq.nextval, #{pdno}, #{id},#{content},sysdate )
+	</insert>
+
+	<!-- [석환][치수 비교] -->
+	<select id="sizeGapMemberAndProduct" parameterType="string"
+		resultType="productSizeVO">
+		select distinct ps.size_name, ps.size1, ps.size2, ps.size3, ps.size4, ps.size5
+		from PRODUCT_DETAIL pd, PRODUCT_SIZE ps, product p
+		where p.pno=pd.pno and ps.psno=pd.psno and p.pno=#{value}
+		order by ps.size_name desc
+	</select>
+
+	<!-- [재현][이미지등록] -->
+	<insert id="registerImage" parameterType="imageVO">
+		insert into image(ino,pno,url) values(ino_seq.nextval,#{pno},#{url})
+	</insert>
+
+	<!-- [재현][상품등록] -->
+	<insert id="registerProduct" parameterType="productVO">
+		<selectKey keyProperty="pno" resultType="string" order="BEFORE">
 			select pno_seq.nextval from dual
 		</selectKey>
-    insert into product(pno,name,price,content,category) 
-	values(#{pno},#{name},#{price},#{content},#{category})
-    </insert>
-    
-    <!-- [상품사이즈 등록] -->
-    <insert id="registerProductSize" parameterType="productSizeVO">
-    		<selectKey keyProperty="psno" resultType="string" order="BEFORE">
+			insert into product(pno,name,price,content,category)
+			values(#{pno},#{name},#{price},#{content},#{category})
+	</insert>
+
+	<!-- [재현][상품사이즈 등록] -->
+	<insert id="registerProductSize" parameterType="productSizeVO">
+		<selectKey keyProperty="psno" resultType="string" order="BEFORE">
 			select psno_seq.nextval from dual
 		</selectKey>
-    insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
-	values(#{psno},#{size_name},#{size1},#{size2},#{size3},#{size4},#{size5})
-    </insert>
-    
-    <!-- [상품색상 등록] -->
-    <insert id="registerColor" parameterType="productDetailVO">
-    		<selectKey keyProperty="pcno" resultType="string" order="BEFORE">
+			insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
+			values(#{psno},#{size_name},#{size1},#{size2},#{size3},#{size4},#{size5})
+	</insert>
+
+	<!-- [재현][상품색상 등록] -->
+	<insert id="registerColor" parameterType="productDetailVO">
+		<selectKey keyProperty="pcno" resultType="string" order="BEFORE">
 			select pcno_seq.nextval from dual
 		</selectKey>
-    insert into product_color(pcno, color_name)	values(#{pcno},#{color_name})
-    </insert>
-    
-    <!-- [상품상세 등록] -->
-    <insert id="registerProductDetail" parameterType="productDetailVO">
-    insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, #{pno}, #{pcno}, #{psno}, #{inventory})
-    </insert>
-    
-    <select id="findColorByName" parameterType="productDetailVO" resultType="string">
-    	select pcno from product_color where color_name=#{color_name}
-    </select>
+			insert into product_color(pcno, color_name)
+			values(#{pcno},#{color_name})
+	</insert>
+
+	<!-- [재현][상품상세 등록] -->
+	<insert id="registerProductDetail" parameterType="productDetailVO">
+		insert into product_detail(pdno,pno,pcno,psno,inventory)
+		values(pdno_seq.nextval, #{pno}, #{pcno}, #{psno}, #{inventory})
+	</insert>
+
+	<select id="findColorByName" parameterType="productDetailVO"
+		resultType="string">
+		select pcno from product_color where color_name=#{color_name}
+	</select>
 </mapper>
 
 
