@@ -551,13 +551,13 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		OrderVO ovo = adminService.adminfindOrderByOno(ono);
 		System.out.println("   	AdminController/updateOrderStatus()/진행1 ");
-		Map<String, String> map = new HashMap<String, String>();
-		if(ovo.getStatus().equals("입금대기")) {
-			map.put("status", "배송준비중");
+		Map<String, String> map = new HashMap<String, String>();		
+		if(ovo.getStatus().equals("입금대기")) {							
+			map.put("status", "배송준비중");								
 		}else if(ovo.getStatus().equals("배송준비중")) {
-			map.put("status", "배송중");
+			map.put("status", "배송중");									
 		}else if(ovo.getStatus().equals("배송중")) {
-			map.put("status", "배송완료");
+			map.put("status", "배송완료");								
 		}
 		map.put("ono", ono);
 		adminService.updateOrderStatus(map);
@@ -568,39 +568,38 @@ public class AdminController {
 	}
 	
 	//[정현][11/25][ 공지사항 리스트 ]
-	
-	
 	@RequestMapping("notice.do")	
 	public ModelAndView notice(HttpServletRequest  request){
 		ModelAndView mv = new ModelAndView();
 		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
 		System.out.println("      AdminController/notice()/시작");		
 		
-			/* 페이징 처리 공통 영역 */
-			int totalCount = boardService.getTotalNoticeCount();
-			int postCountPerPage = 10;
-			int postCountPerPageGroup = 5;
-			int nowPage = 1;
-			String pageNo = request.getParameter("pageNo");
-				if(pageNo != null) {
-					nowPage = Integer.parseInt(pageNo);
-				}		
-			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-			
-			System.out.println("nowpage : "+nowPage+", endnumber"+pb.getEndRowNumber());
-			List<BoardVO> nlist= boardService.noticeList(pb);
-		System.out.println("      AdminController/notice()/진행 - nlist :"+nlist);
-		if(nlist!=null&&!nlist.isEmpty()) {
-			lvo.setList(nlist);
+		/* 페이징 처리 공통 영역 */
+		int totalCount = boardService.getTotalNoticeCount();							// 보여줄 공지사항 총 개수				 
+		int postCountPerPage = 10;												 		// 한 페이지에 보여줄 공지사항 개수
+		int postCountPerPageGroup = 5;													// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");									// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}		
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("      AdminController/notice()/진행1 - nowpage : "+nowPage);
+		System.out.println("      AdminController/notice()/진행2 - endnumber : "+pb.getEndRowNumber());
+		List<BoardVO> nlist= boardService.noticeList(pb);
+		System.out.println("      AdminController/notice()/진행3 - nlist :"+nlist);
+		if(nlist!=null&&!nlist.isEmpty()) {												 // 공지사항이 있거나 비어있지 않을 때
+			lvo.setList(nlist);															 // list와 pagingBean을 ListVO에 셋팅
 			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
 		}			
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("board/notice.tiles");		
 		System.out.println("      AdminController/notice()/종료");
 		return mv;
 	}
-	//[정현][11/25][ 공지사항 상세보기 ]
 	
+	//[정현][11/25][ 공지사항 상세보기 ]
 	@RequestMapping(value="noticeDetail.do", method=RequestMethod.GET)	
 	public ModelAndView noticeDetail(HttpServletRequest  request){
 		System.out.println("   	AdminController/noticeDetail()/시작");	
@@ -613,6 +612,7 @@ public class AdminController {
 		System.out.println("   	AdminController/noticeDetail()/종료");	
 		return mv;
 	}
+	
 	//[정현][11/25][ 공지사항 삭제 ]
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="deleteNotice.do", method=RequestMethod.GET)	
@@ -628,35 +628,34 @@ public class AdminController {
 	
 	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]	
 	@RequestMapping("registerNoticeForm.do")			
-		public String registerNoticeForm(HttpServletRequest  request){		
-		System.out.println("   	AdminController/registerNoticeForm()/시작");
-		System.out.println("   	AdminController/registerNoticeForm()/종료");		
-			return "board/registerNoticeForm.tiles";
-		}
+	public String registerNoticeForm(HttpServletRequest  request){		
+	System.out.println("   	AdminController/registerNoticeForm()/시작");
+	System.out.println("   	AdminController/registerNoticeForm()/종료");		
+		return "board/registerNoticeForm.tiles";
+	}
 		
 	//[정현][11/25][ 공지사항 등록 후 공지사항 리스트로 ]
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
-		public String registerNotice(HttpServletRequest  request){
+	public String registerNotice(HttpServletRequest  request){
 		System.out.println("   	AdminController/registerNotice()/시작");
-			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			BoardVO bvo=new BoardVO();
-			String title=request.getParameter("title");
-			String content=request.getParameter("content");
-			bvo.setId(mvo.getId());
-			bvo.setTitle(title);
-			bvo.setContent(content);
-			System.out.println("   	AdminController/registerNotice()/진행");
-			boardService.registerNotice(bvo);	
-			System.out.println("   	AdminController/registerNotice()/종료");
-			return "redirect:notice.do";
-		}
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		BoardVO bvo=new BoardVO();
+		String title=request.getParameter("title");
+		String content=request.getParameter("content");
+		bvo.setId(mvo.getId());											
+		bvo.setTitle(title);											
+		bvo.setContent(content);										
+		System.out.println("   	AdminController/registerNotice()/진행");
+		boardService.registerNotice(bvo);								
+		System.out.println("   	AdminController/registerNotice()/종료");
+		return "redirect:notice.do";
+	}
 	
 	
-	//[정현][11/27]공지사항 수정폼 
-
+	//[정현][11/27][공지사항 수정폼] 
 	@RequestMapping("updateNoticeForm.do")
-	public ModelAndView updateNoteForm(HttpServletRequest  request) {
+	public ModelAndView updateNoteForm(HttpServletRequest request) {
 		System.out.println("   	AdminController/updateNoteForm()/시작");
 		ModelAndView mv = new ModelAndView();
 		String bno=request.getParameter("bno");
@@ -667,26 +666,31 @@ public class AdminController {
 		System.out.println("   	AdminController/updateNoteForm()/종료");
 		return mv;
 	}
-	//공지사항 수정 
-		@Secured("ROLE_ADMIN")
-		@RequestMapping(value="updateNotice.do", method=RequestMethod.GET)
-		public String updateNotice(HttpServletRequest  request) {
-			System.out.println("   	AdminController/updateNotice()/시작");
-			MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String bno=request.getParameter("bno");
-			BoardVO bvo=new BoardVO();
-			String title=request.getParameter("title");
-			String content=request.getParameter("content");
-			System.out.println("   	AdminController/updateNotice()/진행");
-			bvo.setId(mvo.getId());
-			bvo.setBno(bno);
-			bvo.setTitle(title);
-			bvo.setContent(content);		
-			boardService.updateNotice(bvo);		
-			System.out.println("   	AdminController/updateNotice()/종료");
-			return "redirect:notice.do";
-		}
 	
+	//[정현][11/27][공지사항 수정]
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="updateNotice.do", method=RequestMethod.GET)
+	public String updateNotice(HttpServletRequest request) {
+		System.out.println("   	AdminController/updateNotice()/시작");
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		BoardVO bvo=new BoardVO();
+		String bno=request.getParameter("bno");							
+		String title=request.getParameter("title");						
+		String content=request.getParameter("content");					
+		System.out.println("   	AdminController/updateNotice()/진행");
+		bvo.setId(mvo.getId());											
+		bvo.setBno(bno);
+		bvo.setTitle(title);
+		bvo.setContent(content);		
+		boardService.updateNotice(bvo);									
+		System.out.println("   	AdminController/updateNotice()/종료");
+		return "redirect:notice.do";
+	}
+	
+	/**[현민][11/24][쪽지함]
+	 * 관리자가 보낸 쪽지 리스트를 불러온다.
+	 * @return
+	 */
 	@RequestMapping("adminNoteList.do")
 	public ModelAndView adminNoteList() {
 		System.out.println("   	AdminController/adminNoteList()/시작");
@@ -735,7 +739,7 @@ public class AdminController {
 	public ModelAndView orderProductInfo(String ono) {
 		System.out.println("   	AdminController/orderProductInfo()/시작 ");
 		ModelAndView mv = new ModelAndView();
-		List<OrderProductVO> list = adminService.orderProductInfo(ono);
+		List<OrderProductVO> list = adminService.orderProductInfo(ono);					// 주문번호로 주문 상품 정보 찾기
 		System.out.println("   	AdminController/orderProductInfo()/진행 list : "+list);
 		mv.setViewName("admin/orderProductInfo.tiles");
 		mv.addObject("list", list);

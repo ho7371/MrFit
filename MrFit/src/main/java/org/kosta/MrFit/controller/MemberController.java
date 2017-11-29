@@ -103,7 +103,7 @@ public class MemberController {
 		System.out.println("   	MemberController/findIdByEmailAndName()/시작");
 		ModelAndView mv=new ModelAndView();
 		String id= memberService.findIdByEmailAndName(memberVO);
-		if(id == null) {
+		if(id == null) { // 찾는 아이디가 없을 경우
 			System.out.println("   	MemberController/findIdByEmailAndName()/진행 - 찾는 아이디 없음");
 			mv.setViewName("main/member/findid_fail");
 			return mv;
@@ -124,7 +124,7 @@ public class MemberController {
 		System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
 		ModelAndView mv=new ModelAndView();
 		String question=memberService.findQnaByIdNameEmail(memberVO);
-		if (question == null) {
+		if (question == null) { // 입력한 회원의 정보에 질문이 없을 경우
 			mv.setViewName("main/member/findid_fail");
 			return mv;
 		}
@@ -314,8 +314,8 @@ public class MemberController {
 		System.out.println("   	MemberController/updateMemberAction()/시작");
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("    MemberController/updateMemberAction()/진행1 - Spring Security 세션 수정 전 회원정보: "+pvo);
-		memberService.updateMember(memberVO);
-		pvo.setPassword(memberVO.getPassword());
+		memberService.updateMember(memberVO);		//회원 정보를 DB에 셋팅
+		pvo.setPassword(memberVO.getPassword());	//회원 정보를 객체에 셋팅
 		pvo.setName(memberVO.getName());
 		pvo.setPhone(memberVO.getPhone());
 		pvo.setAddress(memberVO.getAddress());
