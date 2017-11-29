@@ -64,4 +64,6 @@ public interface OrderService {
 
 	void findImmediatelyPayGarbage(String id);
 
+	int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo);
+
 }
