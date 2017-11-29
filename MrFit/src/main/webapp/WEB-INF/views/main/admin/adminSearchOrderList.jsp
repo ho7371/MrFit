@@ -26,7 +26,7 @@
 <br><hr><br>
 
 <%-- 주문 내역 리스트 --%>
-<table class="table table-bordered  table-hover boardlist">
+<table class="table-board">
 		<thead>
 			<tr class="success">
 				<th class="title">주문번호</th>
