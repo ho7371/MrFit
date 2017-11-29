@@ -37,37 +37,35 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>고객문의</h3>
-				
-				<div class="in-check">
-					<ul class="unit">
-						<li><span>No</span></li>
-						<li><span>Title</span></li>
-						<li><span>Writer</span></li>
-						<li><span>작성일</span></li>
-						<c:if test="">
-						</c:if>
-						<div class="clearfix"></div>
-					</ul>
-					<c:forEach items="${requestScope.list}" var="i">
-						<ul class="cart-header">
-							<li><span>${i.bno}</span></li>
-							<c:choose>
-								<c:when test="${isAdmin}">
-									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
-								</c:when>
-								<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
-									<li><span>비밀글입니다.</span></li>
-								</c:when>
-								<c:otherwise>
-									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
-								</c:otherwise>
-							</c:choose>
-							<li><span>${i.id}</span></li>
-							<li><span>${i.regdate}</span></li>
-							<div class="clearfix"></div>
-						</ul>
-					</c:forEach>
-				</div>
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>No</th><th>Title</th><th>Writer</th><th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${requestScope.list}" var="i">
+							<tr>
+								<td>${i.bno}</td>
+								<td>
+									<c:choose>
+										<c:when test="${isAdmin}">
+											<a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a>
+										</c:when>
+										<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
+											비밀글입니다.
+										</c:when>
+										<c:otherwise>
+											<a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a>
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${i.id}</td>
+								<td>${i.regdate}</td>
+							</tr>
+						</c:forEach> 
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
