@@ -43,7 +43,7 @@ public  class BoardServiceImpl implements BoardService {
 	public void deleteNotice(String bno) {
 		System.out.println("            BoardServiceImpl/deleteNotice()/시작 bno : "+bno);
 		boardDAO.deleteNotice(bno);
-		System.out.println("            BoardServiceImpl/deleteNotice()/진행 bvo : ");		
+		System.out.println("            BoardServiceImpl/deleteNotice()/진행 ");		
 		System.out.println("            BoardServiceImpl/deleteNotice()/종료");
 	}
 	//[정현][공지사항 등록]
@@ -63,14 +63,14 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/updateNotice()/종료");
 		
 	}
-	//[현민][고객 목록]
+	//[현민][고객문의 목록]
 	@Override
-	public List<BoardVO> inquiry() {
+	public List<InquiryVO> inquiry(PagingBean pb) {
 		System.out.println("            BoardServiceImpl/inquiry()/시작 ");
 		System.out.println("            BoardServiceImpl/inquiry()/종료");
-		return boardDAO.inquiry();
+		return boardDAO.inquiry(pb);
 	}
-	//[진호, 현민][고객 문의]
+	//[진호, 현민][고객 문의상세]
 	@Override
 	public InquiryVO inquiryDetail(String bno) {
 		System.out.println("            BoardServiceImpl/inquiryDetail()/시작 ");
@@ -84,6 +84,38 @@ public  class BoardServiceImpl implements BoardService {
 		System.out.println("            BoardServiceImpl/inquiryReply()/시작 ");
 		System.out.println("            BoardServiceImpl/inquiryReply()/종료");
 		boardDAO.inquiryReply(map);
+	}
+	@Override
+	public int getTotalInquiryCount() {
+		System.out.println("            BoardServiceImpl/getTotalInquiryCount()/시작");
+		int inquiry = boardDAO.getTotalInquiryCount();
+		System.out.println("            BoardServiceImpl/getTotalInquiryCount()/진행 inquiry : "+ inquiry);		
+		System.out.println("            BoardServiceImpl/getTotalInquiryCount()/종료");
+		return inquiry;
+	}
+	@Override
+	public void deleteInquiry(String iqno) {
+		System.out.println("            BoardServiceImpl/deleteInquiry()/시작 bno : "+iqno);
+		boardDAO.deleteInquiry(iqno);
+		System.out.println("            BoardServiceImpl/deleteInquiry()/진행");		
+		System.out.println("            BoardServiceImpl/deleteInquiry()/종료");
+		
+	}
+	@Override
+	public void registerInquiry(InquiryVO ivo) {
+		System.out.println("            BoardServiceImpl/registerInquiry()/시작 bvo : "+ivo);
+		boardDAO.registerInquiry(ivo);
+		System.out.println("            BoardServiceImpl/registerInquiry()/진행 ");		
+		System.out.println("            BoardServiceImpl/registerInquiry()/종료");
+		
+	}
+	@Override
+	public void updateInquiry(InquiryVO ivo) {
+		System.out.println("            BoardServiceImpl/updateInquiry()/시작 ivo : "+ivo);
+		boardDAO.updateInquiry(ivo);
+		System.out.println("            BoardServiceImpl/updateInquiry()/진행 ");		
+		System.out.println("            BoardServiceImpl/updateInquiry()/종료");
+		
 	}
 
 }

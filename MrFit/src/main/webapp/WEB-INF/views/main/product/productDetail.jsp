@@ -232,11 +232,11 @@ ${requestScope.pvo } --%>
 										</ul>
 										<c:forEach items="${prvolist}" var="list">
 										<ul class="cart-header">
-											<li><span>리뷰번호=${list.rno}</span></li>
-											<li><span>내용=${list.content }</span></li>
-											<li><span>색상=${list.color_name} | 사이즈=${list.size_name }</span></li>
-											<li><span>아이디=${list.id }</span></li>
-											<li><span>작성일=${list.regdate }</span></li>
+											<li><span>${list.rno}</span></li>
+											<li><span>${list.content }			</span></li>
+											<li><span>${list.color_name} / ${list.size_name }</span></li>
+											<li><span>${list.id }</span></li>
+											<li><span>${list.regdate }</span></li>
 											<div class="clearfix"></div>
 										</ul>
 										</c:forEach>

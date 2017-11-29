@@ -35,18 +35,18 @@
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>공지사항 등록</h3>
+				<h3>고객문의 등록</h3>
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 				<div class="contact-bottom"> 
-					<form action="${pageContext.request.contextPath}/registerNotice.do" method="post">
+					<form action="${pageContext.request.contextPath}/registerInquiry.do" method="post">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
 					<div class="col-md-6 contact-left"> 
 						<input type="text" name="title" placeholder="제목" required>
 					</div>
 					<div class="col-md-6 contact-left">
-						<textarea name="content" placeholder="공지사항 본문"></textarea>
-						<input type="submit" value="공지사항 등록">
+						<textarea name="content" placeholder="고객문의 본문"></textarea>
+						<input type="submit" value="고객문의 등록">
 					</div>
 					</form>	
 					<div class="clearfix"> </div>

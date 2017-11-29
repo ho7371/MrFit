@@ -215,5 +215,21 @@ public class OrderServiceImpl implements OrderService {
 	public void deleteImmediatelyPayOrders(OrderProductVO opvo) {
 		orderDAO.deleteImmediatelyPayOrders(opvo);
 	}
+	// [석환][11.27] 즉시 결제 취소시 home.do 에서 즉시 결제 값 삭제
+	@Override
+	public void findImmediatelyPayGarbage(String id) {
+		List<OrderVO> olist=orderDAO.findImmediatelyPayGarbage(id);
 
+		for(int i=0;i<olist.size();i++) {
+			if(olist.get(i).getStatus().equals("즉시결제")) {
+				orderDAO.deleteImmediatelyPayGarbageOrdersProduct(olist.get(i).getOno());
+				orderDAO.deleteImmediatelyPayGarbageOrders(olist.get(i).getOno());
+			}
+		}
+	}
+	// [석환][11.29] 장바구니 수량 수정시 이전 수량 검색
+	@Override
+	public int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo) {
+		return orderDAO.findBeforeQuantityByOnoAndPdno(opvo);
+	}
 }

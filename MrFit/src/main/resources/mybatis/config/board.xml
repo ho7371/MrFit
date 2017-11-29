@@ -29,21 +29,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	delete  from board
     	where bno=#{value}
     </delete>
-    
+    <!-- [정현][공지사항 등록] -->
     <insert id="registerNotice" parameterType="boardVO">
    	 insert into board(bno,id,title,content,regdate,security,category) 
 		values(bno_seq.nextval,#{id},#{title},#{content},sysdate,'public','공지')
 		
     </insert>
+   <!--[정현][공지사항 수정]  --> 
     <update id="updateNotice">
     	update board set title=#{title},content=#{content}
 		where bno=#{bno}
     </update>
     
     <!-- [현민][고객문의 목록] -->
-    <select id="inquiry" resultType="boardVO">
-    	select iqno as bno, title,content, regdate, security, id
-    	from inquiry
+    <select id="inquiry" resultType="inquiryVO" parameterType="pagingBean">
+    	SELECT iqno,id,title,content,regdate,security
+		from (select row_number() over(order by iqno desc) as rnum,iqno,id,title,content,regdate,security  from inquiry 
+				where security='public')
+		board
+		where rnum between #{startRowNumber} and #{endRowNumber}
+		ORDER BY iqno DESC  
     </select>
     
     <!-- [진호,현민] 고객문의 상세보기 -->
@@ -54,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where i.iqno = #{value}
 		and i.iqno = ir.iqno
     </select>
-    
+    <!-- [현민][고객문의와 고객문의 리뷰 공통 칼럼 구분을 위해서 작성] -->
     <resultMap type="inquiryVO" id="inquiryRM">
     	<result column="iqno1" property="iqno"/>
     	<result column="title1" property="title"/>
@@ -83,6 +88,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into inquiry_reply(iqrno, content, regdate, security, iqno)
  		values(iqrno_seq.nextval, #{message},sysdate, 'public',#{iqno})
  	</insert>
+ 	
+ 	    <!--[정현][고객문의 삭제]  -->
+    <delete id="deleteInquiry" parameterType="String">
+    	delete  from inquiry
+    	where iqno=#{value}
+    </delete>
+    
+    <!-- [정현][고객문의 등록] -->
+    <insert id="registerInquiry" parameterType="inquiryVO">
+   	 insert into inquiry(iqno,id,title,content,regdate,security) 
+		values(iqno_seq.nextval,#{id},#{title},#{content},sysdate,'public')
+		
+    </insert>
+    
+   	<!--[정현][고객문의 수정]  --> 
+    <update id="updateInquiry" parameterType="inquiryVO">
+    	update inquiry set title=#{title},content=#{content}
+		where iqno=#{iqno}
+    </update>
+    
+    <!-- [정현][고객문의 수량] -->
+    <select id="getTotalInquiryCount" resultType="int">
+   	 select count(*) from inquiry where security='public'
+    </select> 	
+ 	
+ 	
 </mapper>
 
 

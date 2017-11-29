@@ -62,4 +62,8 @@ public interface OrderService {
 
 	void deleteImmediatelyPayOrders(OrderProductVO opvo);
 
+	void findImmediatelyPayGarbage(String id);
+
+	int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo);
+
 }

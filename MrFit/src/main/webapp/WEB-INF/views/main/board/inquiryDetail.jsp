@@ -9,7 +9,13 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>문의 글</h3>
+				<sec:authentication property='principal.id' var="isId"/>
+				<c:if test="${ivo.id==isId}">
+						<a href="${pageContext.request.contextPath}/updateInquiryForm.do?iqno=${ivo.iqno}">문의 수정</a>
+				</c:if>
 				<div class="in-check" style="text-align: center;" align="center">
+				
+					
 					<ul class="unit">
 						<li><span>No</span></li>
 						<li><span>Title</span></li>
@@ -38,8 +44,19 @@
 						${ivo.content}
 						<div class="clearfix"></div>
 					</ul>
+					<c:if test="${ivo.id==isId}">
+						<a href="${pageContext.request.contextPath}/deleteInquiry.do?iqno=${ivo.iqno}">문의 삭제</a>
+				</c:if>
 					<c:choose>
 						<c:when test="${ivo.inquiryReplyVO != null}">
+							<ul class="unit">
+						<li><span>답글</span></li>
+						<li><span></span></li>
+						<li><span></span></li>
+						<li><span></span></li>
+						<li><span></span></li>
+						<div class="clearfix"></div>
+					</ul>
 							<ul class="cart-header" style="text-align: center;">
 								<li><span>관리자</span></li>
 								${ivo.inquiryReplyVO.content}
@@ -48,6 +65,7 @@
 							</ul>
 						</c:when>
 						<c:otherwise>
+							<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 							<c:if test="${isAdmin}">
 								<button class="my_popup_open" onclick='selectSendReply("${ivo.iqno}")'>댓글달기</button>
 							</c:if>

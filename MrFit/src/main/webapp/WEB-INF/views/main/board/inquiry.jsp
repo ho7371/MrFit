@@ -37,6 +37,10 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>고객문의</h3>
+				<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+					<c:if test="${isMember}">
+						<a href="${pageContext.request.contextPath}/registerInquiryForm.do">고객문의 등록</a>
+					</c:if>
 				<table class="table-board">
 					<thead>
 						<tr>
@@ -50,13 +54,13 @@
 								<td>
 									<c:choose>
 										<c:when test="${isAdmin}">
-											<a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a>
+											<a href="${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}">${i.title}</a>
 										</c:when>
 										<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
 											비밀글입니다.
 										</c:when>
 										<c:otherwise>
-											<a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a>
+											<a href="${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}">${i.title}</a>
 										</c:otherwise>
 									</c:choose>
 								</td>

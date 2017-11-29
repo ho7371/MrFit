@@ -70,10 +70,10 @@ public class BoardDAOImpl  implements BoardDAO{
 	
 	//[진호, 현민][11/28][고객문의]
 	@Override
-	public List<BoardVO> inquiry() {
+	public List<InquiryVO> inquiry(PagingBean pb) {
 		System.out.println("                  BoardDAOImpl/inquiry()/시작 ");
 		System.out.println("                  BoardDAOImpl/inquiry()/종료 ");
-		return template.selectList("board.inquiry");
+		return template.selectList("board.inquiry",pb);
 	}
 	
 	//[진호, 현민][11/28][고객문의 상세보기]
@@ -99,6 +99,42 @@ public class BoardDAOImpl  implements BoardDAO{
 		System.out.println("                  BoardDAOImpl/inquiryReply()/시작 ");
 		System.out.println("                  BoardDAOImpl/inquiryReply()/종료 ");
 		template.insert("board.inquiryReply",map);
+	}
+	//[정현][11/29] [고객문의 글 수량 ]
+	@Override
+	public int getTotalInquiryCount() {
+		System.out.println("                  BoardDAOImpl/getTotalInquiryCount()/시작 ");
+		int Inquiry=template.selectOne("board.getTotalInquiryCount");
+		System.out.println("                  BoardDAOImpl/getTotalInquiryCount()/진행 InquiryCount : "+Inquiry);
+		System.out.println("                  BoardDAOImpl/getTotalInquiryCount()/종료 ");
+		// TODO Auto-generated method stub
+		return Inquiry;
+	}
+	//[정현][11/29] [고객문의 삭제 ]
+	@Override
+	public void deleteInquiry(String iqno) {
+		System.out.println("                  BoardDAOImpl/deleteInquiry()/시작 iqno : "+iqno);
+		template.delete("board.deleteInquiry",iqno);
+		System.out.println("                  BoardDAOImpl/deleteInquiry()/진행 ");
+		System.out.println("                  BoardDAOImpl/deleteInquiry()/종료 ");
+	}
+
+	@Override
+	public void registerInquiry(InquiryVO ivo) {
+		System.out.println("                  BoardDAOImpl/registerInquiry()/시작 ivo : "+ivo);
+		template.insert("board.registerInquiry",ivo);
+		System.out.println("                  BoardDAOImpl/registerInquiry()/진행 ");
+		System.out.println("                  BoardDAOImpl/registerInquiry()/종료 ");
+		
+	}
+
+	@Override
+	public void updateInquiry(InquiryVO ivo) {
+		System.out.println("                  BoardDAOImpl/updateInquiry()/시작 bvo : "+ivo);
+		template.update("board.updateInquiry",ivo);
+		System.out.println("                  BoardDAOImpl/updateInquiry()/진행 ");
+		System.out.println("                  BoardDAOImpl/updateInquiry()/종료 ");
+		
 	}
 
 		
