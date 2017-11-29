@@ -385,7 +385,7 @@ public class AdminController {
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
-	/** @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 얼마의 포인트를 지급할 것인지?
+	/** 
 	 * [영훈][관리자 포인트지급 기능]
 	 * @param mvo
 	 * @return

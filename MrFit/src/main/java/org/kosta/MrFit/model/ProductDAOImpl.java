@@ -150,8 +150,8 @@ public class ProductDAOImpl implements ProductDAO {
 	 *  상품상세에서 리뷰 불러오기
 	 */
 	@Override
-	public List<ProductReviewVO> findProductReplyByPno(String pno) {
-		return template.selectList("product.findProductReplyByPno", pno);
+	public List<ProductReviewVO> findProductReplyByPno(Map<String, Object> map) {
+		return template.selectList("product.findProductReplyByPno", map);
 	}
 	
 	/** [재현][1122][]
@@ -205,16 +205,23 @@ public class ProductDAOImpl implements ProductDAO {
 		
 	}
 	
-	
+	// [][]
 	@Override
 	public String findColorByName(ProductDetailVO pdvo) {
 		// TODO Auto-generated method stub
 		return template.selectOne("product.findColorByName", pdvo);
 	}
+	
 	//[현민][상품검색 개수]
 	@Override
 	public int productTotalCount(String keyword) {
 		return template.selectOne("product.productTotalCount", keyword);
+	}
+	
+	//[영훈][11/29][상품리뷰 총 개수]
+	@Override
+	public int getTotalProductReviewCount() {
+		return template.selectOne("product.getTotalProductReviewCount");
 	}
 	
 }

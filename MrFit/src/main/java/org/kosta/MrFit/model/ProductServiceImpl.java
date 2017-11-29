@@ -105,9 +105,9 @@ public class ProductServiceImpl implements ProductService {
 	 *  상품상세에서 리뷰 불러오기
 	 */
 	@Override
-	public List<ProductReviewVO> findProductReplyByPno(String pno) {
+	public List<ProductReviewVO> findProductReplyByPno(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return productDAO.findProductReplyByPno(pno);
+		return productDAO.findProductReplyByPno(map);
 	}
 	
 	/** [재현][1122][]
@@ -304,6 +304,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productTotalCount(String keyword) {
 		return productDAO.productTotalCount(keyword);
+	}
+	
+	//[영훈][11/29][상품리뷰 총 개수]
+	@Override
+	public int getTotalProductReviewCount() {
+		return productDAO.getTotalProductReviewCount();
 	}
 
 		

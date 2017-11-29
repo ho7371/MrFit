@@ -147,7 +147,7 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("findProductDetailByPno.do")
-	public ModelAndView findProductDetailByPno(String pno) {
+	public ModelAndView findProductDetailByPno(String pno,HttpServletRequest request) {
 		System.out.println("   	ProductController/findProductDetailByPno()/시작");
 		ModelAndView mv = new ModelAndView();
 		//상품 번호(pno)로 상품 검색
@@ -167,13 +167,36 @@ public class ProductController {
 		mv.addObject("psList", psList);
 		//상품 번호(pno)로 상품의 색상 값을 보내줌
 		List<ProductDetailVO> clist = productService.findProductColorBypno(pno);
+		
 		// 해당 상품 리뷰 불러오는 메서드
-		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(pno);
+		/* 페이징 처리 공통 영역  영훈 추가 */
+		int totalCount = productService.getTotalProductReviewCount();
+		System.out.println("    ProductController/findProductDetailByPno()/리뷰 totalCount : "+totalCount);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
+		}
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pno", pno);
+		map.put("pagingBean", pb);
+		System.out.println("    ProductController/findProductDetailByPno()/리뷰 map : "+map);
+		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(map);
+		System.out.println("    ProductController/findProductDetailByPno()/리뷰 prvolist : "+prvolist);
+		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
+		System.out.println("    ProductController/findProductDetailByPno()/리뷰 prlvo : "+prlvo);
+		// ProductReview paging처리 완료
+		
+		// ProductQnA paging 처리 부분(2차)
+		
 		mv.setViewName("product/productDetail.tiles");
 		mv.addObject("clist", clist);
 		mv.addObject("pvo", pvo);
-		//해당 상품의 리뷰 리스트를 보내줌
-		mv.addObject("prvolist", prvolist);
+		//해당 상품의 리뷰 리스트 paging처리까지  보내줌
+		mv.addObject("prlvo",prlvo);
 		mv.addObject("id", null);
 		System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
