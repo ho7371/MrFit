@@ -37,7 +37,11 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>고객문의</h3>
-				
+				<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+					<c:if test="${isMember}">
+						<a href="${pageContext.request.contextPath}/registerInquiryForm.do">고객문의 등록</a>
+					</c:if>
+			
 				<div class="in-check">
 					<ul class="unit">
 						<li><span>No</span></li>
@@ -49,23 +53,18 @@
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${requestScope.list}" var="i">
+					<a href="${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}">
 						<ul class="cart-header">
-							<li><span>${i.bno}</span></li>
-							<c:choose>
-								<c:when test="${isAdmin}">
-									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
-								</c:when>
-								<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
-									<li><span>비밀글입니다.</span></li>
-								</c:when>
-								<c:otherwise>
-									<li><span><a href="${pageContext.request.contextPath}/inquiryDetail.do?bno=${i.bno}">${i.title}</a></span></li>
-								</c:otherwise>
-							</c:choose>
+							<li><span>${i.iqno}</span></li>
+							
+									<li><span>${i.title}</span></li>
+								
+							
 							<li><span>${i.id}</span></li>
 							<li><span>${i.regdate}</span></li>
 							<div class="clearfix"></div>
 						</ul>
+						</a>
 					</c:forEach>
 				</div>
 			</div>
@@ -73,3 +72,34 @@
 	</div>
 </div>
 <!--end-ckeckout-->
+
+<div class="pagingInfo" align="center">
+	<ul class="pagination">
+		<c:if test="${pb.previousPageGroup==true}">
+   			<li>
+   				<a href="notice.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
+   			</li>
+   			</c:if>
+   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+	   			
+	   				<c:choose>
+	   					<c:when test="${pageNum==pb.nowPage}">
+							<li><a>${pageNum}</a>&nbsp;</li>
+						</c:when>
+					<c:otherwise>
+						<li>
+							<a href="notice.do?pageNo=${pageNum}">${pageNum}</a>
+							&nbsp;
+						</li>
+					</c:otherwise>
+   				</c:choose>
+   			</c:forEach>
+   			<c:if test="${pb.nextPageGroup==true}">
+    			<li>
+    				<a href="notice.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    			</li>
+    		</c:if>
+	</ul>	 		
+</div> 	
+
+
