@@ -556,10 +556,10 @@ public class AdminController {
 		List<BoardVO> nlist= boardService.noticeList(pb);
 		System.out.println("      AdminController/notice()/진행3 - nlist :"+nlist);
 		if(nlist!=null&&!nlist.isEmpty()) {												 // 공지사항이 있거나 비어있지 않을 때
-			lvo.setList(nlist);															 // list와 pagingBean을 ListVO에 셋팅
-			lvo.setPagingBean(pb);
-			System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
-		}			
+			lvo.setList(nlist);	
+		}		
+		lvo.setPagingBean(pb);
+		System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("board/notice.tiles");		
 		System.out.println("      AdminController/notice()/종료");
@@ -603,7 +603,7 @@ public class AdminController {
 		
 	//[정현][11/25][ 공지사항 등록 후 공지사항 리스트로 ]
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
+	@RequestMapping(value="registerNotice.do", method=RequestMethod.POST)	
 	public String registerNotice(HttpServletRequest  request){
 		System.out.println("   	AdminController/registerNotice()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
