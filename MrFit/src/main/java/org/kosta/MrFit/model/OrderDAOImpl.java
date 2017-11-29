@@ -264,4 +264,9 @@ public class OrderDAOImpl implements OrderDAO {
 	public void deleteImmediatelyPayGarbageOrders(String ono) {
 		template.delete("order.deleteImmediatelyPayGarbageOrders",ono);
 	}
+	// [석환][11.29] 장바구니 수량 수정시 이전 수량 검색
+	@Override
+	public int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo) {
+		return template.selectOne("order.findBeforeQuantityByOnoAndPdno", opvo);
+	}
 }

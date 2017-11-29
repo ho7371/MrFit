@@ -8,13 +8,15 @@
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>공지사항 등록</h3>
-				<form action="${pageContext.request.contextPath}/registerNotice.do">
-				제목 : <input type="text" id="title" name="title"><br>
+				<h3>공지사항 수정</h3>
+				<form action="${pageContext.request.contextPath}/updateInquiry.do">
+				<input type="hidden" name="iqno" value="${ivo.iqno}">
+				제목 : <input type="text" id="title" name="title" value="${ivo.title}"><br>
 				내용<br>
 				<textarea rows="20" cols="90" id="content" name="content">
+				${ivo.content}
 				</textarea>	<br>
-				<input type="submit" value="상품 등록">
+				<input type="submit" value="수정">
 					</form>			
 					
 			

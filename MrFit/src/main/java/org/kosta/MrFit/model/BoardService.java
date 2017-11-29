@@ -17,11 +17,19 @@ public interface BoardService {
 
 	void updateNotice(BoardVO bvo);
 
-	List<BoardVO> inquiry();
+	List<InquiryVO> inquiry(PagingBean pb);
 
 	InquiryVO inquiryDetail(String bno);
 
 	void inquiryReply(Map<String, String> map);
+
+	int getTotalInquiryCount();
+
+	void deleteInquiry(String iqno);
+
+	void registerInquiry(InquiryVO ivo);
+
+	void updateInquiry(InquiryVO ivo);
 
 	
 }

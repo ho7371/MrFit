@@ -68,11 +68,11 @@
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod1").prop("checked", true);
 			}
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable1").show();
 		}); // click
 		$("#payMethod2").click(function() {
@@ -80,11 +80,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod2").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable2").show();
 		}); // click
 		$("#payMethod3").click(function() {
@@ -92,11 +92,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod3").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable3").show();
 		}); // click
 		$("#payMethod4").click(function() {
@@ -104,11 +104,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
 				$("#payMethod4").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
 			$("#payMethodTable4").show();
 		}); // click
 		$("#immediatelyPayOrderCancle").click(function() {

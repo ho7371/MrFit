@@ -173,6 +173,11 @@ public class OrderController {
 	public ModelAndView myOrderList(String id) {
 		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
 		List<OrderVO> list = orderService.myOrderList(id);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getStatus().equals("즉시결제")) {
+				list.remove(i);
+			}
+		}
 		/* 주문 내역에서 장바구니 상태는 포함하지 않기에 remove :리펙토링필요 (xml에서 설정이 용이 : 변경후 추후 2차테스트 시 삭제)
 		 * for(int i=0;i<list.size();i++) {
 				if(list.get(i).getStatus().equals("장바구니")) {
@@ -236,9 +241,7 @@ public class OrderController {
 		return mv;
 	}
 
-	/**[석환][11.22][장바구니 수량 수정]
-	 * 
-	 * 추후 수정 
+	/**[석환][11.22][장바구니 수량 총 금액 수정]
 	 * 
 	 * @param opvo
 	 * @return
@@ -247,18 +250,15 @@ public class OrderController {
 	@ResponseBody
 	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
 		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
-		
-	/*	int totalprice=opvo.getPrice()*opvo.getQuantity();
+		int beforeQuantity=orderService.findBeforeQuantityByOnoAndPdno(opvo); //이전 수량
+		int quantity=opvo.getQuantity();									  //변경될 수량
+		int gapQuantity=quantity-beforeQuantity;							  //변결될 수량-이전 수량
+		int updateTotalprice=opvo.getPrice()*gapQuantity;					  //차감될 totalprice
 		OrderVO ovo=new OrderVO();
 		ovo.setOno(opvo.getOno());
-		ovo.setTotalprice(totalprice);
-		orderService.updateOrderCartTotalPrice(ovo);*/
-		System.out.println("수량 변경 ono : "+opvo.getOno()+"수량 변경 pdno : "+opvo.getPdno()+
-				"수량 변경 quantity : "+opvo.getQuantity());
+		ovo.setTotalprice(updateTotalprice);
+		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
-/*		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("count", opvo.getQuantity());
-		map.put("totalPrice", totalprice);*/
 		System.out.println("      OrderController/updateOrderQuantity()/종료 ");
 		return opvo;
 	}

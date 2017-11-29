@@ -227,4 +227,9 @@ public class OrderServiceImpl implements OrderService {
 			}
 		}
 	}
+	// [석환][11.29] 장바구니 수량 수정시 이전 수량 검색
+	@Override
+	public int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo) {
+		return orderDAO.findBeforeQuantityByOnoAndPdno(opvo);
+	}
 }

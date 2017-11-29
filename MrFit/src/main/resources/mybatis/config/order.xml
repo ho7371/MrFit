@@ -311,15 +311,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select ono,status from orders where id=#{value}
 	</select>
 	
-	<!-- [석환][11/29] -->
+	<!-- [석환][11.27] 즉시 결제 시 불필요 orders테이블 값 삭제 -->
 	<delete id="deleteImmediatelyPayGarbageOrders" parameterType="string">
 		delete from orders where ono=#{ono}
 	</delete>
 	
-	<!-- [석환][11/29] -->
+	<!-- [석환][11.27] 즉시 결제 시 불필요 orders_product테이블 값 삭제 -->
 	<delete id="deleteImmediatelyPayGarbageOrdersProduct" parameterType="string">
 		delete from order_product where ono=#{ono}
 	</delete>
+	
+	<!-- [석환][11.29] 장바구니 수량 변경시 이전 수량 검색 -->
+	<select id="findBeforeQuantityByOnoAndPdno" parameterType="orderProductVO" resultType="int">
+		select quantity from order_product where ono=#{ono} and pdno=#{pdno}
+	</select>
 	
 </mapper>
 

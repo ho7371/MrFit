@@ -226,8 +226,8 @@ public class AdminController {
 		
 		
 		// 이미지 저장 경로
-		//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");		// 서버 경로
-		String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";	// 워크스페이스 경로
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");		// 서버 경로
+		//String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";	// 워크스페이스 경로
 		
 		File uploadDir=new File(uploadPath);
 		if(uploadDir.exists()==false) {
@@ -422,8 +422,12 @@ public class AdminController {
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
-		
 		List<OrderVO> orderList = adminService.adminAllOrderList(pb);
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getStatus().equals("즉시결제")) {
+				orderList.remove(i);
+			}
+		}
 		System.out.println("	AdminController/adminAllOrderList()/진행 - 보여줄 주문목록 : "+orderList);
 		
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
