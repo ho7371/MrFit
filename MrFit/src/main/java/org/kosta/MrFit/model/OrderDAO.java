@@ -69,4 +69,12 @@ public interface OrderDAO {
 	void deleteImmediatelyPayOrdersProduct(OrderProductVO opvo);
 
 	void deleteImmediatelyPayOrders(OrderProductVO opvo);
+
+	List<OrderVO> findImmediatelyPayGarbage(String id);
+
+	void deleteImmediatelyPayGarbageOrdersProduct(String ono);
+
+	void deleteImmediatelyPayGarbageOrders(String ono);
+
+	int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo);
 }

@@ -17,67 +17,66 @@
 		<div class="container"> 
 			<div class="account-bottom">
 				<div class="col-md-6 account-left">
+					<%-- 회원 가입 폼 --%>
 					<form method="post" action="${pageContext.request.contextPath}/registerMember.do" id="regForm">
-					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="account-top heading">
-						<h3>REGISTER CUSTOMER</h3>
-					</div>
-					<div class="address">
-						<span>아이디</span>
-						<input type="text" name="id" id="memberId">
-						<span id="idCheckView"></span>
-					</div>
-					<div class="address">
-						<span>비밀번호</span>
-						<input type="password" name="password" id="password">
-					</div>
-					<div class="address">
-						<span>비밀번호 확인</span>
-						<input type="password" id="CheckPassword">
-						<span id="passwordCheckView"></span>
-					</div>
-					<div class="address">
-						<span>이름</span>
-						<input type="text" name="name">
-					</div>
-					<div class="address">
-						<span>전화</span>
-						<input type="text" name="phone">
-					</div>
-					<div class="address">
-						<span>주소</span>
-						<input type="text" name="address">
-					</div>
-					<div class="address">
-						<span>email</span>
-						<input type="text" name="email">
-					</div>
-					<div class="address">
-						<span>비밀번호 확인 질문</span>
-						<select name="qno">
-							<option value="">--질문 선택--</option>
-							<c:forEach items="${list}" var="qvo">
-								<option value="${qvo.qno}">${qvo.question}</option>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="address">
-						<span>질문답변</span>
-						<input type="text" name="answer">
-					</div>
-					<div class="address new">
-						<input type="submit" value="가입하기">
-					</div>
+						<sec:csrfInput/><%-- csrf 토큰 --%>
+						<div class="account-top heading">
+							<h3>REGISTER CUSTOMER</h3>
+						</div>
+						<div class="address">
+							<span>아이디</span>
+							<input type="text" name="id" id="memberId">
+							<span id="idCheckView"></span>
+						</div>
+						<div class="address">
+							<span>비밀번호</span>
+							<input type="password" name="password" id="password">
+						</div>
+						<div class="address">
+							<span>비밀번호 확인</span>
+							<input type="password" id="CheckPassword">
+							<span id="passwordCheckView"></span>
+						</div>
+						<div class="address">
+							<span>이름</span>
+							<input type="text" name="name">
+						</div>
+						<div class="address">
+							<span>전화</span>
+							<input type="text" name="phone">
+						</div>
+						<div class="address">
+							<span>주소</span>
+							<input type="text" name="address">
+						</div>
+						<div class="address">
+							<span>email</span>
+							<input type="text" name="email">
+						</div>
+						<div class="address">
+							<span>비밀번호 확인 질문</span>
+							<select name="qno">
+								<option value="">--질문 선택--</option>
+								<c:forEach items="${list}" var="qvo">
+									<option value="${qvo.qno}">${qvo.question}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="address">
+							<span>질문답변</span>
+							<input type="text" name="answer">
+						</div>
+						<div class="address new">
+							<input type="submit" value="가입하기">
+						</div>
 					</form>
 				</div>
-				<div class="col-md-6 account-left">
-					
-				</div>
-				<div class="clearfix"> </div>
+				<div class="col-md-6 account-left"></div>
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-	<!--end-account-->
+<!--end-account-->
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -151,8 +150,6 @@
 				return;
 			}
 		});
-		
-		
 	});//ready
 </script>
 

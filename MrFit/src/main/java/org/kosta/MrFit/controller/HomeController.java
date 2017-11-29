@@ -11,6 +11,7 @@ import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
+import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductVO;
@@ -28,6 +29,8 @@ public class HomeController {
 	private ProductService productService;
 	@Resource
 	private BoardService boardService;
+	@Resource
+	private OrderService orderService;
 	private PagingBean pb;
 	// 주석 샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
@@ -72,6 +75,10 @@ public class HomeController {
 	
 	@RequestMapping("home.do")
 	public ModelAndView home(HttpServletRequest request,Model model){
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			orderService.findImmediatelyPayGarbage(vo.getId());
+		}
 		System.out.println("      HomeController/home()/시작");
 		ModelAndView mv = new ModelAndView();
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();

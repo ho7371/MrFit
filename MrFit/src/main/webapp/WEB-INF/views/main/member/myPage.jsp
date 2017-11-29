@@ -11,6 +11,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="product-one">
+					<%-- 내 정보 --%>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/myPageInfo.do">
@@ -19,6 +20,7 @@
 							</a>
 						</div>
 					</div>
+					<%-- 내 치수 정보 --%>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/findMemberSizeById.do">
@@ -27,6 +29,7 @@
 							</a>
 						</div>
 					</div>
+					<%-- 내 주문 내역 --%>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>">

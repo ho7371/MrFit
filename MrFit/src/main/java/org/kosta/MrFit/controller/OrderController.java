@@ -44,19 +44,18 @@ public class OrderController {
 	public ModelAndView cartForm() {
 		System.out.println("   	OrderController/cartForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(mvo.getId());
-		System.out.println("    OrderController/cartForm()/진행1");
+		System.out.println("    OrderController/cartForm()/진행1 Id : "+mvo.getId());
 		OrderVO ovo = orderService.findMyCart(mvo.getId());
-		System.out.println("    OrderController/cartForm()/진행2");
+		System.out.println("    OrderController/cartForm()/진행2 ovo : "+ovo);
 		if(ovo != null) {
 			ovo.setMemberVO(mvo);
-			System.out.println("    OrderController/cartForm()/진행3 ovo : " + ovo);
-			System.out.println("    OrderController/cartForm()/종료");
+			System.out.println("    OrderController/cartForm()/종료 if(ovo!=null) ovo : " + ovo);
 			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
 		}else {
+			System.out.println("    OrderController/cartForm()/종료 if(ovo==null) ovo : ");
 			return new ModelAndView("product/myCart_fail.tiles"); 
-		}
-	}
+		}//else
+	}//method
 
 	/**
 	 * [정현][11/24][장바구니 담기]
@@ -71,53 +70,44 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("registerCart.do")
 	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
-		System.out.println("   	OrderController/registerCart()/시작");
-		OrderVO ovo = new OrderVO();
+		System.out.println("   	OrderController/registerCart()/시작 매개변수 ProductVO : "+prodeuctVO);
+		OrderVO ovo = new OrderVO(); 											//registerCart 생성을 위해 사용하는 객체들 생성 주문,주문상품,주문상품리스트,회원~
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
-			
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(prodeuctVO.getPno());
-		int cartCount = orderService.findMyCartCount(mvo.getId());
-
-		int quantity =Integer.parseInt( request.getParameter("quantity"));
-		
-		int price =quantity* Integer.parseInt(request.getParameter("price"));			
-			
-			ProductDetailVO pdvo=new ProductDetailVO();
-			pdvo.setPcno(request.getParameter("pcno"));
-			pdvo.setPsno(request.getParameter("psno"));
-			pdvo.setPno(request.getParameter("pno"));
-			
-		opvo.setPdno(orderService.findPdno(pdvo));		
-		opvo.setQuantity(quantity);
-		opList.add(opvo);
-		ovo.setOrderProductList(opList);
-		
+		ProductDetailVO pdvo=new ProductDetailVO();
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();//member security적용
+		System.out.println("   	OrderController/registerCart()/진행 pno : "+prodeuctVO.getPno());
+		int cartCount = orderService.findMyCartCount(mvo.getId());				// 장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인
+		int quantity =Integer.parseInt( request.getParameter("quantity")); 		// 상품 수량 기입 reqeust
+		int price =quantity* Integer.parseInt(request.getParameter("price"));	// 수량*request상품가격 => 총상품가격 (변수명바꿀지?)		
+		pdvo.setPcno(request.getParameter("pcno")); 							// 상품상세에 색상 사이즈 등 세팅 ~
+		pdvo.setPsno(request.getParameter("psno"));
+		pdvo.setPno(request.getParameter("pno"));
+		opvo.setPdno(orderService.findPdno(pdvo));								// 주문 상품에 pdno와 수량 세팅	~
+		opvo.setQuantity(quantity); 
+		opList.add(opvo); 
+		ovo.setOrderProductList(opList); 										// 주문에 주문상품 리스트와 총가격 회원정보 세팅~
 		ovo.setTotalprice(price);
 		ovo.setMemberVO(mvo);
-		
 		System.out.println("    OrderController/registerCart()/진행 ovo : " + ovo);
 		if (cartCount==0) {
 			orderService.registerOrder(ovo);
 			orderService.registerOrderProduct(ovo);
-			System.out.println("    OrderController/registerCart()/종료");
+			System.out.println("    OrderController/registerCart()/종료 if(cartCount==0)");
 			return "redirect:cartForm.do";
 		} else {
 			OrderProductVO opCount=orderService.findCartOderproduct(ovo);
 			if(opCount==null) {
 				orderService.updateOrder(ovo);
 				orderService.registerOrderProduct(ovo);
-				System.out.println("    OrderController/registerCart()/종료");
+				System.out.println("    OrderController/registerCart()/종료 cartCount!=0 , opCount==null");
 				return "redirect:cartForm.do";
 			}else {
-				
-				System.out.println("    OrderController/registerCart()/종료");
+				System.out.println("    OrderController/registerCart()/종료 cartCount!=0 , opCount!=null");
 				return "order/existOrder.tiles";
-			}
-		}
-		
-	}
+			}//else의 else
+		}//else
+	}//method
 
 	/**
 	 * [정현][11/24][장바구니삭제]
@@ -129,36 +119,32 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("deleteCart.do")
 	public String deleteCart(HttpServletRequest request,OrderProductVO orpvo) {
-		System.out.println("   	OrderController/deleteCart()/시작");
-		OrderVO ovo = new OrderVO();
+		System.out.println("   	OrderController/deleteCart()/시작 매개변수 OrderProductVO : "+orpvo);
+		OrderVO ovo = new OrderVO(); 					// 사용 객체 생성 주문,주문상품,주문상품리스트~
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		int quantity = Integer.parseInt( request.getParameter("quantity"));
+		int quantity = Integer.parseInt( request.getParameter("quantity")); 
 		int price =  Integer.parseInt(request.getParameter("price"));
-				
-		int Totalprice= quantity*price;
-		opvo.setPdno(request.getParameter("pdno"));
-		opvo.setQuantity(quantity);
+		int Totalprice= quantity*price;					 // 삭제하는 상품 총가격 
+		opvo.setPdno(request.getParameter("pdno"));		 // 주문상품에 request로 받아온 변수들 세팅~
+		opvo.setQuantity(quantity); 
 		opvo.setOno(request.getParameter("ono"));
-		opList.add(opvo);		
-		ovo.setOno(request.getParameter("ono"));
+		opList.add(opvo); 								//주문상품리스트 세팅
+		ovo.setOno(request.getParameter("ono")); 		//주문에 변수들 세팅~
 		ovo.setOrderProductList(opList);
-		ovo.setTotalprice(-Totalprice);
+		ovo.setTotalprice(-Totalprice);					// 주문의 총가격에서 삭제하는 상품 총가격 계산 후 세팅
 		ovo.setMemberVO(mvo);
 		System.out.println("   	OrderController/deleteCart()/진행 ovo : " + ovo);
 		orderService.deleteOrderProduct(opvo);
 		orderService.updateOrder(ovo);
-
-		System.out.println("   	OrderController/deleteCart()/종료");
-
+		System.out.println("   	OrderController/deleteCart()/종료 ovo : "+ovo);
 		return "redirect:cartForm.do";
 	}
 
 	/**
 	 * [현민][11/22][장바구니 상품 주문] 
-	 * 장바구니에 담긴 상품을 주문하기 위해 상품들을 가져가는 기능
-	 * 
+	 * 장바구니에 담긴 상품을 주문하기 위해 상품들을 가져가는 기능 
 	 * @return
 	 */
 	@Secured("ROLE_MEMBER")
@@ -166,39 +152,54 @@ public class OrderController {
 	public ModelAndView orderForm() {
 		System.out.println("   	OrderController/orderForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(mvo.getId());
-		System.out.println("    OrderController/orderForm()/진행1");
-		OrderVO ovo = orderService.findMyCart(mvo.getId());
-		System.out.println("    OrderController/orderForm()/진행2");
+		System.out.println("    OrderController/orderForm()/진행 id : "+mvo.getId());
+		OrderVO ovo = orderService.findMyCart(mvo.getId());						
+		System.out.println("    OrderController/orderForm()/진행 ovo : "+ovo);
 		ovo.setMemberVO(mvo);
-		System.out.println("    OrderController/orderForm()/진행3 ovo : " + ovo);
-		System.out.println("    OrderController/orderForm()/종료");
+		System.out.println("    OrderController/orderForm()/종료 ovo : " + ovo);
 		return new ModelAndView("order/orderForm.tiles", "ovo", ovo);
 	}
 
 	/**
-	 * [영훈][][주문내역보기]
-	 * 
+	 * [영훈][11/20][주문내역보기]
+	 * 자신의 주문 내역을 리스트로 보여준다
+	 * 추후
+	 * 각각의 주문은 주문의 상세내역으로 이동해 주문상품 리스트를 보여줄 수 있다
 	 * @param id
 	 * @return
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderList.do")
 	public ModelAndView myOrderList(String id) {
-		System.out.println("      OrderController/myOrderList()/시작");
+		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
 		List<OrderVO> list = orderService.myOrderList(id);
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getStatus().equals("장바구니")) {
-				list.remove(i);
-			}
-		}
-		System.out.println("      OrderController/myOrderList()/중간" + list);
+		/* 주문 내역에서 장바구니 상태는 포함하지 않기에 remove :리펙토링필요 (xml에서 설정이 용이 : 변경후 추후 2차테스트 시 삭제)
+		 * for(int i=0;i<list.size();i++) {
+				if(list.get(i).getStatus().equals("장바구니")) {
+					list.remove(i);
+				}//for-if
+			}//for
+		*/
+		System.out.println("      OrderController/myOrderList()/종료 list : " + list);
 		return new ModelAndView("order/myOrderList.tiles", "list", list);
 	}
 	
 	
 	/**
-	 * [영훈][][주문상품리스트가져오기]
+	 * [영훈][11/20][주문상품리스트가져오기]
+	 * 주문을 선택시 주문의 상세내역을 보여준다
+	 * 상세내역은 주문의 주문상품 리스트이다
+	 * 
+	 *  상세내역의 각 주문상품에 리뷰작성 폼이 제공
+	 *  리뷰작성 폼은 주문상태가 구매확정을 한 상태에서 가능 && 해당 상품에 리뷰를 작성을 하지 않은 경우에만 가능
+	 *  아이디 주문번호 상품번호를 맵으로 매개변수로 사용하여 리뷰작성을 체크한다
+	 *  동일한 맵을 매개변수로 사용하여 주문상태를 체크한다
+	 *  if 주문상태가 구매확정인 경우를 체크하여 아닌경우는(0인경우)는 리뷰작성을 못하게 하기위해 
+	 *  임의적으로 리뷰작성이 있는 것으로 간주하여(reviewCheck==1) 폼을 볼 수 없게 세팅
+	 *  else 즉 주문상태가 구매확정인 경우에는 rewviwCheck 값을  list에 세팅 후 addObject한다
+	 *  reviewCheck==0인 경우 리뷰작성하지 않음 => 리뷰 작성 허용
+	 *  reviewCheck==1인 경우 리뷰작성 => 리뷰 작성 불허가 
+	 * 
 	 * @param ono
 	 * @return
 	 */
@@ -206,33 +207,36 @@ public class OrderController {
 	@RequestMapping("myOrderPrductList.do")
 	public ModelAndView myOrderPrductList(String ono,String id) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("      OrderController/myOrderPrductList()/시작");
-		List<OrderProductVO> list = orderService.myOrderPrductList(ono);
-		System.out.println("      OrderController/myOrderPrductList()/중간 list:" + list);
+		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
+		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
+		System.out.println("      OrderController/myOrderPrductList()/중간 list :" + list);
 		for(int i=0;i<list.size();i++) {
-			Map<String, String> map = new HashMap<String, String>();
-			System.out.println("      OrderController/myOrderPrductList()/for문 id:" + id);
-			map.put("id", id);
+			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
+			Map<String, String> map = new HashMap<String, String>();								// id,ono,pdno를 이용해 맵 세팅 후 매개변수로 사용
+			System.out.println("      OrderController/myOrderPrductList()/for문 id :" + id);
+			map.put("id", id);						
 			map.put("ono", ono);
 			String pdno = list.get(i).getPdno();
-			System.out.println("      OrderController/myOrderPrductList()/for문 pdno:" + pdno);
+			System.out.println("      OrderController/myOrderPrductList()/for문 pdno :" + pdno);
 			map.put("pdno", pdno);
-			int reviewCheck = orderService.reviewCheck(map);
-			System.out.println("      OrderController/myOrderPrductList()/for문 reviewCheck:" + reviewCheck);
+			int reviewCheck = orderService.reviewCheck(map);										
+			System.out.println("      OrderController/myOrderPrductList()/for문 reviewCheck :" + reviewCheck);
 			int statusCheck = orderService.statusCheck(map);
-			if(statusCheck==0) {
-				list.get(i).setReviewCheck(1);
-			}else {
-			list.get(i).setReviewCheck(reviewCheck);
+			System.out.println("      OrderController/myOrderPrductList()/for문 statusCheck :" + statusCheck);
+			if(statusCheck==0) {																	
+				list.get(i).setReviewCheck(1);														
+			}else {																					
+				list.get(i).setReviewCheck(reviewCheck);											
 			}
-		}
+			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 종료");
+		}//for
 		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
 		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}
 
-	/**[석환][11.22][장바구니 수량 수정]
+	/**[석환][11.22][장바구니 수량 총 금액 수정]
 	 * 
 	 * @param opvo
 	 * @return
@@ -241,51 +245,56 @@ public class OrderController {
 	@ResponseBody
 	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
 		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
-		
-	/*	int totalprice=opvo.getPrice()*opvo.getQuantity();
+		int beforeQuantity=orderService.findBeforeQuantityByOnoAndPdno(opvo); //이전 수량
+		int quantity=opvo.getQuantity();									  //변경될 수량
+		int gapQuantity=quantity-beforeQuantity;							  //변결될 수량-이전 수량
+		int updateTotalprice=opvo.getPrice()*gapQuantity;					  //차감될 totalprice
 		OrderVO ovo=new OrderVO();
 		ovo.setOno(opvo.getOno());
-		ovo.setTotalprice(totalprice);
-		orderService.updateOrderCartTotalPrice(ovo);*/
-		System.out.println("수량 변경 ono : "+opvo.getOno()+"수량 변경 pdno : "+opvo.getPdno()+
-				"수량 변경 quantity : "+opvo.getQuantity());
+		ovo.setTotalprice(updateTotalprice);
+		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
-/*		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put("count", opvo.getQuantity());
-		map.put("totalPrice", totalprice);*/
 		System.out.println("      OrderController/updateOrderQuantity()/종료 ");
 		return opvo;
 	}
-	/* [석환][11.23][주문결제]
+	
+	/**[석환][11.23][주문결제]
 	 * 
+	 * 
+	 * @param payPoint,depositMethod,ovo
+	 * @return id=> vo.getId()
 	 */
 	@Transactional
 	@RequestMapping("order.do")
 	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo,HttpServletRequest request) {
+		System.out.println("      OrderController/productOrderPayment()/시작 매개변수 payPoint : "+payPoint+", depositMethod : "+depositMethod+", ovo : "+ovo);
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String[] pdno=request.getParameterValues("pdno");
+		String[] pdno=request.getParameterValues("pdno");											// 상품상세번호 수량 배열 세팅
 		String[] quantity=request.getParameterValues("quantity");
-		System.out.println("사용 포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
-		System.out.println("totalprice : "+ovo.getTotalprice());
+		System.out.println("      OrderController/productOrderPayment()/진행 사용포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
+		System.out.println("      OrderController/productOrderPayment()/진행 totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
 		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
-		System.out.println("상품주문 변경 :  "+ovo);
-		System.out.println(depositMethod);
+		System.out.println("      OrderController/productOrderPayment()/진행 상품주문변경 : "+ovo);
+		System.out.println("      OrderController/productOrderPayment()/진행 depositMethod : "+depositMethod);
 		for(int i=0;i<pdno.length;i++) {
+			System.out.println("      OrderController/productOrderPayment()/진행 for문 "+i+" 번 시작");
 			ProductDetailVO pdvo=new ProductDetailVO();
-			System.out.println(pdno[i]);
+			System.out.println("      OrderController/productOrderPayment()/진행 pdno"+pdno[i]);
 			System.out.println(Integer.parseInt(quantity[i]));
 			pdvo.setPdno(pdno[i]);
 			pdvo.setInventory(Integer.parseInt(quantity[i]));
 			orderService.updateProductDetailInventory(pdvo);
-			
+			System.out.println("      OrderController/productOrderPayment()/진행 for문 "+i+" 번 종료");
 		}
+		System.out.println("      OrderController/productOrderPayment()/종료 id : "+vo.getId());
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
 	
 	/**
 	 * [영훈][11/24][회원 주문내역 상태변경]
 	 * [석환][11/25][구매 확정시 포인트 및 멤버 총 토탈금액 수정]
+	 * 회원이 주문완료시 주문상태를 구매확정으로 변경한다
 	 * @param request
 	 * @return
 	 */
@@ -293,28 +302,33 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("myOrderStatusChange.do")
 	public String myOrderStatusChange(String ono,String id,int totalprice) {
-		orderService.myOrderStatusChange(ono);
-		MemberVO mvo = new MemberVO();
+		System.out.println("      OrderController/myOrderStatusChange()/시작 매개변수 ono : "+ono+", id : "+id+", totalprice : "+totalprice);
+		orderService.myOrderStatusChange(ono);									// 주문상태 변경
+		MemberVO mvo = new MemberVO();											// 멤버, 등급 객체생성
 		GradeVO gvo=new GradeVO();
 		mvo.setId(id);
 		mvo.setTotalSpent(totalprice);
-		orderService.updateMemberTotalSpent(mvo);
-		//회원 등급 찾기		
-		String grade=orderService.findMemberGardeById(id);
+		orderService.updateMemberTotalSpent(mvo);								// 구매확정시 총구매금액 업데이트
+		String grade=orderService.findMemberGardeById(id);						// 회원 등급 찾기
 		gvo.setGrade(grade);
-		//포인트 적립 비율 
-		int percent=orderService.findMemberGradePointPercent(gvo.getGrade());		
+		int percent=orderService.findMemberGradePointPercent(gvo.getGrade());	// 포인트 적립 비율 		
 		mvo.setPoint(totalprice*percent/100);
-		orderService.updateOrderMembetPoint(mvo);
+		orderService.updateOrderMembetPoint(mvo);								// 구매확정시 멤버포인트 업데이트
+		System.out.println("      OrderController/myOrderStatusChange()/종료 id : "+id);
 		return "redirect:myOrderList.do?id="+id;
 	}
-	//석환
+	/**
+	 * [석환][11/26][즉시구매 기능]
+	 * @param quantity, pdvo, image
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("immediatelyPay.do")
 	public String immediatelyPay(int quantity,ProductDetailVO pdvo,String image,Model model) {
-		String pdno=orderService.findPdno(pdvo);
-		ProductVO pvo=orderService.findProductDetailByPdno(pdno);
-		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);
+		System.out.println("      OrderController/immediatelyPay()/시작 매개변수 quantity : "+quantity+", pdvo : "+pdvo+", image : "+image);
+		String pdno=orderService.findPdno(pdvo);														
+		ProductVO pvo=orderService.findProductDetailByPdno(pdno);									
+		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);							
 		int price=pvo.getPrice();
 		int totalprice=quantity*price;
 		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -332,16 +346,24 @@ public class OrderController {
 		model.addAttribute("pdvo", npdvo);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("ono", ono);
+		System.out.println("      OrderController/immediatelyPay()/종료");
 		return "order/immediatelyOrderForm.tiles";
 	}
-	//[석환][11.27] 즉시 구매 취소시 관련 테이블 삭제
+	
+	/**
+	 * [석환][11.27] 즉시 구매 취소시 관련 테이블 삭제
+	 * @param quantity, pdvo, image
+	 * @return
+	 */
 	@Transactional
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("immediatelyPayOrderCancle.do")
 	public String immediatelyPayOrderCancle(OrderProductVO opvo) {
-		System.out.println("즉시 구매 pdno : "+opvo.getPdno()+" 즉시 구매 ono : "+opvo.getOno());
+		System.out.println("      OrderController/immediatelyPayOrderCancle()/시작 매개변수 opvo : "+opvo);
+		System.out.println("      OrderController/immediatelyPayOrderCancle()/진행 즉시 구매 pdno : "+opvo.getPdno()+" 즉시 구매 ono : "+opvo.getOno());
 		orderService.deleteImmediatelyPayOrdersProduct(opvo);
 		orderService.deleteImmediatelyPayOrders(opvo);
+		System.out.println("      OrderController/immediatelyPayOrderCancle()/종료");
 		return "redirect:home.do";
 	}
 	

@@ -31,6 +31,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		if(!supports(authentication.getClass())){
 			return null;
 		}
+		
 		//2.사용자 정보 디비로 부터 조회
 		String id = authentication.getName();
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/진행1 - id:"+id);
@@ -40,14 +41,17 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 			throw new UsernameNotFoundException("회원 아이디가 존재하지 않습니다");
 		}
 		String password=(String)authentication.getCredentials();//사용자가 입력한 패스워드 반환 
+		
 		//3.패스워드 비교
 		/* 비밀번호 암호화를 이용할 경우 
 		 이용자가 로그인 폼에서 입력한 비밀번호와 DB로부터 가져온 암호화된 비밀번호를 비교한다 */
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/진행3 - password:"+password);
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/진행4 - encode(password):"+passwordEncoder.encode(password));
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/진행5 - member.getPassword:"+member.getPassword());
-        if (!passwordEncoder.matches(password, member.getPassword())) 
-                throw new BadCredentialsException("비밀번호 불일치~~~");
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+        	throw new BadCredentialsException("비밀번호 불일치~~~");
+        }
+        
 		//4.사용자 권한 조회
 		List<Authority> list = memberService.selectAuthorityById(id);
 		if(list.size() == 0){
@@ -61,8 +65,8 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		/****************************************
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴
 		 ***************************************/
-		MemberSizeVO msvo=memberService.findMemberSizeById(id);
-		member.setMsvo(msvo);
+		MemberSizeVO msvo=memberService.findMemberSizeById(id); 
+		member.setMsvo(msvo); //회원 치수 사이즈 셋팅
 		
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/종료 - auth:"+auth);
