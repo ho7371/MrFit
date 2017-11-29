@@ -48,7 +48,7 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminPage.do")
 	public String adminPage() {
-		System.out.println("   	AdminController/adminPage()/시작");
+		System.out.println("   	AdminController/adminPage()/시작 및 종료");
 		return "admin/adminPage.tiles";
 	}
 	
@@ -63,25 +63,25 @@ public class AdminController {
 	public ModelAndView adminProductList(HttpServletRequest request, Model model) {
 		System.out.println("   	AdminController/adminProductList()/시작");
 		
-			/* 페이징 처리 공통 영역 */
-			int totalCount = productService.getTotalProductCount();
-			int postCountPerPage = 10;
-			int postCountPerPageGroup = 5;
-			int nowPage = 1;
-			String pageNo = request.getParameter("pageNo");
-				if(pageNo != null) {
-					nowPage = Integer.parseInt(pageNo);
-				}
-			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		/* 페이징 처리 공통 영역 */
+		int totalCount = productService.getTotalProductCount();			// 보여줄 상품 총 개수
+		int postCountPerPage = 10;										// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;									// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;	
+		String pageNo = request.getParameter("pageNo");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
+		}
+			
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 			
 		ModelAndView mv = new ModelAndView();
-		List<ProductVO> productList=productService.ProductList(pb);
+		List<ProductVO> productList=productService.ProductList(pb);		// 페이징빈을 던져서 받아온 상품목록
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
-		
 		System.out.println("      AdminController/adminProductList()/진행 - productList : "+productList);
 		
-		if(productList!=null&&!productList.isEmpty()) {
-			lvo.setList(productList);
+		if(productList!=null&&!productList.isEmpty()) {					// 보여줄 상품 목록이 있는 경우
+			lvo.setList(productList);									// 상품목록 세팅
 			lvo.setPagingBean(pb);
 			mv.addObject("lvo",lvo);
 		}
@@ -90,6 +90,7 @@ public class AdminController {
 		System.out.println("      AdminController/adminProductList()/종료");
 		return mv;
 	}
+	
 	/**[재현][11/25][상품등록폼 보기]
 	 * 
 	 * @param 
@@ -98,7 +99,7 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProductForm.do")
 	public String registerProductForm() {
-		System.out.println("   	AdminController/registerProductForm()/시작");
+		System.out.println("   	AdminController/registerProductForm()/시작 및 종료");
 		return "admin/registerProductForm.tiles";
 	}
 	
@@ -112,23 +113,26 @@ public class AdminController {
 	public ModelAndView findProductByName(String keyword, HttpServletRequest request){
 		System.out.println("   	AdminController/findProductByName()/시작");
 		ModelAndView mv = new ModelAndView();
-		int totalOrderCount = productService.productTotalCount(keyword);
-		int postCountPerPage = 4;
-		int postCountPerPageGroup = 2;
+		
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = productService.productTotalCount(keyword);	// 보여줄 상품의 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");
-			if(pageNo != null) {
+			if(pageNo != null) {											// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 				nowPage = Integer.parseInt(pageNo);
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("pagingBean", pb);
-		List<ProductVO> list = productService.findProductByName(map);
-		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list,pb);
-		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 리스트 : "+list);
-		if(list!= null) {
-			/*mv.addObject("list", list);*/
+		List<ProductVO> productList = productService.findProductByName(map);
+		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 상품목록 : "+productList);
+		
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>(productList,pb);
+		if(productList!= null) {
 			mv.addObject("lvo",lvo);
 			mv.setViewName("admin/adminProductSearchList.tiles");
 		}else {
@@ -140,162 +144,141 @@ public class AdminController {
 		
 	}
 	
-	
-	/** [진호, 재현, 석환][상품등록]
-	 * 	nameList : view 화면에 업로드 된 파일 목록을 전달하기 위한 리스트 
-	 * 	thumbPath : 상품의 대표이미지가 저장될 위치
-	 * 	imagePath : 대표이미지를 제외한 이미지들이 저장될 위치
-	 * 
-	 * @param vo
-	 * @param request
-	 * @param productName
-	 * @return
+
+	/**
+	 * [진호, 재현, 석환][상품등록]
 	 * Tomcat /conf/context.xml 
-		이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다. 
-		<Context reloadable="true" allowCasualMultipartParsing="true">
+	 * 이클립스 Servers/Tomcat config / context.xml 두 곳에 다음 설정을 추가해야 합니다.
+	 * <Context reloadable="true" allowCasualMultipartParsing="true">
+	 * @param uploadVO
+	 * @param productVO
+	 * @param request
+	 * @return
 	 */
 	@Transactional
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
-	public ModelAndView registerProduct(UploadVO vo, ProductVO productVO, HttpServletRequest request) {
-		System.out.println("   	AdminController/registerProduct()/시작");
-			// 젤 처음 pno 등록 name, price, content, category
-		System.out.println(productVO);
-			productService.registerProduct(productVO);
-		System.out.println(productVO);
+	public ModelAndView registerProduct(UploadVO uploadVO, ProductVO productVO, HttpServletRequest request) {
+		System.out.println("   	AdminController/registerProduct()/시작 - productVO : "+productVO +", uploadVO:"+uploadVO);
 		
-			ArrayList<String> psnolist=new ArrayList<String>(); // 등록한 사이즈 psno들
-			String[] size_name=request.getParameterValues("size_name");
-			String[] size1=request.getParameterValues("size1");
-			String[] size2=request.getParameterValues("size2");
-			String[] size3=request.getParameterValues("size3");
-			String[] size4=request.getParameterValues("size4");
-			String[] size5=request.getParameterValues("size5");
-			ProductSizeVO psvo=new ProductSizeVO();
-
-			for (int i=0;i<size_name.length;i++) {		
-				psvo.setSize_name(size_name[i]);
-				psvo.setSize1(Integer.parseInt(size1[i]));
-				psvo.setSize2(Integer.parseInt(size2[i]));
-				psvo.setSize3(Integer.parseInt(size3[i]));
-				psvo.setSize4(Integer.parseInt(size4[i]));
-				psvo.setSize5(Integer.parseInt(size5[i]));
-				productService.registerProductSize(psvo);
-				psnolist.add(psvo.getPsno());
-			}
-
-
-			
-			ArrayList<String> pcnolist=new ArrayList<String>(); // 등록한 색상 pcno들 
+		productService.registerProduct(productVO);		// 하나의 상품이 가지는 공통정보 등록 (상품번호, 상품명, 가격, 상품설명, 카테고리)
 		
-			String[] color=request.getParameterValues("color");
-			ProductDetailVO pdvo=new ProductDetailVO();
+		// 상품 치수정보 등록
+		ArrayList<String> psnoList=new ArrayList<String>(); 		// 상품치수 번호들을 저장할 ArrayList
+		ProductSizeVO psvo=new ProductSizeVO();						// 상품 상세 하나의 모든 정보를 담을 psvo 객체
+		String[] size_name=request.getParameterValues("size_name");	// 상품 상세 하나의 사이즈명 정보를 담은 배열
+		String[] size1=request.getParameterValues("size1");		
+		String[] size2=request.getParameterValues("size2");
+		String[] size3=request.getParameterValues("size3");
+		String[] size4=request.getParameterValues("size4");
+		String[] size5=request.getParameterValues("size5");
 
-			for (int i=0;i<color.length;i++) {
-				pdvo.setColor_name(color[i]);
-				//중복확인 
-				String pcno=productService.findColorByName(pdvo);
-					if(pcno!=null) {
-						pdvo.setPcno(pcno);
-					}else {
-						productService.registerColor(pdvo);
-					}
-				pcnolist.add(pdvo.getPcno());
-			}
+		for (int i=0;i<size_name.length;i++) {		
+			psvo.setSize_name(size_name[i]);
+			psvo.setSize1(Integer.parseInt(size1[i]));
+			psvo.setSize2(Integer.parseInt(size2[i]));
+			psvo.setSize3(Integer.parseInt(size3[i]));
+			psvo.setSize4(Integer.parseInt(size4[i]));
+			psvo.setSize5(Integer.parseInt(size5[i]));				// 하나의 psvo에 각 치수정보를 담아
+			productService.registerProductSize(psvo);				// 하나의 상품에 상품 상세 정보로 저장
+			psnoList.add(psvo.getPsno());
+		}
+		System.out.println("   	AdminController/registerProduct()/진행1 - 상품 치수 등록 완료");
+		
+		// 상품 색상정보 등록
+		ArrayList<String> pcnolist=new ArrayList<String>(); 		
+		String[] color=request.getParameterValues("color");			// 색상 등록 후 반환되는 색상 고유번호를 담을 ArrayList객체 
+		
+		ProductDetailVO pdvo=new ProductDetailVO();
+		for(int i=0;i<color.length;i++) {
+			pdvo.setColor_name(color[i]);
 			
-			//inventory
-			String[] inventory=request.getParameterValues("inventory");
-			String[] colleng=request.getParameterValues("colleng");
-			int sn=0;
-			int en=0;
-			int mn=0;
-			pdvo.setPno(productVO.getPno());
-			for (int i=0;i<psnolist.size();i++) {
-				pdvo.setPsno(psnolist.get(i));
-				en=Integer.parseInt(colleng[i]);
-				//5,3,4
-				mn=sn+en;
-			for (int j=sn;j<(mn);j++) {
+			String pcno=productService.findColorByName(pdvo);		// 등록할 색상이 이미 DB에 존재하는지 중복확인
+				if(pcno!=null) {									// 중복될 경우 객체에만 세팅
+					pdvo.setPcno(pcno);
+				}else {												// 중복되지 않을 경우 색상을 DB에 등록
+					productService.registerColor(pdvo);				 
+				}
+			pcnolist.add(pdvo.getPcno());
+		}
+		
+		// 재고량과 색상개수
+		String[] inventory=request.getParameterValues("inventory");
+		String[] colleng=request.getParameterValues("colleng");
+		int startNumber=0;
+		int endNumber=0;
+		int middleNumber=0;
+		pdvo.setPno(productVO.getPno());
+		for (int i=0;i<psnoList.size();i++) {
+			pdvo.setPsno(psnoList.get(i));
+			endNumber=Integer.parseInt(colleng[i]);
+			//5,3,4
+			middleNumber=startNumber+endNumber;
+			for (int j=startNumber;j<(middleNumber);j++) {
 					//1,2,3,4,5,6,7,8,9,10,11,12		
 					pdvo.setPcno(pcnolist.get(j));
 					pdvo.setInventory(Integer.parseInt(inventory[j]));
 					productService.registerProductDetail(pdvo);
-					}
-				sn=mn;
-				}
-
-			//워크스페이스 경로
-			String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";
-			//서버 경로
-			//String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
-			File uploadDir=new File(uploadPath);
-			if(uploadDir.exists()==false) {
-				uploadDir.mkdirs();
 			}
-			
-			List<MultipartFile> list=vo.getFile();
-			//ArrayList<String> nameList=new ArrayList<String>();		
-			System.out.println("   	AdminController/registerProduct()/진행1");
-			
-			//String thumbPath = uploadPath+"thumb/";
-			//String imagePath = uploadPath+productVO.getCategory()+"/";
-			String fileName = productVO.getName();	
-			String realName=list.get(0).getOriginalFilename();
-			//System.out.println(thumbPath);
-			System.out.println(uploadPath);
-			System.out.println(realName);
-			try {
-				if(!realName.equals("")){
-					list.get(0).transferTo(new File(uploadPath+"thumb/"+fileName+realName));
-					ImageVO ivo=new ImageVO(productVO.getPno(),"thumb/"+fileName+realName);
-					productService.registerImage(ivo);
-				}
-				
-				System.out.println("   	AdminController/registerProduct()/진행2 - 대표이미지 업로드");
-				
-				for(int i=1; i<list.size(); i++){
-					fileName =  productVO.getName()+i;		
-					realName=list.get(i).getOriginalFilename();
-					System.out.println(realName);
-					if(!realName.equals("")){	//만약 업로드 파일이 없으면 파일명은 공란처리된다.
-						try {
-							list.get(i).transferTo(new File(uploadPath+productVO.getCategory()+"/"+fileName+realName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
-							System.out.println("   	AdminController/registerProduct()/진행2"+"."+i+" - 업로드");
-							//nameList.add(fileName+realName);
-							ImageVO ivo=new ImageVO(productVO.getPno(),productVO.getCategory()+"/"+fileName+realName);
-							productService.registerImage(ivo);
-						} catch (Exception e) {
-							e.printStackTrace();
-						} 
-					}
-				}
-			} catch (IllegalStateException | IOException e1) {
-				e1.printStackTrace();
+			startNumber=middleNumber;
+		}
+		System.out.println("   	AdminController/registerProduct()/진행2 - 상품 색상 및 재고량 등록 완료");
+		
+		
+		// 이미지 저장 경로
+		String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");		// 서버 경로
+		//String uploadPath="C:\\Users\\kosta\\git\\MrFit\\MrFit\\src\\main\\webapp\\resources\\upload\\";	// 워크스페이스 경로
+		
+		File uploadDir=new File(uploadPath);
+		if(uploadDir.exists()==false) {
+			uploadDir.mkdirs();
+		}
+		
+		List<MultipartFile> uploadImglist=uploadVO.getFile();
+		
+		String fileName = productVO.getName();	
+		String realName=uploadImglist.get(0).getOriginalFilename();
+		System.out.println("   	AdminController/registerProduct()/진행4 - 업로드 준비 - uploadPath:"+uploadPath+", realName:"+realName);
+		
+		// 이미지 업로드
+		try {
+			// 대표이미지 업로드
+			if(!realName.equals("")){	
+				uploadImglist.get(0).transferTo(new File(uploadPath+"thumb/"+fileName+realName));
+				ImageVO ivo=new ImageVO(productVO.getPno(),"thumb/"+fileName+realName);
+				productService.registerImage(ivo);
+				System.out.println("   	AdminController/registerProduct()/진행5 - 대표이미지 업로드 완료");
 			}
+			// 일반 이미지들 업로드
+			for(int i=1; i<uploadImglist.size(); i++){
+				fileName =  productVO.getName()+i;		
+				realName=uploadImglist.get(i).getOriginalFilename();
+				System.out.println("   	AdminController/registerProduct()/진행6 - realName:"+realName);
+				if(!realName.equals("")){		//만약 업로드 파일이 없으면 파일명은 공란처리된다.
+					try {
+						uploadImglist.get(i).transferTo(new File(uploadPath+productVO.getCategory()+"/"+fileName+realName)); 	//업로드 파일이 있으면 파일을 특정경로로 업로드한다
+						ImageVO ivo=new ImageVO(productVO.getPno(),productVO.getCategory()+"/"+fileName+realName);
+						productService.registerImage(ivo);
+						System.out.println("   	AdminController/registerProduct()/진행7"+"."+i+" - 업로드 완료");
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+				}
+			}
+		} catch (IllegalStateException | IOException e1) {
+			e1.printStackTrace();
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/registerProductResult.tiles");
-		//mv.addObject("nameList", nameList);
-		System.out.println("   	AdminController/registerProduct()/종료 - 업로드 완료");
+		System.out.println("   	AdminController/registerProduct()/종료 - 상품 등록 & 업로드 완료");
 		return mv;
 	}
+
 	
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("admin/updateProductForm.do")
-	public ModelAndView updateProductForm(String pno) {
-		System.out.println("   	AdminController/updateProductForm()/시작");
-		ProductVO pvo=productService.findProductDetailByPno(pno);
-		ModelAndView mv=new ModelAndView();
-		mv.setViewName("admin/updateProductForm.tiles");
-		mv.addObject("pvo", pvo);	
-		return mv;
-	}
-	
-	
-	/**[재현][11/27][상품삭제]
-	 * 
-	 * @param 
+	/**
+	 * [재현][11/27][상품삭제]
+	 * @param pno
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
@@ -307,7 +290,8 @@ public class AdminController {
 	}
 	
 	
-	/** [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]
+	/**
+	 * [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]
 	 * @param request
 	 * @param status
 	 * @return
@@ -319,27 +303,29 @@ public class AdminController {
 		System.out.println("   	AdminController/commonMemberList()/시작");
 		ModelAndView mv = new ModelAndView();
 		
-			/* 페이징 처리 공통 영역 */
-			int totalCount = adminService.getTotalCommonMemberCount(status);
-			int postCountPerPage = 10;
-			int postCountPerPageGroup = 5;
-			int nowPage = 1;
-			String pageNo = request.getParameter("pageNo");
-				if(pageNo != null) {
-					nowPage = Integer.parseInt(pageNo);
-				}
-			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		/* 페이징 처리 공통 영역 */
+		int totalCount = adminService.getTotalCommonMemberCount(status);	// 보여줄 상품 총 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status", status);
+		Map<String, Object> map = new HashMap<String, Object>();			// 페이징빈과 status를 함께 던지기 위한 map
+		map.put("status", status);											// 회원의 status값에 따라 분류하기 위한 값
 		map.put("pagingBean", pb);
+		List<MemberVO> memberList = adminService.commonMemberList(map);
+		System.out.println("   	AdminController/commonMemberList()/진행 - 회원목록 :"+memberList);
 		
-		List<MemberVO> list = adminService.commonMemberList(map);
-		ListVO<MemberVO> lvo = new ListVO<MemberVO>(list,pb);
+		ListVO<MemberVO> lvo = new ListVO<MemberVO>(memberList,pb);
 		mv.addObject("lvo",lvo);
-		if(status==1) {
-			mv.setViewName("admin/memberList.tiles");
-		}else {
+		
+		if(status==1) {														// 현재 활성상태인 회원을 검색한 경우
+			mv.setViewName("admin/memberList.tiles");						
+		}else {																// 현재 비활성상태인 회원을 검색한 경우
 			mv.setViewName("admin/unregisterMemberList.tiles");
 		}
 		
@@ -347,16 +333,25 @@ public class AdminController {
 		return mv;
 	}
 	
+	/**
+	 * [영훈][회원강제탈퇴]
+	 * 회원의 ROLE을 삭제하고, 회원의 상태를 비활성 상태로 처리한다.
+	 * @param id
+	 * @return
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminUnregisterMember.do")
 	public ModelAndView adminUnregisterMember(String id) {
+		System.out.println("   	AdminController/adminUnregisterMember()/시작");
 		adminService.adminDeleteMemberAuthority(id);
 		adminService.adminUpdateMemberStatus(id);
+		System.out.println("   	AdminController/adminUnregisterMember()/종료");
 		return new ModelAndView("admin/adminUnregisterMember.tiles");
 	}
 	
-	/** [영훈][관리자 회원검색 기능]
-	 * 
+	/** 
+	 * [영훈][관리자 회원검색 기능]
+	 * 관리자가 회원의 아이디로 회원을 검색한다.
 	 * @param request
 	 * @param model
 	 * @return
@@ -364,19 +359,20 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchMember.do")
 	public ModelAndView adminSearchMember(String id) {
-		MemberVO mvo = adminService.adminSearchMember(id);
+		System.out.println("   	AdminController/adminSearchMember()/시작");
+		MemberVO mvo = adminService.adminSearchMember(id);	
 		ModelAndView mv = null;
-		if(mvo==null) {
+		if(mvo==null) {		//검색한 회원이 없을 경우
 			mv = new ModelAndView("admin/adminSearchMember_fail.tiles");
-			return mv;
-		}else {
+		}else {				//검색한 회원이 있을 경우
 			mv = new ModelAndView("admin/adminSearchMember_ok.tiles","member",mvo);
-			return mv;
 		}
+		System.out.println("   	AdminController/adminSearchMember()/종료");
+		return mv;
 	}
 	
-	/** [영훈][관리자 회원 포인트지급 폼 페이지 기능]
-	 * 
+	/** 
+	 * [영훈][관리자 회원 포인트지급 폼 페이지 기능]
 	 * @param request
 	 * @param model
 	 * @return
@@ -384,26 +380,29 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
 	public ModelAndView adminGivePointToMemberForm(String id) {
+		System.out.println("   	AdminController/adminGivePointToMemberForm()/시작");
 		MemberVO mvo = adminService.adminSearchMember(id);
+		System.out.println("   	AdminController/adminGivePointToMemberForm()/종료 - 포인트 지급할 회원 :"+mvo);
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
-	/** [영훈][관리자 포인트지급 기능]
-	 * 
-	 * @param request
-	 * @param model
+	/** @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 얼마의 포인트를 지급할 것인지?
+	 * [영훈][관리자 포인트지급 기능]
+	 * @param mvo
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
 	public String adminGivePointToMember(MemberVO mvo) {
+		System.out.println("   	AdminController/adminGivePointToMember()/시작 - 포인트 지급할 회원 :"+mvo);
 		adminService.adminGivePointToMember(mvo);
 		return "redirect:adminSearchMember.do?id="+mvo.getId();
 	}
 	
 	
-	/**[현민][11/23][관리자 전체 주문 내역]
-	 * 
+	/**
+	 * [현민][11/23][관리자 전체 주문 내역]
+	 * @param request
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
@@ -413,73 +412,37 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		
 		/* 페이징 처리 공통 영역 */
-		int totalOrderCount = adminService.adminTotalOrderCount();
-		int postCountPerPage = 4;
-		int postCountPerPageGroup = 2;
+		int totalOrderCount = adminService.adminTotalOrderCount();			// 보여줄 주문 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
-		String pageNo = request.getParameter("pageNo");
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
 				nowPage = Integer.parseInt(pageNo);
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
-		System.out.println("	AdminController/adminAllOrderList()/진행1 주문개수 : "+totalOrderCount);
-		List<OrderVO> list = adminService.adminAllOrderList(pb);
-		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-		System.out.println("   	AdminController/adminAllOrderList()/진행2 lvo : "+lvo);
+		List<OrderVO> orderList = adminService.adminAllOrderList(pb);
+		for(int i=0;i<orderList.size();i++) {
+			if(orderList.get(i).getStatus().equals("즉시결제")) {
+				orderList.remove(i);
+			}
+		}
+		System.out.println("	AdminController/adminAllOrderList()/진행 - 보여줄 주문목록 : "+orderList);
+		
+		ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
 		mv.setViewName("admin/adminAllOrderList.tiles");
 		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminAllOrderList()/종료");
 		return mv;
 	}
+
 	
-	/**[현민][11/24][아이디 검색]
-	 * 주문 내역에서 아이디를 검색 할 수 있다.
+	/**
+	 * [진호][키워드별 주문 검색]
 	 * @param request
-	 * @param memberId
-	 * @return
-	 */
-	/*
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminSearchOrder.do")
-	public ModelAndView adminSearchOrder(HttpServletRequest request, String memberId) {
-		System.out.println("   	AdminController/adminSearchOrder()/시작");
-		ModelAndView mv = new ModelAndView();
-		
-		 페이징 처리 공통 영역 
-		int totalOrderCount = adminService.adminSearchMemberOrderCount(memberId);
-		int postCountPerPage = 3;
-		int postCountPerPageGroup = 2;
-		int nowPage = 1;
-		String pageNo = request.getParameter("pageNo");
-			if(pageNo != null) {
-				nowPage = Integer.parseInt(pageNo);
-			}
-		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberId", memberId);
-		map.put("pagingBean", pb);
-		
-		List<OrderVO> list = adminService.adminSearchOrder(map);
-		System.out.println("	AdminController/adminSearchOrder()/진행1 - 주문 개수 : "+totalOrderCount+", 주문 목록 : "+list);
-		if(!list.isEmpty()) {
-			ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-			// System.out.println("   	AdminController/adminSearchOrder()/진행2 lvo : "+lvo);
-			mv.setViewName("admin/adminAllOrderList.tiles");
-			mv.addObject("lvo", lvo);
-		}else {
-			mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
-		}
-		System.out.println("   	AdminController/adminSearchOrder()/종료");
-		return mv;
-	}
-	*/
-	
-	/** [진호][키워드별 주문 검색]
-	 * 
-	 * @param request
-	 * @param memberId
+	 * @param searchType
+	 * @param searchKeyword
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
@@ -490,49 +453,53 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		/* 페이징 처리 공통 영역*/ 
-		int totalOrderCount = 0;
-		int postCountPerPage = 10;
-		int postCountPerPageGroup = 5;
+		int totalOrderCount = 0;							// 보여줄 주문의 총 개수 : 키워드에 따라 다르기에 초기값으로 설정
+		int postCountPerPage = 10;							// 한 페이지에 보여줄 주문 개수
+		int postCountPerPageGroup = 5;						// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
-		String pageNo = request.getParameter("pageNo");
-			if(pageNo != null) {
-				nowPage = Integer.parseInt(pageNo);
-			}
-			
+		String pageNo = request.getParameter("pageNo");				
+		if(pageNo != null) {								// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			nowPage = Integer.parseInt(pageNo);
+		}
+		
+		// 회원 아이디로 검색할 경우
 		if(searchType.equals("memberId")) {
-			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색 - 회원아이디 : "+searchKeyword);
+			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색1 - 회원아이디 : "+searchKeyword);
 			totalOrderCount = adminService.adminSearchMemberOrderCount(searchKeyword);
 			pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 			map.put("memberId", searchKeyword);
 			map.put("pagingBean", pb);
-			List<OrderVO> list = adminService.adminSearchOrder(map);
+			List<OrderVO> orderList = adminService.adminSearchOrder(map);
 			
-			if(!list.isEmpty()) {
-				ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+			if(!orderList.isEmpty()) {	// 보여줄 주문이 있는 경우
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색3 - 보여줄 주문 있음 :"+orderList);
+				ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
 				mv.addObject("lvo", lvo);
 				mv.addObject("searchType","memberId");
 				mv.setViewName("admin/adminAllOrderList.tiles");
-			}else {
+			}else {		// 보여줄 주문이 없는 경우
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색3 - 보여줄 주문 없음");
 				mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
 			}
 			
-		}else {
-			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 진행 - 주문번호로 주문검색1 - 주문번호 :"+searchKeyword);
+		}else { 	
+		// 주문번호로 검색할 경우
+			System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 주문번호로 주문검색1 - 주문번호 :"+searchKeyword);
 			totalOrderCount = adminService.adminSearchOrderCountByOrderNumber(searchKeyword);
+			
 			if(totalOrderCount != 0) {
-				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 진행 - 주문번호로 주문검색2");
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 주문번호로 주문검색2 - 검색결과 있음");
 				pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
 				OrderVO ovo = adminService.adminSearchOrderByOno(searchKeyword);
 				mv.addObject("orderVO", ovo);
 				mv.addObject("searchType","orderNo");
 				mv.setViewName("admin/adminSearchOrderList.tiles");
-				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료");
 			}else {
+				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 주문번호로 주문검색3 - 검색 결과 없음");
 				mv.setViewName("admin/adminsearchOrder_fail.tiles");
-				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료 - 검색 실패");
 			}
 		}
-		
+		System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료");
 		return mv;
 	}
 	

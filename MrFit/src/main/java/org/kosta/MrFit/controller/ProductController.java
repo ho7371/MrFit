@@ -31,192 +31,188 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
 	@Resource
 	private ProductService productService;
-	
+
 	@Resource
 	private MemberService memberService;
-	
+
 	@Resource
 	private ProductDAO productDAO;
 	private PagingBean pb;
 
-	/** 코드 작성 규칙
-	 *  1. 메소드 주석은 꼭 구현 완료 후 작성한다.
-	 *  2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.
-	 *  3. 다른 기능/메소드로 매개변수를 던지는 경우, 해당 문서에 매개변수를 명시해준다.
-	 *  4. 하루 작업한 것은 꼭 push를 한다.
-	 *  @RequestMapping("home.do")
-		public String findProductById(){
-			System.out.println("   	ProductController/findProductById()/시작");
-			System.out.println("    ProductController/findProductById()/진행");
-			System.out.println("    ProductController/findProductById()/종료");
-			return null;
-		}
+	/**
+	 * 코드 작성 규칙 
+	 * 1. 메소드 주석은 꼭 구현 완료 후 작성한다. 
+	 * 2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.
+	 * 3. 다른 기능/메소드로 매개변수를 던지는 경우, 해당 문서에 매개변수를 명시해준다. 
+	 * 4. 하루 작업한 것은 꼭 push를 한다.
+	 * @RequestMapping("home.do") public String findProductById(){
+	 * System.out.println(" ProductController/findProductById()/시작");
+	 * System.out.println(" ProductController/findProductById()/진행");
+	 * System.out.println(" ProductController/findProductById()/종료"); return null; }
+	 * 
 	 * @return
 	 */
-	
-	
 
-	/**[정현][2017.11.20][분류별 상품 리스트 뽑기]
-	    * 
-	    * @param category
-	    * @return
-	    */
-	   @RequestMapping("findProductByCategory.do")
-	   public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model){
-	      System.out.println("      ProductController/findProductByCategory()/시작");         
-	      
-			/* 페이징 처리 공통 영역 */
-			int totalCount = productService.getCategoryProductCount(category);
-			int postCountPerPage = 10;
-			int postCountPerPageGroup = 5;
-			int nowPage = 1;
-			String pageNo = request.getParameter("pageNo");
-			if(pageNo != null) {
-				nowPage = Integer.parseInt(pageNo);
-			}
-			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-	      
-			ModelAndView mv = new ModelAndView();
-	      ListVO<ProductVO> lvo= new ListVO<ProductVO>();
-	      
-	      HashMap<String,Object> map=new HashMap<String,Object>();
-	      map.put("startNumber",pb.getStartRowNumber());
-	      map.put("endNumber",pb.getEndRowNumber());
-	      map.put("category",category);
-	      List<ProductVO> productList=productService.findProductByCategory(map);
-	      
-	      System.out.println("      ProductController/findProductByCategory()/진행 - 리스트 : "+productList);      
-	      if(productList!=null&&!productList.isEmpty()) {         
-	         lvo.setList(productList);      
-	      }
-	      lvo.setPagingBean(pb);
-	      mv.addObject("lvo", lvo);
-	      mv.setViewName("product/productList.tiles");
-	      System.out.println("      ProductController/findProductByCategory()/종료");
-	      return mv;
-	   }
-	   
-	   
-	/**[현민][상품검색]
-	 * 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 
-	 * 찾는 기능 
-	 * 키워드에 해당하는 상품이 있는 경우 해당 상품을 보여주고
-	 * 키워드에 해당하는 상품이 없는 경우 검색 실패 메세지를 보여주는 jsp로 보낸다.
+	/**
+	 * [정현][11/20] 상품의 카테고리 별 리스트를 페이징 처리해서 jsp로 보내줌
+	 * 
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping("findProductByCategory.do")
+	public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model) {
+		System.out.println("      ProductController/findProductByCategory()/시작");
+		// 페이징 처리 공통 영역 
+		int totalCount = productService.getCategoryProductCount(category); //카테고리 별 상품의 개수
+		int postCountPerPage = 10;										   //한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;									   //한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;												   //처음 시작시 페이지 번호
+		String pageNo = request.getParameter("pageNo");					   //현재 페이지 번호
+		if (pageNo != null) {											   //요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			nowPage = Integer.parseInt(pageNo);							   
+		}
+		//페이징 처리시 상품리스트의 총개수,현재페이지,페이징 리스트 개수,페이징 처리시 페이지 개수
+		pb = new PagingBean(totalCount, nowPage, postCountPerPage, postCountPerPageGroup);
+		ModelAndView mv = new ModelAndView();
+		//페이징 처리 하기 위해 ListVO 변수 선언
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
+		// 상품의 카테고리 와 페이징 시작 번호와 마지막 번호를 HashMap으로 담아 매개 변수로 보내줌
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startNumber", pb.getStartRowNumber());
+		map.put("endNumber", pb.getEndRowNumber());
+		map.put("category", category);
+		//Select한 pno, name, price, content, category 값을 리스트처리
+		List<ProductVO> productList = productService.findProductByCategory(map);
+
+		System.out.println("      ProductController/findProductByCategory()/진행 - 리스트 : " + productList);
+		if (productList != null && !productList.isEmpty()) {
+		//위 에서 select한 리스트 값을 ListVO<ProductVO>에 set 해줌
+			lvo.setList(productList);
+		}
+		//위에서 정의한 상품리스트의 총개수,현재페이지,페이징 리스트 개수,페이징 처리시 페이지 개수를 ListVO에 set 해줌
+		lvo.setPagingBean(pb);
+		//페이징 처리,카테고리별 리스트를 ListVO 담아 jsp로 보냄
+		mv.addObject("lvo", lvo);
+		mv.setViewName("product/productList.tiles");
+		System.out.println("      ProductController/findProductByCategory()/종료");
+		return mv;
+	}
+	/**
+	 * [현민][상품검색] 액터가 검색한 키워드를 받아 그 키워드에 해당하는 상품을 찾는 기능 키워드에 해당하는 상품이 있는 경우 해당 상품을
+	 * 보여주고 키워드에 해당하는 상품이 없는 경우 검색 실패 메세지를 보여주는 jsp로 보낸다.
+	 * 
 	 * @param keyword
 	 * @return
 	 */
 	@RequestMapping("findProductByName.do")
-	public ModelAndView findProductByName(HttpServletRequest request,String keyword){
+	public ModelAndView findProductByName(HttpServletRequest request, String keyword) {
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
-		/* 페이징 처리 공통 영역 */
-		int totalOrderCount = productService.productTotalCount(keyword);
-		int postCountPerPage = 4;
-		int postCountPerPageGroup = 2;
-		int nowPage = 1;
-		String pageNo = request.getParameter("nowPage");
-			if(pageNo != null) {
-				nowPage = Integer.parseInt(pageNo);
-			}
-		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("   	ProductController/registerProduct()/진행1 getStartRowNumber() : "+pb.getStartRowNumber());
-		System.out.println("   	ProductController/registerProduct()/진행1 getEndRowNumber() : "+pb.getEndRowNumber());
+		// 페이징 처리 공통 영역 
+		int totalOrderCount = productService.productTotalCount(keyword); //키워드 별 리스트의 총 개수
+		int postCountPerPage = 4;										 //한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;									 //한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;												 //처음 시작시 페이지 번호
+		String pageNo = request.getParameter("nowPage");				 //현재 페이지 번호
+		if (pageNo != null) {											 // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			nowPage = Integer.parseInt(pageNo);
+		}
+		//페이징 처리시 검색된 리스트의 총개수,현재페이지,페이징 리스트 개수,페이징 처리시 페이지 개수
+		pb = new PagingBean(totalOrderCount, nowPage, postCountPerPage, postCountPerPageGroup);
+		//검색 키워드 와 정의된 PagingBean을 HashMap으로 담아 매개 변수로 보내줌
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("pagingBean", pb);
+		//키워드 별 상품 리스트를 List<ProductVO>로 담음
 		List<ProductVO> list = productService.findProductByName(map);
-		System.out.println("   	ProductController/registerProduct()/진행1 list : "+list);
-		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list,pb);
-		
-		if(list!= null) {
-			System.out.println("    ProductController/registerProduct()/진행2 list : "+list);
+		System.out.println("   	ProductController/registerProduct()/진행1 list : " + list);
+		//정의 된 List<ProductVO>와 PagingBean을 ListVO에 담음
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list, pb);
+		if (list != null) {
+			System.out.println("    ProductController/registerProduct()/진행2 list : " + list);
+			//검색된 값이 있을 경우 ListVO를 jsp로 보냄
 			mv.setViewName("product/findProductByName_ok.tiles");
-			mv.addObject("lvo",lvo);
-			/*mv.addObject("list", list);*/
-		}else {
+			mv.addObject("lvo", lvo);
+		} else {
+			//검색된 값이 없을 경우 아래 jsp로 보냄
 			mv.setViewName("main/product/findProductByName_fail");
 		}
 		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
-	
-	/* [석환][11/18]
-	 * 상품 번호로 상품의 상세정보 페이지 이동
+	/**
+	 * [석환][11/18] 상품의 상품번호(pno)로 상품의 상세보기 페이지로 이동
+	 * 회원일 경우는 회원의 치수와 해당 상품의 치수를 비교
+	 * @param pno
+	 * @return
 	 */
 	@RequestMapping("findProductDetailByPno.do")
 	public ModelAndView findProductDetailByPno(String pno) {
-		ModelAndView mv=new ModelAndView();
-		ProductVO pvo=productService.findProductDetailByPno(pno);
-		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
-		System.out.println("    ProductController/findProductDetailByPno()/진행1 - @@@@@ " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
-			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			MemberSizeVO msvo=memberService.findMemberSizeById(vo.getId());
-			ArrayList<ProductSizeGapVO> psglist=productService.sizeGapMemberAndProduct(pno,msvo,pvo.getCategory());
+		System.out.println("   	ProductController/findProductDetailByPno()/시작");
+		ModelAndView mv = new ModelAndView();
+		//상품 번호(pno)로 상품 검색
+		ProductVO pvo = productService.findProductDetailByPno(pno);
+		//상품 번호(pno)로 상품들의 사이즈 리스트 받아옴
+		List<ProductSizeVO> psList = productDAO.sizeGapMemberAndProduct(pno);
+		System.out.println("    ProductController/findProductDetailByPno()/진행1");
+		//회원 or 비회원을 식별해 회원일 경우에는 회원의 신체 치수와 해당 상품의 치수를 비교함.
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+			MemberVO vo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			MemberSizeVO msvo = memberService.findMemberSizeById(vo.getId());
+			//jsp에 상품과 회원의 치수를 비교해 String 값으로 color 값을 보내줌
+			ArrayList<ProductSizeGapVO> psglist = productService.sizeGapMemberAndProduct(pno, msvo, pvo.getCategory());
 			mv.addObject("psglist", psglist);
 			mv.addObject("id", vo.getId());
 		}
 		mv.addObject("psList", psList);
-		List<ProductDetailVO> clist=productService.findProductColorBypno(pno);
-     	// 해당 상품 리뷰 불러오는 메서드
-		List<ProductReviewVO> prvolist=productService.findProductReplyByPno(pno);
-			mv.setViewName("product/productDetail.tiles");
-			mv.addObject("clist", clist);
-			mv.addObject("pvo", pvo);	
-			mv.addObject("prvolist", prvolist);
-			mv.addObject("id", null);
-			System.out.println("    ProductController/findProductDetailByPno()/종료");
+		//상품 번호(pno)로 상품의 색상 값을 보내줌
+		List<ProductDetailVO> clist = productService.findProductColorBypno(pno);
+		// 해당 상품 리뷰 불러오는 메서드
+		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(pno);
+		mv.setViewName("product/productDetail.tiles");
+		mv.addObject("clist", clist);
+		mv.addObject("pvo", pvo);
+		//해당 상품의 리뷰 리스트를 보내줌
+		mv.addObject("prvolist", prvolist);
+		mv.addObject("id", null);
+		System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}
-	
-	/* [석환][2017.11.21]
-	 * 상품 디테일 page에서 pdno를 조건으로 
-	 * 색상별 size를 JSON 형식으로 통신한다
+	/**
+	 * [석환][11/21] 상품 상세보기 페이지에서 엑터가 상품의 색을 선택할 경우 해당 색에 포함 된 사이즈를 비교해
+	 * JSON 형식으로 통신해 해당 상품의 색상별 사이즈를 보내준다.
+	 * @param pdVO
+	 * @return
 	 */
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
-	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
-		List<ProductSizeVO> sizeList=productService.findProductDetailByColorAjax(pdVO);
+	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO) {
+		System.out.println("    ProductController/findProductDetailByColorAjax()/시작");
+		//상품의 색상을 조건으로 사이즈를 검색해 jsp에 보내줌
+		List<ProductSizeVO> sizeList = productService.findProductDetailByColorAjax(pdVO);
+		System.out.println("    ProductController/findProductDetailByColorAjax()/종료");
 		return sizeList;
 	}
-	
-	/**[재현][2017.11.21]
-	 * 상품 리뷰 작성 
-	 * @param prvo 
+
+	/**
+	 * [재현][11/21] 엑터가 상품 구매 한 후 해당 상품에 대한 리뷰 작성
+	 * 
+	 * @param prvo
 	 * @return 미정
 	 */
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
-	public ModelAndView registerProductReview(ProductReviewVO prvo,String ono) {
+	public ModelAndView registerProductReview(ProductReviewVO prvo, String ono) {
+		System.out.println("    ProductController/registerProductReview()/시작");
 		ModelAndView mv = new ModelAndView();
-		// 영훈 추가 수정 후 jsp name 수정
-			productService.registerProductReview(prvo);
-			mv.addObject("ono",ono);
-			mv.addObject("id", prvo.getId());
-			mv.setViewName("product/productReviewCheck_ok.tiles");
+		//회원이 리뷰작성 페이지에서 입력한 값을 등록
+		productService.registerProductReview(prvo);
+		//주문 번호 와 회원의 id값을 등록 완료 jsp로 보내줌
+		mv.addObject("ono", ono);
+		mv.addObject("id", prvo.getId());
+		mv.setViewName("product/productReviewCheck_ok.tiles");
+		System.out.println("    ProductController/registerProductReview()/종료");
 		return mv;
 	}
-	
-	
-	
-}//class
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}// class
