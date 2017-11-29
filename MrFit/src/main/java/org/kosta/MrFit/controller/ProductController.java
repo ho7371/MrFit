@@ -119,7 +119,8 @@ public class ProductController {
 				nowPage = Integer.parseInt(pageNo);
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println(pb.getStartRowNumber()+" / "+pb.getEndRowNumber());
+		System.out.println("   	ProductController/registerProduct()/진행1 getStartRowNumber() : "+pb.getStartRowNumber());
+		System.out.println("   	ProductController/registerProduct()/진행1 getEndRowNumber() : "+pb.getEndRowNumber());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("pagingBean", pb);
