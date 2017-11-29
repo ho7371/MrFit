@@ -167,7 +167,7 @@ public class ProductController {
 		mv.addObject("psList", psList);
 		//상품 번호(pno)로 상품의 색상 값을 보내줌
 		List<ProductDetailVO> clist = productService.findProductColorBypno(pno);
-		// 해당 상품 리뷰 불러오는 메서드
+		// [재현]해당 상품 리뷰 불러오는 메서드
 		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(pno);
 		mv.setViewName("product/productDetail.tiles");
 		mv.addObject("clist", clist);
@@ -198,7 +198,7 @@ public class ProductController {
 	 * [재현][11/21] 엑터가 상품 구매 한 후 해당 상품에 대한 리뷰 작성
 	 * 
 	 * @param prvo
-	 * @return 미정
+	 * @return 
 	 */
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody

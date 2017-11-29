@@ -15,12 +15,13 @@
      컨트롤러측은 제외하고 dbcp mybatis model 쪽만 빈을 생성하도록 설정한다 
  -->      
  
-<context:component-scan base-package="org.kosta.MrFit.model">
+<context:component-scan base-package="org.kosta.MrFit.model, org.kosta.MrFit.aop">
 <!--       <context:exclude-filter type="annotation" 
       expression="org.springframework.stereotype.Controller"/> -->
    </context:component-scan>
    
 <!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
+<aop:aspectj-autoproxy/>
 
 <!-- dataSource -->
 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
