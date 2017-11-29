@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ordertime" property="ordertime" />
 		<result column="status" property="status" />
 	</resultMap>
-	<!-- 장바구니 보기기능 -->
+	<!-- 장바구니 보기기능 --> 		
 	<select id="findMyCart" parameterType="string" resultType="orderVO"
 		resultMap="ORM">
 		SELECT *
