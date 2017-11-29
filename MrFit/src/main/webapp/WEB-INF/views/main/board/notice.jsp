@@ -41,40 +41,37 @@
 					<c:if test="${isAdmin}">
 						<a href="${pageContext.request.contextPath}/registerNoticeForm.do">공지사항 등록</a>
 					</c:if>
-				<div class="in-check">
-					<ul class="unit">
-						<li><span>No</span></li>
-						<li><span>Title</span></li>
-						<li><span>Writer</span></li>					
-						<li><span>작성일</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					
-					<%--공지사항 읽어오기 백단 완료되면 이것 사용함--%>
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>No</th><th>Title</th><th>Writer</th><th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
 						<c:forEach items="${lvo.list}" var="nlist">
-						<a href="${pageContext.request.contextPath}/noticeDetail.do?bno=${nlist.bno}">
-							<ul class="cart-header">
-								<li><span>${nlist.bno }</span></li>
-								<li><span>${nlist.title}</span></li>
-								<li><span>${nlist.id}</span></li>
-								<li><span>${nlist.regdate}</span></li>
-								 <c:if test="${isAdmin}">
-									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${nlist.bno}">${nlist.bno}번 공지 삭제</a>
-								</c:if>
-								<div class="clearfix"></div>
-							</ul>
-							</a>
+							<tr>
+								<td>${nlist.bno}</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/noticeDetail.do?bno=${nlist.bno}">
+									${nlist.title}</a>
+								</td>
+								<td>관리자
+									<c:if test="${isAdmin}">
+										<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${nlist.bno}">${nlist.bno}번 공지 삭제</a>
+									</c:if>
+								</td>
+								<td>${nlist.regdate}</td>
+							</tr>
 						</c:forEach> 
-					
-					
-		
-				</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
 <!--end-ckeckout-->
 <c:set value="${lvo.pagingBean}" var="pb" />
+
 <div class="pagingInfo" align="center">
 	<ul class="pagination">
 		<c:if test="${pb.previousPageGroup==true}">

@@ -9,35 +9,35 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>내 주문 내역</h3>
-				<div class="in-check">
-					<ul class="unit">
-						<li><span>주문번호</span></li>
-						<li><span>총가격</span></li>
-						<li><span>배송지</span></li>
-						<li><span>배송상태</span></li>
-						<li><span>주문시간</span></li>
-						<li><span>상태 변경</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<c:forEach items="${list}" var="order">
-					<ul class="cart-header">
-						<li><span><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}&id=<sec:authentication property="principal.id"/>">${order.ono}</a></span></li>
-						<li><span>${order.totalprice}</span></li>
-						<li><span>${order.destination}</span></li>
-						<li><span>${order.status}</span></li>
-						<li><span>${order.ordertime}</span></li>
-						 <c:if test="${order.status=='배송완료'}">
-							<form action="${pageContext.request.contextPath}/myOrderStatusChange.do">
-								<input type="hidden" name="ono" value="${order.ono}">
-								<input type="hidden" name="totalprice" value="${order.totalprice }">
-								<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
-								<input type="submit" value="상태변경">
-							</form>
- 						 </c:if>
-						<div class="clearfix"></div>
-					</ul>
-					</c:forEach>
-				</div>
+				
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>주문번호</th><th>총가격</th><th>배송지</th><th>배송상태</th><th>주문시간</th><th>상태변경</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${list}" var="order">
+							<tr>
+								<td><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}&id=<sec:authentication property="principal.id"/>">${order.ono}</a></td>
+								<td>${order.totalprice}</td>
+								<td>${order.destination}</td>
+								<td>${order.status}</td>
+								<td>${order.ordertime}</td>
+								<td>
+									<c:if test="${order.status=='배송완료'}">
+										<form action="${pageContext.request.contextPath}/myOrderStatusChange.do">
+											<input type="hidden" name="ono" value="${order.ono}">
+											<input type="hidden" name="totalprice" value="${order.totalprice }">
+											<input type="hidden" name="id" value="<sec:authentication property="principal.id"/>">
+											<input type="submit" value="상태변경">
+										</form>
+			 						 </c:if>
+								</td>
+							</tr>
+						</c:forEach> 
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

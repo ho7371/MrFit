@@ -66,4 +66,8 @@ public interface OrderService {
 
 	int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo);
 
+	List<ImageVO> findProductImageByPdno(String pno);
+
+	int findMemberPointById(String id);
+
 }
