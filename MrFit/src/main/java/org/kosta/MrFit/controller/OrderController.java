@@ -173,6 +173,11 @@ public class OrderController {
 	public ModelAndView myOrderList(String id) {
 		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
 		List<OrderVO> list = orderService.myOrderList(id);
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getStatus().equals("즉시결제")) {
+				list.remove(i);
+			}
+		}
 		/* 주문 내역에서 장바구니 상태는 포함하지 않기에 remove :리펙토링필요 (xml에서 설정이 용이 : 변경후 추후 2차테스트 시 삭제)
 		 * for(int i=0;i<list.size();i++) {
 				if(list.get(i).getStatus().equals("장바구니")) {
