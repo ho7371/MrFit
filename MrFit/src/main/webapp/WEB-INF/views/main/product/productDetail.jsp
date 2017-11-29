@@ -54,7 +54,7 @@ $(document).ready(function() {
 		var image=$(".imageSpend").attr("id");
 		alert(image);
 		location.href="${pageContext.request.contextPath}/immediatelyPay.do?pcno="+pcno+
-		"&psno="+psno+"&pno="+pno+"&quantity="+quantity+"&image="+image;
+		"&psno="+psno+"&pno="+pno+"&quantity="+quantity;
 /* 		alert(quantity);
 		alert(psno);
 		alert(pcno);

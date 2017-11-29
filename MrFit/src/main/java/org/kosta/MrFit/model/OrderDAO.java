@@ -77,4 +77,8 @@ public interface OrderDAO {
 	void deleteImmediatelyPayGarbageOrders(String ono);
 
 	int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo);
+
+	List<ImageVO> findProductImageByPdno(String pno);
+
+	int findMemberPointById(String id);
 }
