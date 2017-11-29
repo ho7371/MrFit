@@ -8,7 +8,7 @@
 			<div class="product-main">
 			<div class="col-md-9 p-left">
 				<div class="product-one">
-					<c:forEach items="${requestScope.list }" var="i">
+					<c:forEach items="${requestScope.lvo.list }" var="i">
 					<c:set value="${i.imageList[0].url}" var="url"/>
 						<div class="col-md-4 product-left single-left"> 
 							<div class="p-one simpleCart_shelfItem">

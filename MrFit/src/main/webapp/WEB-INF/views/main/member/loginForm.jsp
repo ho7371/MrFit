@@ -21,29 +21,31 @@
 					<img alt="" src="${pageContext.request.contextPath}/resources/images/Logo.jpg" style="width: 250px;">
 				</div>
 				<div class="col-md-6 account-left">
+					<%-- Spring Security에서는 해킹방지를 위해 post방식 정보전송일때는 
+					     반드시 csrf 토큰을 삽입해야 전송이 된다
+					 	아래 security tag를 쓰면 hidden tag 가 자동 생성된다 --%>
+					<%-- 로그인 폼 --%>
 					<form action="${pageContext.request.contextPath}/login.do" method="post" id="loginForm">
-					<%-- Spring Security에서는 해킹방지를 위해 post방식 정보전송일때는 반드시 csrf 토큰을 삽입해야 전송이 된다
-					 		아래 security tag를 쓰면 hidden tag 가 자동 생성된다 --%>
-					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="account-top heading">
-						<h3>LOGIN CUSTOMER</h3>
-					</div>
-					<div class="address">
-						<span>아이디</span>
-						<input type="text" name="id" size="10" required="required">
-					</div>
-					<div class="address">
-						<span>패스워드</span>
-						 <input type="password" name="password" size="10" required="required">
-					</div>
-					<div class="address">
-						<input type="submit" value="Login">
-						<a class="forgot" href="findIdPasswordForm.do">아이디|비밀번호 찾기</a> 
-					</div>
+						<sec:csrfInput/><%-- csrf 토큰 --%>
+						<div class="account-top heading">
+							<h3>LOGIN CUSTOMER</h3>
+						</div>
+						<div class="address">
+							<span>아이디</span>
+							<input type="text" name="id" size="10" required="required">
+						</div>
+						<div class="address">
+							<span>패스워드</span>
+							 <input type="password" name="password" size="10" required="required">
+						</div>
+						<div class="address">
+							<input type="submit" value="Login">
+							<a class="forgot" href="findIdPasswordForm.do">아이디|비밀번호 찾기</a> 
+						</div>
 					</form>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
-	<!--end-account-->
+<!--end-account-->
