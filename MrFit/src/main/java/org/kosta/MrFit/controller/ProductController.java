@@ -3,6 +3,7 @@ package org.kosta.MrFit.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -105,14 +106,33 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping("findProductByName.do")
-	public ModelAndView findProductByName(String keyword){
+	public ModelAndView findProductByName(HttpServletRequest request,String keyword){
 		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<ProductVO> list = productService.findProductByName(keyword);
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = productService.productTotalCount(keyword);
+		int postCountPerPage = 4;
+		int postCountPerPageGroup = 2;
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	ProductController/registerProduct()/진행1 getStartRowNumber() : "+pb.getStartRowNumber());
+		System.out.println("   	ProductController/registerProduct()/진행1 getEndRowNumber() : "+pb.getEndRowNumber());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("pagingBean", pb);
+		List<ProductVO> list = productService.findProductByName(map);
+		System.out.println("   	ProductController/registerProduct()/진행1 list : "+list);
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list,pb);
+		
 		if(list!= null) {
-			System.out.println("    ProductController/registerProduct()/진행 list : "+list);
+			System.out.println("    ProductController/registerProduct()/진행2 list : "+list);
 			mv.setViewName("product/findProductByName_ok.tiles");
-			mv.addObject("list", list);
+			mv.addObject("lvo",lvo);
+			/*mv.addObject("list", list);*/
 		}else {
 			mv.setViewName("main/product/findProductByName_fail");
 		}

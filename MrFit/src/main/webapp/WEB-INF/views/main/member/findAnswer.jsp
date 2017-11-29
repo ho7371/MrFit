@@ -20,6 +20,7 @@
 				<div class="col-md-6 account-left">
 					<div style="width: 500px; height: 250px; background-color: gray;"></div>
 				</div>
+				<%-- 비밀번호 찾기 폼 --%>				
 				<div class="col-md-6 account-left">
 					<form action="${pageContext.request.contextPath}/findMemberByQna.do" method="post" id="AnswerForm">
 					<input type="hidden" name="id" value="${memberVO.id }">
@@ -46,4 +47,4 @@
 			</div>
 		</div>
 	</div>
-	<!--end-account-->
+<!--end-account-->

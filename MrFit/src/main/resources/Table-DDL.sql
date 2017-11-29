@@ -80,16 +80,16 @@ CREATE TABLE member (
       /* 회원치수 */
       CREATE TABLE member_size (
          id VARCHAR2(100) NOT NULL,
-         shoulder NUMBER, 
-         chest NUMBER, 
-         sleeve NUMBER, 
-         armhole NUMBER,
-         toplength NUMBER, 
-         waist NUMBER,
-         crotch NUMBER, 
-         thigh NUMBER, 
-         hem NUMBER, 
-         bottomlength NUMBER,
+         shoulder NUMBER default 0, 
+         chest NUMBER default 0, 
+         sleeve NUMBER default 0, 
+         armhole NUMBER default 0,
+         toplength NUMBER default 0, 
+         waist NUMBER default 0,
+         crotch NUMBER default 0, 
+         thigh NUMBER default 0, 
+         hem NUMBER default 0, 
+         bottomlength NUMBER default 0,
          constraint fk_id_in_member foreign key(id) references member(id)
       );
       CREATE INDEX member_size_unique ON member_size(id);

@@ -3,12 +3,13 @@ package org.kosta.MrFit.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
 	
 	List<ProductVO> ProductList(PagingBean pb);
 
-	List<ProductVO> findProductByName(String keyword);
+	List<ProductVO> findProductByName(Map<String, Object> map);
 
 	ProductVO findProductDetailByPno(String pno);
 	
@@ -45,6 +46,8 @@ public interface ProductService {
 	void registerProductDetail(ProductDetailVO pdvo);
 
 	String findColorByName(ProductDetailVO pdvo);
+
+	int productTotalCount(String keyword);
 	
 
 }

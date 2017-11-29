@@ -15,6 +15,7 @@
 	<div class="container">
 		<div class="account-bottom">
 			<div class="col-md-3 account-left"></div>
+				<%-- 회원 치수 정보 --%>
 				<div class="col-md-6 account-left">
 					<form action="${pageContext.request.contextPath}/updateMemberSizeForm.do"
 						method="get" id="msupdateform">

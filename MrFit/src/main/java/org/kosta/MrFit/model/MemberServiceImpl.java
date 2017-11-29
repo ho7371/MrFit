@@ -16,12 +16,6 @@ public class MemberServiceImpl implements MemberService {
 	@Resource
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Override
-	public List<Authority> selectAuthorityById(String id) {
-		System.out.println("            MemberServiceImpl/selectAuthorityById()/시작");
-		return memberDAO.selectAuthorityById(id);
-	}
-	
 	// 주석샘플
 	/** 1. 메소드 주석은 꼭 구현 완료 후 작성한다.
 	 *  2. 다른 사람이 작성한 코드를 변경해야 할 경우, 원본은 주석처리 후 복사하여 사용한다.
@@ -29,7 +23,13 @@ public class MemberServiceImpl implements MemberService {
 	 *  4. 하루 작업한 것은 꼭 push를 한다.
 	 *  
 	 * @return
-	 */
+	 */	
+	
+	@Override
+	public List<Authority> selectAuthorityById(String id) {
+		System.out.println("            MemberServiceImpl/selectAuthorityById()/시작");
+		return memberDAO.selectAuthorityById(id);
+	}
 	
 	@Override
 	public MemberVO findMemberById(String id){
@@ -44,8 +44,9 @@ public class MemberServiceImpl implements MemberService {
 		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
 		String encodedPwd = passwordEncoder.encode(vo.getPassword());
 		vo.setPassword(encodedPwd);
+		System.out.println("            MemberServiceImpl/registerMember()/진행1 암호화된 비밀번호 : "+vo.getPassword());
 		memberDAO.registerMember(vo);
-		System.out.println("            MemberServiceImpl/registerMember()/진행");
+		System.out.println("            MemberServiceImpl/registerMember()/진행2");
 		// 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
 		Authority authority = new Authority(vo.getId(), "ROLE_MEMBER");
 		memberDAO.registerRole(authority);
@@ -97,33 +98,40 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public List<QuestionVO> findQuestionList(){
+		System.out.println("            MemberServiceImpl/findQuestionList()/시작");
 		return memberDAO.findQuestionList();
 
 	}
 	
 	@Override
 	public void updateMember(MemberVO memberVO) {
+		System.out.println("            MemberServiceImpl/updateMember()/시작");
 		// 변경할 비밀번호를 암호화한다
 		String encodePassword = passwordEncoder.encode(memberVO.getPassword());
 		memberVO.setPassword(encodePassword);
 		memberDAO.updateMember(memberVO);
+		System.out.println("            MemberServiceImpl/updateMember()/종료");
 	}
 
 	@Override
 	public MemberSizeVO findMemberSizeById(String id) {
-		// TODO Auto-generated method stub
+		System.out.println("            MemberServiceImpl/findMemberSizeById()/시작");
+		System.out.println("            MemberServiceImpl/findMemberSizeById()/종료");
 		return memberDAO.findMemberSizeById(id);
 	}
 
 	@Transactional
 	@Override
 	public void registerMemberSize(String id) {
+		System.out.println("            MemberServiceImpl/registerMemberSize()/시작");
 		memberDAO.registerMemberSize(id);
-		
+		System.out.println("            MemberServiceImpl/registerMemberSize()/종료");
 	}
 
 	@Override
 	public List<NoteVO> memberNoteList(String id) {
+		System.out.println("            MemberServiceImpl/memberNoteList()/시작");
+		System.out.println("            MemberServiceImpl/memberNoteList()/종료");
 		return memberDAO.memberNoteList(id);
 	}
 

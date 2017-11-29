@@ -44,10 +44,6 @@
 		<tr class="success">
 			<th class="title">주문번호</th>
 			<th>주문자ID / 주문자명</th>
-			<!-- <th>상품명</th>
-			<th>카테고리</th>
-			<th>주문색상</th>
-			<th>주문사이즈</th> -->
 			<th>주문시각</th>
 			<th>주문상태</th>
 			</tr>
@@ -57,16 +53,13 @@
 				<tr>
 				    <td><a href = "${pageContext.request.contextPath}/orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>				
 					<td>${order.memberVO.id} / ${order.memberVO.name }</td>
-					<%-- <c:forEach items="${order.orderProductList}" var="product">
-						<td><a href = "">${product.name}</a></td>
-						<td>${product.category} </td>
-						<td>${product.color_name}</td>
-						<td>${product.size_name}</td>
-					</c:forEach> --%>
 					<td>${order.ordertime}</td>
 					<td>
 					<c:choose>
 						<c:when test="${order.status =='배송완료'}">
+							${order.status}
+						</c:when>
+						<c:when test="${order.status =='구매확정'}">
 							${order.status}
 						</c:when>
 						<c:otherwise>

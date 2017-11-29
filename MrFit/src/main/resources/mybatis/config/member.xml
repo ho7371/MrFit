@@ -4,16 +4,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-<!-- select password 지우기 -->
  	<sql id="selectall">
- 		select id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade from member
+ 		select id,name,phone,address,email,point,totalspent,status,answer,qno,grade from member
  	</sql>
  	
  	<resultMap type="memberVO" id="MRM">
  		<result column="grade" property="gradeVO.grade"/>
  		<result column="percent" property="gradeVO.percent"/>
  	</resultMap>
-<!-- m.password 지우기 -->	
+ 	
  	<!-- 아이디로 회원 정보 찾기 -->
  	<select id="findMemberById" parameterType="string" resultMap="MRM" resultType="memberVO">
  		SELECT	m.id,	m.password,  m.name, m.phone, m.address, m.email, m.grade, g.percent, m.point, 
@@ -28,11 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM	auth 
 		WHERE	id=#{value}
  	</select>
-<!-- default 값이 있는 칼럼은 insert에서 지우기 : point, totalspent, status, grade -->
+ 	
  	<!-- 회원가입 -->
  	<insert id="registerMember" parameterType="memberVO">
-		insert into member(id,	password,  name, phone, address, email, point, totalspent, status, answer, qno, grade)
-		values(#{id},#{password},#{name},#{phone},#{address},#{email},0,0,'1',#{answer},#{qno},'브론즈')
+		insert into member(id,	password,  name, phone, address, email, answer, qno)
+		values(#{id},#{password},#{name},#{phone},#{address},#{email},#{answer},#{qno})
 	</insert>
  	
  	<!-- 권한 부여 -->
@@ -45,12 +44,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where id=#{value}
 	</select>
  
- 	<!--  -->
+ 	<!-- 이메일,이름으로 아이디 찾기 -->
  	<select id="findIdByEmailAndName" parameterType="memberVO" resultType="string">
  		select id from member where email=#{email} and name=#{name}
  	</select>
  	
- 	<!--  -->
+ 	<!-- 비밀번호 찾기위한 질문 찾기  -->
  	<select id="findQnaByIdNameEmail" parameterType="memberVO" resultType="string">
  		select question from question q where q.qno=(select qno from member where id=#{id} and name=#{name} and email=#{email})
  	</select>
@@ -75,11 +74,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="findMemberSizeById" parameterType="string" resultType="memberSizeVO">
  		select shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength from member_size where id=#{value}
  	</select>
-<!-- default 칼럼으로 설정하기 : shoulder ~ bottomlength -->
+ 	
  	<!-- 회원 치수 정보 등록 -->
  	<insert id="registerMemberSize" parameterType="string">
- 		insert into member_size(id, shoulder, chest, sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength) 
- 		values(#{id},0,0,0,0,0,0,0,0,0,0)
+ 		insert into member_size(id) 
+ 		values(#{id})
  	</insert>
  	
  	<!-- 회원 치수 정보 수정 -->
@@ -94,7 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update member set password=#{password},name=#{name},address=#{address},email=#{email}
 		where id=#{id}
 	</update>
-
+	
+	<!-- 쪽지함 -->	
 	<select id="memberNoteList" parameterType="string" resultType="noteVO">
 		select note_no, content, send_date, id 
 		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note where id = #{value} ) 

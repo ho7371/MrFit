@@ -9,8 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</sql>
  	
 	<!-- 상품 검색 -->
-	<select id="findProductByName" parameterType="string" resultType="productVO">
-		<include refid="selectall"/>
+	<select id="findProductByName" parameterType="map" resultType="productVO">
+		select pno, name, price, content, category 
+		from 
+		( select row_number() over(order by pno desc) as rnum, 
+		  pno, name, price, content, category from product 
+		  where name like '%' || #{keyword} || '%' )
+		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+	</select>
+	
+	<!-- 상품 검색 개수 -->
+	<select id="productTotalCount" parameterType="string" resultType="int">
+		select count(*) from product
 		where name like '%' || #{value} || '%'
 	</select>
 	
