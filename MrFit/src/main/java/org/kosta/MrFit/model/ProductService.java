@@ -27,7 +27,7 @@ public interface ProductService {
 
 	ProductSizeVO findProductDetailBySizeAjax(String psno);
 	
-	List<ProductReviewVO> findProductReplyByPno(String pno);
+	List<ProductReviewVO> findProductReplyByPno(Map<String, Object> map);
 
 	void registerProductReview(ProductReviewVO prvo);
 
@@ -48,6 +48,8 @@ public interface ProductService {
 	String findColorByName(ProductDetailVO pdvo);
 
 	int productTotalCount(String keyword);
+
+	int getTotalProductReviewCount();
 	
 
 }

@@ -118,15 +118,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE psno=#{value}
 	</select>
 	<!-- [재현][상품리뷰리스트] -->
-	<select id="findProductReplyByPno" parameterType="string"
+	<select id="findProductReplyByPno" parameterType="map"
 		resultType="productReviewVO">
 		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,
 		r.regdate
-		from review r,
+		from (select rno, pdno, id, content, regdate, 
+				row_number() over(order by rno desc) as rnum
+			 	from review) r,
 		(select pdno,pno,pcno,psno from product_detail) pd,
 		(select pcno,color_name from product_color) pc,
 		(select psno,size_name from product_size) ps
-		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) and pd.pno=#{value}
+		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) and pd.pno=#{pno}
+		and rnum between
+		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
 	</select>
 	<!-- [재현][상품리뷰등록] -->
 	<insert id="registerProductReview">
@@ -184,6 +188,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="string">
 		select pcno from product_color where color_name=#{color_name}
 	</select>
+	
+	<!-- [영훈][11/29][상품리뷰 개수] -->
+	<select id="getTotalProductReviewCount" resultType="int">
+		select count(*) from review
+	</select>
+	
 </mapper>
 
 
