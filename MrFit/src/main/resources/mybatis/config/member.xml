@@ -95,9 +95,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 쪽지함 -->	
-	<select id="memberNoteList" parameterType="string" resultType="noteVO">
+	<select id="memberNoteList" parameterType="map" resultType="noteVO">
 		select note_no, content, send_date, id 
-		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note where id = #{value} ) 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note where id = #{id} )
+		where note_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+	</select>
+	
+	<!-- 쪽지함 개수 -->
+	<select id="totalNoteCount" parameterType="string" resultType="int">
+		select count(*) from note where id = #{value}
 	</select>
 </mapper>
 

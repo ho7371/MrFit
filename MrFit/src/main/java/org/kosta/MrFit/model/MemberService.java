@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MemberService {
 
@@ -30,5 +31,7 @@ public interface MemberService {
 
 	void updateMember(MemberVO memberVO);
 
-	List<NoteVO> memberNoteList(String id);
+	List<NoteVO> memberNoteList(Map<String, Object> map);
+
+	int totalNoteCount(String id);
 }

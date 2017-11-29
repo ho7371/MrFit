@@ -659,13 +659,30 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("adminNoteList.do")
-	public ModelAndView adminNoteList() {
+	public ModelAndView adminNoteList(HttpServletRequest request) {
 		System.out.println("   	AdminController/adminNoteList()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<NoteVO> list = adminService.getNoteList();
-		System.out.println("   	AdminController/adminNoteList()/진행 list : "+ list);
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		List<NoteVO> list = adminService.getNoteList(pb);
+		System.out.println("   	AdminController/adminNoteList()/진행1 list : "+ list);
+		ListVO<NoteVO> lvo = new ListVO<NoteVO>();
+		if(list!=null&&!list.isEmpty()) {												 // 쪽지함이 있거나 비어있지 않을 때
+			lvo.setList(list);															 // list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/adminNoteList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
 		mv.setViewName("board/note.tiles");
-		mv.addObject("list", list);
+		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminNoteList()/종료");
 		return mv;
 	}

@@ -139,13 +139,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 쪽지 리스트 -->
 	<select id="getNoteList" resultType="noteVO">
 		select note_no, content, send_date, id 
-		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note )
+		where note_no between #{startRowNumber} and #{endRowNumber} 
 	</select>
 	
 	<!-- 상품삭제 -->
 	<delete id="deleteProduct" parameterType="string">
 		delete from product where pno=#{value}
 	</delete>
+	
+	<select id="totalNoteCount" resultType="int">
+		select count(*) from note
+	</select>
 </mapper>
 
 
