@@ -115,23 +115,24 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		
 		/* 페이징 처리 공통 영역 */
-		int totalOrderCount = productService.productTotalCount(keyword);
-		int postCountPerPage = 4;
-		int postCountPerPageGroup = 2;
+		int totalOrderCount = productService.productTotalCount(keyword);	// 보여줄 상품의 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");
-			if(pageNo != null) {
+			if(pageNo != null) {											// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 				nowPage = Integer.parseInt(pageNo);
 			}
 		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
 		map.put("pagingBean", pb);
-		List<ProductVO> list = productService.findProductByName(map);
-		ListVO<ProductVO> lvo = new ListVO<ProductVO>(list,pb);
-		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 리스트 : "+list);
-		if(list!= null) {
-			/*mv.addObject("list", list);*/
+		List<ProductVO> productList = productService.findProductByName(map);
+		System.out.println("   	AdminController/findProductByName()/진행 - 검색한 상품목록 : "+productList);
+		
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>(productList,pb);
+		if(productList!= null) {
 			mv.addObject("lvo",lvo);
 			mv.setViewName("admin/adminProductSearchList.tiles");
 		}else {
