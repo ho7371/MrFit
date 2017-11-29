@@ -269,4 +269,14 @@ public class OrderDAOImpl implements OrderDAO {
 	public int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo) {
 		return template.selectOne("order.findBeforeQuantityByOnoAndPdno", opvo);
 	}
+	// [석환][11.29] 즉시 구매 이미지
+	@Override
+	public List<ImageVO> findProductImageByPdno(String pno) {
+		return template.selectList("order.findProductImageByPdno", pno);
+	}
+	// [석환][11.29] 회원 포인트 
+	@Override
+	public int findMemberPointById(String id) {
+		return template.selectOne("order.findMemberPointById", id);
+	}
 }

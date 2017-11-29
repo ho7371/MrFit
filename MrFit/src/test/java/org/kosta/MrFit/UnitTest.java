@@ -36,6 +36,7 @@ public class UnitTest {
 	private AdminService adminService;
 	 @Test
 	 public void unitTest() {
+		 System.out.println(orderService.findProductImageByPdno("43"));
 		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
 		 //System.out.println(productService.findProductReplyByPno("1"));
 		// System.out.println(prvolist);
@@ -51,7 +52,7 @@ public class UnitTest {
 		 	memberVO.setPassword("hot6");
 		   memberService.updatePasswordById(memberVO);
 
-
+	
 		 
 		/* System.out.println("OrderService : "+oservice);
 		 Map<String,Object> map =  oservice.findMyCart("java3");
@@ -64,11 +65,11 @@ public class UnitTest {
 		 
 	 }
 	 
-	 @Test
+	 /*@Test
 	 public void inquiryTest() {
 		 InquiryVO ivo = boardService.inquiryDetail("21");
 		 System.out.println("고객문의 : " + ivo);
-	 }
+	 }*/
 	 
 
 }

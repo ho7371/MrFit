@@ -232,4 +232,14 @@ public class OrderServiceImpl implements OrderService {
 	public int findBeforeQuantityByOnoAndPdno(OrderProductVO opvo) {
 		return orderDAO.findBeforeQuantityByOnoAndPdno(opvo);
 	}
+	// [석환][11.29] 즉시 구매 이미지
+	@Override
+	public List<ImageVO> findProductImageByPdno(String pno) {
+		return orderDAO.findProductImageByPdno(pno);
+	}
+	// [석환][11.29] 회원 포인트 
+	@Override
+	public int findMemberPointById(String id) {
+		return orderDAO.findMemberPointById(id);
+	}
 }

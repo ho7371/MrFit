@@ -8,18 +8,23 @@
 		var totalprice = ${ovo.totalprice};
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
+			alert($(this).val());
 			var pointCharge=$(this).val();
 			if(pointCharge%1000!=0){
 				alert("포인트는 1000단위로 사용가능 합니다");
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
-			}
-			if(pointCharge>$("#membersPoint").val()){
-				alert("가지고 계신 포인트보다 많이 기입하셨습니다");
+			}else if(pointCharge>$("#membersPoint").val()){
+				alert("가지고 계신 포인트보다 많이 기입하셨습니다"+"사용할 포인트"+pointCharge+"소유 포인트"+$("#membersPoint").val());
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
+				return false;
 			}else if(pointCharge<0){
 				alert("포인트는 0이상만 기입이 가능합니다");
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
+				return false;
 			}
 			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
 		});
@@ -161,8 +166,8 @@
 	            	</tr>
 	            	<tr>
 	            		<th>
-	            			<input id="membersPoint" value="<sec:authentication property="principal.point" />" style="display: none;">
-	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" min="0" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" />)</div>
+	            			<input id="membersPoint" value="${requestScope.point}" style="display: none;">
+	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" min="0" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : ${requestScope.point})</div>
 	            		</th>
 	            	</tr>
 	            </table>
