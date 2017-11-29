@@ -325,7 +325,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findBeforeQuantityByOnoAndPdno" parameterType="orderProductVO" resultType="int">
 		select quantity from order_product where ono=#{ono} and pdno=#{pdno}
 	</select>
-	
+	<!-- [석환][11.29] 즉시 구매 시 이미지  -->
+	<select id="findProductImageByPdno" parameterType="string" resultType="imageVO">
+		select url from image where pno=#{value}
+	</select>
+	<!-- [석환][11.29] 회원 포인트  -->
+	<select id="findMemberPointById" parameterType="string" resultType="int">
+		select point from member where id=#{value}
+	</select>
 </mapper>
 
 

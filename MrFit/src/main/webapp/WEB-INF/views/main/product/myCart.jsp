@@ -25,12 +25,11 @@ $(document).ready(function() {
 			+"&quantity="+$("#updateQuantity").val()+"&price="+$(".findPrice").attr("id");
 	});//on()
 	
-	// 
-	$('.close1').on('click', function(c){
+	/* $('.close1').on('click', function(c){
 		$('.cart-header').fadeOut('slow', function(c){
 			$('.cart-header').remove();
 		});
-	});  
+	});   */
 	
 	// 
 	$('.close2').on('click', function(c){
@@ -78,7 +77,9 @@ $(document).ready(function() {
 	});
 	
 });//ready
-
+function delConfirm(){
+	return confirm('상품을 삭제하시겠습니까?');
+}
 </script>
 
 <!--start-ckeckout-->
@@ -87,56 +88,46 @@ $(document).ready(function() {
          <div class="ckeckout-top">
          <div class=" cart-items heading">
           <h3>My Shopping Bag ( ${requestScope.ovo.orderProductList.size()} )</h3>
-         <div class="in-check" align="center">
-            <ul class="unit">
-               <li><span>Item</span></li>
-				<li><span>Product Name</span></li>		
-				<li><span>Size / Color / Quantity</span> </li>
-				<li><span>Note</span></li>
-			
-               <div class="clearfix"></div>
-            </ul>
-			<%-- <c:forEach items="${requestScope.ovoList}" var="i"> --%>
-	      <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
-	            <ul class="cart-header">
-					<div class="findOno" id="${ovo.ono}"></div>
-	                <div class="findPdno" id="${j.pdno}"></div>
-	                <li>
-	                	<a href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${ovo.ono}&pdno=${j.pdno}&price=${j.price}" > 
-						<div class="close1"></div>
-						</a>
-	                </li>
-	                <li class="ring-in">		
-		                <a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
-		                <img alt="사진~~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
-		                </a>
-	                </li>
-					<li><span>${j.name}</span></li>
-					<li>
-						<span>size: ${j.size_name}<br> color: ${j.color_name}<br></span>
-						<span id="updateField" style="font-size: 20px;">
-							수량 : <input type="number" class="productCount" value="${j.quantity}">
-							<input type="hidden" class="hiddenPdno" value="${j.pdno}" >
-							<input type="hidden" class="hiddenPrice" value="${j.price}" >
-							<button class="updateBtn">수량변경</button>
-						</span>
-					</li>
-					<%--
-					<li>
-					 <span class="findQuantity" id="${j.quantity}"></span> 
-						<span class="findPrice" id="${j.price}"></span>
-					</li>--%>
-					<%-- 
-					 <li id="updateGround">
-						<button class="add-cart cart-check" onclick="return updateBtn('${j.pdno}')">수량변경</button>
-					 </li>	 --%>					
-	               <div class="clearfix"> </div>
-	            </ul>
-			</c:forEach>
+          
+          <table class="table-board">
+				<thead>
+					<tr>
+						<th>&nbsp;</th><th>상품이미지</th><th>상품명</th><th>사이즈</th><th>색상</th><th>수량</th><th>비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
+						<tr>
+							<td>
+								<div class="findOno" id="${ovo.ono}"></div>
+	               				<div class="findPdno" id="${j.pdno}"></div>
+	               				<a onclick="return delConfirm();"
+	               					href="${pageContext.request.contextPath}/deleteCart.do?quantity=${j.quantity}&ono=${ovo.ono}&pdno=${j.pdno}&price=${j.price}"> 
+									<img alt="삭제하기" src="${pageContext.request.contextPath}/resources/images/close-1.png">
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
+			                		<img alt="사진~~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
+			                	</a>
+							</td>
+							<td>${j.name}</td>
+							<td>${j.size_name}</td>
+							<td>${j.color_name}</td>
+							<td>수량 : <input type="number" class="productCount" value="${j.quantity}">
+								<input type="hidden" class="hiddenPdno" value="${j.pdno}">
+								<input type="hidden" class="hiddenPrice" value="${j.price}"><br>
+							</td>
+							<td>
+								<button class="updateBtn">수량변경</button>
+							</td>
+						</tr>
+					</c:forEach> 
+				</tbody>
+			</table>
             <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
-         </div>
-         </div>  
-       </div>
-      </div>
-   </div>
+			</div>
+		</div>  
+	</div>
+</div>
    <!--end-ckeckout-->

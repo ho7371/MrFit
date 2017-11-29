@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <h3><a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">리스트로 돌아가기</a><br><br></h3>
-<table class="table table-bordered  table-hover boardlist">
+<table class="table-board">
 		<thead>
 		<tr class="success">
 			<th class="title">id</th>

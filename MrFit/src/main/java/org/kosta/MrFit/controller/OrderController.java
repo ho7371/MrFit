@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.GradeVO;
+import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
@@ -149,15 +150,18 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("orderForm.do")
-	public ModelAndView orderForm() {
+	public String orderForm(Model model) {
 		System.out.println("   	OrderController/orderForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int point=orderService.findMemberPointById(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행 id : "+mvo.getId());
 		OrderVO ovo = orderService.findMyCart(mvo.getId());						
 		System.out.println("    OrderController/orderForm()/진행 ovo : "+ovo);
 		ovo.setMemberVO(mvo);
+		model.addAttribute("ovo", ovo);
+		model.addAttribute("point", point);
 		System.out.println("    OrderController/orderForm()/종료 ovo : " + ovo);
-		return new ModelAndView("order/orderForm.tiles", "ovo", ovo);
+		return "order/orderForm.tiles";
 	}
 
 	/**
@@ -329,14 +333,19 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("immediatelyPay.do")
-	public String immediatelyPay(int quantity,ProductDetailVO pdvo,String image,Model model) {
-		System.out.println("      OrderController/immediatelyPay()/시작 매개변수 quantity : "+quantity+", pdvo : "+pdvo+", image : "+image);
+	public String immediatelyPay(int quantity,ProductDetailVO pdvo,Model model) {
+		System.out.println("      OrderController/immediatelyPay()/시작 매개변수 quantity : "+quantity+", pdvo : "+pdvo);
 		String pdno=orderService.findPdno(pdvo);														
 		ProductVO pvo=orderService.findProductDetailByPdno(pdno);									
-		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);							
+		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);
+		System.out.println(pdvo.getPno());
+		List<ImageVO> imageList=orderService.findProductImageByPdno(pdvo.getPno());
+		String image=imageList.get(0).getUrl();
+		System.out.println(image);
 		int price=pvo.getPrice();
 		int totalprice=quantity*price;
 		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		int point=orderService.findMemberPointById(mvo.getId());
 		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시결제",mvo,null);
 		orderService.immediatelyPayRegisterOrder(ovo);
 		OrderProductVO opvo=new OrderProductVO();
@@ -351,6 +360,7 @@ public class OrderController {
 		model.addAttribute("pdvo", npdvo);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("ono", ono);
+		model.addAttribute("point", point);
 		System.out.println("      OrderController/immediatelyPay()/종료");
 		return "order/immediatelyOrderForm.tiles";
 	}
