@@ -30,7 +30,7 @@ public class MemberController {
 	@Resource 		
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	/**[재현][][로그인 실패]
+	/**[재현][로그인 실패]
 	 * 
 	 * @param 
 	 * @return
@@ -69,7 +69,8 @@ public class MemberController {
 		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
 	}
-	/**[재현][로그인][]
+	
+	/**[재현][로그인]
 	 * 
 	 * @return
 	 */
@@ -80,7 +81,7 @@ public class MemberController {
 		return "member/loginForm.tiles";
 	}
 	
-	/**[재현][][아이디패스워드 찾기 폼]
+	/**[재현][아이디패스워드 찾기 폼]
 	 * 
 	 * @param 
 	 * @return
@@ -92,27 +93,28 @@ public class MemberController {
 		return "member/findIdPasswordForm.tiles";
 	}
 	
-	/**[재현][][아이디 찾기]
+	/**[재현][아이디 찾기]
 	 * 
 	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findIdByEmailAndName.do")
 	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
-			System.out.println("   	MemberController/findIdByEmailAndName()/시작");
+		System.out.println("   	MemberController/findIdByEmailAndName()/시작");
 		ModelAndView mv=new ModelAndView();
 		String id= memberService.findIdByEmailAndName(memberVO);
-			if(id == null) {
-				mv.setViewName("main/member/findid_fail");
-				return mv;
-			}
-			mv.setViewName("member/findId_ok.tiles");
-			mv.addObject("lostid", id);
-			System.out.println("    MemberController/findIdByEmailAndName()/종료");
+		if(id == null) {
+			System.out.println("   	MemberController/findIdByEmailAndName()/진행 - 찾는 아이디 없음");
+			mv.setViewName("main/member/findid_fail");
+			return mv;
+		}
+		mv.setViewName("member/findId_ok.tiles");
+		mv.addObject("lostid", id);
+		System.out.println("    MemberController/findIdByEmailAndName()/종료");
 		return mv;
 	}
 	
-	/**[재현][][질문 보여주기]
+	/**[재현][질문 보여주기]
 	 * 
 	 * @param 
 	 * @return
@@ -133,7 +135,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	/**[재현][][비밀번호 찾기]
+	/**[재현][비밀번호 찾기]
 	 * 
 	 * @param 
 	 * @return
@@ -147,7 +149,7 @@ public class MemberController {
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
 	
-	/**[재현][][새 비밀번호 업데이트]
+	/**[재현][새 비밀번호 업데이트]
 	 * 
 	 * @param 
 	 * @return
@@ -161,15 +163,15 @@ public class MemberController {
 		return "redirect:updatePassword_ok.do";
 	}
 	
-	/**[재현][][비밀번호 업데이트 완료]
+	/**[재현][비밀번호 업데이트 완료]
 	 * 
 	 * @param 
 	 * @return
 	 */
 	@RequestMapping("updatePassword_ok.do")
 	public String updatePassword_ok() {
-		System.out.println("   	MemberController/updatePasswordById()/시작");
-		System.out.println("    MemberController/updatePasswordById()/종료");
+		System.out.println("   	MemberController/updatePassword_ok()/시작");
+		System.out.println("    MemberController/updatePassword_ok()/종료");
 		// updatePasswordById
 		return "member/updatePassword_ok.tiles";
 	}
@@ -196,7 +198,6 @@ public class MemberController {
 		System.out.println("   	MemberController/register()/시작");
 		memberService.registerMember(vo);
 		memberService.registerMemberSize(vo.getId());
-
 		System.out.println("    MemberController/register()/종료");
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
@@ -227,29 +228,29 @@ public class MemberController {
 		return memberService.idcheck(id);
 	}
 	
-	/**[재현][][아이디로 회원치수 보기]
+	/**[재현][아이디로 회원치수 보기]
 	 * 
 	 * @param 
 	 * @return
 	 */
 	@RequestMapping("findMemberSizeById.do")
 	public String findMemberSizeById(String id) {
-			System.out.println("   	MemberController/findMemberSizeById()/시작");
+		System.out.println("   	MemberController/findMemberSizeById()/시작 id : "+id);
 		return "member/memberSizeView.tiles";
 	}
 	
-	/**[재현][][회원치수 수정폼]
+	/**[재현][회원치수 수정폼]
 	 * 
 	 * @param 
 	 * @return
 	 */
 	@RequestMapping("updateMemberSizeForm.do")
 	public String updateMemberSizeForm() {
-			System.out.println("   	MemberController/updateMemberSizeForm()/시작");
+		System.out.println("   	MemberController/updateMemberSizeForm()/시작");
 		return "member/updateMemberSizeForm.tiles";
 	}
 	
-	/**[재현][][회원치수 수정]
+	/**[재현][회원치수 수정]
 	 * 
 	 * @param 
 	 * @return
@@ -264,7 +265,7 @@ public class MemberController {
 		return "member/memberSizeView.tiles";
 	}
 	
-	/**[][myPage]
+	/**[현민][myPage]
 	 * 
 	 * @return
 	 */
@@ -312,7 +313,7 @@ public class MemberController {
 	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
 		System.out.println("   	MemberController/updateMemberAction()/시작");
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("    MemberController/updateMemberAction()/진행 - Spring Security 세션 수정 전 회원정보: "+pvo);
+		System.out.println("    MemberController/updateMemberAction()/진행1 - Spring Security 세션 수정 전 회원정보: "+pvo);
 		memberService.updateMember(memberVO);
 		pvo.setPassword(memberVO.getPassword());
 		pvo.setName(memberVO.getName());
@@ -340,9 +341,6 @@ public class MemberController {
 		System.out.println("    MemberController/memberNoteList()/종료");
 		return mv;
 	}
-	
-	
-	
 	
 }// class
 
