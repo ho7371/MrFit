@@ -107,6 +107,21 @@ public class AdminServiceImpl implements AdminService {
 	public int totalNoteCount() {
 		return adminDAO.totalNoteCount();
 	}
+
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		adminDAO.reportPoint(map);
+	}
+
+	@Override
+	public List<PointVO> adminPointList(PagingBean pb) {
+		return adminDAO.adminPointList(pb);
+	}
+
+	@Override
+	public int totalPointListCount() {
+		return adminDAO.totalPointListCount();
+	}
 	
 	
 }

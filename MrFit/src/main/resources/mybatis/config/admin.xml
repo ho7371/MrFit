@@ -150,6 +150,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalNoteCount" resultType="int">
 		select count(*) from note
 	</select>
+	
+	<!-- 관리자 포인트 지급 이력 작성 -->
+	<insert id="reportPoint" parameterType="map">
+		insert into point(point_no, id, updown, change_date, status)
+		values(point_no_seq.nextval, #{id}, #{point}, sysdate, #{status})
+	</insert>
+	
+	<!-- 포인트 내역 -->
+	<select id="adminPointList" resultType="pointVO" parameterType="pagingBean">
+		select point_no, id, updown, status, change_date
+		from (select row_number() over(order by point_no desc) as point_no, id, updown, status, change_date from point)
+		where point_no between #{startRowNumber} and #{endRowNumber}
+	</select>
+	
+	<!-- 포인트 내역 개수 -->
+	<select id="totalPointListCount" resultType="int">
+	 	select count(*) from point
+	</select>
 </mapper>
 
 

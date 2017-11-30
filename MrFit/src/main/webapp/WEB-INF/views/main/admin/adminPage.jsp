@@ -43,6 +43,14 @@
 							</a>
 						</div>
 					</div>
+					<div class="col-md-4 product-left single-left">
+						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+							<a href="${pageContext.request.contextPath}/adminPointList.do">
+								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
+								<p>포인트 이력</p>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>

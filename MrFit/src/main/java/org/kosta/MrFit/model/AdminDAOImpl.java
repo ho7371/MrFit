@@ -153,6 +153,21 @@ public class AdminDAOImpl implements AdminDAO {
 	public int totalNoteCount() {
 		return template.selectOne("admin.totalNoteCount");
 	}
+	//[현민][관리자 포인트 지급 이력 작성]
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		template.insert("admin.reportPoint", map);
+	}
+	//[현민][포인트 내역]
+	@Override
+	public List<PointVO> adminPointList(PagingBean pb) {
+		return template.selectList("admin.adminPointList",pb);
+	}
+	//[현민][포인트 내역 개수]
+	@Override
+	public int totalPointListCount() {
+		return template.selectOne("admin.totalPointListCount");
+	}
 	
 }
 
