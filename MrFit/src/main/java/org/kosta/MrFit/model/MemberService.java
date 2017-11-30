@@ -34,4 +34,8 @@ public interface MemberService {
 	List<NoteVO> memberNoteList(Map<String, Object> map);
 
 	int totalNoteCount(String id);
+
+	void updateStatusMember(String memberId);
+
+	void deleteAuth(String memberId);
 }

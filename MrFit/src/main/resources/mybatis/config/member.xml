@@ -105,6 +105,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalNoteCount" parameterType="string" resultType="int">
 		select count(*) from note where id = #{value}
 	</select>
+	
+	<!-- 회원 탈퇴  -->
+	<update id="updateStatusMember" parameterType="string">
+		update member set status='0'
+		where id=#{value}
+	</update>
+	<!-- 회원 탈퇴 후 Auth 삭제 -->
+	<delete id="deleteAuth" parameterType="string">
+	delete  from auth
+    	where id=#{value}
+	</delete>
 </mapper>
 
 

@@ -138,7 +138,26 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int totalNoteCount(String id) {
+		System.out.println("            MemberServiceImpl/totalNoteCount()/시작");
+		System.out.println("            MemberServiceImpl/totalNoteCount()/종료");
 		return memberDAO.totalNoteCount(id);
+	}
+	//[정현][11/30][회원탈퇴]
+	@Override
+	public void updateStatusMember(String memberId) {
+		System.out.println("            MemberServiceImpl/updateStatusMember()/시작");
+		memberDAO.updateStatusMember(memberId);
+		System.out.println("            MemberServiceImpl/updateStatusMember()/종료");
+		
+		
+	}
+
+	@Override
+	public void deleteAuth(String memberId) {
+		System.out.println("            MemberServiceImpl/deleteAuth()/시작");
+		memberDAO.deleteAuth(memberId);
+		System.out.println("            MemberServiceImpl/deleteAuth()/종료");
+		
 	}
 
 	

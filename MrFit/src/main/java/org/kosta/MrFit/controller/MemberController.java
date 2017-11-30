@@ -325,6 +325,27 @@ public class MemberController {
 		System.out.println("    MemberController/updateMemberAction()/종료1");
 		return "member/update_result.tiles";
 	}
+	/**[정현][회원탈퇴]
+	 * 
+	 * @param request
+	 * @param memberVO
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("updateStatusMember.do")
+	public String updateStatusMember(HttpServletRequest request) {
+		System.out.println("   	MemberController/updateStatusMember()/시작");
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String memberId=pvo.getId();
+		System.out.println("    MemberController/updateStatusMember()/진행1 - 회원아이디: "+memberId);
+		memberService.updateStatusMember(memberId);		//회원 탈퇴를 위해 해당 member의 status 0으로 변경
+		memberService.deleteAuth(memberId);			//Auth에서 해당 회원의 정보삭제
+		
+		System.out.println("    MemberController/updateStatusMember()/종료");
+		return "member/updateStatus_result.tiles";
+
+	}
+	
 	
 	/**[현민][11/24][쪽지함]
 	 * 관리자가 회원에게 보낸 쪽지를 볼 수 있다.
