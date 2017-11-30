@@ -6,6 +6,11 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+	       $("#searchProduct").keypress(function (e) {
+	           if (e.which == 13){
+	        	   location.href = "findProductByName.do?nowPage=1&keyword="+ $(this).val();
+	           }
+	       });
 		$("#searchProductBtn").click(
 			function() {
 			location.href = "findProductByName.do?nowPage=1&keyword="+ $("#searchProduct").val();

@@ -25,6 +25,9 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 	@Resource
     private BCryptPasswordEncoder passwordEncoder;
 
+	/**[재현][11/20][로그인/로그아웃]
+	 * @return
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println("	@@ MemberAuthenticationProvider/authenticate()/시작");

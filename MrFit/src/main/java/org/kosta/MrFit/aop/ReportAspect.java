@@ -1,7 +1,7 @@
 package org.kosta.MrFit.aop;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.List;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,17 +11,25 @@ import org.springframework.stereotype.Component;
 @Aspect // AOP 객체임을 명시함
 public class ReportAspect {
 
-	private Log log = LogFactory.getLog(getClass());
+	//private Log log = LogFactory.getLog(getClass());
 
 	@SuppressWarnings("rawtypes")
-	@Around("execution(public java.util.List org.kosta.MrFit.*Service.find*List*(..))")
+	@Around("execution(public * org.kosta.MrFit.model.*ServiceImpl.*(..))")
+	//@Around("execution(public * org.kosta.MrFit.*Controller.*(..)) or execution(public * org.kosta.MrFit.*Service*.*(..)) or execution(public * org.kosta.MrFit.*DAO*.*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
-
+		Object retValue=null;
+		//Object arg[]=point.getArgs();	
+		String className=point.getTarget().getClass().getName();
+		String methodName=point.getSignature().getName();
+		
 		try {
-			point.proceed();
-		} finally {
+			retValue=point.proceed();
 			
+			System.out.println("*aop: "+className+" "+methodName);
+		} finally {
+			if (retValue!=null&&retValue instanceof List&&!((List)retValue).isEmpty())
+			System.out.println("*aop: "+className+" "+methodName);
 		}
-		return null;
+		return retValue;
 	}
 }

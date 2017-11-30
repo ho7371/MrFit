@@ -145,7 +145,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where note_no between #{startRowNumber} and #{endRowNumber} 
 	</select>
 	
-	
 	<!-- 쪽지함 개수 -->
 	<select id="totalNoteCount" resultType="int">
 		select count(*) from note
@@ -196,6 +195,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id, updown, status, change_date from point where status like '%' || #{status} || '%')
 		where point_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} 
 	</select>
+	
+	<resultMap type="productDetailVO" id="productSizeListRM">
+		<result column="psno" property="productSizeVO.psno" />
+		<result column="size_name" property="productSizeVO.size_name" />
+	</resultMap>
+	
+	<!-- 상품 재고 불러오기 -->
+	<select id="updateProductForm" parameterType="string" resultMap="productSizeListRM">
+		SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno,ps.size_name,pd.inventory
+		FROM product_detail pd, product_color pc, product_size ps
+		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pno=#{value}
+	</select>
+	
+	<!-- 상품 재고 업데이트 -->
+	<update id="updateProductInventory" parameterType="productDetailVO">
+		update product_detail set inventory=#{inventory} where pdno=#{pdno}
+	</update>
+		
 </mapper>
 
 

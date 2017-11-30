@@ -290,6 +290,48 @@ public class AdminController {
 		return "admin/deleteProductResult.tiles";
 	}
 	
+	/**
+	 * [재현][11/30][상품수정 inventory 폼]
+	 * @param pno
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("admin/updateProductForm.do")
+	public ModelAndView updateProductForm(String pno) {
+		System.out.println("   	AdminController/updateProductForm()/시작");
+		ModelAndView mv = new ModelAndView();
+		List<ProductDetailVO> pdvolist=adminService.updateProductForm(pno);
+		//ProductVO pvo=new ProductVO();
+		//pvo.setProductDetailList(pdvolist);
+		System.out.println(pdvolist);
+		mv.setViewName("admin/updateProductForm.tiles");
+		mv.addObject("pdvolist", pdvolist);
+		return mv;
+	}
+	
+	/**
+	 * [재현][11/30][상품수정 inventory]
+	 * @param 
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("admin/updateProduct.do")
+	public String updateProduct(HttpServletRequest request) {
+		System.out.println("   	AdminController/updateProduct()/시작");
+		String pdno[]=request.getParameterValues("pdno");
+		//request.getParameterValues("pcno");
+		//request.getParameterValues("psno");
+		String inventory[]=request.getParameterValues("inventory");
+		
+		ProductDetailVO pdvo=new ProductDetailVO();
+		for(int i=0;i<pdno.length;i++) {
+			pdvo.setPdno(pdno[i]);
+			pdvo.setInventory(Integer.parseInt(inventory[i]));
+			adminService.updateProductInventory(pdvo);
+		}
+		
+		return "admin/registerProductResult.tiles";
+	}
 	
 	/**
 	 * [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]

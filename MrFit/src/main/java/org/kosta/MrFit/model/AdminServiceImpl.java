@@ -144,6 +144,17 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminSearchPointByStatus(map);
 	}
 	
+	@Override
+	public List<ProductDetailVO> updateProductForm(String pno) {
+		return adminDAO.updateProductForm(pno);
+		
+	}
+
+	@Override
+	public void updateProductInventory(ProductDetailVO pdvo) {
+		adminDAO.updateProductInventory(pdvo);
+		
+	}
 	
 }
 

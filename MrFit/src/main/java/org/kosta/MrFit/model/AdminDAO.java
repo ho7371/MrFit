@@ -56,4 +56,8 @@ public interface AdminDAO {
 	int adminSearchPointCountByStatus(String searchKeyword);
 
 	List<PointVO> adminSearchPointByStatus(Map<String, Object> map);
+	
+	List<ProductDetailVO> updateProductForm(String pno);
+
+	void updateProductInventory(ProductDetailVO pdvo);
 }
