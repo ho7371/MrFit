@@ -1,5 +1,7 @@
 package org.kosta.MrFit.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -294,6 +296,12 @@ public class OrderController {
 			pdvo.setInventory(Integer.parseInt(quantity[i]));
 			orderService.updateProductDetailInventory(pdvo);
 			System.out.println("      OrderController/productOrderPayment()/진행 for문 "+i+" 번 종료");
+		}
+		if(payPoint!=0) {
+			Map<String, Object> map = new HashMap<String, Object>();				// 포인트 이력에 작성될 
+			map.put("point", -payPoint);											// 사용 포인트 
+			map.put("id", vo.getId());												// 회원 id를 
+			orderService.reportPoint(map);											// 포인트 이력 작성
 		}
 		System.out.println("      OrderController/productOrderPayment()/종료 id : "+vo.getId());
 		return "redirect:myOrderList.do?id="+vo.getId();
