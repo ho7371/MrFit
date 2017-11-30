@@ -42,4 +42,22 @@ public interface AdminDAO {
 	void deleteProduct(String pno);
 
 	int totalNoteCount();
+
+	void reportPoint(Map<String, Object> map);
+
+	List<PointVO> adminPointList(PagingBean pb);
+
+	int totalPointListCount();
+
+	int adminSearchPointCount(String searchKeyword);
+
+	List<PointVO> adminSearchPoint(Map<String, Object> map);
+
+	int adminSearchPointCountByStatus(String searchKeyword);
+
+	List<PointVO> adminSearchPointByStatus(Map<String, Object> map);
+	
+	List<ProductDetailVO> updateProductForm(String pno);
+
+	void updateProductInventory(ProductDetailVO pdvo);
 }

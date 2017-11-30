@@ -150,6 +150,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalNoteCount" resultType="int">
 		select count(*) from note
 	</select>
+	<!-- 관리자 포인트 지급 이력 작성 -->
+	<insert id="reportPoint" parameterType="map">
+		insert into point(point_no, id, updown, change_date, status)
+		values(point_no_seq.nextval, #{id}, #{point}, sysdate, #{status})
+	</insert>
+	
+	<!-- 포인트 내역 -->
+	<select id="adminPointList" resultType="pointVO" parameterType="pagingBean">
+		select point_no, id, updown, status, change_date
+		from (select row_number() over(order by point_no desc) as point_no, id, updown, status, change_date from point)
+		where point_no between #{startRowNumber} and #{endRowNumber}
+	</select>
+	
+	<!-- 포인트 내역 개수 -->
+	<select id="totalPointListCount" resultType="int">
+	 	select count(*) from point
+	</select>
+	
+	<!-- 아이디로 포인트 이력 검색 : 이력 총 개수 -->
+	<select id="adminSearchPointCount" parameterType="string" resultType="int">
+		select count(*) from point where id like '%' || #{value} || '%'
+	</select>
+	
+	<!-- 아이디로 포인트 이력 검색  -->
+	<select id="adminSearchPoint" parameterType="map" resultType="pointVO">
+		select point_no, id, updown, status, change_date
+		from 
+		(select row_number() over(order by point_no desc) as point_no, 
+		id, updown, status, change_date from point where id = #{id} )
+		where point_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} 
+	</select>
+	
+	<!-- 지급형태로 포인트 이력 검색 : 이력 총 개수-->
+	<select id="adminSearchPointCountByStatus" parameterType="string" resultType="int">
+		select count(*) from point where status = #{value}
+	</select>
+	
+	<!-- 지급형태로 포인트 이력 검색  -->
+	<select id="adminSearchPointByStatus" parameterType="map" resultType="pointVO">
+		select point_no, id, updown, status, change_date
+		from 
+		(select row_number() over(order by point_no desc) as point_no, 
+		id, updown, status, change_date from point where status like '%' || #{status} || '%')
+		where point_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} 
+	</select>
+	
+	<resultMap type="productDetailVO" id="productSizeListRM">
+		<result column="psno" property="productSizeVO.psno" />
+		<result column="size_name" property="productSizeVO.size_name" />
+	</resultMap>
+	
+	<select id="updateProductForm" parameterType="string" resultMap="productSizeListRM">
+		SELECT pd.pdno, pd.pno,pc.pcno, pc.color_name, ps.psno as psno,ps.size_name,pd.inventory
+		FROM product_detail pd, product_color pc, product_size ps
+		WHERE pd.pcno=pc.pcno and pd.psno=ps.psno and pd.pno=#{value}
+	</select>
+	
+	<update id="updateProductInventory" parameterType="productDetailVO">
+		update product_detail set inventory=#{inventory} where pdno=#{pdno}
+	</update>
 </mapper>
 
 

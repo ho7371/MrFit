@@ -103,7 +103,6 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public OrderVO adminfindOrderByOno(String ono) {
-		// TODO Auto-generated method stub
 		return template.selectOne("admin.adminfindOrderByOno",ono);
 	}
 
@@ -152,6 +151,56 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int totalNoteCount() {
 		return template.selectOne("admin.totalNoteCount");
+	}
+
+	//[현민][관리자 포인트 지급 이력 작성]
+		@Override
+		public void reportPoint(Map<String, Object> map) {
+			template.insert("admin.reportPoint", map);
+		}
+		//[현민][포인트 내역]
+		@Override
+		public List<PointVO> adminPointList(PagingBean pb) {
+			return template.selectList("admin.adminPointList",pb);
+		}
+		//[현민][포인트 내역 개수]
+		@Override
+		public int totalPointListCount() {
+			return template.selectOne("admin.totalPointListCount");
+		}
+		//[현민][포인트 내역 아이디 검색시 개수]
+		@Override
+		public int adminSearchPointCount(String searchKeyword) {
+			return template.selectOne("admin.adminSearchPointCount", searchKeyword);
+		}
+		//[현민][포인트 내역 아이디 검색]
+		@Override
+		public List<PointVO> adminSearchPoint(Map<String, Object> map) {
+			return template.selectList("admin.adminSearchPoint", map);
+		}
+		
+		//[현민][포인트 내역 지급형태 검색시 개수]
+		@Override
+		public int adminSearchPointCountByStatus(String searchKeyword) {
+			return template.selectOne("admin.adminSearchPointCountByStatus",searchKeyword);
+		}
+		//[현민][포인트 내역 지급형태 검색]
+		@Override
+		public List<PointVO> adminSearchPointByStatus(Map<String, Object> map) {
+			return template.selectList("admin.adminSearchPointByStatus", map);
+		}
+	
+	@Override
+	public List<ProductDetailVO> updateProductForm(String pno) {
+		//template.selectList("product.findProductDetailList",pno);
+		//findProductColorList
+		return template.selectList("admin.updateProductForm",pno);
+	}
+
+	@Override
+	public void updateProductInventory(ProductDetailVO pdvo) {
+		template.update("admin.updateProductInventory", pdvo);
+		
 	}
 	
 }

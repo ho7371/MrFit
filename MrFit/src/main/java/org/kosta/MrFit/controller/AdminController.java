@@ -18,8 +18,10 @@ import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderProductVO;
+import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.PointVO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
@@ -288,6 +290,48 @@ public class AdminController {
 		return "admin/deleteProductResult.tiles";
 	}
 	
+	/**
+	 * [재현][11/30][상품수정 inventory 폼]
+	 * @param pno
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("admin/updateProductForm.do")
+	public ModelAndView updateProductForm(String pno) {
+		System.out.println("   	AdminController/updateProductForm()/시작");
+		ModelAndView mv = new ModelAndView();
+		List<ProductDetailVO> pdvolist=adminService.updateProductForm(pno);
+		//ProductVO pvo=new ProductVO();
+		//pvo.setProductDetailList(pdvolist);
+		System.out.println(pdvolist);
+		mv.setViewName("admin/updateProductForm.tiles");
+		mv.addObject("pdvolist", pdvolist);
+		return mv;
+	}
+	
+	/**
+	 * [재현][11/30][상품수정 inventory]
+	 * @param 
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("admin/updateProduct.do")
+	public String updateProduct(HttpServletRequest request) {
+		System.out.println("   	AdminController/updateProduct()/시작");
+		String pdno[]=request.getParameterValues("pdno");
+		//request.getParameterValues("pcno");
+		//request.getParameterValues("psno");
+		String inventory[]=request.getParameterValues("inventory");
+		
+		ProductDetailVO pdvo=new ProductDetailVO();
+		for(int i=0;i<pdno.length;i++) {
+			pdvo.setPdno(pdno[i]);
+			pdvo.setInventory(Integer.parseInt(inventory[i]));
+			adminService.updateProductInventory(pdvo);
+		}
+		
+		return "admin/registerProductResult.tiles";
+	}
 	
 	/**
 	 * [영훈] [관리자 회원리스트 공통메서드(회원/탈퇴회원) ]
@@ -386,7 +430,8 @@ public class AdminController {
 	}
 	
 	/** 
-	 * [영훈][관리자 포인트지급 기능]
+	 * [영훈][관리자 포인트 지급 기능]
+	 * [현민][관리자 포인트 지급 이력 작성]
 	 * @param mvo
 	 * @return
 	 */
@@ -395,6 +440,13 @@ public class AdminController {
 	public String adminGivePointToMember(MemberVO mvo) {
 		System.out.println("   	AdminController/adminGivePointToMember()/시작 - 포인트 지급할 회원 :"+mvo);
 		adminService.adminGivePointToMember(mvo);
+		if(mvo.getPoint()!=0) {
+			Map<String, Object> map = new HashMap<String, Object>();				// 포인트 이력에 작성될 
+			map.put("point", mvo.getPoint());										// 지급 포인트 
+			map.put("id", mvo.getId());												// 회원 id를 
+			map.put("status", "관리자 지급");											// 지급 형태
+			adminService.reportPoint(map);											// 포인트 이력 작성
+		}
 		return "redirect:adminSearchMember.do?id="+mvo.getId();
 	}
 	
@@ -727,6 +779,122 @@ public class AdminController {
 		mv.setViewName("admin/orderProductInfo.tiles");
 		mv.addObject("list", list);
 		System.out.println("   	AdminController/orderProductInfo()/종료 ");
+		return mv;
+	}
+	
+	/**[현민][11/30][포인트 내역]
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminPointList.do")
+	public ModelAndView adminPointList(HttpServletRequest request) {
+		System.out.println("   	AdminController/adminPointList()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.totalPointListCount();			// 보여줄 포인트 이력 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		List<PointVO> list = adminService.adminPointList(pb);
+		System.out.println("   	AdminController/adminPointList()/진행 list :  "+list);
+		ListVO<PointVO> lvo = new ListVO<PointVO>();
+		if(list != null && !list.isEmpty()) {
+			lvo.setList(list);												// list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/adminPointList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
+		mv.setViewName("admin/adminPointList.tiles");
+		mv.addObject("lvo", lvo);
+		System.out.println("   	AdminController/adminPointList()/종료 ");
+		return mv;
+	}
+	/**[현민][11/30][포인트 내역 아이디 검색]
+	 * 
+	 * @param request
+	 * @param searchType
+	 * @param id
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchPoint.do")
+	public ModelAndView adminSearchPoint(HttpServletRequest request, String id) {
+		System.out.println("   	AdminController/adminSearchPoint()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = 0;											// 보여줄 포인트 이력 총 개수 : 키워드에 따라 다르기에 초기값으로 설정
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		System.out.println("   	AdminController/adminSearchPoint()/ 회원아이디로 주문검색1 - 회원아이디 : "+id);
+		totalOrderCount = adminService.adminSearchPointCount(id);
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		map.put("id", id);
+		map.put("pagingBean", pb);
+		List<PointVO> pointList = adminService.adminSearchPoint(map);
+		if(!pointList.isEmpty()) {	// 보여줄 포인트 이력이 있는 경우
+			System.out.println("   	AdminController/adminSearchPoint()/ 회원아이디로 주문검색3 - 보여줄 주문 있음 :"+pointList);
+			ListVO<PointVO> lvo = new ListVO<PointVO>(pointList,pb);
+			mv.addObject("lvo", lvo);
+			mv.addObject("searchType","memberId");
+			mv.setViewName("admin/adminSearchPointById.tiles");
+		}else {		// 보여줄 포인트 이력이 없는 경우
+			System.out.println("   	AdminController/adminSearchPoint()/ 회원아이디로 주문검색3 - 보여줄 주문 없음");
+			mv.setViewName("admin/adminSearchPoint_fail.tiles");
+		}
+		System.out.println("   	AdminController/adminSearchPoint()/종료 ");
+		return mv;
+	}
+	/**[현민][11/30][포인트 지급형태(관리자 지급/상품구입)로 리스트]
+	 * 
+	 * @param request
+	 * @param status
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminSearchPointByStatus.do")
+	public ModelAndView adminSearchPointByStatus(HttpServletRequest request, String status) {
+		System.out.println("   	AdminController/adminSearchPointByStatus()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.adminSearchPointCountByStatus(status);// 보여줄 포인트 이력 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		map.put("status", status);
+		map.put("pagingBean", pb);
+		List<PointVO> pointList2 = adminService.adminSearchPointByStatus(map);
+		if(!pointList2.isEmpty()) {	// 보여줄 포인트 이력이 있는 경우
+			System.out.println("   	AdminController/adminSearchPoint()/ 지급형태로 주문검색2 - 검색결과 있음");
+			pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			ListVO<PointVO> lvo = new ListVO<PointVO>(pointList2,pb);
+			mv.addObject("lvo", lvo);
+			mv.addObject("searchType","status");
+			mv.setViewName("admin/adminSearchPointByStatus.tiles");
+		}else {	// 보여줄 포인트 이력이 없는 경우
+			System.out.println("   	AdminController/adminSearchPoint()/ 지급형태로 주문검색3 - 검색 결과 없음");
+			mv.setViewName("admin/adminSearchPoint_fail.tiles");
+		}
+		System.out.println("   	AdminController/adminSearchPointByStatus()/종료 ");
 		return mv;
 	}
 }

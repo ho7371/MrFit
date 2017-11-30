@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.awt.RenderingHints.Key;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +107,53 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int totalNoteCount() {
 		return adminDAO.totalNoteCount();
+	}
+
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		adminDAO.reportPoint(map);
+	}
+
+	@Override
+	public List<PointVO> adminPointList(PagingBean pb) {
+		return adminDAO.adminPointList(pb);
+	}
+
+	@Override
+	public int totalPointListCount() {
+		return adminDAO.totalPointListCount();
+	}
+
+	@Override
+	public int adminSearchPointCount(String searchKeyword) {
+		return adminDAO.adminSearchPointCount(searchKeyword);
+	}
+
+	@Override
+	public List<PointVO> adminSearchPoint(Map<String, Object> map) {
+		return adminDAO.adminSearchPoint(map);
+	}
+
+	@Override
+	public int adminSearchPointCountByStatus(String searchKeyword) {
+		return adminDAO.adminSearchPointCountByStatus(searchKeyword);
+	}
+
+	@Override
+	public List<PointVO> adminSearchPointByStatus(Map<String, Object> map) {
+		return adminDAO.adminSearchPointByStatus(map);
+	}
+	
+	@Override
+	public List<ProductDetailVO> updateProductForm(String pno) {
+		return adminDAO.updateProductForm(pno);
+		
+	}
+
+	@Override
+	public void updateProductInventory(ProductDetailVO pdvo) {
+		adminDAO.updateProductInventory(pdvo);
+		
 	}
 	
 	
