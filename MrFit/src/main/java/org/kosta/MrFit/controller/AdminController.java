@@ -141,7 +141,6 @@ public class AdminController {
 		
 		System.out.println("    AdminController/findProductByName()/종료");
 		return mv;
-		
 	}
 	
 
@@ -386,7 +385,7 @@ public class AdminController {
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
-	/** @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 얼마의 포인트를 지급할 것인지?
+	/** 
 	 * [영훈][관리자 포인트지급 기능]
 	 * @param mvo
 	 * @return
@@ -556,10 +555,10 @@ public class AdminController {
 		List<BoardVO> nlist= boardService.noticeList(pb);
 		System.out.println("      AdminController/notice()/진행3 - nlist :"+nlist);
 		if(nlist!=null&&!nlist.isEmpty()) {												 // 공지사항이 있거나 비어있지 않을 때
-			lvo.setList(nlist);															 // list와 pagingBean을 ListVO에 셋팅
-			lvo.setPagingBean(pb);
-			System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
-		}			
+			lvo.setList(nlist);	
+		}		
+		lvo.setPagingBean(pb);
+		System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("board/notice.tiles");		
 		System.out.println("      AdminController/notice()/종료");
@@ -603,7 +602,7 @@ public class AdminController {
 		
 	//[정현][11/25][ 공지사항 등록 후 공지사항 리스트로 ]
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="registerNotice.do", method=RequestMethod.GET)	
+	@RequestMapping(value="registerNotice.do", method=RequestMethod.POST)	
 	public String registerNotice(HttpServletRequest  request){
 		System.out.println("   	AdminController/registerNotice()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -659,13 +658,30 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("adminNoteList.do")
-	public ModelAndView adminNoteList() {
+	public ModelAndView adminNoteList(HttpServletRequest request) {
 		System.out.println("   	AdminController/adminNoteList()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<NoteVO> list = adminService.getNoteList();
-		System.out.println("   	AdminController/adminNoteList()/진행 list : "+ list);
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		List<NoteVO> list = adminService.getNoteList(pb);
+		System.out.println("   	AdminController/adminNoteList()/진행1 list : "+ list);
+		ListVO<NoteVO> lvo = new ListVO<NoteVO>();
+		if(list!=null&&!list.isEmpty()) {												 // 쪽지함이 있거나 비어있지 않을 때
+			lvo.setList(list);															 // list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/adminNoteList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
 		mv.setViewName("board/note.tiles");
-		mv.addObject("list", list);
+		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminNoteList()/종료");
 		return mv;
 	}

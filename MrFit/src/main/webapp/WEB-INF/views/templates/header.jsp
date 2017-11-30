@@ -19,16 +19,14 @@
 			$("#logoutForm").submit();
 		});
 	});// ready
-</script>
-<script type="text/javascript">
-$(window).scroll(function(){
-    if ($(window).scrollTop() >= 300) {
-       $('header-bottom').css("position","fixed");
-    }
-    else {
-       $('header-bottom').css("position","relative");
-    }
-});
+	$(window).scroll(function(){
+	    if ($(window).scrollTop() >= 300) {
+	       $('header-bottom').css("position","fixed");
+	    }
+	    else {
+	       $('header-bottom').css("position","relative");
+	    }
+	});
 </script>
 
 <!--top-header-->
@@ -40,8 +38,8 @@ $(window).scroll(function(){
 				<div class="search-bar">
 					<input type="text" value="Search" onfocus="this.value = '';"
 						onblur="if (this.value == '') {this.value = 'Search';}"
-						id="searchProduct">
-						 <input type="submit" value="" id="searchProductBtn">
+						id="searchProduct"> <input type="submit" value=""
+						id="searchProductBtn">
 				</div>
 			</div>
 			
@@ -110,6 +108,7 @@ $(window).scroll(function(){
 				<li class="grid"><a href="${pageContext.request.contextPath}/findProductByCategory.do?category=bottom">BOTTOM</a></li>
 				<li class="grid"><a href="${pageContext.request.contextPath}/notice.do">공지사항</a></li>
 				<li class="grid"><a href="${pageContext.request.contextPath}/inquiry.do">고객문의</a></li>
+				<li class="grid"><a href="${pageContext.request.contextPath}/contact.do">Contact Us</a></li>
 			</ul>
 		</div>
 		<div class="clearfix"></div>

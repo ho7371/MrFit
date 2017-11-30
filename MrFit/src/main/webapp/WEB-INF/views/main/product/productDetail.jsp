@@ -54,7 +54,7 @@ $(document).ready(function() {
 		var image=$(".imageSpend").attr("id");
 		alert(image);
 		location.href="${pageContext.request.contextPath}/immediatelyPay.do?pcno="+pcno+
-		"&psno="+psno+"&pno="+pno+"&quantity="+quantity+"&image="+image;
+		"&psno="+psno+"&pno="+pno+"&quantity="+quantity;
 /* 		alert(quantity);
 		alert(psno);
 		alert(pcno);
@@ -230,11 +230,13 @@ ${requestScope.pvo } --%>
 											<li><span>날짜</span></li>
 											<div class="clearfix"></div>
 										</ul>
-										<c:forEach items="${prvolist}" var="list">
+										<!-- 밑에서부터 영훈 수정 -->
+										<c:set value="${prlvo.pagingBean}" var="pb"/>
+										<c:forEach items="${prlvo.list}" var="list" varStatus="order">
 										<ul class="cart-header">
-											<li><span>${list.rno}</span></li>
-											<li><span>${list.content }</span></li>
-											<li><span>${list.color_name} | ${list.size_name }</span></li>
+											<li><span>${order.count}</span></li>
+											<li><span>${list.content }			</span></li>
+											<li><span>${list.color_name} / ${list.size_name }</span></li>
 											<li><span>${list.id }</span></li>
 											<li><span>${list.regdate }</span></li>
 											<div class="clearfix"></div>
@@ -245,6 +247,30 @@ ${requestScope.pvo } --%>
 							</div>
 						</div>
 					</div>
+					<!-- review table paging처리 -->
+					<div class="container" align="center">
+  					<ul class="pager">
+   						<c:if test="${pb.previousPageGroup==true}">
+   							<li><a href="findProductDetailByPno.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+   						</c:if>
+   						<c:forEach begin="${pb.startPageOfPageGroup}" 
+   								end="${pb.endPageOfPageGroup}" var="pageNum">
+   							<c:choose>
+   								<c:when test="${pageNum==pb.nowPage}">
+									<li>${pageNum}&nbsp;&nbsp;</li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="findProductDetailByPno.do?pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+								</c:otherwise>
+   							</c:choose>
+   						</c:forEach>
+   						<c:if test="${pb.nextPageGroup==true}">
+    						<li><a href="findProductDetailByPno.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+    					</c:if>
+ 					 </ul>
+					</div>
+						
+					
 					<!-- end review table  -->
 					<div class="clearfix"></div>
 				</div>
