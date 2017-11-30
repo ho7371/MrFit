@@ -50,4 +50,12 @@ public interface AdminService {
 
 	int totalPointListCount();
 
+	int adminSearchPointCount(String searchKeyword);
+
+	List<PointVO> adminSearchPoint(Map<String, Object> map);
+
+	int adminSearchPointCountByStatus(String searchKeyword);
+
+	List<PointVO> adminSearchPointByStatus(Map<String, Object> map);
+
 }

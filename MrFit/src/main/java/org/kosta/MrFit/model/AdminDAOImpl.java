@@ -168,6 +168,28 @@ public class AdminDAOImpl implements AdminDAO {
 	public int totalPointListCount() {
 		return template.selectOne("admin.totalPointListCount");
 	}
+	//[현민][포인트 내역 아이디 검색시 개수]
+	@Override
+	public int adminSearchPointCount(String searchKeyword) {
+		return template.selectOne("admin.adminSearchPointCount", searchKeyword);
+	}
+	//[현민][포인트 내역 아이디 검색]
+	@Override
+	public List<PointVO> adminSearchPoint(Map<String, Object> map) {
+		return template.selectList("admin.adminSearchPoint", map);
+	}
+	
+	//[현민][포인트 내역 지급형태 검색시 개수]
+	@Override
+	public int adminSearchPointCountByStatus(String searchKeyword) {
+		return template.selectOne("admin.adminSearchPointCountByStatus",searchKeyword);
+	}
+	//[현민][포인트 내역 지급형태 검색]
+	@Override
+	public List<PointVO> adminSearchPointByStatus(Map<String, Object> map) {
+		return template.selectList("admin.adminSearchPointByStatus", map);
+	}
+	
 	
 }
 

@@ -168,6 +168,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="totalPointListCount" resultType="int">
 	 	select count(*) from point
 	</select>
+	
+	<!-- 아이디로 포인트 이력 검색 : 이력 총 개수 -->
+	<select id="adminSearchPointCount" parameterType="string" resultType="int">
+		select count(*) from point where id like '%' || #{value} || '%'
+	</select>
+	
+	<!-- 아이디로 포인트 이력 검색  -->
+	<select id="adminSearchPoint" parameterType="map" resultType="pointVO">
+		select point_no, id, updown, status, change_date
+		from 
+		(select row_number() over(order by point_no desc) as point_no, 
+		id, updown, status, change_date from point where id = #{id} )
+		where point_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} 
+	</select>
+	
+	<!-- 지급형태로 포인트 이력 검색 : 이력 총 개수-->
+	<select id="adminSearchPointCountByStatus" parameterType="string" resultType="int">
+		select count(*) from point where status = #{value}
+	</select>
+	
+	<!-- 지급형태로 포인트 이력 검색  -->
+	<select id="adminSearchPointByStatus" parameterType="map" resultType="pointVO">
+		select point_no, id, updown, status, change_date
+		from 
+		(select row_number() over(order by point_no desc) as point_no, 
+		id, updown, status, change_date from point where status like '%' || #{status} || '%')
+		where point_no between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} 
+	</select>
 </mapper>
 
 
