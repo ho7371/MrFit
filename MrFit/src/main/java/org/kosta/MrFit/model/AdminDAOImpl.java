@@ -190,18 +190,20 @@ public class AdminDAOImpl implements AdminDAO {
 			return template.selectList("admin.adminSearchPointByStatus", map);
 		}
 	
-	@Override
-	public List<ProductDetailVO> updateProductForm(String pno) {
-		//template.selectList("product.findProductDetailList",pno);
-		//findProductColorList
-		return template.selectList("admin.updateProductForm",pno);
-	}
-
-	@Override
-	public void updateProductInventory(ProductDetailVO pdvo) {
-		template.update("admin.updateProductInventory", pdvo);
+		//[재현][상품 재고 수정 폼]
+		@Override
+		public List<ProductDetailVO> updateProductForm(String pno) {
+			//template.selectList("product.findProductDetailList",pno);
+			//findProductColorList
+			return template.selectList("admin.updateProductForm",pno);
+		}
 		
-	}
+		//[재현][상품 재고 업데이트]
+		@Override
+		public void updateProductInventory(ProductDetailVO pdvo) {
+			template.update("admin.updateProductInventory", pdvo);
+			
+		}
 	
 }
 

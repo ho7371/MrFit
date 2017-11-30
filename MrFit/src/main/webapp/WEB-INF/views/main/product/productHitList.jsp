@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#selectProductType").change(function() {	
+		location.href="${pageContext.request.contextPath}/home.do";
+	});//selectProductType click
+});//ready
+</script>
 <!--banner-starts-->
 <div class="bnr" id="home">
 	<div id="top" class="callbacks_container">
@@ -89,6 +95,10 @@
 	</div>
 </div>
 <!--end-banner-bottom-->
+<select id="selectProductType">
+	<option>신상품순</option>
+	<option selected="selected">조회순</option>
+</select>
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
@@ -126,7 +136,7 @@
 	<ul class="pagination">
 		<c:if test="${pb.previousPageGroup==true}">
    			<li>
-   				<a href="findProductByCategory.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
+   				<a href="productListByHit.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
    			</li>
    			</c:if>
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -136,7 +146,7 @@
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="findProductByCategory.do?pageNopageNo=${pageNum}">${pageNum}</a>
+							<a href="productListByHit.do?pageNopageNo=${pageNum}">${pageNum}</a>
 							&nbsp;&nbsp;
 						</li>
 					</c:otherwise>
@@ -144,7 +154,7 @@
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="findProductByCategory.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="productListByHit.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		

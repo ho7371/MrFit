@@ -62,4 +62,5 @@ public interface AdminService {
 
 	void updateProductInventory(ProductDetailVO pdvo);
 
+	
 }

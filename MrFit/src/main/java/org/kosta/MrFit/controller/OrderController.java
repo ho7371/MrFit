@@ -269,7 +269,6 @@ public class OrderController {
 	
 	/**[석환][11.23][주문결제]
 	 * 
-	 * 
 	 * @param payPoint,depositMethod,ovo
 	 * @return id=> vo.getId()
 	 */
@@ -303,6 +302,7 @@ public class OrderController {
 	/**
 	 * [영훈][11/24][회원 주문내역 상태변경]
 	 * [석환][11/25][구매 확정시 포인트 및 멤버 총 토탈금액 수정]
+	 * [현민][11/30][포인트 이력 작성]
 	 * 회원이 주문완료시 주문상태를 구매확정으로 변경한다
 	 * @param request
 	 * @return
@@ -323,6 +323,10 @@ public class OrderController {
 		int percent=orderService.findMemberGradePointPercent(gvo.getGrade());	// 포인트 적립 비율 		
 		mvo.setPoint(totalprice*percent/100);
 		orderService.updateOrderMembetPoint(mvo);								// 구매확정시 멤버포인트 업데이트
+		Map<String, Object> map = new HashMap<String, Object>();				// 포인트 이력에 작성될 
+		map.put("point", totalprice*percent/100);								// 사용 포인트 
+		map.put("id", mvo.getId());												// 회원 id를 
+		orderService.reportPoint(map);											// 포인트 이력 작성
 		System.out.println("      OrderController/myOrderStatusChange()/종료 id : "+id);
 		return "redirect:myOrderList.do?id="+id;
 	}
@@ -354,6 +358,7 @@ public class OrderController {
 		opvo.setPdno(pdno);
 		opvo.setQuantity(quantity);
 		orderService.immediatelyPayRegisterOrderpProduct(opvo);
+		
 		model.addAttribute("image", image);
 		model.addAttribute("totalprice", totalprice);
 		model.addAttribute("pvo", pvo);

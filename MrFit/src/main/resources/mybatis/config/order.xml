@@ -333,6 +333,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findMemberPointById" parameterType="string" resultType="int">
 		select point from member where id=#{value}
 	</select>
+	
+	<!-- [현민][11.30] 포인트 작성 -->
+	<insert id="reportPoint" parameterType="map">
+		insert into point(point_no, id, updown, change_date)
+		values(point_no_seq.nextval, #{id}, #{point}, sysdate)
+	</insert>
 </mapper>
 
 

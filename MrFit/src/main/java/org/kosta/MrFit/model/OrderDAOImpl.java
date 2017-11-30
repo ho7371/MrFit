@@ -279,4 +279,9 @@ public class OrderDAOImpl implements OrderDAO {
 	public int findMemberPointById(String id) {
 		return template.selectOne("order.findMemberPointById", id);
 	}
+	// [현민][11/30] 포인트 이력 작성
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		template.insert("order.reportPoint",map);
+	}
 }

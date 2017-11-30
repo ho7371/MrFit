@@ -38,12 +38,16 @@
 							value="<sec:authentication property="principal.email"/>"
 							readonly="readonly">
 					</div>
-					<div class="address">
+					<div class="address" align="center">
 						<form action="${pageContext.request.contextPath}/updateMemberForm.do">
-							<input type="submit" value="정보수정">
+							<input type="submit" value="정보수정">							
 						</form>
 					</div>
-				</form>
+					<div class="address" align="center">					
+						<form action="${pageContext.request.contextPath}/updateStatusMember.do">
+							<input type="submit" value="회원탈퇴">														
+						</form>
+					</div>
 			</div>
 			<div class="col-md-6 account-left"></div>
 			<div class="clearfix"></div>

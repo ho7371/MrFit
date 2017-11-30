@@ -242,4 +242,9 @@ public class OrderServiceImpl implements OrderService {
 	public int findMemberPointById(String id) {
 		return orderDAO.findMemberPointById(id);
 	}
+
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		orderDAO.reportPoint(map);
+	}
 }
