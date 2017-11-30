@@ -311,6 +311,20 @@ public class ProductServiceImpl implements ProductService {
 	public int getTotalProductReviewCount() {
 		return productDAO.getTotalProductReviewCount();
 	}
+	@Override
+	public void hitUpByPno(String pno) {
+		System.out.println("            ProductServiceImpl/hitUpByPno()/시작");
+		productDAO.hitUpByPno(pno);
+		System.out.println("            ProductServiceImpl/hitUpByPno()/종료");
+		
+	}
+	@Override
+	public List<ProductVO> productListByHit(PagingBean pb) {
+		System.out.println("            ProductServiceImpl/productListByHit()/시작");
+		List<ProductVO> ProductList=productDAO.productListByHit(pb);
+		System.out.println("      		ProductServiceImpl/productListByHit()/종료 - ProductList:"+ProductList);
+		return ProductList;
+	}
 
 		
 }

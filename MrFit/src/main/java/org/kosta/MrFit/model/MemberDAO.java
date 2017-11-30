@@ -39,6 +39,10 @@ public interface MemberDAO {
 
 	int totalNoteCount(String id);
 
+	void updateStatusMember(String memberId);
+
+	void deleteAuth(String memberId);
+
 
 	
 }

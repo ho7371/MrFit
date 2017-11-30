@@ -107,6 +107,44 @@ public class HomeController {
 		return mv;
 	}
 
+	/**[정현][11/30][조회순 상품 리스트 ]
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("productListByHit.do")
+	public ModelAndView productListByHit(HttpServletRequest request,Model model){
+		if(SecurityContextHolder.getContext().getAuthentication().getPrincipal()!="anonymousUser") {			
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			orderService.findImmediatelyPayGarbage(vo.getId());
+		}
+		System.out.println("      HomeController/productListByHit()/시작");
+		ModelAndView mv = new ModelAndView();
+		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
+		
+			/* 페이징 처리 공통 영역 */
+			int totalCount = productService.getTotalProductCount();
+			int postCountPerPage = 9;
+			int postCountPerPageGroup = 5;
+			int nowPage = 1;
+			String pageNo = request.getParameter("pageNo");
+				if(pageNo != null) {
+					nowPage = Integer.parseInt(pageNo);
+				}
+			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		
+		List<ProductVO> productList=productService.productListByHit(pb);
+		System.out.println("      HomeController/productListByHit()/진행 - productList :"+productList);
+		if(productList!=null&&!productList.isEmpty()) {
+			lvo.setList(productList);
+			lvo.setPagingBean(pb);
+		}
+			
+		mv.addObject("lvo", lvo);		
+		mv.setViewName("product/productHitList.tiles");
+		System.out.println("      HomeController/productListByHit()/종료");
+		return mv;
+	}
 	
 	/**[현민][11/27][고객문의 리스트]
 	 * 
