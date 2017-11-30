@@ -11,6 +11,20 @@ $(document).ready(function() {
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
+		
+		// 영훈 : 리뷰 리스트(페이징처리까지) Ajax작업 
+		/* $.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath}/productReviewListAjax.do",				
+				data:"pno="+pno,	
+				success:function(data){	
+					
+				}//callback			
+			});//ajax */
+		
+		
+		
+		
 		//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
 		$("#colorCheck").change(function() {
 						pcno = $(this).val();
