@@ -19,13 +19,14 @@
 	
 		<form action="${pageContext.request.contextPath}/admin/FindProductByName.do">
 			<input type="text" name="keyword" placeholder="상품검색">
-			<input type="submit" value="검색">
+			<input type="submit" value="검색"><hr>
 		</form>
-		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do" type="button" class="btn btn-default">상품등록</a> &nbsp; 
+		
 	
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>상품목록</h3>
+				<div align="right"><a href="${pageContext.request.contextPath}/admin/registerProductForm.do" type="button" class="btn btn-default">상품등록</a></div> 
 				<div class="in-check">
 					<ul class="unit">
 						<li><span>사진</span></li>

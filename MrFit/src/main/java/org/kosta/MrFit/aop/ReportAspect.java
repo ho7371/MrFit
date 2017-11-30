@@ -1,7 +1,5 @@
 package org.kosta.MrFit.aop;
 
-import java.util.List;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,8 +11,7 @@ public class ReportAspect {
 
 	//private Log log = LogFactory.getLog(getClass());
 
-	@SuppressWarnings("rawtypes")
-	@Around("execution(public * org.kosta.MrFit.model.*ServiceImpl.*(..))")
+	@Around("execution(public * org.kosta.MrFit..*.*(..))")
 	//@Around("execution(public * org.kosta.MrFit.*Controller.*(..)) or execution(public * org.kosta.MrFit.*Service*.*(..)) or execution(public * org.kosta.MrFit.*DAO*.*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
 		Object retValue=null;
@@ -23,12 +20,11 @@ public class ReportAspect {
 		String methodName=point.getSignature().getName();
 		
 		try {
+			System.out.println("*aop proceed: "+className+" "+methodName+" "+retValue);
 			retValue=point.proceed();
-			
-			System.out.println("*aop: "+className+" "+methodName);
 		} finally {
-			if (retValue!=null&&retValue instanceof List&&!((List)retValue).isEmpty())
-			System.out.println("*aop: "+className+" "+methodName);
+			if (retValue!=null)
+			System.out.println("*aop fianally: "+className+" "+methodName+" "+retValue);
 		}
 		return retValue;
 	}

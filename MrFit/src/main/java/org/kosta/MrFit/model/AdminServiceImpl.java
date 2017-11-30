@@ -1,12 +1,12 @@
 package org.kosta.MrFit.model;
 
-import java.awt.RenderingHints.Key;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -144,6 +144,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminSearchPointByStatus(map);
 	}
 	
+	@Transactional
 	@Override
 	public List<ProductDetailVO> updateProductForm(String pno) {
 		return adminDAO.updateProductForm(pno);

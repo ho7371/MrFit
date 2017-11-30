@@ -59,7 +59,7 @@
 						   <c:when test="${isAdmin}">
 							   	<p>
 							   		<sec:authentication property="principal.name" />님 <br>
-									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a>
+									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a><br>
 									<a href="${pageContext.request.contextPath}/adminNoteList.do">쪽지함</a>
 								</p>
 								<a href="#" id="logoutAction">로그아웃</a>
