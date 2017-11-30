@@ -18,8 +18,10 @@ import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderProductVO;
+import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.PointVO;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
@@ -386,7 +388,8 @@ public class AdminController {
 	}
 	
 	/** 
-	 * [영훈][관리자 포인트지급 기능]
+	 * [영훈][관리자 포인트 지급 기능]
+	 * [현민][관리자 포인트 지급 이력 작성]
 	 * @param mvo
 	 * @return
 	 */
@@ -395,6 +398,13 @@ public class AdminController {
 	public String adminGivePointToMember(MemberVO mvo) {
 		System.out.println("   	AdminController/adminGivePointToMember()/시작 - 포인트 지급할 회원 :"+mvo);
 		adminService.adminGivePointToMember(mvo);
+		if(mvo.getPoint()!=0) {
+			Map<String, Object> map = new HashMap<String, Object>();				// 포인트 이력에 작성될 
+			map.put("point", mvo.getPoint());										// 지급 포인트 
+			map.put("id", mvo.getId());												// 회원 id를 
+			map.put("status", "관리자 지급");											// 지급 형태
+			adminService.reportPoint(map);											// 포인트 이력 작성
+		}
 		return "redirect:adminSearchMember.do?id="+mvo.getId();
 	}
 	
@@ -658,13 +668,30 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("adminNoteList.do")
-	public ModelAndView adminNoteList() {
+	public ModelAndView adminNoteList(HttpServletRequest request) {
 		System.out.println("   	AdminController/adminNoteList()/시작");
 		ModelAndView mv = new ModelAndView();
-		List<NoteVO> list = adminService.getNoteList();
-		System.out.println("   	AdminController/adminNoteList()/진행 list : "+ list);
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		List<NoteVO> list = adminService.getNoteList(pb);
+		System.out.println("   	AdminController/adminNoteList()/진행1 list : "+ list);
+		ListVO<NoteVO> lvo = new ListVO<NoteVO>();
+		if(list!=null&&!list.isEmpty()) {												 // 쪽지함이 있거나 비어있지 않을 때
+			lvo.setList(list);															 // list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/adminNoteList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
 		mv.setViewName("board/note.tiles");
-		mv.addObject("list", list);
+		mv.addObject("lvo", lvo);
 		System.out.println("   	AdminController/adminNoteList()/종료");
 		return mv;
 	}
@@ -710,6 +737,36 @@ public class AdminController {
 		mv.setViewName("admin/orderProductInfo.tiles");
 		mv.addObject("list", list);
 		System.out.println("   	AdminController/orderProductInfo()/종료 ");
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminPointList.do")
+	public ModelAndView adminPointList(HttpServletRequest request) {
+		System.out.println("   	AdminController/adminPointList()/시작 ");
+		ModelAndView mv = new ModelAndView();
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = adminService.totalPointListCount();			// 보여줄 포인트 이력 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	AdminController/adminNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		List<PointVO> list = adminService.adminPointList(pb);
+		System.out.println("   	AdminController/adminPointList()/진행 list :  "+list);
+		ListVO<PointVO> lvo = new ListVO<PointVO>();
+		if(list != null && !list.isEmpty()) {
+			lvo.setList(list);															 // list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      AdminController/adminPointList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
+		mv.setViewName("admin/adminPointList.tiles");
+		mv.addObject("lvo", lvo);
+		System.out.println("   	AdminController/adminPointList()/종료 ");
 		return mv;
 	}
 }

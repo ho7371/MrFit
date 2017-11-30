@@ -34,6 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	from member
     	where status=#{value}
     </select>
+
+    <!-- <resultMap type="orderVO" id="ORM">
+    	<result column="ono" property="ono"/>
+    	<result column="totalprice" property="totalprice"/>
+    	<result column="ordertime" property="ordertime"/>
+    	<result column="status" property="status"/>
+    </resultMap>-->
     
     <!-- 회원 활성상태 업데이트 -->
     <update id="adminUpdateMemberStatus" parameterType="string">
@@ -53,8 +60,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	set point=point+#{point} 
     	where id=#{id}
     </update>
-    
-   
     
    <!-- 상품삭제 -->
 	<delete id="deleteProduct" parameterType="string">
@@ -136,10 +141,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 쪽지 리스트 -->
 	<select id="getNoteList" resultType="noteVO">
 		select note_no, content, send_date, id 
-		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note )
+		where note_no between #{startRowNumber} and #{endRowNumber} 
 	</select>
 	
 	
+	<!-- 쪽지함 개수 -->
+	<select id="totalNoteCount" resultType="int">
+		select count(*) from note
+	</select>
+	
+	<!-- 관리자 포인트 지급 이력 작성 -->
+	<insert id="reportPoint" parameterType="map">
+		insert into point(point_no, id, updown, change_date, status)
+		values(point_no_seq.nextval, #{id}, #{point}, sysdate, #{status})
+	</insert>
+	
+	<!-- 포인트 내역 -->
+	<select id="adminPointList" resultType="pointVO" parameterType="pagingBean">
+		select point_no, id, updown, status, change_date
+		from (select row_number() over(order by point_no desc) as point_no, id, updown, status, change_date from point)
+		where point_no between #{startRowNumber} and #{endRowNumber}
+	</select>
+	
+	<!-- 포인트 내역 개수 -->
+	<select id="totalPointListCount" resultType="int">
+	 	select count(*) from point
+	</select>
 </mapper>
 
 

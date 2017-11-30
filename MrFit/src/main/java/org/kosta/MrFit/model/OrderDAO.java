@@ -81,4 +81,6 @@ public interface OrderDAO {
 	List<ImageVO> findProductImageByPdno(String pno);
 
 	int findMemberPointById(String id);
+
+	void reportPoint(Map<String, Object> map);
 }

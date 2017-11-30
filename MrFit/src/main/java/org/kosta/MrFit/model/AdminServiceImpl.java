@@ -78,8 +78,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<NoteVO> getNoteList() {
-		return adminDAO.getNoteList();
+	public List<NoteVO> getNoteList(PagingBean pb) {
+		return adminDAO.getNoteList(pb);
 	}
 
 	@Override
@@ -100,10 +100,29 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteProduct(String pno) {
-
 		adminDAO.deleteProduct(pno);
-		
 	}
+
+	@Override
+	public int totalNoteCount() {
+		return adminDAO.totalNoteCount();
+	}
+
+	@Override
+	public void reportPoint(Map<String, Object> map) {
+		adminDAO.reportPoint(map);
+	}
+
+	@Override
+	public List<PointVO> adminPointList(PagingBean pb) {
+		return adminDAO.adminPointList(pb);
+	}
+
+	@Override
+	public int totalPointListCount() {
+		return adminDAO.totalPointListCount();
+	}
+	
 	
 }
 

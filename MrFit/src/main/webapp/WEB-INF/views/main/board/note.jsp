@@ -64,7 +64,7 @@
 						<%-- 쪽지함 돌릴 때 사용할 코드 --%>
 						<c:choose>
 							<c:when test="${isAdmin}"> <!-- 관리자가 보는 쪽지 리스트 -->
-								<c:forEach items="${requestScope.list}" var="i">
+								<c:forEach items="${requestScope.lvo.list}" var="i">
 									<ul class="cart-header">
 										<li><span>${i.note_no}</span></li>
 										<li><span>${i.id}</span></li>
@@ -75,7 +75,7 @@
 								</c:forEach>
 							</c:when>
 							<c:otherwise><!-- 회원이 보는 쪽지 리스트 -->
-								<c:forEach items="${requestScope.list}" var="i">
+								<c:forEach items="${requestScope.lvo.list}" var="i">
 									<ul class="cart-header">
 										<li><span>${i.note_no}</span></li>
 										<li><span>관리자</span></li>
@@ -86,32 +86,77 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose> 
-					
-					
-					<!-- <ul class="cart-header">
-						<li><span>1</span></li>
-						<li><span>1번 쪽지 제목</span></li>
-						<li><span>포인트가 지급되었습니다!</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>2</span></li>
-						<li><span>2번 쪽지 제목</span></li>
-						<li><span>포인트가 차감되었습니다!</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>3</span></li>
-						<li><span>3번 쪽지 제목</span></li>
-						<li><span>크리스마스 이벤트!!</span></li>
-						<li><span>2017/11/19</span></li>
-						<div class="clearfix"></div>
-					</ul> -->
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!--end-ckeckout-->
+
+<%-- 페이징 처리 --%>
+<c:choose>
+	<c:when test="${isAdmin}"><!-- 관리자가 보는 페이징 -->
+		<div class="pagingInfo" align="center">
+			<ul class="pagination">
+				<c:set value="${lvo.pagingBean}" var="pb"/>
+				<c:if test="${pb.previousPageGroup==true}">
+		   			<li>
+		   				<a href="adminNoteList.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a>
+		   			</li>
+		   			</c:if>
+		   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+			   			
+			   				<c:choose>
+			   					<c:when test="${pageNum==pb.nowPage}">
+									<li><a>${pageNum}</a>&nbsp;</li>
+								</c:when>
+							<c:otherwise>
+								<li>
+									<a href="adminNoteList.do?nowPage=${pageNum}">${pageNum}</a>
+									&nbsp;
+								</li>
+							</c:otherwise>
+		   				</c:choose>
+		   			</c:forEach>
+		   			<c:if test="${pb.nextPageGroup==true}">
+		    			<li>
+		    				<a href="adminNoteList.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a>
+		    			</li>
+		    		</c:if>
+			</ul>	 		
+		</div>
+	</c:when>
+	<c:otherwise><!-- 회원이 보는 페이징 -->
+		<div class="pagingInfo" align="center">
+			<ul class="pagination">
+				<c:set value="${lvo.pagingBean}" var="pb"/>
+				<c:if test="${pb.previousPageGroup==true}">
+		   			<li>
+		   				<a href="memberNoteList.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a>
+		   			</li>
+		   			</c:if>
+		   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+			   			
+			   				<c:choose>
+			   					<c:when test="${pageNum==pb.nowPage}">
+									<li><a>${pageNum}</a>&nbsp;</li>
+								</c:when>
+							<c:otherwise>
+								<li>
+									<a href="memberNoteList.do?nowPage=${pageNum}">${pageNum}</a>
+									&nbsp;
+								</li>
+							</c:otherwise>
+		   				</c:choose>
+		   			</c:forEach>
+		   			<c:if test="${pb.nextPageGroup==true}">
+		    			<li>
+		    				<a href="memberNoteList.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a>
+		    			</li>
+		    		</c:if>
+			</ul>	 		
+		</div>
+	</c:otherwise>
+</c:choose>
+
+

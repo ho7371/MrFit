@@ -70,4 +70,6 @@ public interface OrderService {
 
 	int findMemberPointById(String id);
 
+	void reportPoint(Map<String, Object> map);
+
 }

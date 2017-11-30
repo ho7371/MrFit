@@ -102,6 +102,7 @@ CREATE TABLE point (
    id VARCHAR2(100) NOT NULL, 
    updown NUMBER NOT NULL,
    change_date date NOT NULL,
+   status VARCHAR2(100) default '상품구입',
    constraint fk_id_in_point foreign key(id) references member(id)
 );
 
@@ -291,3 +292,4 @@ select * from PRODUCT_SIZE;
 select * from REVIEW;
 select * from PRODUCT_QNA;
 select * from BOARD;
+

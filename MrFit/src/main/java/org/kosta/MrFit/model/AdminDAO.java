@@ -35,9 +35,17 @@ public interface AdminDAO {
 	
 	void sendMessage(Map<String, Object> map);
 
-	List<NoteVO> getNoteList();
+	List<NoteVO> getNoteList(PagingBean pb);
 
 	List<OrderProductVO> orderProductInfo(String ono);
 
 	void deleteProduct(String pno);
+
+	int totalNoteCount();
+
+	void reportPoint(Map<String, Object> map);
+
+	List<PointVO> adminPointList(PagingBean pb);
+
+	int totalPointListCount();
 }
