@@ -214,7 +214,7 @@ public class HomeController {
 			}
 		
 		
-		//[정현][11/29]고객문의 수정폼 
+		//[정현][11/29][고객문의 수정폼 ]
 		@Secured("ROLE_MEMBER")
 		@RequestMapping("updateInquiryForm.do")
 		public ModelAndView updateInquiryForm(HttpServletRequest  request) {
@@ -228,7 +228,7 @@ public class HomeController {
 			System.out.println("   	HomeController/updateInquiryForm()/종료");
 			return mv;
 		}
-		//고객문의 수정 
+		//[정현][11/29][고객문의 수정 ]
 			@Secured("ROLE_MEMBER")
 			@RequestMapping("updateInquiry.do")
 			public String updateInquiry(HttpServletRequest  request) {

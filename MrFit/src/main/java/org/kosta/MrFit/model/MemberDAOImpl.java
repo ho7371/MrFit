@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -121,10 +122,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<NoteVO> memberNoteList(String id) {
+	public List<NoteVO> memberNoteList(Map<String, Object> map) {
 		System.out.println("                  MemberDAOImpl/memberNoteList()/시작");
 		System.out.println("      		      MemberDAOImpl/memberNoteList()/종료");
-		return template.selectList("member.memberNoteList", id);
+		return template.selectList("member.memberNoteList", map);
+	}
+
+	@Override
+	public int totalNoteCount(String id) {
+		System.out.println("                  MemberDAOImpl/totalNoteCount()/시작");
+		System.out.println("      		      MemberDAOImpl/totalNoteCount()/종료");
+		return template.selectOne("member.totalNoteCount", id);
 	}
 	
 }

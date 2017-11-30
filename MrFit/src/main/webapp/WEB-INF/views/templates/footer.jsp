@@ -7,8 +7,7 @@
 			<div class="col-md-3 footer-left">
 				<h3>ABOUT US</h3>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/contact.do">Who We Are</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
+					<li><a href="${pageContext.request.contextPath}/contact.do">Contact Us</a></li>
 					<li><a href="#">Our Sites</a></li>
 					<li><a href="#">In The News</a></li>
 					<li><a href="#">Team</a></li>
@@ -20,7 +19,7 @@
 				<ul>
 					<li><a href="account.html">Your Account</a></li>
 					<li><a href="#">Personal Information</a></li>
-					<li><a href="contact.html">Addresses</a></li>
+					<li><a href="#">Addresses</a></li>
 					<li><a href="#">Discount</a></li>
 					<li><a href="#">Track your order</a></li>
 				</ul>
@@ -55,6 +54,10 @@
 <div class="footer-text">
 	<div class="container">
 		<div class="footer-main">
+			<p class="footer-class">
+				한국소프트웨어기술진흥원 KOSTA 163기 | Mr.Fit 프로젝트 | HotSix팀  <br>
+				만든 이들 : 현진호 | 김석환 | 진영훈 | 유정현 | 신재현 | 이현민
+			</p>
 			<p class="footer-class">
 				© 2015 Free Style All Rights Reserved | Design by <a
 					href="http://w3layouts.com/" target="_blank">W3layouts</a>

@@ -1,6 +1,7 @@
 package org.kosta.MrFit.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -129,10 +130,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<NoteVO> memberNoteList(String id) {
+	public List<NoteVO> memberNoteList(Map<String, Object> map) {
 		System.out.println("            MemberServiceImpl/memberNoteList()/시작");
 		System.out.println("            MemberServiceImpl/memberNoteList()/종료");
-		return memberDAO.memberNoteList(id);
+		return memberDAO.memberNoteList(map);
+	}
+
+	@Override
+	public int totalNoteCount(String id) {
+		return memberDAO.totalNoteCount(id);
 	}
 
 	

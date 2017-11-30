@@ -401,7 +401,8 @@ ul.callbacks_tabs.callbacks2_tabs {
 /*--start-footer-text--*/
 .footer-text {
 	padding: 2em 0px;
-	background: rgba(153, 153, 153, 0.49);
+    border-top: solid 1px #777777;
+    background: rgb(255, 255, 255);
 }
 .footer-main{
 	text-align:center;
@@ -726,11 +727,34 @@ ul.unit li {
 	font-size:1.2em;
 	text-align:center;
 }
+
+.table-board{
+	margin-top: 2em;
+	width: 100%;
+	border: 1px solid #666666;
+}
+.table-board thead tr{
+	background-color: #181b2a;
+	color: white;
+}
+.table-board thead th{
+	font-size:1em;
+	padding: 10px;
+	text-align: center;
+}
+
+.table-board tbody td{
+	text-align: center;
+	border: 1px solid #666666;
+	padding: 10px; 
+}
+
 ul.cart-header,ul.cart-header1{
 	/* padding:1em; */
 	background:#f8f8f8;
 	border-bottom: 1px solid #181b2a;
 }
+
 ul.cart-header2{
 	padding:1em;
 	background:#f8f8f8;

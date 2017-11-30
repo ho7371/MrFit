@@ -1,14 +1,18 @@
 package org.kosta.MrFit.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
+import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.QuestionVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +31,7 @@ public class MemberController {
 	
 	@Resource 		
 	private BCryptPasswordEncoder passwordEncoder;
-	
+	private PagingBean pb;
 	/**[재현][로그인 실패]
 	 * 
 	 * @param 
@@ -328,14 +332,34 @@ public class MemberController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("memberNoteList.do")
-	public ModelAndView memberNoteList() {
+	public ModelAndView memberNoteList(HttpServletRequest request) {
 		System.out.println("    MemberController/memberNoteList()/시작");
-		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO vo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView mv = new ModelAndView();
-		List<NoteVO> list = memberService.memberNoteList(pvo.getId());
+		/* 페이징 처리 공통 영역 */
+		int totalOrderCount = memberService.totalNoteCount(vo.getId());		// 보여줄 쪽지 총 개수
+		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+			if(pageNo != null) {
+				nowPage = Integer.parseInt(pageNo);
+			}
+		pb = new PagingBean(totalOrderCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("   	MemberController/memberNoteList()/진행 누른 페이지 번호 nowPage : "+nowPage);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", vo.getId());
+		map.put("pagingBean", pb);
+		List<NoteVO> list = memberService.memberNoteList(map);
 		System.out.println("    MemberController/memberNoteList()/진행 list : "+list);
+		ListVO<NoteVO> lvo = new ListVO<NoteVO>();
+		if(list!=null&&!list.isEmpty()) {												 // 쪽지함이 있거나 비어있지 않을 때
+			lvo.setList(list);															 // list와 pagingBean을 ListVO에 셋팅
+			lvo.setPagingBean(pb);
+			System.out.println("      MemberController/memberNoteList()/진행2 - 셋팅된 lvo :"+lvo);
+		}
 		mv.setViewName("board/note.tiles");
-		mv.addObject("list", list);
+		mv.addObject("lvo", lvo);
 		System.out.println("    MemberController/memberNoteList()/종료");
 		return mv;
 	}

@@ -5,10 +5,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 	
-	<!--  -->
- 	<resultMap type="memberVO" id="MRM">
- 		<result column="grade" property="gradeVO.grade"/>
- 	</resultMap>
+	 <!-- 회원 리스트 -->
+    <select id="commonMemberList" parameterType="map" resultType="memberVO" resultMap="MRM">
+    	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
+  		from (
+  				select ROW_NUMBER() OVER(ORDER BY totalSpent DESC) AS rnum,
+  				id, name, phone, address, email, point, totalSpent, grade, status
+  				from member 
+  				where status=#{status} 
+  			 ) 
+  		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+    </select>
+	
+	 	<resultMap type="memberVO" id="MRM">
+	 		<result column="grade" property="gradeVO.grade"/>
+	 	</resultMap>
+ 	
+ 	 <!-- 회원 검색 -->
+    <select id="adminSearchMember" parameterType="string" resultType="memberVO">
+    	select id, name, phone, address, email, point, totalSpent, grade, status
+    	from member
+    	where id=#{value} and status=1
+    </select>
+ 	
+     <!-- 활성상태인 회원 수 -->
+    <select id="getTotalCommonMemberCount" parameterType="int" resultType="int">
+    	select count(*) 
+    	from member
+    	where status=#{value}
+    </select>
+
+    <!-- <resultMap type="orderVO" id="ORM">
+    	<result column="ono" property="ono"/>
+    	<result column="totalprice" property="totalprice"/>
+    	<result column="ordertime" property="ordertime"/>
+    	<result column="status" property="status"/>
+    </resultMap>-->
     
     <!-- 회원 활성상태 업데이트 -->
     <update id="adminUpdateMemberStatus" parameterType="string">
@@ -22,57 +54,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	delete from auth where id=#{value}
     </delete>
     
-    <!-- 회원 검색 -->
-    <select id="adminSearchMember" parameterType="string" resultType="memberVO">
-    	select id, name, phone, address, email, point, totalSpent, grade, status
-    	from member
-    	where id=#{value} and status=1
-    </select>
-    
-    <!-- 회원 리스트 -->
-    <select id="commonMemberList" parameterType="map" resultType="memberVO" resultMap="MRM">
-    	select id, name, phone, address, email, point, totalSpent, grade, rnum, status
-  		from (
-  				select ROW_NUMBER() OVER(ORDER BY totalSpent DESC) AS rnum,
-  				id, name, phone, address, email, point, totalSpent, grade, status
-  				from member 
-  				where status=#{status} 
-  			 ) 
-  		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
-    </select>
-    
-    <!-- 활성상태인 회원 수 -->
-    <select id="getTotalCommonMemberCount" parameterType="int" resultType="int">
-    	select count(*) 
-    	from member
-    	where status=#{value}
-    </select>
-
-    <!-- <resultMap type="orderVO" id="ORM">
-    	<result column="ono" property="ono"/>
-    	<result column="totalprice" property="totalprice"/>
-    	<result column="ordertime" property="ordertime"/>
-    	<result column="status" property="status"/>
-    </resultMap>
-    
-    <select id="adminAllOrderList" resultMap="ORM">
-		SELECT o.ono, o.id, o.totalprice, o.ordertime, o.status
-		FROM orders o, order_product op, product_detail pd
-		WHERE o.ono = op.ono and pd.pdno = op.pdno and o.status <![CDATA[ <> ]]> '장바구니'
-    </select> -->
-
-	<!-- 회원 포인트 지급 -->
+   <!-- 회원 포인트 지급 -->
     <update id="adminGivePointToMember" parameterType="memberVO">
     	update member
     	set point=point+#{point} 
     	where id=#{id}
     </update>
     
-    <resultMap type="orderVO" id="MemberRM">
-    	<result column="ono" property="ono"/>
-    	<result column="id" property="memberVO.id"/>
-    	<result column="name" property="memberVO.name"/>
-    </resultMap>
+   <!-- 상품삭제 -->
+	<delete id="deleteProduct" parameterType="string">
+		delete from product where pno=#{value}
+	</delete>
+
+	
+   
     
     <!-- 모든 주문 내역 리스트 -->
     <select id="adminAllOrderList" resultType="orderVO" parameterType="pagingBean" resultMap="MemberRM">
@@ -84,6 +79,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) o, member m 
 		where rnum between #{startRowNumber} and #{endRowNumber} and m.id = o.id 
     </select>
+    
+    	 <resultMap type="orderVO" id="MemberRM">
+	    	<result column="ono" property="ono"/>
+	    	<result column="id" property="memberVO.id"/>
+	    	<result column="name" property="memberVO.name"/>
+	    </resultMap>
 	
 	<!-- 주문 리스트 개수 -->
 	<select id="adminTotalOrderCount" resultType="int">
@@ -91,13 +92,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where status <![CDATA[ <> ]]> '장바구니'
 	</select>
 	
-	<!-- 주문 검색 (아이디로) 개수 -->
+	<!-- 아이디로 주문 검색 : 주문 총 개수 -->
 	<select id="adminSearchMemberOrderCount" parameterType="string" resultType="int">
 		select count(*) from orders 
 		where status <![CDATA[ <> ]]> '장바구니' and id = #{value}
 	</select>
 	
-	<!-- 주문 검색 (아이디로) -->
+	<!-- 아이디로 주문 검색 : 주문 목록 리스트 -->
 	<select id="adminSearchOrder" parameterType="map" resultMap="MemberRM">
 		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
 		from 
@@ -108,27 +109,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber} and m.id = o.id 
 	</select>
 	
-	<!-- 주문번호로 주문 개수 찾기 : 진호 -->
+	<!-- 주문번호로 주문 검색 : 주문 총 개수 -->
 	<select id="adminSearchOrderCountByOrderNumber" parameterType="string" resultType="int">
 		select count(*) from orders where ono=#{value}
 	</select>
 	
-	<!-- 주문검색 (주문번호로) : 진호 -->
+	<!-- 주문번호로 주문 검색 : 하나의 주문 찾기 -->
 	<select id="adminSearchOrderByOno" parameterType="string" resultType="orderVO" resultMap="MemberRM">
 		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination 
 		from orders o, member m	where o.ono=#{value} and o.id=m.id
 	</select>
 
+
+	<!-- 주문 상태 변경 : 주문번호로 주문 검색  -->
+	<select id="adminfindOrderByOno" parameterType="string" resultType="orderVO">
+		select * from orders where ono = #{ono}
+	</select>
 	
 	<!-- 주문 상태 변경 -->
 	<update id="updateOrderStatus" parameterType="map">
 		update orders set status = #{status} where ono = #{ono}
 	</update>
 	
-	<!-- 주문 상태 변경 하기위해 주문 번호로 주문정보 찾기 -->
-	<select id="adminfindOrderByOno" parameterType="string" resultType="orderVO">
-		select * from orders where ono = #{ono}
-	</select>
 	
 	<!-- 쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="map">
@@ -139,13 +141,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 쪽지 리스트 -->
 	<select id="getNoteList" resultType="noteVO">
 		select note_no, content, send_date, id 
-		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note ) 
+		from ( select row_number() over(order by note_no desc) as note_no, content, send_date, id from note )
+		where note_no between #{startRowNumber} and #{endRowNumber} 
 	</select>
 	
-	<!-- 상품삭제 -->
-	<delete id="deleteProduct" parameterType="string">
-		delete from product where pno=#{value}
-	</delete>
+	
+	<!-- 쪽지함 개수 -->
+	<select id="totalNoteCount" resultType="int">
+		select count(*) from note
+	</select>
 </mapper>
 
 

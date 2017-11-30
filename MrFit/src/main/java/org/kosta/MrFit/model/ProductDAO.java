@@ -28,7 +28,7 @@ public interface ProductDAO {
 
 	ProductVO findProductCategoryByPno(String pno);
 	
-	List<ProductReviewVO> findProductReplyByPno(String pno);
+	List<ProductReviewVO> findProductReplyByPno(Map<String, Object> map);
 
 	void registerProductReview(ProductReviewVO prvo);
 
@@ -48,6 +48,8 @@ public interface ProductDAO {
 	String findColorByName(ProductDetailVO pdvo);
 
 	int productTotalCount(String keyword);
+
+	int getTotalProductReviewCount();
 	
 
 }

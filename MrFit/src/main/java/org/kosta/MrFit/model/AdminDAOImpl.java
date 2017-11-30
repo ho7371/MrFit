@@ -42,7 +42,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectOne("admin.getTotalCommonMemberCount",status);
 	}
 
-
+	//[현민][관리자 주문 관리 리스트]
 	@Override
 	public List<OrderVO> adminAllOrderList(PagingBean pb) {
 		System.out.println("                  AdminDAOImpl/adminAllOrderList()/시작 ");
@@ -56,6 +56,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return list;
 	}
 
+	//[현민][관리자 주문 관리 리스트 개수]
 	@Override
 	public int adminTotalOrderCount() {
 		System.out.println("                  AdminDAOImpl/adminTotalOrderCount()/시작 ");
@@ -69,6 +70,7 @@ public class AdminDAOImpl implements AdminDAO {
 		template.update("admin.adminGivePointToMember", mvo);
 	}
 
+	//[현민][관리자 주문관리에서 회원 검색]
 	@Override
 	public List<OrderVO> adminSearchOrder(Map<String, Object> map) {
 		System.out.println("                  AdminDAOImpl/adminSearchOrder()/시작 ");
@@ -83,6 +85,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return list;
 	}
 	
+	//[현민][관리자 주문관리에서 검색시 회원 수]
 	@Override
 	public int adminSearchMemberOrderCount(String memberId) {
 		System.out.println("                  AdminDAOImpl/adminSearchMemberOrderCount()/시작 ");
@@ -90,6 +93,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectOne("admin.adminSearchMemberOrderCount", memberId);
 	}
 
+	//[현민][관리자 주문관리에서 주문상태 변경]
 	@Override
 	public void updateOrderStatus(Map<String, String> map) {
 		System.out.println("                  AdminDAOImpl/updateOrderStatus()/시작 ");
@@ -116,6 +120,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return orderVO;
 	}
 	
+	//[현민][관리자 쪽지보내기]
 	@Override
 	public void sendMessage(Map<String, Object> map) {
 		System.out.println("                  AdminDAOImpl/sendMessage()/시작 ");
@@ -123,11 +128,12 @@ public class AdminDAOImpl implements AdminDAO {
 		template.insert("admin.sendMessage", map);
 	}
 
+	//[현민][쪽지함 리스트]
 	@Override
-	public List<NoteVO> getNoteList() {
+	public List<NoteVO> getNoteList(PagingBean pb) {
 		System.out.println("                  AdminDAOImpl/getNoteList()/시작 ");
 		System.out.println("                  AdminDAOImpl/getNoteList()/종료 ");
-		return template.selectList("admin.getNoteList");
+		return template.selectList("admin.getNoteList",pb);
 	}
 
 	@Override
@@ -140,6 +146,12 @@ public class AdminDAOImpl implements AdminDAO {
 	public void deleteProduct(String pno) {
 		template.delete("admin.deleteProduct",pno);
 		
+	}
+	
+	//[현민][관리자 쪽지함 리스트 개수]
+	@Override
+	public int totalNoteCount() {
+		return template.selectOne("admin.totalNoteCount");
 	}
 	
 }

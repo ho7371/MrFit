@@ -10,21 +10,24 @@
 		<c:forEach items="${requestScope.ovoList}" var="list">
 			totalprice += ${list.totalprice}
 		</c:forEach> */
-		var totalprice=$("#checkTotalprice").text();
+		var totalprice=$("#checkTotalprice").val();
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
 			var pointCharge=$(this).val();
 			if(pointCharge%1000!=0){
 				alert("포인트는 1000단위로 사용가능 합니다");
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
 			}else if(pointCharge>$("#confirmPoint").val()){
 				alert("소유하신 포인트이상 사용 불가!");
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
 			}else if(pointCharge<0){
 				alert("0 포인트 이하로는 사용 불가!");
 				$(this).val(0).focus();
+				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
 			}
 			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
@@ -68,11 +71,11 @@
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod1").prop("checked", true);
 			}
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable1").show();
 		}); // click
 		$("#payMethod2").click(function() {
@@ -80,11 +83,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable3").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod2").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable3").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable2").show();
 		}); // click
 		$("#payMethod3").click(function() {
@@ -92,11 +95,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable4").hide();
 				$("#payMethod3").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable4").hide();
 			$("#payMethodTable3").show();
 		}); // click
 		$("#payMethod4").click(function() {
@@ -104,11 +107,11 @@
 				$("#payMethod1").prop("checked", false);
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
-				$("#payMethodTable1").hide();
-				$("#payMethodTable2").hide();
-				$("#payMethodTable3").hide();
 				$("#payMethod4").prop("checked", true);
 			}
+			$("#payMethodTable1").hide();
+			$("#payMethodTable2").hide();
+			$("#payMethodTable3").hide();
 			$("#payMethodTable4").show();
 		}); // click
 		$("#immediatelyPayOrderCancle").click(function() {
@@ -122,6 +125,8 @@
 </script>
 <!--start-ckeckout-->
 <form action="${pageContext.request.contextPath}/order.do">
+<!-- 토탈 가격 찾기 -->
+	<input id="checkTotalprice" value="${requestScope.totalprice}" style="display: none;">
    <div class="ckeckout">
       <div class="container">
          <div class="ckeckout-top">
@@ -135,7 +140,6 @@
 	               <li><span>Item</span></li>
 					<li><span>Product Name</span></li>		
 					<li><span>Size / Color / Quantity</span> </li>
-					<li><span>Total Price</span></li>
 	               <div class="clearfix"> </div>
 	            </ul>
 	            <ul class="cart-header">
@@ -146,7 +150,7 @@
 	                  </li>    
 							<li><span>${requestScope.pvo.name}</span></li>
 							<li><span>${requestScope.pdvo.productSizeVO.size_name} / ${requestScope.pdvo.color_name} / ${requestScope.quantity}</span></li>
-							<li><span id="checkTotalprice">${requestScope.totalprice}</span></li>
+							<%-- <li><span id="checkTotalprice" >${requestScope.totalprice}</span></li> --%>
 	               <div class="clearfix"> </div>
 	            </ul>
 	         </div>
@@ -169,8 +173,8 @@
 	            	</tr>
 	            	<tr>
 	            		<th>
-	            		<input id="confirmPoint" value="<sec:authentication property='principal.point' />" style="display: none;">
-	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" step="1000" min="0" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : <sec:authentication property="principal.point" /> )</div>
+	            		<input id="confirmPoint" value="${requestScope.point}" style="display: none;">
+	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" step="1000" min="0" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : ${requestScope.point} )</div>
 	            		</th>
 	            	</tr>
 	            </table>
