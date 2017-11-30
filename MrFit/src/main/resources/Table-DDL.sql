@@ -122,7 +122,8 @@ CREATE TABLE product (
    name VARCHAR2(100) NOT NULL,
    price NUMBER NOT NULL,
    content CLOB NOT NULL, 
-   category VARCHAR2(100) NOT NULL
+   category VARCHAR2(100) NOT NULL,
+   hit NUMBER DEFAULT 0 
 );
 
       /* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */   

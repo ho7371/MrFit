@@ -50,6 +50,10 @@ public interface ProductDAO {
 	int productTotalCount(String keyword);
 
 	int getTotalProductReviewCount();
+
+	void hitUpByPno(String pno);
+
+	List<ProductVO> productListByHit(PagingBean pb);
 	
 
 }

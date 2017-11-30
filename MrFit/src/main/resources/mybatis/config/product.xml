@@ -194,6 +194,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from review
 	</select>
 	
+	<!-- [정현][11/30][상품 조회시 hit +!] -->
+	<update id="hitUpByPno" >
+		update product 
+ 		set hit=hit+1	where pno=#{value}
+	</update>
+	
+	<!-- [정현][11/30][조회순 상품 리스트 뽑기] -->
+	<select id="productListByHit" parameterType="pagingBean" resultType="productVO">
+		SELECT pno, name, price, content, category,hit
+		from (select row_number() over(order by hit desc) as
+		rnum,pno,price,name,category,content,hit from Product)
+		product
+		where rnum
+		between #{startRowNumber} and #{endRowNumber}
+		ORDER BY hit DESC
+	</select>
+	
+	
 </mapper>
 
 
