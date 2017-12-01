@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="i.url" property="url" />
 	</resultMap>
 	<!-- [영훈][11.21] 주문 상품 내역 보기 -->
-	<select id="myOrderPrductList" parameterType="map"
+	<select id="myOrderPrductList" parameterType="string"
 		resultMap="OPRM1" resultType="orderProductVO">
 		select op.ono, op.pdno, op.quantity,
 				p.name, p.price, p.category,
@@ -96,20 +96,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				pc.color_name,
 				ps.size_name,
 				i.url
-		from (	select ono, pdno, quantity,
-				row_number() over(order by pdno desc) as rnum
-				from ORDER_PRODUCT where ono = #{ono}) op, 
+		from ORDER_PRODUCT op,
 			PRODUCT p, PRODUCT_DETAIL pd, product_color pc,
 			product_size ps, IMAGE i
-		where  ono = #{ono}
+		where  op.ono = #{value}
 		and pd.pdno = op.pdno 
 		and p.pno = pd.pno 
 		and pd.psno = ps.psno 
 		and pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and rnum between
-		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
-		order by pdno desc		
+		and i.url like '%' || 'thumb' || '%'
 	</select>
 
 	<resultMap type="productVO" id="PRM">

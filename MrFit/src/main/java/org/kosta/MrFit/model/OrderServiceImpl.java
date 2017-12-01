@@ -28,8 +28,8 @@ public class OrderServiceImpl implements OrderService {
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
-		return orderDAO.myOrderPrductList(map);
+	public List<OrderProductVO> myOrderPrductList(String ono) {
+		return orderDAO.myOrderPrductList(ono);
 	}
 
 	// [정현][11/24] 장바구니가 존재하는지 체크

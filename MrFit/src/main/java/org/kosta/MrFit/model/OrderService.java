@@ -8,7 +8,7 @@ public interface OrderService {
 
 	List<OrderVO> myOrderList(Map<String, Object> map);
 
-	List<OrderProductVO> myOrderPrductList(Map<String, Object> map);
+	List<OrderProductVO> myOrderPrductList(String ono);
 
 	int findMyCartCount(String id);
 

@@ -224,23 +224,7 @@ public class OrderController {
 	public ModelAndView myOrderPrductList(String ono, String id, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
-		int totalCount = orderService.getTotalMyOrderProductCount(ono);
-		System.out.println("controller ono의 주문상품개수 : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
-		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
-		if(pageNo != null) {
-			nowPage = Integer.parseInt(pageNo);
-		}
-		PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("controller pb : "+pb);
-		Map<String, Object> map0 = new HashMap<String, Object>();
-		map0.put("ono", ono);
-		map0.put("pagingBean", pb);
-		System.out.println("*************"+map0);
-		List<OrderProductVO> list = orderService.myOrderPrductList(map0);							// 주문번호로 주문상품리스트 생성
-		System.out.println("************** 주문상품 개수 : "+list.size());
+		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
 		for(int i=0;i<list.size();i++) {
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
 			Map<String, String> map = new HashMap<String, String>();								// id,ono,pdno를 이용해 맵 세팅 후 매개변수로 사용
@@ -261,10 +245,8 @@ public class OrderController {
 			}
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 종료");
 		}//for
-		System.out.println("      OrderController/myOrderPrductList()/진행 for문종료 list:" + list);
-		ListVO<OrderProductVO> lvo = new ListVO<OrderProductVO>(list,pb);
-		System.out.println("      OrderController/myOrderPrductList()/종료 lvo:" + lvo);
-		mv.addObject("lvo", lvo);
+		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
+		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}
