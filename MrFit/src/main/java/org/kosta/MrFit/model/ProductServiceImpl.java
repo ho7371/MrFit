@@ -308,8 +308,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	//[영훈][11/29][상품리뷰 총 개수]
 	@Override
-	public int getTotalProductReviewCount() {
-		return productDAO.getTotalProductReviewCount();
+	public int getTotalProductReviewCount(String pno) {
+		return productDAO.getTotalProductReviewCount(pno);
 	}
 	@Override
 	public void hitUpByPno(String pno) {
@@ -325,6 +325,16 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("      		ProductServiceImpl/productListByHit()/종료 - ProductList:"+ProductList);
 		return ProductList;
 	}
-
+	//[석환][11/30][상품문의 총 개수]
+	@Override
+	public int getTotalProductQnaCountByPno(String pno) {
+		return productDAO.getTotalProductQnaCountByPno(pno);
+	}
+	//[석환][11/30][상품문의 페이징 처리]
+	@Override
+	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
+		System.out.println("문의 처리 pno : "+map.get("pno"));
+		return productDAO.findProductQnaByPno(map);
+	}
 		
 }

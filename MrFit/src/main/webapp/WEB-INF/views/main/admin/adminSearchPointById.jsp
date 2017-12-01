@@ -18,7 +18,7 @@
 	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입">상품 구입 이력</a>&nbsp; | &nbsp;
 	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급">관리자 지급 이력</a> &nbsp;
 	<form action="${pageContext.request.contextPath}/adminSearchPoint.do" id="searchTypeForm">
-		<input type="text" name="id" placeholder="아이디">
+		<input type="text" class="searchInput" name="id" placeholder="아이디">
 		<input type="submit" value="검색">
 	</form>
 </div>

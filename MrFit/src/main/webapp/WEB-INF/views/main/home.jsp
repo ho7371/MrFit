@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#selectProductType").change(function() {	
@@ -96,13 +97,14 @@ $(document).ready(function() {
 	</div>
 </div>
 <!--end-banner-bottom-->
-<select id="selectProductType">
-	<option selected="selected">신상품순</option>
-	<option>조회순</option>
-</select>
+
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
+		<select id="selectProductType">
+			<option selected="selected">신상품순</option>
+			<option>조회순</option>
+		</select>
 		<div class="product-one">
 		
 		<c:set value="${lvo.pagingBean}" var="pb" />

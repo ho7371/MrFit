@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.GradeVO;
 import org.kosta.MrFit.model.ImageVO;
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -176,23 +179,26 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderList.do")
-	public ModelAndView myOrderList(String id) {
+	public ModelAndView myOrderList(String id, HttpServletRequest request) {
 		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
-		List<OrderVO> list = orderService.myOrderList(id);
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getStatus().equals("즉시결제")) {
-				list.remove(i);
-			}
+		int totalCount = orderService.getTotalMyOrderCount(id);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
 		}
-		/* 주문 내역에서 장바구니 상태는 포함하지 않기에 remove :리펙토링필요 (xml에서 설정이 용이 : 변경후 추후 2차테스트 시 삭제)
-		 * for(int i=0;i<list.size();i++) {
-				if(list.get(i).getStatus().equals("장바구니")) {
-					list.remove(i);
-				}//for-if
-			}//for
-		*/
-		System.out.println("      OrderController/myOrderList()/종료 list : " + list);
-		return new ModelAndView("order/myOrderList.tiles", "list", list);
+		PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pagingBean", pb);
+		System.out.println("      OrderController/myOrderList()/진행 map : " + map);
+		List<OrderVO> list = orderService.myOrderList(map);
+		System.out.println("      OrderController/myOrderList()/진행 list : " + list);
+		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+		System.out.println("      OrderController/myOrderList()/종료 lvo : " + lvo);
+		return new ModelAndView("order/myOrderList.tiles", "lvo", lvo);
 	}
 	
 	
@@ -216,11 +222,10 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
-	public ModelAndView myOrderPrductList(String ono,String id) {
+	public ModelAndView myOrderPrductList(String ono, String id, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
-		System.out.println("      OrderController/myOrderPrductList()/중간 list :" + list);
 		for(int i=0;i<list.size();i++) {
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
 			Map<String, String> map = new HashMap<String, String>();								// id,ono,pdno를 이용해 맵 세팅 후 매개변수로 사용
@@ -276,7 +281,7 @@ public class OrderController {
 	 */
 	@Transactional
 	@RequestMapping("order.do")
-	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo,HttpServletRequest request) {
+	public String productOrderPayment(int payPoint,String depositMethod,OrderVO ovo,HttpServletRequest request) {
 		System.out.println("      OrderController/productOrderPayment()/시작 매개변수 payPoint : "+payPoint+", depositMethod : "+depositMethod+", ovo : "+ovo);
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String[] pdno=request.getParameterValues("pdno");											// 상품상세번호 수량 배열 세팅
@@ -284,7 +289,8 @@ public class OrderController {
 		System.out.println("      OrderController/productOrderPayment()/진행 사용포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
 		System.out.println("      OrderController/productOrderPayment()/진행 totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		ovo.setStatus(depositMethod);
+		orderService.productOrderPayment(vo, payPoint, ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 상품주문변경 : "+ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 depositMethod : "+depositMethod);
 		for(int i=0;i<pdno.length;i++) {
@@ -396,4 +402,14 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value="kakaoPayComplete.do", method=RequestMethod.POST)
+	//@RequestMapping("kakaoPayComplete.do")
+	@ResponseBody
+	public HashMap<String, String> kakaoPayComplete(String imp_uid) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("imp_uid", imp_uid);
+		System.out.println("      @@@@@ 카카오페이 로그 : "+imp_uid);
+		return map;
+	}
 }

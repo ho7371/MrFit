@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
+<%-- <c:set value="${lvo.pagingBean}" var="pb" /> --%>
+
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
@@ -46,29 +48,33 @@
 						 </form>
 						 <div class="clearfix"></div>
 						</c:if>
-						
-						<!-- <script type="text/javascript">
-							var id = $("#reviewId").val();
-						 	$.ajax({
-					          	type:"post",
-					         	url:"${pageContext.request.contextPath}/reviewCheckAjax.do",
-					         	data:"id="+id+"&pdno=${orderProduct.pdno}",
-					         	beforeSend : function(xhr){  
-				                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-				                },
-					         	success:function(data){
-					         		if(data=="fail"){
-					         			$("#reviewFrom").html("");
-									}else{						
-										$("#reviewFrom").html("상품후기");
-									}			
-					        	}
-					     	}); //ajax
-						</script> -->
-						
 					</ul>
 					</c:forEach>
 				</div>
+				
+				<%-- 페이징 처리 --%>
+				<%-- <div class="container" align="center">
+				  		<ul class="pager">
+				   			<c:if test="${pb.previousPageGroup==true}">
+				   			<li><a href="myOrderPrductList.do?ono=${orderProduct.ono}&id=<sec:authentication property="principal.id"/>&pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+				   			</c:if>
+				   			<c:forEach begin="${pb.startPageOfPageGroup}" 
+				   			end="${pb.endPageOfPageGroup}" var="pageNum">
+				   			<c:choose>
+				   				<c:when test="${pageNum==pb.nowPage}">
+								<li>${pageNum}&nbsp;&nbsp;</li>
+								</c:when>
+								<c:otherwise>
+								<li><a href="myOrderPrductList.do?ono=${orderProduct.ono}&id=<sec:authentication property="principal.id"/>&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+								</c:otherwise>
+				   			</c:choose>
+				   			</c:forEach>
+				   			<c:if test="${pb.nextPageGroup==true}">
+				    		<li><a href="myOrderPrductList.do?ono=${orderProduct.ono}&id=<sec:authentication property="principal.id"/>&pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+				    		</c:if>
+				 		 </ul>
+				</div> --%>
+					
 			</div>
 		</div>
 	</div>

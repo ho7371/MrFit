@@ -22,8 +22,8 @@ public class OrderServiceImpl implements OrderService {
 
 	// [영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
-	public List<OrderVO> myOrderList(String id) {
-		return orderDAO.myOrderList(id);
+	public List<OrderVO> myOrderList(Map<String, Object> map) {
+		return orderDAO.myOrderList(map);
 	}
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
@@ -102,11 +102,11 @@ public class OrderServiceImpl implements OrderService {
 	// [석환][11.23] 주문 결제
 	@Transactional
 	@Override
-	public void productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo) {
+	public void productOrderPayment(MemberVO vo, int payPoint, OrderVO ovo) {
 		// 상품 구매시 포인트 차감
 		orderDAO.updatePointOrder(vo);
 		// 무통장 입금시 입금대기로 변경
-		if (depositMethod == 1) {
+		if (ovo.getStatus().equals("입금대기")) {
 			orderDAO.updateStatusOrder(ovo);
 		}else
 		// 무통장 외 입금시 배송준비중으로 변경
@@ -246,5 +246,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void reportPoint(Map<String, Object> map) {
 		orderDAO.reportPoint(map);
+	}
+	// [영훈][11/30] 회원 주문 총건수
+	@Override
+	public int getTotalMyOrderCount(String id) {
+		return orderDAO.getTotalMyOrderCount(id);
+	}
+	// [영훈][11/30] 회원 주문의 주문상품 총개수
+	@Override
+	public int getTotalMyOrderProductCount(String ono) {
+		return orderDAO.getTotalMyOrderProductCount(ono);
 	}
 }

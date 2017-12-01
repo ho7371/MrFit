@@ -75,9 +75,9 @@
 			};
 			 */
 
-			$().UItoTop({
+			/* $().UItoTop({
 				easingType : 'easeOutQuart'
-			});
+			}); */
 
 		});
 	</script>

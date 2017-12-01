@@ -49,11 +49,13 @@ public interface ProductService {
 
 	int productTotalCount(String keyword);
 
-	int getTotalProductReviewCount();
+	int getTotalProductReviewCount(String pno);
 
 	void hitUpByPno(String pno);
 
 	List<ProductVO> productListByHit(PagingBean pb);
 	
+	int getTotalProductQnaCountByPno(String pno);
 
+	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 }

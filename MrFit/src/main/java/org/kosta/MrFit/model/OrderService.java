@@ -6,7 +6,7 @@ import java.util.Map;
 public interface OrderService {
 	OrderVO findMyCart(String id);
 
-	List<OrderVO> myOrderList(String id);
+	List<OrderVO> myOrderList(Map<String, Object> map);
 
 	List<OrderProductVO> myOrderPrductList(String ono);
 
@@ -26,7 +26,7 @@ public interface OrderService {
 
 	String findPdno(ProductDetailVO pdvo);
 
-	void productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
+	void productOrderPayment(MemberVO vo, int payPoint, OrderVO ovo);
 
 	void myOrderStatusChange(String ono);
 
@@ -71,5 +71,9 @@ public interface OrderService {
 	int findMemberPointById(String id);
 
 	void reportPoint(Map<String, Object> map);
+
+	int getTotalMyOrderCount(String id);
+
+	int getTotalMyOrderProductCount(String ono);
 
 }

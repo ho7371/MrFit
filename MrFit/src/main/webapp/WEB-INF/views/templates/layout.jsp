@@ -11,8 +11,14 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
 	<link href="${pageContext.request.contextPath}/resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
+	
+	<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script> --%>
 	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	
+	<!-- 아임포트 라이브러리 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://service.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
+	
 <style type="text/css">
 	html, body{
 		width: 100%;
@@ -47,11 +53,7 @@
 		<script src="${pageContext.request.contextPath}/resources/js/simpleCart.min.js"></script>
 		<link href="${pageContext.request.contextPath}/resources/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/memenu.js"></script>
-	<script>
-		$(document).ready(function() {
-			$(".memenu").memenu();
-		});
-	</script>
+
 	</head>
 	<body>
 	
