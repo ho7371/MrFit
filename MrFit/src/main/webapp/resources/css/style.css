@@ -327,7 +327,7 @@ ul.callbacks_tabs.callbacks2_tabs {
 /*--end-banner-bottom--*/
 /*--start-shoes--*/
 .shoes {
-	padding: 7em 0px;
+	padding: 3em 0px;
 }
 /*--end-shoes--*/
 /*--start-abt-shoe--*/
@@ -523,7 +523,7 @@ ul.callbacks_tabs.callbacks2_tabs {
 	font-weight: 500;
 	font-family: 'Lato', sans-serif;
 }
-.address input[type="submit"] {
+button{
 	background: #97262a;
 	color: #FFF;
 	font-size: 1em;
@@ -538,7 +538,30 @@ ul.callbacks_tabs.callbacks2_tabs {
 	outline: none;
 	margin-left: 10px;
 }
-.address input[type="submit"]:hover {
+
+button:hover{
+	background:#242424;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+}
+
+input[type="submit"] {
+	background: #97262a;
+	color: #FFF;
+	font-size: 1em;
+	padding: 0.5em 1.2em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	display: inline-block;
+	text-transform: uppercase;
+	border: none;
+	outline: none;
+}
+input[type="submit"]:hover {
 	background:#242424;
 	transition: 0.5s all;
 	-webkit-transition: 0.5s all;
@@ -940,15 +963,20 @@ ul.product-qty {
 	font-size: 14px;
 	text-transform: uppercase;
 }
-.product-qty select {
-	border: 1px solid #eee;
+select {
+	height: 40px;
+	border: 1px solid #777;
 	padding: 0.5em;
 	font-size: 1em;
 	outline: none;
 	cursor: pointer;
 }
-.product-qty option {
+option {
 	border: 1px solid #EEE;
+}
+.searchInput{
+	height: 35px; 
+	margin-right: 5px;
 }
 .single-but {
 	margin-top: 1em;
@@ -1204,6 +1232,8 @@ a.simpleCart_empty {
 }
 .header-bottom {
 	padding: 8px 0px 3px 0px;
+	border-bottom: solid 1px #777777;
+	border-top: solid 1px #777777;
 }
 .banner-1, .banner-2, .banner-3, .banner-4 {
 	min-height: 380px;

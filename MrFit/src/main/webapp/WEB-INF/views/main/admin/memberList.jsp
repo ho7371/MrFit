@@ -38,16 +38,22 @@
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>회원목록</h3>
-				<div style="text-align: right;">
-					<form action="${pageContext.request.contextPath}/adminSearchMember.do">&nbsp;
-						<a href="${pageContext.request.contextPath}/commonMemberList.do?status=0">탈퇴회원 목록</a>
-						<input type="text" name="id" placeholder="회원검색">
-						<input type="submit" value="아이디 검색">
-					</form>
+				<h3 style="margin-bottom: 10px;">회원목록</h3>
+				<div>
+					<div>
+						<a href="${pageContext.request.contextPath}/commonMemberList.do?status=0">
+							<button style="float:left;">탈퇴회원 보기</button>
+						</a>
+					</div>
+					<div style="float: right;">
+						<form action="${pageContext.request.contextPath}/adminSearchMember.do">&nbsp;
+							<input type="text" name="id" class="searchInput" placeholder="  회원검색">
+							<input type="submit" value="아이디 검색">
+						</form>
+					</div>
 				</div>
 				
-				<table class="table-board">
+				<table class="table-board" style="margin-top: 5em!important;">
 						<thead>
 						<tr>
 							<th class="title">id</th>
@@ -56,7 +62,7 @@
 							<th>주소</th>
 							<th>email</th>
 							<th>point</th>
-							<th>누적구매금액</th>
+							<th>누적구매액</th>
 							<th>등급</th>
 							<th>강제탈퇴</th>
 							<th>포인트지급</th>
@@ -75,21 +81,22 @@
 								<td>${member.totalSpent}</td>
 								<td>${member.gradeVO.grade}</td>
 								<td>
+									<%-- <a href="${pageContext.request.contextPath}/adminUnregisterMember.do?id=${member.id}" type="button" type="button" class="btn btn-default">삭제</a> --%>
 									<form action="${pageContext.request.contextPath}/adminUnregisterMember.do">
 										<input type="hidden" name="id" value="${member.id}">
-										<input type="submit" value="삭제">
+										<button class="btn btn-default">삭제</button>
 									</form>
 								</td>
 								<td>
 									<form action="${pageContext.request.contextPath}/adminGivePointToMemberForm.do" method="post">
 										<sec:csrfInput/><%-- csrf 토큰 --%>   
 										<input type="hidden" name="id" value="${member.id}">
-										<input type="submit" value="포인트 지급">
+										<button class="btn btn-default">지급</button>
 									</form>
 								</td>
 								<td>
 									<%-- <input type = "hidden" id = "memberId" value = "${member.id}"> --%>
-									<button class="my_popup_open" onclick='selectSend("${member.id}")'>쪽지쓰기</button>
+									<button class="my_popup_open btn btn-default" onclick='selectSend("${member.id}")'>작성</button>
 								</td>
 							</tr>	
 						 </c:forEach>	

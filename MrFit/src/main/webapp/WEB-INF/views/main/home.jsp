@@ -97,13 +97,14 @@ $(document).ready(function() {
 	</div>
 </div>
 <!--end-banner-bottom-->
-<select id="selectProductType">
-	<option selected="selected">신상품순</option>
-	<option>조회순</option>
-</select>
+
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
+		<select id="selectProductType">
+			<option selected="selected">신상품순</option>
+			<option>조회순</option>
+		</select>
 		<div class="product-one">
 		
 		<c:set value="${lvo.pagingBean}" var="pb" />
