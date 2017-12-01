@@ -16,6 +16,7 @@ import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductQnaVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -50,12 +51,10 @@ public class UnitTest {
 			map.put("pagingBean", pb);
 			pb=(PagingBean) map.get("pagingBean");
 			System.out.println(pb.getStartRowNumber());
-			System.out.println(pb.getEndRowNumber());
-			
+			System.out.println(pb.getEndRowNumber());			
 			System.out.println(map.get("pagingBean"));
-			List<ProductQnaVO> pqlist=productService.findProductQnaByPno(map);
-			ListVO<ProductQnaVO> lpqlist=new ListVO<ProductQnaVO>(pqlist,pb);
-			System.out.println(lpqlist);
+			List<ProductReviewVO> pqlist=productService.findProductReplyByPno(map);
+			System.out.println(pqlist);
 	//System.out.println(productService.getTotalProductQnaCountByPno("1"));
 		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
 		 //System.out.println(productService.findProductReplyByPno("1"));

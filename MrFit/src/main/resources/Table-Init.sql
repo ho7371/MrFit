@@ -149,16 +149,16 @@ values(iqrno_seq.nextval,'test2이 작성한 1번째 고객문의에 대한 관�
 --------------- 리뷰 등록
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,1,'test1','test1이 기본상의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,1,'java1','java1 기본상의상품1에 작성한 리뷰내용',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,1,'test2','test2이 기본상의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,1,'java1','java1 기본상의상품1에 작성한 리뷰내용',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,2,'test1','test1이 기본하의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,2,'java1','java1 기본하의상품1에 작성한 리뷰내용',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,2,'test2','test2이 기본하의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,2,'java1','java1 기본하의상품1에 작성한 리뷰내용',sysdate);
 
 --------------- 상품 QnA 등록
 insert into product_qna(pqno,id,pno,content,regdate,security) 

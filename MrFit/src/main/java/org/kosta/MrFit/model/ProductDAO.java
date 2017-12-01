@@ -49,7 +49,7 @@ public interface ProductDAO {
 
 	int productTotalCount(String keyword);
 
-	int getTotalProductReviewCount();
+	int getTotalProductReviewCount(String pno);
 
 	void hitUpByPno(String pno);
 

@@ -152,6 +152,7 @@ public class ProductController {
 	public ModelAndView findProductDetailByPno(String pno,HttpServletRequest request) {
 		System.out.println("   	ProductController/findProductDetailByPno()/시작");
 		ModelAndView mv = new ModelAndView();
+		String checkScroll=request.getParameter("checkScroll");
 		//상품 번호(pno)로 상품 검색
 		ProductVO pvo = productService.findProductDetailByPno(pno);
 		//[정현][11/30] hit에 +1
@@ -174,7 +175,7 @@ public class ProductController {
 		
 		// 해당 상품 리뷰 불러오는 메서드
 		/* 페이징 처리 공통 영역  영훈 추가 */
-		int totalCount = productService.getTotalProductReviewCount();
+		int totalCount = productService.getTotalProductReviewCount(pno);
 		System.out.println("    ProductController/findProductDetailByPno()/리뷰 totalCount : "+totalCount);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
@@ -195,30 +196,34 @@ public class ProductController {
 		// ProductReview paging처리 완료
 		
 		// ProductQnA paging 처리 부분(2차)
+		int nowPqPage = 1;
+		String pqPageNo = request.getParameter("pqPageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		System.out.println(pqPageNo);
+		if(pqPageNo != null) {
+			nowPqPage = Integer.parseInt(pqPageNo);
+		}
 		totalCount=productService.getTotalProductQnaCountByPno(pno);
 		System.out.println(totalCount);
-		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		pb = new PagingBean(totalCount,nowPqPage, postCountPerPage, postCountPerPageGroup);
 		System.out.println(pb.getEndRowNumber());
 		System.out.println(pb.getStartRowNumber());
-	/*	map.put("pno", pno);
-		map.put("paingBean", pb);*/
-		map.put("startRowNumber", pb.getStartRowNumber());
-		map.put("endRowNumber", pb.getEndRowNumber());
-		pb=(PagingBean)map.get("pagingBean");
-		System.out.println(pb.getEndRowNumber());
-		List<ProductQnaVO> pqlist=productService.findProductQnaByPno(map);
+		Map<String, Object> pqmap = new HashMap<String, Object>();
+		pqmap.put("pno", pno);
+		pqmap.put("PaingBean", pb);
+		List<ProductQnaVO> pqlist=productService.findProductQnaByPno(pqmap);
 		ListVO<ProductQnaVO> lpqlist= new ListVO<ProductQnaVO>(pqlist,pb);
 		mv.addObject("lpqlist", lpqlist);
 		System.out.println(lpqlist);
-	/*	if(checkScroll.equals("confirmScroll")) {
-			mv.addObject("checkScroll", checkScroll);
-		}*/
+		//mv.addObject("checkScroll", checkScroll);
+		
 		mv.setViewName("product/productDetail.tiles");
+		mv.addObject("pno", pno);
 		mv.addObject("clist", clist);
 		mv.addObject("pvo", pvo);
 		//해당 상품의 리뷰 리스트 paging처리까지  보내줌
 		mv.addObject("prlvo",prlvo);
 		mv.addObject("id", null);
+		mv.addObject("checkScroll", checkScroll);
 		System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}

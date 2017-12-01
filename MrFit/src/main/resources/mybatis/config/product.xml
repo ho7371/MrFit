@@ -190,8 +190,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- [영훈][11/29][상품리뷰 개수] -->
-	<select id="getTotalProductReviewCount" resultType="int">
-		select count(*) from review
+	<select id="getTotalProductReviewCount" parameterType="string" resultType="int">
+		select count(*) from review r, product_detail pd, product p
+		where r.pdno=pd.pdno and pd.pno=p.pno and p.pno=#{value}
 	</select>
 	
 	<!-- [정현][11/30][상품 조회시 hit +!] -->
@@ -224,7 +225,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				row_number() over(order by pqno desc) as rnum
 			 	from product_qna) r, product p
 		where r.pno=p.pno and p.pno=#{pno} 
-		and rnum between #{startRowNumber} and #{endRowNumber}
+		and rnum between #{PaingBean.startRowNumber} and #{PaingBean.endRowNumber}
 	</select> 
 	
 </mapper>
