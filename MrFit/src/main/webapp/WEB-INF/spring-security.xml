@@ -4,12 +4,15 @@
 	xsi:schemaLocation=" http://www.springframework.org/schema/security 
   					 http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<sec:http security="none" pattern="/kakaoPay**"/>
 <!-- Spring Security 인증처리로직를 정의한 클래스 -->
 <bean name="customizedAuthenticationProvider"
 	class="org.kosta.MrFit.security.MemberAuthenticationProvider" />
 <sec:authentication-manager>
 	<sec:authentication-provider ref="customizedAuthenticationProvider" />
 </sec:authentication-manager>
+
+<!-- <sec:http pattern="/kakaoPayComplete.do" security="none"/> -->
 <!-- 로그인 처리를 위한 설정, 컨트롤러에서는 로그인 로그아웃 관련한 별도의 코딩은 없고 아래 설정이 대체한다 -->
 <sec:http use-expressions="true" disable-url-rewriting="true">
 	<sec:form-login login-page="/home.do"

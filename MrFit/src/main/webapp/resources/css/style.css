@@ -1679,7 +1679,7 @@ a.simpleCart_empty {
 .single-main-left {
 	padding: 0;
 }
-}
+
 @media(max-width:320px){
 .bnr-left {
 	width: 100%;
@@ -1815,6 +1815,11 @@ ul.unit {
 .mask span {
 	font-size: 12px;
 	padding: 3px 9px;
+}
+.main-title{
+	color: #242424;
+    font-size: 2.2em;
+    font-weight: 600;
 }
 .col-md-9.single-main-left {
 	padding: 0;

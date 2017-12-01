@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
-	$(document).ready(function(c) {
+	$(document).ready(function() {
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp55065335'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		
 		var totalprice = ${ovo.totalprice};
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
@@ -56,7 +58,9 @@
 				alert("입금자명을 입력하시기 바랍니다.");
 				return false;
 			}else{	
-				return confirm("구매를 진행 하시겠습니까?");
+				if(confirm("구매를 진행 하시겠습니까?")==true){
+					kakaoPay();
+				};
 			}
 		}); // click
 		$("#payMethodTable2").hide();
@@ -67,7 +71,6 @@
 				$("#payMethod2").prop("checked", false);
 				$("#payMethod3").prop("checked", false);
 				$("#payMethod4").prop("checked", false);
-				
 				$("#payMethod1").prop("checked", true);
 			}
 			$("#payMethodTable2").hide();
@@ -116,48 +119,112 @@
 		}); // click
 	});// ready
 </script>
+<script type="text/javascript">
+function kakaoPay(){
+	alert('카카오페이 결제를 시작합니다. IMP 객체:'+IMP.toString());
+	IMP.request_pay({
+	    pg : 'kakao',
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '주문명:결제테스트',
+	    amount : 1000,
+	    buyer_email : 'MrFit@siot.do',
+	    buyer_name : '구매자미스터핏',
+	    buyer_tel : '010-1234-5678',
+	    buyer_addr : '대왕판교로 유스페이스2',
+	    buyer_postcode : '123-456',
+	    kakaoOpenApp : true
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	    	alert('결제진행중');
+	    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+	    	jQuery.ajax({
+	    		url: "${pageContext.request.contextPath}/kakaoPayComplete.do", //cross-domain error가 발생하지 않도록 주의해주세요
+	    		type: 'POST',
+	    		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	    		dataType: 'json',
+	    		data: {
+		    		imp_uid : rsp.imp_uid
+		    		//기타 필요한 데이터가 있으면 추가 전달
+	    		}
+	    	}).done(function(data) {
+	    		alert('결제 완료');
+	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+	    		if ( everythings_fine ) {
+	    			var msg = '결제가 완료되었습니다.';
+	    			msg += '\n고유ID : ' + rsp.imp_uid;
+	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	    			msg += '\결제 금액 : ' + rsp.paid_amount;
+	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+	    			
+	    			alert(msg);
+	    		} else {
+	    			//[3] 아직 제대로 결제가 되지 않았습니다.
+	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    		}
+	    	});
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	        
+	        alert(msg);
+	    }
+	});
+}
+</script>
 <!--start-ckeckout-->
 <form action="${pageContext.request.contextPath}/order.do">
    <div class="ckeckout">
       <div class="container">
          <div class="ckeckout-top">
-         <div class=" cart-items heading">
-          <div class="in-check">
-          <h3>주문할 상품</h3>
-          </div>
-<%-- 상품 리스트 --%>
-	          <div class="in-check" align="center">
-	            <ul class="unit">
-	               <li><span>Item</span></li>
-					<li><span>Product Name</span></li>		
-					<li><span>Size / Color / Quantity</span> </li>
-	               <div class="clearfix"> </div>
-	            </ul>
-	            <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
-	            <ul class="cart-header">
-	                  		<li class="ring-in"><a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
-	                  		<img alt="이미지~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
-	                  		</a></li>
-							<li><span>${j.name}</span></li>
-							<li><span>${j.size_name} / ${j.color_name} / ${j.quantity}</span></li>
-							<input type="hidden" name="pdno" value="${j.pdno}" style="display:none">
-							<!-- 주문수량과 총수량을 줄여주기 위해서 -->
-							<input type="hidden" name="quantity" value="${j.quantity}" style="display:none">
-	               <div class="clearfix"> </div>
-	            </ul>
-				</c:forEach>
+         	<div class=" cart-items heading">
+          		<div class="in-check">
+          			<h3 class="main-title">주문할 상품</h3>
+          		</div>
+          		
+				<%-- 주문할 상품 목록 테이블 --%>
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>상품사진</th><th>상품명</th><th>사이즈</th><th>색상</th><th>주문수량</th>
+						</tr>
+					</thead>
+					<tbody>
+						 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
+							<tr>
+								<td>
+									<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
+				                		<img alt="이미지~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
+				                	</a>
+								</td>
+								<td>${j.name}</td>
+								<td>${j.size_name}</td>
+								<td>${j.color_name}</td>
+								<td>${j.quantity}</td>
+							</tr>
+						</c:forEach> 
+					</tbody>
+				</table>
+				
+				<%-- 주문할 상품 목록 테이블 --%>
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>주문정보</th>
+						</tr>
+					</thead>
+					<tbody>
+						 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
+							<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
+						</c:forEach> 
+					</tbody>
+				</table>
+				
+				
 	         </div>
-	         <br><br><br>
-<%-- 주문 정보 --%>
-	         <div class = "in-check">
-	         	<ul class="unit">
-	               <li><span></span></li>
-					<li><span></span></li>		
-					<li><span>주문 정보</span> </li>
-					<li><span></span></li>
-	               <div class="clearfix"></div>
-	            </ul>
-	            <br><br><br>
+	         
 	            <table class="cart-header">
 	            	<tr>
 	            		<th>
@@ -259,9 +326,7 @@
 		          		</tr>
 		          		<tr>
 		          			<th>입금 은행 : </th>
-		          			<td>
-		          				우리 은행 : 1002-536-524962 김석환 
-		          			</td>
+		          			<td>우리 은행 : 1002-536-524962 김석환 </td>
 		          			<td></td>
 		          		</tr>
 		          	</table>
@@ -298,7 +363,8 @@
          <div align="right">
          	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
          	<input type="hidden" name="ono" value="${ovo.ono}">
-         	<input class="add-cart cart-check" type ="submit" id="order" value="주문하기">
+         	<!-- <input class="add-cart cart-check" type ="submit" id="order" value="주문하기"> -->
+         	<input class="add-cart cart-check" type ="button" id="order" value="주문하기">
          	<!-- <a href="order.do" class="add-cart cart-check" id = "order">주문하기</a> -->
          </div> 
        </div>

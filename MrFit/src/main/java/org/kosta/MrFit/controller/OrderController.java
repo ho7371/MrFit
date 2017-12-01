@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -388,4 +389,14 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value="kakaoPayComplete.do", method=RequestMethod.POST)
+	//@RequestMapping("kakaoPayComplete.do")
+	@ResponseBody
+	public HashMap<String, String> kakaoPayComplete(String imp_uid) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("imp_uid", imp_uid);
+		System.out.println("      @@@@@ 카카오페이 로그 : "+imp_uid);
+		return map;
+	}
 }
