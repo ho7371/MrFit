@@ -261,6 +261,7 @@ public class OrderController {
 	@ResponseBody
 	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
 		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
+		System.out.println(opvo.getOno());
 		int beforeQuantity=orderService.findBeforeQuantityByOnoAndPdno(opvo); //이전 수량
 		int quantity=opvo.getQuantity();									  //변경될 수량
 		int gapQuantity=quantity-beforeQuantity;							  //변결될 수량-이전 수량
@@ -364,7 +365,7 @@ public class OrderController {
 		int totalprice=quantity*price;
 		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int point=orderService.findMemberPointById(mvo.getId());
-		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시결제",mvo,null);
+		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시주문",mvo,null);
 		orderService.immediatelyPayRegisterOrder(ovo);
 		OrderProductVO opvo=new OrderProductVO();
 		String ono=ovo.getOno();

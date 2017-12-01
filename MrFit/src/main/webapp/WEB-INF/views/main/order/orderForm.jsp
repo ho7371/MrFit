@@ -94,19 +94,20 @@ function kakaoPay(){
 		var totalprice = ${ovo.totalprice};
 		$("#totalprice").text("총 상품금액 : "+totalprice);
 		$("#pointCharge").change(function() {
-			alert($(this).val());
 			var pointCharge=$(this).val();
 			if(pointCharge%1000!=0){
 				alert("포인트는 1000단위로 사용가능 합니다");
 				$(this).val(0).focus();
 				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
-			}else if(pointCharge>$("#membersPoint").val()){
+			}
+			if(parseInt($("#membersPoint").val())<pointCharge){
 				alert("가지고 계신 포인트보다 많이 기입하셨습니다"+"사용할 포인트"+pointCharge+"소유 포인트"+$("#membersPoint").val());
 				$(this).val(0).focus();
 				$("#totalprice").text("총 상품금액 : "+totalprice);
 				return false;
-			}else if(pointCharge<0){
+			}
+			if(pointCharge<0){
 				alert("포인트는 0이상만 기입이 가능합니다");
 				$(this).val(0).focus();
 				$("#totalprice").text("총 상품금액 : "+totalprice);

@@ -199,11 +199,11 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<input type="submit" value="장바구니담기" id= "insertCart"/> 
-									<input type="button" id="immediatelyPay" value="즉시구매"  style="background-color: orange; "/>
+									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; "/>
 								</c:when>
 								<c:otherwise>
 									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
-									<input type="button" id="immediatelyPay" value="즉시구매" disabled="disabled"  style="background-color: orange; "/>
+									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/>
 								</c:otherwise>
 							</c:choose>
 							</div>
@@ -274,8 +274,8 @@ ${requestScope.pvo } --%>
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
 									 <section class="buttons">
-            							<label for="first"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
-            							<label for="second"><a href="#tab2" style="font-size:30px">상품문의</a></label>
+            							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
+            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
         							</section>
         						<!-- 상품리뷰 -->
         						 <div class="tab_item" id="tab1">
@@ -306,29 +306,6 @@ ${requestScope.pvo } --%>
 								    </tbody>
 								 </c:forEach>
 								 </table>									
-									
-								     <%--  <div class="row">
-										<ul class="unit">
-											<li class="col-sm-1"><span>리뷰번호</span></li>
-											<li class="col-sm-5"><span>내용</span></li>
-											<li class="col-sm-2"><span>색상 / 사이즈</span></li>
-											<li class="col-sm-1"><span>작성자</span></li>
-											<li class="col-sm-3"><span>날짜</span></li>
-											<div class="clearfix"></div>
-										</ul>
-									 </div>
-										<!-- 밑에서부터 영훈 수정 -->
-										<c:set value="${prlvo.pagingBean}" var="pb"/>
-										<c:forEach items="${prlvo.list}" var="list" varStatus="order">
-										<ul class="cart-header">
-											<li><span>${list.rno}</span></li>
-											<li><span>${list.content }			</span></li>
-											<li><span>${list.color_name} / ${list.size_name }</span></li>
-											<li><span>${list.id }</span></li>
-											<li><span>${list.regdate }</span></li>
-											<div class="clearfix"></div>
-										</ul>
-										</c:forEach> --%>
 							<!-- review table paging처리 -->
 							<div class="container" align="center">
 			  					<ul class="pager">
@@ -352,8 +329,7 @@ ${requestScope.pvo } --%>
 			 					 </ul>
 								</div>
 							<!-- end review table  -->										
-							</div>
-
+						</div>
 			 </div>
 				<!-- star QnA table -->
 			<div class="tab_item" id="tab2">

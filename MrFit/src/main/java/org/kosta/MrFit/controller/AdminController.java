@@ -475,7 +475,7 @@ public class AdminController {
 		
 		List<OrderVO> orderList = adminService.adminAllOrderList(pb);
 		for(int i=0;i<orderList.size();i++) {
-			if(orderList.get(i).getStatus().equals("즉시결제")) {
+			if(orderList.get(i).getStatus().equals("즉시주문")) {
 				orderList.remove(i);
 			}
 		}

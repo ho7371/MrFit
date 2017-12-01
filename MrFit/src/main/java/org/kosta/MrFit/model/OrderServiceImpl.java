@@ -221,7 +221,7 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderVO> olist=orderDAO.findImmediatelyPayGarbage(id);
 
 		for(int i=0;i<olist.size();i++) {
-			if(olist.get(i).getStatus().equals("즉시결제")) {
+			if(olist.get(i).getStatus().equals("즉시주문")) {
 				orderDAO.deleteImmediatelyPayGarbageOrdersProduct(olist.get(i).getOno());
 				orderDAO.deleteImmediatelyPayGarbageOrders(olist.get(i).getOno());
 			}
