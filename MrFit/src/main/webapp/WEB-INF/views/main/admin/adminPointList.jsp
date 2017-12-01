@@ -30,26 +30,26 @@
 				</div>
 				<%-- 포인트 이력 테이블 --%>
 				<table class="table-board">
-						<thead>
-						<tr class="success">
-							<th class="title">번호</th>
-							<th>회원ID </th>
-							<th>포인트 </th>
-							<th>지급시각</th>
-							<th>지급형태</th>
-							</tr>
-						</thead>
-						<c:forEach var="point" items="${lvo.list}" varStatus="i">	
-							<tbody>						
-								<tr>
-								    <td>${point.point_no}</td>				
-									<td>${point.id}</td>
-									<td>${point.updown}</td>
-									<td>${point.change_date}</td>
-									<td>${point.status}</td>
-								</tr>	
-							</tbody>					
-						</c:forEach>
+					<thead>
+					<tr class="success">
+						<th class="title">번호</th>
+						<th>회원ID </th>
+						<th>포인트 </th>
+						<th>지급시각</th>
+						<th>지급형태</th>
+						</tr>
+					</thead>
+						<tbody>						
+							<c:forEach var="point" items="${lvo.list}" varStatus="i">	
+									<tr>
+									    <td>${point.point_no}</td>				
+										<td>${point.id}</td>
+										<td>${point.updown}</td>
+										<td>${point.change_date}</td>
+										<td>${point.status}</td>
+									</tr>	
+							</c:forEach>
+						</tbody>					
 					</table>
 					
 				<%-- 페이징 처리 --%>
