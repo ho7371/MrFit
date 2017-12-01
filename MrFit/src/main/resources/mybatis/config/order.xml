@@ -62,31 +62,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<!-- [영훈][11.21] 주문 내역 보기 -->
-	<select id="myOrderList" parameterType="string" resultType="orderVO"
+	<select id="myOrderList" parameterType="map" resultType="orderVO"
 		resultMap="ORM2">
 		select ono, totalprice, ordertime, status, id, destination
-		from orders
-		where id=#{value} and status!='장바구니'
+		from (	select ono, totalprice, ordertime, status, id, destination,
+				row_number() over(order by ono desc) as rnum
+				from orders
+				)
+		where id=#{id} and status!='장바구니' and status!='즉시결제'
+		and rnum between
+		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
 		order by ono desc
 	</select>
-
+	
+	<resultMap type="orderProductVO" id="OPRM1">
+		<result column="op.ono" property="pno" />
+		<result column="op.pdno" property="pdno" />
+		<result column="op.quantity" property="quantity" />
+		<result column="p.name" property="name" />
+		<result column="p.price" property="price" />
+		<result column="p.category" property="category" />
+		<result column="pd.pno" property="pno" />
+		<result column="pc.color_name" property="color_name" />
+		<result column="ps.size_name" property="size_name" />
+		<result column="i.url" property="url" />
+	</resultMap>
 	<!-- [영훈][11.21] 주문 상품 내역 보기 -->
-	<select id="myOrderPrductList" parameterType="string"
-		resultType="orderProductVO">
+	<select id="myOrderPrductList" parameterType="map"
+		resultMap="OPRM1" resultType="orderProductVO">
 		select op.ono, op.pdno, op.quantity,
-		p.name, p.price, p.category,
-		pd.pno,
-		pc.color_name,
-		ps.size_name,
-		i.url
-		from ORDER_PRODUCT op, PRODUCT p, PRODUCT_DETAIL pd, product_color pc,
-		product_size ps, IMAGE i
-		where ono=#{value}
-		and pd.pdno = op.pdno and p.pno = pd.pno and pd.psno = ps.psno and
-		pd.pcno = pc.pcno
+				p.name, p.price, p.category,
+				pd.pno,
+				pc.color_name,
+				ps.size_name,
+				i.url
+		from (	select ono, pdno, quantity,
+				row_number() over(order by pdno desc) as rnum
+				from ORDER_PRODUCT where ono = #{ono}) op, 
+			PRODUCT p, PRODUCT_DETAIL pd, product_color pc,
+			product_size ps, IMAGE i
+		where  ono = #{ono}
+		and pd.pdno = op.pdno 
+		and p.pno = pd.pno 
+		and pd.psno = ps.psno 
+		and pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and i.url like '%' || 'thumb' || '%'		
-		<!-- main이 아닌 thumb -->
+		and rnum between
+		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+		order by pdno desc		
 	</select>
 
 	<resultMap type="productVO" id="PRM">
@@ -339,6 +362,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into point(point_no, id, updown, change_date)
 		values(point_no_seq.nextval, #{id}, #{point}, sysdate)
 	</insert>
+	
+	<!-- [영훈][11/30] 회원 주문 총건수 -->
+	<select id="getTotalMyOrderCount" parameterType="string" resultType="int">
+		select count(*)
+		from orders
+		where id=#{value}
+	</select>
+	
+	<!-- [영훈][11/30] 회원 주문의 주문상품 총개수 -->
+	<select id="getTotalMyOrderProductCount" parameterType="string" resultType="int">
+		select count(*)
+		from order_product
+		where ono=#{value}
+	</select>
+	
 </mapper>
 
 

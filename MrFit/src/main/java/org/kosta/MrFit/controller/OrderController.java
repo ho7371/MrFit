@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.MrFit.model.GradeVO;
 import org.kosta.MrFit.model.ImageVO;
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderProductVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
+import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductVO;
 import org.springframework.security.access.annotation.Secured;
@@ -174,23 +176,26 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderList.do")
-	public ModelAndView myOrderList(String id) {
+	public ModelAndView myOrderList(String id, HttpServletRequest request) {
 		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
-		List<OrderVO> list = orderService.myOrderList(id);
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getStatus().equals("즉시결제")) {
-				list.remove(i);
-			}
+		int totalCount = orderService.getTotalMyOrderCount(id);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
 		}
-		/* 주문 내역에서 장바구니 상태는 포함하지 않기에 remove :리펙토링필요 (xml에서 설정이 용이 : 변경후 추후 2차테스트 시 삭제)
-		 * for(int i=0;i<list.size();i++) {
-				if(list.get(i).getStatus().equals("장바구니")) {
-					list.remove(i);
-				}//for-if
-			}//for
-		*/
-		System.out.println("      OrderController/myOrderList()/종료 list : " + list);
-		return new ModelAndView("order/myOrderList.tiles", "list", list);
+		PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pagingBean", pb);
+		System.out.println("      OrderController/myOrderList()/진행 map : " + map);
+		List<OrderVO> list = orderService.myOrderList(map);
+		System.out.println("      OrderController/myOrderList()/진행 list : " + list);
+		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
+		System.out.println("      OrderController/myOrderList()/종료 lvo : " + lvo);
+		return new ModelAndView("order/myOrderList.tiles", "lvo", lvo);
 	}
 	
 	
@@ -214,11 +219,26 @@ public class OrderController {
 	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderPrductList.do")
-	public ModelAndView myOrderPrductList(String ono,String id) {
+	public ModelAndView myOrderPrductList(String ono, String id, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
-		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
-		System.out.println("      OrderController/myOrderPrductList()/중간 list :" + list);
+		int totalCount = orderService.getTotalMyOrderProductCount(ono);
+		System.out.println("controller ono의 주문상품개수 : "+totalCount);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
+		}
+		PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("controller pb : "+pb);
+		Map<String, Object> map0 = new HashMap<String, Object>();
+		map0.put("ono", ono);
+		map0.put("pagingBean", pb);
+		System.out.println("*************"+map0);
+		List<OrderProductVO> list = orderService.myOrderPrductList(map0);							// 주문번호로 주문상품리스트 생성
+		System.out.println("************** 주문상품 개수 : "+list.size());
 		for(int i=0;i<list.size();i++) {
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
 			Map<String, String> map = new HashMap<String, String>();								// id,ono,pdno를 이용해 맵 세팅 후 매개변수로 사용
@@ -239,8 +259,10 @@ public class OrderController {
 			}
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 종료");
 		}//for
-		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
-		mv.addObject("list", list);
+		System.out.println("      OrderController/myOrderPrductList()/진행 for문종료 list:" + list);
+		ListVO<OrderProductVO> lvo = new ListVO<OrderProductVO>(list,pb);
+		System.out.println("      OrderController/myOrderPrductList()/종료 lvo:" + lvo);
+		mv.addObject("lvo", lvo);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}

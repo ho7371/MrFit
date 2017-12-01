@@ -22,14 +22,14 @@ public class OrderServiceImpl implements OrderService {
 
 	// [영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
-	public List<OrderVO> myOrderList(String id) {
-		return orderDAO.myOrderList(id);
+	public List<OrderVO> myOrderList(Map<String, Object> map) {
+		return orderDAO.myOrderList(map);
 	}
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(String ono) {
-		return orderDAO.myOrderPrductList(ono);
+	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
+		return orderDAO.myOrderPrductList(map);
 	}
 
 	// [정현][11/24] 장바구니가 존재하는지 체크
@@ -246,5 +246,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void reportPoint(Map<String, Object> map) {
 		orderDAO.reportPoint(map);
+	}
+	// [영훈][11/30] 회원 주문 총건수
+	@Override
+	public int getTotalMyOrderCount(String id) {
+		return orderDAO.getTotalMyOrderCount(id);
+	}
+	// [영훈][11/30] 회원 주문의 주문상품 총개수
+	@Override
+	public int getTotalMyOrderProductCount(String ono) {
+		return orderDAO.getTotalMyOrderProductCount(ono);
 	}
 }
