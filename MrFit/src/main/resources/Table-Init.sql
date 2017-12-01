@@ -65,19 +65,10 @@ commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
---------------- 회원 치수
-/*
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(42,51,63,23,71,37,25,23,14,91,'test1');
 
-insert into member_size(shoulder,chest,sleeve, armhole, toplength, waist, crotch, thigh, hem, bottomlength, id) 
-values(44,53,64,24,72,39,26,25,15,92,'test2');
-*/
+------------------------------------------ 상품등록--------------------------
+------------상의 등록
 
------------------------------------------- 상품등록
-
-
---------------- 상품등록
 insert into product(pno,name,price,content,category) 
 	values(pno_seq.nextval,'빅사이즈 꽈배기 터틀넥 니트',23000,'다양한 꽈배기 패턴디테일로 색다른 느낌을
 느껴보실 수 있는 제품!
@@ -521,36 +512,36 @@ insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-4.jpg');
 ----------------------------------------하의 등록
-insert into image(ino,pno,url) values(ino_seq.nextval,7,'thumb/b1-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,7,'thumb/b1-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,8,'thumb/b2-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,8,'thumb/b2-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,9,'thumb/b3-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,9,'thumb/b3-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,10,'thumb/b4-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,10,'thumb/b4-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,11,'thumb/b5-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,11,'thumb/b5-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,12,'thumb/b6-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,12,'thumb/b6-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/6-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/6-3.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,13,'thumb/b7-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,13,'thumb/b7-1.gif');
 insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-4.jpg');
