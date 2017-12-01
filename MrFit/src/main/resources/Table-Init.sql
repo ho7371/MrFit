@@ -516,68 +516,71 @@ insert into image(ino,pno,url) values(ino_seq.nextval,5,'top/5-2.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,5,'top/5-3.jpg');
 insert into image(ino,pno,url) values(ino_seq.nextval,5,'top/5-4.jpg');
 
+insert into image(ino,pno,url) values(ino_seq.nextval,6,'thumb/6-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,6,'top/6-4.jpg');
 ----------------------------------------하의 등록
-insert into image(ino,pno,url) values(ino_seq.nextval,6,'thumb/b1-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,6,'bottom/1-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,6,'bottom/1-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,6,'bottom/1-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,7,'thumb/b1-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/1-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,7,'thumb/b2-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/2-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/2-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,7,'bottom/2-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,8,'thumb/b2-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/2-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,8,'thumb/b3-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/3-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/3-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,8,'bottom/3-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,9,'thumb/b3-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/3-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,9,'thumb/b4-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/4-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/4-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,9,'bottom/4-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,10,'thumb/b4-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/4-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,10,'thumb/b5-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/5-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/5-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,10,'bottom/5-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,11,'thumb/b5-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/5-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,11,'thumb/b6-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/6-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,11,'bottom/6-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,12,'thumb/b6-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/6-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/6-3.jpg');
 
-
-insert into image(ino,pno,url) values(ino_seq.nextval,12,'thumb/b7-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/7-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/7-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,12,'bottom/7-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,13,'thumb/b7-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,13,'bottom/7-4.jpg');
 
 
 ------------------------------------------아우터
-insert into image(ino,pno,url) values(ino_seq.nextval,13,'thumb/o1-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,13,'outer/1-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,13,'outer/1-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,13,'outer/1-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,14,'thumb/o1-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/1-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/1-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/1-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,14,'thumb/o2-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/2-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/2-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,14,'outer/2-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,15,'thumb/o2-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/2-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/2-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/2-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,15,'thumb/o3-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/3-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/3-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,15,'outer/3-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,16,'thumb/o3-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/3-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/3-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/3-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,16,'thumb/o4-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/4-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/4-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,16,'outer/4-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,17,'thumb/o4-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/4-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/4-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/4-4.jpg');
 
-insert into image(ino,pno,url) values(ino_seq.nextval,17,'thumb/o5-1.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/5-2.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/5-3.jpg');
-insert into image(ino,pno,url) values(ino_seq.nextval,17,'outer/5-4.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,18,'thumb/o5-1.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,18,'outer/5-2.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,18,'outer/5-3.jpg');
+insert into image(ino,pno,url) values(ino_seq.nextval,18,'outer/5-4.jpg');
 
 ----------------------------------------------------------------------- 상품등록 끝
 
