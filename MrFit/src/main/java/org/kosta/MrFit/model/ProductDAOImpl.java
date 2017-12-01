@@ -246,6 +246,15 @@ public class ProductDAOImpl implements ProductDAO {
 	      System.out.println("                  ProductDAOImpl/productListByHit()/종료");      
 	      return ProductList;
 	}
-	
+	//[석환][11/30][상품문의 총 개수]
+	@Override
+	public int getTotalProductQnaCountByPno(String pno) {
+		return template.selectOne("product.getTotalProductQnaCount",pno);
+	}
+	//[석환][11/30][상품문의 페이징 처리]
+	@Override
+	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
+		return template.selectList("product.findProductQnaByPno", map);
+	}
 }
 

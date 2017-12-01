@@ -6,6 +6,14 @@
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="screen" />
+	<style>  
+.tab_item:target {
+            display:block;  }
+        .tab_item:not(:target) {
+            display:none;
+        }
+  .main_side :target h2 a, /* 클릭된 id 하위의 h2 a, .accordionMenu h2 a:active */
+   </style>
 <script type="text/javascript">
 $(document).ready(function() {
 		var productCategory = $(".quick_desc").attr("id");
@@ -21,8 +29,20 @@ $(document).ready(function() {
 					
 				}//callback			
 			});//ajax */
+		//리뷰, 상품문의 페이지 이동시 scroll 위치
+			if($("#checkScroll").val()=="confirmScroll"){
+			 $('html, body').animate({
+				scrollTop: $('#checkScroll').offset().top
+				}, 1); 
+			}
+		// 파일명.html#tab1
+		// 페이지가 로드될때 URI에 hash의 값이 없으면 hash값을 #tab1으로 설정,
+ 	    // hash값에 따라서 해당 div가 보여지게됨.	
 		
-		
+			  var vHas = location.hash;
+			  if(vHas==""){
+			   location.hash = "#tab1";
+			  }
 		
 		
 		//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
@@ -228,13 +248,21 @@ ${requestScope.pvo } --%>
 					<img src="${pageContext.request.contextPath}/resources/upload/${requestScope.pvo.imageList[j.count].url}" />
 					</c:forEach>									
 					</div>
-
+					
+					<aside id="main_side">
+					<!-- 스크롤 위치고정용 -->
+					<input id="checkScroll" value="${requestScope.checkScroll}" style="display: none;">
 					<!-- start review table -->
 					<div class="ckeckout">
 						<div class="container">
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
-									<h3>상품리뷰</h3>
+									 <section class="buttons">
+            							<label for="first"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
+            							<label for="second"><a href="#tab2" style="font-size:30px">상품문의</a></label>
+        							</section>
+        						<!-- 상품리뷰 -->
+        						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 										<ul class="unit">
 											<li><span>리뷰번호</span></li>
@@ -257,15 +285,11 @@ ${requestScope.pvo } --%>
 										</ul>
 										</c:forEach>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- review table paging처리 -->
-					<div class="container" align="center">
+									<!-- review table paging처리 -->
+				<div class="container" align="center">
   					<ul class="pager">
    						<c:if test="${pb.previousPageGroup==true}">
-   							<li><a href="findProductDetailByPno.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+   							<li><a href="findProductDetailByPno.do?pageNo=${pb.startPageOfPageGroup-1}&checkScroll=confirmScroll">Previous</a></li>
    						</c:if>
    						<c:forEach begin="${pb.startPageOfPageGroup}" 
    								end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -274,18 +298,75 @@ ${requestScope.pvo } --%>
 									<li>${pageNum}&nbsp;&nbsp;</li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="findProductDetailByPno.do?pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+									<li><a href="findProductDetailByPno.do?pageNo=${pageNum}&checkScroll=confirmScroll">${pageNum}</a>&nbsp;&nbsp;</li>
 								</c:otherwise>
    							</c:choose>
    						</c:forEach>
    						<c:if test="${pb.nextPageGroup==true}">
-    						<li><a href="findProductDetailByPno.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+    						<li><a href="findProductDetailByPno.do?pageNo=${pb.endPageOfPageGroup+1}&checkScroll=confirmScroll">Next</a></li>
     					</c:if>
  					 </ul>
 					</div>
-						
-					
-					<!-- end review table  -->
+				<!-- end review table  -->
+			 </div>
+				<!-- star QnA table -->
+			<div class="tab_item" id="tab2">
+				 <div class="in-check">
+				   <table class="table table-hover">
+  					  <thead class="row">
+    					  <tr>
+    					   <th class="col-sm-1">문의번호</th>
+     					   <th class="col-sm-6">내용</th>
+     					   <th class="col-sm-2">작성자</th>
+     					   <th class="col-sm-3">날짜</th>
+      					 </tr>					
+    				 </thead>
+    				<c:set value="${lpqlist.pagingBean}" var="pqpb"/>
+					<c:forEach items="${lpqlist.list}" var="pqlist" varStatus="order">
+				    <tbody>
+				      <tr>
+				        <td>${pqlist.pqno}</td>
+				        <td>${pqlist.content}</td>
+				        <td>${pqlist.id}</td>
+				        <td>${pqlist.regdate}</td>
+				      </tr>
+				    </tbody>
+				 </c:forEach>
+				 </table>
+				 	<!-- QnA table paging처리 -->
+				<div class="container" align="center">
+  					<ul class="pager">
+   						<c:if test="${pqpb.previousPageGroup==true}">
+   							<li><a href="findProductDetailByPno.do?pageNo=${pqpb.startPageOfPageGroup-1}&checkScroll=confirmScroll">Previous</a></li>
+   						</c:if>
+   						<c:forEach begin="${pqpb.startPageOfPageGroup}" 
+   								end="${pqpb.endPageOfPageGroup}" var="pageNum">
+   							<c:choose>
+   								<c:when test="${pageNum==pqpb.nowPage}">
+									<li>${pageNum}&nbsp;&nbsp;</li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="findProductDetailByPno.do?pageNo=${pageNum}&checkScroll=confirmScroll">${pageNum}</a>&nbsp;&nbsp;</li>
+								</c:otherwise>
+   							</c:choose>
+   						</c:forEach>
+   						<c:if test="${pqpb.nextPageGroup==true}">
+    						<li><a href="findProductDetailByPno.do?pageNo=${pqpb.endPageOfPageGroup+1}&checkScroll=confirmScroll">Next</a></li>
+    					</c:if>
+ 					 </ul>
+					</div>
+					<input type="button" value="아아아아">			
+      				<!-- end QnA table -->						
+			  </div>
+			  
+          		<%-- ${requestScope.lpqlist}    --%>       
+      	     </div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+ </aside>
 					<div class="clearfix"></div>
 				</div>
 			</div>

@@ -55,5 +55,7 @@ public interface ProductDAO {
 
 	List<ProductVO> productListByHit(PagingBean pb);
 	
+	int getTotalProductQnaCountByPno(String pno);
 
+	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 }

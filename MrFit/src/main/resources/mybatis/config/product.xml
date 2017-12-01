@@ -211,6 +211,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY hit DESC
 	</select>
 	
+	<!-- [석환][상품문의 총 개수] -->
+	<select id="getTotalProductQnaCount" parameterType="string" resultType="int">
+		select count(*) from product_qna where pno=#{value}
+	</select>
+	
+	<!--[석환][상품문의 페이징 처리]  -->
+	<select id="findProductQnaByPno" parameterType="map"
+		resultType="productQnaVO">
+		select r.pqno, r.id, r.pno, r.content, r.regdate, r.security
+		from (select pqno, id, pno, content, regdate, security,
+				row_number() over(order by pqno desc) as rnum
+			 	from product_qna) r, product p
+		where r.pno=p.pno and p.pno=#{pno} 
+		and rnum between #{startRowNumber} and #{endRowNumber}
+	</select> 
 	
 </mapper>
 
