@@ -143,6 +143,7 @@ public class ProductController {
 	/**
 	 * [석환][11/18] 상품의 상품번호(pno)로 상품의 상세보기 페이지로 이동
 	 * 회원일 경우는 회원의 치수와 해당 상품의 치수를 비교
+	 * [정현][11/30] 상품상세보기시 HIT +1하기
 	 * @param pno
 	 * @return
 	 */
@@ -152,6 +153,8 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		//상품 번호(pno)로 상품 검색
 		ProductVO pvo = productService.findProductDetailByPno(pno);
+		//[정현][11/30] hit에 +1
+		productService.hitUpByPno(pno);
 		//상품 번호(pno)로 상품들의 사이즈 리스트 받아옴
 		List<ProductSizeVO> psList = productDAO.sizeGapMemberAndProduct(pno);
 		System.out.println("    ProductController/findProductDetailByPno()/진행1");

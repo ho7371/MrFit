@@ -134,6 +134,21 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("      		      MemberDAOImpl/totalNoteCount()/종료");
 		return template.selectOne("member.totalNoteCount", id);
 	}
+
+	@Override
+	public void updateStatusMember(String memberId) {
+		System.out.println("                  MemberDAOImpl/updateStatusMember()/시작");
+		template.update("member.updateStatusMember",memberId);
+		System.out.println("                  MemberDAOImpl/updateStatusMember()/종료");
+		
+	}
+
+	@Override
+	public void deleteAuth(String memberId) {
+		System.out.println("                  MemberDAOImpl/deleteAuth()/시작");
+		template.update("member.deleteAuth",memberId);
+		System.out.println("                  MemberDAOImpl/deleteAuth()/종료");
+	}
 	
 }
 

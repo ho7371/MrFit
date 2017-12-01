@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -122,7 +123,39 @@ public class AdminServiceImpl implements AdminService {
 	public int totalPointListCount() {
 		return adminDAO.totalPointListCount();
 	}
+
+	@Override
+	public int adminSearchPointCount(String searchKeyword) {
+		return adminDAO.adminSearchPointCount(searchKeyword);
+	}
+
+	@Override
+	public List<PointVO> adminSearchPoint(Map<String, Object> map) {
+		return adminDAO.adminSearchPoint(map);
+	}
+
+	@Override
+	public int adminSearchPointCountByStatus(String searchKeyword) {
+		return adminDAO.adminSearchPointCountByStatus(searchKeyword);
+	}
+
+	@Override
+	public List<PointVO> adminSearchPointByStatus(Map<String, Object> map) {
+		return adminDAO.adminSearchPointByStatus(map);
+	}
 	
+	@Transactional
+	@Override
+	public List<ProductDetailVO> updateProductForm(String pno) {
+		return adminDAO.updateProductForm(pno);
+		
+	}
+
+	@Override
+	public void updateProductInventory(ProductDetailVO pdvo) {
+		adminDAO.updateProductInventory(pdvo);
+		
+	}
 	
 }
 

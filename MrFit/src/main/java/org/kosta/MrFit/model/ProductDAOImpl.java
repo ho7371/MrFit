@@ -223,6 +223,29 @@ public class ProductDAOImpl implements ProductDAO {
 	public int getTotalProductReviewCount() {
 		return template.selectOne("product.getTotalProductReviewCount");
 	}
+	//[정현][11/30][상품 상세보기시 hit +1]
+	@Override
+	public void hitUpByPno(String pno) {
+		 System.out.println("                  ProductDAOImpl/hitUpByPno()/시작");
+		 template.update("product.hitUpByPno",pno);
+		
+	}
+	//[정현][11/30][조회순 리스트]
+	@Override
+	public List<ProductVO> productListByHit(PagingBean pb) {
+		 System.out.println("                  ProductDAOImpl/productListByHit()/시작");
+	      List<ProductVO> ProductList=template.selectList("product.productListByHit",pb);
+	      for(int i=0;i<ProductList.size();i++) {         
+	         List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+	         if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+	            ProductList.get(i).setImageList(ivo);
+	         }
+	         System.out.println("                  ProductDAOImpl/productListByHit()/진행"+ProductList.get(i));
+	      }      
+	      
+	      System.out.println("                  ProductDAOImpl/productListByHit()/종료");      
+	      return ProductList;
+	}
 	
 }
 

@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#selectProductType").change(function() {	
+		location.href="${pageContext.request.contextPath}/productListByHit.do";
+	});//selectProductType click
+});//ready
+</script>
 <!--banner-starts-->
 <div class="bnr" id="home">
 	<div id="top" class="callbacks_container">
@@ -46,6 +52,7 @@
 	});
 </script>
 <!--End-slider-script-->
+
 <!--start-banner-bottom-->
 <div class="banner-bottom">
 	<div class="container">
@@ -89,6 +96,10 @@
 	</div>
 </div>
 <!--end-banner-bottom-->
+<select id="selectProductType">
+	<option selected="selected">신상품순</option>
+	<option>조회순</option>
+</select>
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">

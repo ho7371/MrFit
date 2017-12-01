@@ -22,7 +22,6 @@
 		<input type="submit" value="검색">
 	</form>
 </div>
-<br><hr><br>
 <%-- 포인트 이력 테이블 --%>
 <table class="table-board">
 		<thead>
@@ -53,7 +52,7 @@
 	<ul class="pager">
 		<c:if test="${pb.previousPageGroup==true}">
 			<li><a
-				href="adminPointList.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a></li>
+				href="adminSearchPoint.do?nowPage=${pb.startPageOfPageGroup-1}&id=${lvo.list[0].id}">Previous</a></li>
 		</c:if>
 		<c:forEach begin="${pb.startPageOfPageGroup}"
 			end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -62,13 +61,13 @@
 					<li>${pageNum}&nbsp;&nbsp;</li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="adminPointList.do?&nowPage=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+					<li><a href="adminSearchPoint.do?&nowPage=${pageNum}&id=${lvo.list[0].id}">${pageNum}</a>&nbsp;&nbsp;</li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pb.nextPageGroup==true}">
 			<li><a
-				href="adminPointList.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a></li>
+				href="adminSearchPoint.do?nowPage=${pb.endPageOfPageGroup+1}&id=${lvo.list[0].id}">Next</a></li>
 		</c:if>
 	</ul>
 </div>

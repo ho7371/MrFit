@@ -24,6 +24,7 @@
 	<property name="order" value="2"></property>
 </bean>
 
+
 <!--  Tiles 설정 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
 	<property name="definitions">
@@ -40,9 +41,6 @@
 <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
    <property name="defaultEncoding" value="utf-8"/>
 </bean>
-
-
-
 		
 </beans>
 

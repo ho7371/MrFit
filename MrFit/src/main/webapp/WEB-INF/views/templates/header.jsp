@@ -6,6 +6,11 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+	       $("#searchProduct").keypress(function (e) {
+	           if (e.which == 13){
+	        	   location.href = "findProductByName.do?nowPage=1&keyword="+ $(this).val();
+	           }
+	       });
 		$("#searchProductBtn").click(
 			function() {
 			location.href = "findProductByName.do?nowPage=1&keyword="+ $("#searchProduct").val();
@@ -54,7 +59,7 @@
 						   <c:when test="${isAdmin}">
 							   	<p>
 							   		<sec:authentication property="principal.name" />님 <br>
-									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a>
+									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a><br>
 									<a href="${pageContext.request.contextPath}/adminNoteList.do">쪽지함</a>
 								</p>
 								<a href="#" id="logoutAction">로그아웃</a>
