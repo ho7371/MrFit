@@ -75,13 +75,8 @@ public class OrderDAOImpl implements OrderDAO {
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
-		PagingBean pb=(PagingBean)map.get("pagingBean");
-		System.out.println("DAO getStartRowNumber : *** "+pb.getStartRowNumber());
-		System.out.println("DAO getEndRowNumber : *** "+pb.getEndRowNumber());
-		List<OrderProductVO> list = template.selectList("order.myOrderPrductList", map);
-		System.out.println("DAO 주문상품 개수 : *** "+list.size());
-		return list;
+	public List<OrderProductVO> myOrderPrductList(String ono) {
+		 return template.selectList("order.myOrderPrductList", ono);
 	}
 
 	// [김석환][2017.11.22][장바구니 상품 수량 수정]
