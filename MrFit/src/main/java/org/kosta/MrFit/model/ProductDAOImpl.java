@@ -20,7 +20,6 @@ public class ProductDAOImpl implements ProductDAO {
     */
    @Override
    public ProductVO findProductDetailByPno(String pno) {
-      System.out.println("                  ProductDAOImpl/findProductDtailByPno()/시작");
       ProductVO pvo=template.selectOne("product.findProductDetail", pno);
       pvo.setImageList(template.selectList("product.findProductImageList",pno));
       pvo.setProductDetailList(template.selectList("product.findProductDetailList",pno));
@@ -41,7 +40,6 @@ public class ProductDAOImpl implements ProductDAO {
     */
    @Override
    public List<ProductVO> findProductByName(Map<String, Object> map) {
-      System.out.println("                  ProductDAOImpl/findProductByName(keyword)/시작");
       List<ProductVO> list = template.selectList("product.findProductByName",map);
       System.out.println("                  ProductDAOImpl/findProductByName(keyword)/진행 1 list : "+list);
       if(!list.isEmpty()) {
@@ -49,43 +47,35 @@ public class ProductDAOImpl implements ProductDAO {
              List<ImageVO> iList=template.selectList("product.findProductImageList",list.get(i).getPno());
              list.get(i).setImageList(iList);
          }
-         System.out.println("                  ProductDAOImpl/findProductByName(keyword)/종료");
          return list;
       }
-      System.out.println("                  ProductDAOImpl/findProductByName(keyword)/종료");
       return null;
    }
    
    @Override
    public List<ProductVO> ProductList(PagingBean pb) {
-      System.out.println("                  ProductDAOImpl/ProductList()/시작");
       List<ProductVO> ProductList=template.selectList("product.ProductList",pb);
       for(int i=0;i<ProductList.size();i++) {         
          List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
          if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
             ProductList.get(i).setImageList(ivo);
          }
-         System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
+         //System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
       }      
       
-      System.out.println("                  ProductDAOImpl/ProductList()/종료");      
       return ProductList;
    }
 
    @Override
    public List<ImageVO> findProductImageList(String pno) {
-      System.out.println("                  ProductDAOImpl/findProductImageList(pno)/시작");
       List<ImageVO> iList=template.selectList("product.findProductImageList",pno);
       System.out.println("                  ProductDAOImpl/findProductImageList(pno)/진행 - iList:"+iList);      
-      System.out.println("                  ProductDAOImpl/findProductImageList(pno)/종료");
       return iList;
    }
    @Override
    public int getTotalProductCount() {
-      System.out.println("                  ProductDAOImpl/getTotalProductCount()/시작");
       int pc=template.selectOne("product.getTotalProductCount");
       System.out.println("                  ProductDAOImpl/getTotalProductCount()/진행 - pc:"+pc);      
-      System.out.println("                  ProductDAOImpl/getTotalProductCount()/종료");
       return pc;
    }
 
@@ -105,7 +95,6 @@ public class ProductDAOImpl implements ProductDAO {
    @Override
    public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
       
-      System.out.println("                  ProductDAOImpl/ProductList()/시작");
       List<ProductVO> ProductList=template.selectList("product.findProductByCategory",map);
       for(int i=0;i<ProductList.size();i++) {         
          List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
@@ -115,16 +104,13 @@ public class ProductDAOImpl implements ProductDAO {
          System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
       }      
       
-      System.out.println("                  ProductDAOImpl/ProductList()/종료");      
       return ProductList;
    }
  //[정현][11/21] 해당 카테고리의 총갯수 파악
    @Override
    public int getCategoryProductCount(String category) {
-      System.out.println("                  ProductDAOImpl/getCategoryProductCount()/시작");
       int pc=template.selectOne("product.getCategoryProductCount",category);
       System.out.println("                  ProductDAOImpl/getCategoryProductCount()/진행"+pc);      
-      System.out.println("                  ProductDAOImpl/getCategoryProductCount()/종료");
       return pc;
    }
 	//[김석환][2017.11.21][상품사이즈 번호를 가지고 AJAX통신을 이용해 고객의 치수비교]
@@ -226,14 +212,12 @@ public class ProductDAOImpl implements ProductDAO {
 	//[정현][11/30][상품 상세보기시 hit +1]
 	@Override
 	public void hitUpByPno(String pno) {
-		 System.out.println("                  ProductDAOImpl/hitUpByPno()/시작");
 		 template.update("product.hitUpByPno",pno);
 		
 	}
 	//[정현][11/30][조회순 리스트]
 	@Override
 	public List<ProductVO> productListByHit(PagingBean pb) {
-		 System.out.println("                  ProductDAOImpl/productListByHit()/시작");
 	      List<ProductVO> ProductList=template.selectList("product.productListByHit",pb);
 	      for(int i=0;i<ProductList.size();i++) {         
 	         List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
@@ -243,9 +227,17 @@ public class ProductDAOImpl implements ProductDAO {
 	         System.out.println("                  ProductDAOImpl/productListByHit()/진행"+ProductList.get(i));
 	      }      
 	      
-	      System.out.println("                  ProductDAOImpl/productListByHit()/종료");      
 	      return ProductList;
 	}
-	
+	//[석환][11/30][상품문의 총 개수]
+	@Override
+	public int getTotalProductQnaCountByPno(String pno) {
+		return template.selectOne("product.getTotalProductQnaCount",pno);
+	}
+	//[석환][11/30][상품문의 페이징 처리]
+	@Override
+	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
+		return template.selectList("product.findProductQnaByPno", map);
+	}
 }
 

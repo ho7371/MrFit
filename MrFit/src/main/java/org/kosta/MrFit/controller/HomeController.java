@@ -79,7 +79,6 @@ public class HomeController {
 			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			orderService.findImmediatelyPayGarbage(vo.getId());
 		}
-		System.out.println("      HomeController/home()/시작");
 		ModelAndView mv = new ModelAndView();
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
 		
@@ -103,7 +102,6 @@ public class HomeController {
 			
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("home.tiles");
-		System.out.println("      HomeController/home()/종료");
 		return mv;
 	}
 

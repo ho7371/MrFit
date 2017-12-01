@@ -24,8 +24,6 @@ public class ProductServiceImpl implements ProductService {
 	 * @return
 	 */
 	public String findProductById(){
-		System.out.println("            ProductServiceImpl/findProductById()/시작");
-		System.out.println("      		ProductServiceImpl/findProductById()/종료");
 		return null;
 	}
 	/*
@@ -34,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public List<ProductVO> ProductList(PagingBean pb) {
-		System.out.println("            ProductServiceImpl/ProductList()/시작");
 		List<ProductVO> ProductList=productDAO.ProductList(pb);
 		System.out.println("      		ProductServiceImpl/ProductList()/종료 - ProductList:"+ProductList);
 		return ProductList;
@@ -42,17 +39,14 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductVO> findProductByName(Map<String, Object> map) {
-		System.out.println("            ProductServiceImpl/findProductByName()/시작");
 		return productDAO.findProductByName(map);
 	}
 	@Override
 	public ProductVO findProductDetailByPno(String pno) {	
-		System.out.println("            ProductServiceImpl/findProductDtailByPno()/시작");
 		return productDAO.findProductDetailByPno(pno);
 	}
 	@Override
 	public int getTotalProductCount() {	
-		System.out.println("            ProductServiceImpl/getTotalProductCount()/시작");
 		return productDAO.getTotalProductCount();
 	}
 	//[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
@@ -68,11 +62,9 @@ public class ProductServiceImpl implements ProductService {
 	//[정현][11/24] 해당 카테고리 리스트 받아오기
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
-		System.out.println("            ProductServiceImpl/findProductByCategory()/시작");
 		List<ProductVO> ProductList=productDAO.findProductByCategory(map);
 		System.out.println("            ProductServiceImpl/findProductByCategory()/진행"+ProductList);
 		
-		System.out.println("            ProductServiceImpl/findProductByCategory()/종료");
 		return ProductList;
 	}
 	//[정현][11/24] 해당 카테고리의 총갯수 파악
@@ -313,9 +305,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public void hitUpByPno(String pno) {
-		System.out.println("            ProductServiceImpl/hitUpByPno()/시작");
 		productDAO.hitUpByPno(pno);
-		System.out.println("            ProductServiceImpl/hitUpByPno()/종료");
 		
 	}
 	@Override
@@ -325,6 +315,16 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("      		ProductServiceImpl/productListByHit()/종료 - ProductList:"+ProductList);
 		return ProductList;
 	}
-
+	//[석환][11/30][상품문의 총 개수]
+	@Override
+	public int getTotalProductQnaCountByPno(String pno) {
+		return productDAO.getTotalProductQnaCountByPno(pno);
+	}
+	//[석환][11/30][상품문의 페이징 처리]
+	@Override
+	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
+		System.out.println("문의 처리 pno : "+map.get("pno"));
+		return productDAO.findProductQnaByPno(map);
+	}
 		
 }

@@ -18,7 +18,6 @@ import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderProductVO;
-import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.PointVO;

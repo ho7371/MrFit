@@ -95,7 +95,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public OrderVO adminSearchOrderByOno(String ono) {
-		System.out.println("            AdminServiceImpl/adminSearchOrderByOno()/시작");
 		return adminDAO.adminSearchOrderByOno(ono);
 	}
 

@@ -13,7 +13,7 @@
 			<c:forEach items="${requestScope.list}" var="i">
 	            <ul class="cart-header">
 	            	<li><a href="single.html" >
-                 	 <img src="${pageContext.request.contextPath}/resources/upload/${i.url}" class="img-responsive" height="50%" width="50%"/>                  </a>
+                 	 <img src="${pageContext.request.contextPath}/resources/upload/${i.url}" class="img-responsive" height="50%" width="50%"/></a>
                   	</li>
 	                <li><span>${i.pno}</span></li>
 	                <li><span>${i.name}</span></li>

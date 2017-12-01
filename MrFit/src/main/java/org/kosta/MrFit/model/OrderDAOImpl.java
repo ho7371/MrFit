@@ -19,7 +19,6 @@ public class OrderDAOImpl implements OrderDAO {
 	 */
 	@Override
 	public OrderVO findMyCart(String id) {
-		System.out.println("                  OrderDAOImpl/findMyCart()/시작 - template :" + template);
 		OrderVO ovo = template.selectOne("order.findMyCart", id);
 		System.out.println("                  OrderDAOImpl/findMyCart()/진행1 - ovo :" + ovo);
 		if (ovo != null) {
@@ -28,17 +27,14 @@ public class OrderDAOImpl implements OrderDAO {
 			ovo.setOrderProductList(orderProductList);
 			System.out.println("                  OrderDAOImpl/findMyCart()/진행2 - ovo :" + ovo);
 		}
-		System.out.println("                  OrderDAOImpl/findMyCart()/종료 ");
 		return ovo;
 	}
 
 	// [정현][11/24] 해당아이디에 장바구니가 있는지 체크
 	@Override
 	public int findMyCartCount(String id) {
-		System.out.println("                  OrderDAOImpl/findMyCartCount()/시작 ");
 		int cartCount = template.selectOne("order.findMyCartCount", id);
 		System.out.println("                  OrderDAOImpl/findMyCartCount()/진행 cartCount : " + cartCount);
-		System.out.println("                  OrderDAOImpl/findMyCartCount()/종료");
 		return cartCount;
 	}
 
@@ -47,7 +43,6 @@ public class OrderDAOImpl implements OrderDAO {
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ovo : " + ovo);
 		template.insert("order.registerOrder", ovo);
-		System.out.println("                  OrderDAOImpl/registerOrder()/종료");
 	}
 
 	// [정현][11/24] 장바구니에 상품 상세 정보를 엮어 주문수량 저장
@@ -55,14 +50,12 @@ public class OrderDAOImpl implements OrderDAO {
 	public void registerOrderProduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/registerOrderProduct()/시작 ovo : " + ovo);
 		template.insert("order.registerOrderProduct", ovo);
-		System.out.println("                  OrderDAOImpl/registerOrderProduct()/종료");
 	}
 
 	// [정현][11/24] 주문에서 해당 정보의 가격 수정
 	@Override
 	public void updateOrder(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/updateOrder()/시작 ovo : " + ovo);
-		System.out.println("                  OrderDAOImpl/updateOrder()/종료");
 		template.update("order.updateOrder", ovo);
 
 	}
@@ -75,13 +68,8 @@ public class OrderDAOImpl implements OrderDAO {
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
-		PagingBean pb=(PagingBean)map.get("pagingBean");
-		System.out.println("DAO getStartRowNumber : *** "+pb.getStartRowNumber());
-		System.out.println("DAO getEndRowNumber : *** "+pb.getEndRowNumber());
-		List<OrderProductVO> list = template.selectList("order.myOrderPrductList", map);
-		System.out.println("DAO 주문상품 개수 : *** "+list.size());
-		return list;
+	public List<OrderProductVO> myOrderPrductList(String ono) {
+		 return template.selectList("order.myOrderPrductList", ono);
 	}
 
 	// [김석환][2017.11.22][장바구니 상품 수량 수정]
@@ -93,18 +81,14 @@ public class OrderDAOImpl implements OrderDAO {
 	// [정현][11/24] 해당 정보에 값이 order_Product에 존재하는지 체크
 	@Override
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/findCartOderproduct()/시작 ");
-
 		OrderProductVO opCount = template.selectOne("order.findCartOderproduct", ovo);
 		System.out.println("                  OrderDAOImpl/findCartOderproduct()/진행 opCount : " + opCount);
-		System.out.println("                  OrderDAOImpl/findCartOderproduct()/종료");
 		return opCount;
 	}
 
 	@Override
 	public void updateOrderProduct(OrderVO ovo) {
 		System.out.println("                  OrderDAOImpl/updateOrderProduct()/시작 ovo : " + ovo);
-		System.out.println("                  OrderDAOImpl/updateOrderProduct()/종료");
 		template.update("order.updateOrderProduct", ovo);
 
 	}
@@ -115,7 +99,6 @@ public class OrderDAOImpl implements OrderDAO {
 		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : " + opvo);
 		System.out.println("opvo.pdno : " + opvo.getPdno());
 		template.update("order.deleteOrderProduct", opvo);
-		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/종료");
 	}
 
 	// [정현][11/24] 해당 주문 정보가 있는지 체크
@@ -123,9 +106,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public String findPdno(ProductDetailVO pdvo) {
 		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdvo : " + pdvo);
 
-		String pdno = template.selectOne("order.findPdno", pdvo);
-		System.out.println("                  OrderDAOImpl/findPdno()/종료");
-		return pdno;
+		return template.selectOne("order.findPdno", pdvo);
 	}
 
 	// [석환][11.23] 주문시 포인트 차감

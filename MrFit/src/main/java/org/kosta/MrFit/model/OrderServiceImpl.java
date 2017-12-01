@@ -16,7 +16,6 @@ public class OrderServiceImpl implements OrderService {
 	// [현민][11/21][장바구니 보기]
 	@Override
 	public OrderVO findMyCart(String id) {
-		System.out.println("            OrderServiceImpl/findMyCart()/시작");
 		return orderDAO.findMyCart(id);
 	}
 
@@ -28,14 +27,13 @@ public class OrderServiceImpl implements OrderService {
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
-		return orderDAO.myOrderPrductList(map);
+	public List<OrderProductVO> myOrderPrductList(String ono) {
+		return orderDAO.myOrderPrductList(ono);
 	}
 
 	// [정현][11/24] 장바구니가 존재하는지 체크
 	@Override
 	public int findMyCartCount(String id) {
-		System.out.println("            OrderServiceImpl/findMyCart()/시작");
 		int cartCount = orderDAO.findMyCartCount(id);
 		System.out.println("            OrderServiceImpl/findMyCart()/종료 - map :" + cartCount);
 		return cartCount;
@@ -46,7 +44,6 @@ public class OrderServiceImpl implements OrderService {
 	public void registerOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrder()/시작 ovo : " + ovo);
 		orderDAO.registerOrder(ovo);
-		System.out.println("            OrderServiceImpl/registerOrder()/종료");
 	}
 
 	// [정현][11/24] 주문과 상품 상세 정보를 엮어 주문 수량을 저장
@@ -54,7 +51,6 @@ public class OrderServiceImpl implements OrderService {
 	public void registerOrderProduct(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/registerOrderProduct()/시작 ovo : " + ovo);
 		orderDAO.registerOrderProduct(ovo);
-		System.out.println("            OrderServiceImpl/registerOrderProduct()/종료");
 	}
 
 	// [정현][11/24] 주문에서 총가격을 수정하여 준다.
@@ -62,7 +58,6 @@ public class OrderServiceImpl implements OrderService {
 	public void updateOrder(OrderVO ovo) {
 		System.out.println("            OrderServiceImpl/updateOrder()/시작 ovo : " + ovo);
 		orderDAO.updateOrder(ovo);
-		System.out.println("            OrderServiceImpl/updateOrder()/종료");
 	}
 
 	// [김석환][2017.11.22][장바구니 상품 수량 수정]
@@ -87,7 +82,6 @@ public class OrderServiceImpl implements OrderService {
 
 		System.out.println("            OrderServiceImpl/deleteOrderProduct()/시작 ovo : " + opvo);
 		orderDAO.deleteOrderProduct(opvo);
-		System.out.println("            OrderServiceImpl/deleteOrderProduct()/종료");
 	}
 
 	// [정현][11/24] pcno와psno를 통하여 pdno를 찾는다.
@@ -95,7 +89,6 @@ public class OrderServiceImpl implements OrderService {
 	public String findPdno(ProductDetailVO pdvo) {
 		System.out.println("            OrderServiceImpl/findPdno()/시작 pdvo : " + pdvo);
 		String pdno = orderDAO.findPdno(pdvo);
-		System.out.println("            OrderServiceImpl/findPdno()/종료");
 		return pdno;
 	}
 

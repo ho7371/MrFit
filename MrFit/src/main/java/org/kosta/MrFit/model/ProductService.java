@@ -54,6 +54,10 @@ public interface ProductService {
 	void hitUpByPno(String pno);
 
 	List<ProductVO> productListByHit(PagingBean pb);
+
+	int getTotalProductQnaCountByPno(String pno);
+
+	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 	
 
 }

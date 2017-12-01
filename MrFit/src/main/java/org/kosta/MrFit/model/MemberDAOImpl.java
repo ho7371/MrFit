@@ -32,122 +32,88 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<Authority> selectAuthorityById(String id) {
-		System.out.println("                  MemberDAOImpl/selectAuthorityById()/시작");
-		System.out.println("                  MemberDAOImpl/selectAuthorityById()/종료");
 		return template.selectList("member.selectAuthorityById",id);
 	}
 	
 	@Override
 	public void registerMember(MemberVO vo) {
-		System.out.println("                  MemberDAOImpl/registerMember()/시작");
-		System.out.println("                  MemberDAOImpl/registerMember()/종료");
 		template.insert("member.registerMember",vo);			
 	}
 	
 	@Override	
 	public void registerRole(Authority authority){
-		System.out.println("                  MemberDAOImpl/registerRole()/시작");
-		System.out.println("                  MemberDAOImpl/registerRole()/종료");
 		template.insert("member.registerRole",authority);
 	}
 	
 	@Override
 	public int idcheck(String id) {
-		System.out.println("                  MemberDAOImpl/idcheck()/시작");
-		System.out.println("                  MemberDAOImpl/idcheck()/종료");
 		return template.selectOne("member.idcheck",id);				
 	}
 
 	@Override
 	public List<QuestionVO> findQuestionList(){
-		System.out.println("                  MemberDAOImpl/findQuestionList()/시작");
-		System.out.println("                  MemberDAOImpl/findQuestionList()/종료");
 		return template.selectList("member.findQuestionList");
 	}
 
 	@Override
 	public String findIdByEmailAndName(MemberVO memberVO) {
-		System.out.println("                  MemberDAOImpl/findIdByEmailAndName()/시작");
-		System.out.println("      		      MemberDAOImpl/findIdByEmailAndName()/종료");
 		return template.selectOne("member.findIdByEmailAndName",memberVO);
 	}
 
 	@Override
 	public String findQnaByIdNameEmail(MemberVO memberVO) {
-		System.out.println("                  MemberDAOImpl/findQnaByIdNameEmail()/시작");
-		System.out.println("      		      MemberDAOImpl/findQnaByIdNameEmail()/종료");
 		return template.selectOne("member.findQnaByIdNameEmail",memberVO);
 	}
 
 	@Override
 	public MemberVO findMemberByQna(MemberVO memberVO) {
-		System.out.println("                  MemberDAOImpl/findMemberByQna()/시작");
-		System.out.println("      		      MemberDAOImpl/findMemberByQna()/종료");
 		return template.selectOne("member.findMemberByQna",memberVO);
 	}
 
 	@Override
 	public void updatePasswordById(MemberVO memberVO) {
-		System.out.println("                  MemberDAOImpl/updatePasswordById()/시작");
-		System.out.println("      		      MemberDAOImpl/updatePasswordById()/종료");
 		template.update("updatePasswordById", memberVO);
 	}
 
 	@Override
 	public void registerMemberSize(String id) {
-		System.out.println("                  MemberDAOImpl/registerMemberSize()/시작");
-		System.out.println("      		      MemberDAOImpl/registerMemberSize()/종료");
 		template.insert("member.registerMemberSize", id);
 	}
 
 	@Override
 	public void updateMemberSize(MemberSizeVO msizeVO) {
-		System.out.println("                  MemberDAOImpl/updateMemberSize()/시작");
-		System.out.println("      		      MemberDAOImpl/updateMemberSize()/종료");
 		template.update("member.updateMemberSize", msizeVO);
 	}
 
 	@Override
 	public MemberSizeVO findMemberSizeById(String id) {
-		System.out.println("                  MemberDAOImpl/findMemberSizeById()/시작");
-		System.out.println("      		      MemberDAOImpl/findMemberSizeById()/종료");
 		return template.selectOne("member.findMemberSizeById", id);
 	}
 
 	@Override
 	public void updateMember(MemberVO vo) {
-		System.out.println("                  MemberDAOImpl/updateMember()/시작");
-		System.out.println("      		      MemberDAOImpl/updateMember()/종료");
 		template.update("member.updateMember",vo);			
 	}
 
 	@Override
 	public List<NoteVO> memberNoteList(Map<String, Object> map) {
-		System.out.println("                  MemberDAOImpl/memberNoteList()/시작");
-		System.out.println("      		      MemberDAOImpl/memberNoteList()/종료");
 		return template.selectList("member.memberNoteList", map);
 	}
 
 	@Override
 	public int totalNoteCount(String id) {
-		System.out.println("                  MemberDAOImpl/totalNoteCount()/시작");
-		System.out.println("      		      MemberDAOImpl/totalNoteCount()/종료");
 		return template.selectOne("member.totalNoteCount", id);
 	}
 
 	@Override
 	public void updateStatusMember(String memberId) {
-		System.out.println("                  MemberDAOImpl/updateStatusMember()/시작");
 		template.update("member.updateStatusMember",memberId);
-		System.out.println("                  MemberDAOImpl/updateStatusMember()/종료");
 		
 	}
 
 	@Override
 	public void deleteAuth(String memberId) {
-		System.out.println("                  MemberDAOImpl/deleteAuth()/시작");
 		template.update("member.deleteAuth",memberId);
-		System.out.println("                  MemberDAOImpl/deleteAuth()/종료");
 	}
 	
 }

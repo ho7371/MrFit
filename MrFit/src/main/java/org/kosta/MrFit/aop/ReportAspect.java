@@ -11,8 +11,7 @@ public class ReportAspect {
 
 	//private Log log = LogFactory.getLog(getClass());
 
-	@Around("execution(public * org.kosta.MrFit..*.*(..))")
-	//@Around("execution(public * org.kosta.MrFit.*Controller.*(..)) or execution(public * org.kosta.MrFit.*Service*.*(..)) or execution(public * org.kosta.MrFit.*DAO*.*(..))")
+	@Around("execution(public * org.kosta.MrFit.model.*ServiceImpl.*(..)) || execution(public * org.kosta.MrFit.controller.*Controller.*(..)) || execution(public * org.kosta.MrFit.model.*DAOImpl.*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
 		Object retValue=null;
 		//Object arg[]=point.getArgs();	
@@ -20,12 +19,25 @@ public class ReportAspect {
 		String methodName=point.getSignature().getName();
 		
 		try {
-			System.out.println("*aop proceed: "+className+" "+methodName+" "+retValue);
+			if(className.contains("ServiceImpl")) {
+				System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+			}else if(className.contains("DAOImpl")) {
+				System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+			}else {
+				System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+			}
 			retValue=point.proceed();
 		} finally {
-			if (retValue!=null)
-			System.out.println("*aop fianally: "+className+" "+methodName+" "+retValue);
+			if (retValue!=null) {			
+				if(className.contains("ServiceImpl")) {
+					System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+				}else if(className.contains("DAOImpl")) {
+					System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+				}else {
+					System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+				}
+			}
 		}
 		return retValue;
-	}
+}
 }
