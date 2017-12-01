@@ -281,7 +281,7 @@ public class OrderController {
 	 */
 	@Transactional
 	@RequestMapping("order.do")
-	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo,HttpServletRequest request) {
+	public String productOrderPayment(int payPoint,String depositMethod,OrderVO ovo,HttpServletRequest request) {
 		System.out.println("      OrderController/productOrderPayment()/시작 매개변수 payPoint : "+payPoint+", depositMethod : "+depositMethod+", ovo : "+ovo);
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String[] pdno=request.getParameterValues("pdno");											// 상품상세번호 수량 배열 세팅
@@ -289,7 +289,8 @@ public class OrderController {
 		System.out.println("      OrderController/productOrderPayment()/진행 사용포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
 		System.out.println("      OrderController/productOrderPayment()/진행 totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		ovo.setStatus(depositMethod);
+		orderService.productOrderPayment(vo, payPoint, ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 상품주문변경 : "+ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 depositMethod : "+depositMethod);
 		for(int i=0;i<pdno.length;i++) {

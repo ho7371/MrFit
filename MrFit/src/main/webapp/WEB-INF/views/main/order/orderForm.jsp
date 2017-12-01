@@ -2,10 +2,94 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<script>
+
+<script type="text/javascript">
+function kakaoPay(){
+	alert("이름 : "+$("#name").val()+" 번호 : "+$("#phone").val()+" 배송지 : "+ $("#destination").val()+" 이메일 : "+$("#memberEmail").text());
+	IMP.request_pay({
+	    pg : 'kakao',
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '주문명:결제테스트',
+	    amount : 1000,
+	    buyer_email : $("#memberEmail").text(),
+	    buyer_name : $("#name").val(),
+	    buyer_tel : $("#phone").val(),
+	    buyer_addr : $("#destination").val(),
+	    buyer_postcode : '123-456',
+	    kakaoOpenApp : true
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	    	alert('결제진행중');
+	    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+	    	jQuery.ajax({
+	    		url: "${pageContext.request.contextPath}/kakaoPayComplete.do", //cross-domain error가 발생하지 않도록 주의해주세요
+	    		type: 'POST',
+	    		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	    		dataType: 'json',
+	    		data: {
+		    		imp_uid : rsp.imp_uid
+		    		//기타 필요한 데이터가 있으면 추가 전달
+	    		}
+	    	}).done(function(data) {
+	    		alert('결제 완료');
+	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+	    		if ( everythings_fine ) {
+	    			var msg = '결제가 완료되었습니다.';
+	    			msg += '\n고유ID : ' + rsp.imp_uid;
+	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	    			msg += '\결제 금액 : ' + rsp.paid_amount;
+	    			msg += '카드 승인번호 : ' + rsp.apply_num;
+	    			
+	    			alert(msg);
+	    			$("#orderStatus").val("배송준비중");
+	    			$("#orderForm").submit();
+	    		} else {
+	    			//[3] 아직 제대로 결제가 되지 않았습니다.
+	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    		}
+	    		
+	    	});
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	        
+	        alert(msg);
+	    }
+	});
+}
+
 	$(document).ready(function() {
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp55065335'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		alert('IMP 결제 객체가 초기화됨');
+		
+		$("#order").click(function() {
+			if(!$("#agreeOrder").is(':checked')){
+				alert("구매 동의를 하시기 바랍니다.");
+				return false;
+			}else if($("#name").val()==""){
+				alert("배송자 이름을 입력하시기 바랍니다.");
+				return false;
+			}else if($("#phone").val()==""){
+				alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
+				return false;
+			}else if($("#destination").val()==""){
+				alert("배송자 주소을 입력하시기 바랍니다.");
+				return false;
+			}else if($("#payMethod1").is(":checked") && $("#insertPerson").val()==""){
+				alert("입금자명을 입력하시기 바랍니다.");
+				return false;
+			}else{	
+				if(confirm("구매를 진행 하시겠습니까?")==true){
+					if($("#payMethod4").is(":checked")){
+						kakaoPay();
+					}
+				};
+			}
+		}); // click
 		
 		var totalprice = ${ovo.totalprice};
 		$("#totalprice").text("총 상품금액 : "+totalprice);
@@ -41,150 +125,38 @@
 				$("#destination").val("");
 			}	
 		}); //click
-		$("#order").click(function() {
-			if(!$("#agreeOrder").is(':checked')){
-				alert("구매 동의를 하시기 바랍니다.");
-				return false;
-			}else if($("#name").val()==""){
-				alert("배송자 이름을 입력하시기 바랍니다.");
-				return false;
-			}else if($("#phone").val()==""){
-				alert("배송자 휴대폰 번호를 입력하시기 바랍니다.");
-				return false;
-			}else if($("#destination").val()==""){
-				alert("배송자 주소을 입력하시기 바랍니다.");
-				return false;
-			}else if($("#payMethod1").is(":checked") && $("#insertPerson").val()==""){
-				alert("입금자명을 입력하시기 바랍니다.");
-				return false;
-			}else{	
-				if(confirm("구매를 진행 하시겠습니까?")==true){
-					kakaoPay();
-				};
-			}
-		}); // click
-		$("#payMethodTable2").hide();
-		$("#payMethodTable3").hide();
 		$("#payMethodTable4").hide();
 		$("#payMethod1").click(function() {
-			if($("#payMethod2").is(":checked") | $("#payMethod3").is(":checked") | $("#payMethod4").is(":checked")){
-				$("#payMethod2").prop("checked", false);
-				$("#payMethod3").prop("checked", false);
+			if($("#payMethod4").is(":checked")){
 				$("#payMethod4").prop("checked", false);
 				$("#payMethod1").prop("checked", true);
 			}
-			$("#payMethodTable2").hide();
-			$("#payMethodTable3").hide();
 			$("#payMethodTable4").hide();
 			$("#payMethodTable1").show();
 		}); // click
-		$("#payMethod2").click(function() {
-			if($("#payMethod1").is(":checked") | $("#payMethod3").is(":checked") | $("#payMethod4").is(":checked")){
-				$("#payMethod1").prop("checked", false);
-				$("#payMethod3").prop("checked", false);
-				$("#payMethod4").prop("checked", false);
-				
-				$("#payMethod2").prop("checked", true);
-			}
-			$("#payMethodTable1").hide();
-			$("#payMethodTable3").hide();
-			$("#payMethodTable4").hide();
-			$("#payMethodTable2").show();
-		}); // click
-		$("#payMethod3").click(function() {
-			if($("#payMethod1").is(":checked") | $("#payMethod2").is(":checked") | $("#payMethod4").is(":checked")){
-				$("#payMethod1").prop("checked", false);
-				$("#payMethod2").prop("checked", false);
-				$("#payMethod4").prop("checked", false);
-				
-				$("#payMethod3").prop("checked", true);
-			}
-			$("#payMethodTable1").hide();
-			$("#payMethodTable2").hide();
-			$("#payMethodTable4").hide();
-			$("#payMethodTable3").show();
-		}); // click
 		$("#payMethod4").click(function() {
-			if($("#payMethod1").is(":checked") | $("#payMethod2").is(":checked") | $("#payMethod3").is(":checked")){
+			if($("#payMethod1").is(":checked")){
 				$("#payMethod1").prop("checked", false);
-				$("#payMethod2").prop("checked", false);
-				$("#payMethod3").prop("checked", false);
-				
 				$("#payMethod4").prop("checked", true);
 			}
 			$("#payMethodTable1").hide();
-			$("#payMethodTable2").hide();
-			$("#payMethodTable3").hide();
 			$("#payMethodTable4").show();
 		}); // click
 	});// ready
 </script>
-<script type="text/javascript">
-function kakaoPay(){
-	alert('카카오페이 결제를 시작합니다. IMP 객체:'+IMP.toString());
-	IMP.request_pay({
-	    pg : 'kakao',
-	    pay_method : 'card',
-	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
-	    amount : 1000,
-	    buyer_email : 'MrFit@siot.do',
-	    buyer_name : '구매자미스터핏',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '대왕판교로 유스페이스2',
-	    buyer_postcode : '123-456',
-	    kakaoOpenApp : true
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	    	alert('결제진행중');
-	    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-	    	jQuery.ajax({
-	    		url: "${pageContext.request.contextPath}/kakaoPayComplete.do", //cross-domain error가 발생하지 않도록 주의해주세요
-	    		type: 'POST',
-	    		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-	            },
-	    		dataType: 'json',
-	    		data: {
-		    		imp_uid : rsp.imp_uid
-		    		//기타 필요한 데이터가 있으면 추가 전달
-	    		}
-	    	}).done(function(data) {
-	    		alert('결제 완료');
-	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	    		if ( everythings_fine ) {
-	    			var msg = '결제가 완료되었습니다.';
-	    			msg += '\n고유ID : ' + rsp.imp_uid;
-	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	    			msg += '\결제 금액 : ' + rsp.paid_amount;
-	    			msg += '카드 승인번호 : ' + rsp.apply_num;
-	    			
-	    			alert(msg);
-	    		} else {
-	    			//[3] 아직 제대로 결제가 되지 않았습니다.
-	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	    		}
-	    	});
-	    } else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
-	        
-	        alert(msg);
-	    }
-	});
-}
-</script>
+
 <!--start-ckeckout-->
-<form action="${pageContext.request.contextPath}/order.do">
+<form action="${pageContext.request.contextPath}/order.do" id = "orderForm">
+<input type="hidden" name="orderStatus" id="orderStatus" value="입금대기">
    <div class="ckeckout">
       <div class="container">
          <div class="ckeckout-top">
          	<div class=" cart-items heading">
           		<div class="in-check">
-          			<h3 class="main-title">주문할 상품</h3>
+          		<h3 class="main-title">주문할 상품</h3>
           		</div>
           		
-				<%-- 주문할 상품 목록 테이블 --%>
+<%-- 주문할 상품 목록 테이블 --%>
 				<table class="table-board">
 					<thead>
 						<tr>
@@ -193,6 +165,8 @@ function kakaoPay(){
 					</thead>
 					<tbody>
 						 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
+						 <input type="hidden" name="pdno" value="${j.pdno}">
+						 <input type="hidden" name="quantity" value="${j.quantity}">
 							<tr>
 								<td>
 									<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
@@ -207,8 +181,8 @@ function kakaoPay(){
 						</c:forEach> 
 					</tbody>
 				</table>
-				
-				<%-- 주문할 상품 목록 테이블 --%>
+				<br><br><br>
+<%-- 주문 정보 테이블 --%>
 				<table class="table-board">
 					<thead>
 						<tr>
@@ -216,103 +190,94 @@ function kakaoPay(){
 						</tr>
 					</thead>
 					<tbody>
-						 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
-							<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 -->
-						</c:forEach> 
+						<tr>
+							<td>
+								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input id="membersPoint" value="${requestScope.point}" style="display: none;">
+								<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" min="0" step="1000" value = "0" size="7" width="4"> 
+								 ( 사용 가능 포인트 금액 : ${requestScope.point})
+								 </div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
-				
-				
-	         </div>
-	         
-	            <table class="cart-header">
-	            	<tr>
-	            		<th>
-	            			<div id = "totalprice"><%-- 총 상품 금액 : ${ovo.totalprice} --%></div>
-	            		</th>
-	            	</tr>
-	            	<tr>
-	            		<th>
-	            			<input id="membersPoint" value="${requestScope.point}" style="display: none;">
-	            			<div align="center">포인트 : <input id="pointCharge" name="payPoint" type = "number" min="0" step="1000" value = "0" size="7" width="4">  ( 사용 가능 포인트 금액 : ${requestScope.point})</div>
-	            		</th>
-	            	</tr>
-	            </table>
-	          </div>
+	         	</div>
+	       	</div>
 	          <br><br><br>
-<%-- 주문자 정보 --%>
-	         <div class = "in-check">
-	         	<ul class="unit">
-	               <li><span></span></li>
-					<li><span></span></li>		
-					<li><span>주문자 정보</span> </li>
-					<li><span></span></li>
-	               <div class="clearfix"></div>
-	            </ul>
-	            <br><br><br>
-	            <div>
-		          	<table class="cart-header">
-		          		<tr>
-		          			<th>이름 : <span id = "memberName">${ovo.memberVO.name}</span>  </th>
-		          		</tr>
-		          		<tr>
-		          			<th>등급 : [ ${ovo.memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovo.memberVO.gradeVO.percent} ]</th>
-		          		</tr>
-		          		<tr>
-		          			<th>이메일 : ${ovo.memberVO.email}</th>
-		          		</tr>
-		          		<tr>
-		          			<th>연락처 : <span id = "memberPhone" value ="${ovo.memberVO.phone}">${ovo.memberVO.phone}</span></th>
-		          		</tr>
-		          		<tr>
-		          			<th>주소 : <span id = "memberAddress" value ="${ovo.memberVO.address}">${ovo.memberVO.address}</span></th>
-		          		</tr>
-		          	</table>
-		         </div>
-	          </div>
-	          <br><br><br>
-<%-- 배송지 정보 --%>
-	          <div class = "in-check">
-	         	<ul class="unit">
-	               <li><span></span></li>
-					<li><span></span></li>		
-					<li><span >배송지 정보</span> </li>
-					<li><span></span></li>
-					<li><span><input type = "checkbox" id = "equalMemberInfo"> 위 정보와 같음</span></li>
-	               <div class="clearfix"></div>
-	            </ul>
-	            <br><br><br>
-	            <div>
-		          	<table class="cart-header">
-		          		<tr>
-		          			<th>이름 : <input type = "text" name = "name" id = "name" required="required"> </th>
-		          		</tr>
-		          		<tr>
-		          			<th>연락처 : <input type = "text" name = "phone" id = "phone" required="required"> </th>
-		          		</tr>
-		          		<tr>
-		          			<th>주소 : <input type = "text" name = "destination" id = "destination" required="required"> </th>
-		          		</tr>
-		          	</table>
-		         </div>
-	          </div>
-	          <br><br><br>
+	        <div>
+				<div class = "col-md-6">
+				<%-- 주문자 정보 --%>
+			         <div class = "in-check">
+				          	<table class="table-board">
+					          	<thead align="center">
+					          		<tr>
+					          			<th>주문자정보</th>
+					          		</tr>
+					          	</thead>
+				          		<tbody>
+					          		<tr>
+					          			<td>이름 : <span id = "memberName">${ovo.memberVO.name}</span></td>
+					          		</tr>
+					          		
+					          		<tr>
+					          			<td>이메일 : <span id = "memberEmail">${ovo.memberVO.email}</span> &nbsp;
+					          			연락처 : <span id = "memberPhone" value ="${ovo.memberVO.phone}">${ovo.memberVO.phone}</span></td>
+					          		</tr>
+					          		<tr>
+					          			<td>주소 : <span id = "memberAddress" value ="${ovo.memberVO.address}">${ovo.memberVO.address}</span></td>
+					          		</tr>
+					          		<tr>
+					          			<td>등급 : [ ${ovo.memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovo.memberVO.gradeVO.percent} ]</td>
+					          		</tr>
+				          		</tbody>
+				          	</table>
+				      <br><br><br>
+			          </div>
+				</div>
+				<div class = "col-md-6">
+				<%-- 배송지 정보 --%>
+			          <div class = "in-check">
+			          	<table class="table-board">
+			          		<thead>
+			          			<tr></tr>
+			          			<tr>
+				          			<th>배송지 정보 <div align="right"><input type = "checkbox" id = "equalMemberInfo"> 위 정보와 같음</div></th>
+			          			</tr>
+			          		</thead>
+			          		<tbody >
+				          		<tr>
+				          			<td colspan="2">이름 : <input type = "text" name = "name" id = "name" required="required"></td>
+				          		</tr>
+				          		<tr>
+				          			<td colspan="2">연락처 : <input type = "text" name = "phone" id = "phone" required="required"> </td>
+				          		</tr>
+				          		<tr>
+				          			<td colspan="2">주소 : <input type = "text" name = "destination" id = "destination" required="required"> </td>
+				          		</tr>
+			          		</tbody>
+			          	</table>
+			          </div>
+			    <br><br><br>
+				</div>
+			</div>  
 <%-- 결제 정보 --%>
 			  <div class = "in-check" >
-	         	<ul class="unit">
-	               <li><span></span></li>
-					<li><span></span></li>		
-					<li><span >결제 정보</span> </li>
-					<li><span></span></li>
-	               <div class="clearfix"></div>
-	            </ul>
+			  	<table class="table-board">
+			  		<thead>
+						<tr>
+							<th>결제 정보</th>
+						</tr>		  		
+		  			</thead>
+			  	</table>
 	            <br><br>
-	            <div align="center">
-	            	<input type = "radio" value="1" name = "depositMethod" id = "payMethod1" checked="checked">무통장입금 &nbsp;&nbsp;
-	            	<input type = "radio" value="2" name = "depositMethod" id = "payMethod2">신용카드 &nbsp;&nbsp;
-	            	<input type = "radio" value="3" name = "depositMethod" id = "payMethod3">페이코(PAYCO) &nbsp;&nbsp;
-	            	<input type = "radio" value="4" name = "depositMethod" id = "payMethod4">카카오페이(KakaoPay) &nbsp;&nbsp;
-	            </div>
+		            <div align="center">
+		            	<input type = "radio" value="입금대기" name = "depositMethod" id = "payMethod1" checked="checked">무통장입금 &nbsp;&nbsp;
+		            	<input type = "radio" value="배송준비중" name = "depositMethod" id = "payMethod4">카카오페이(KakaoPay) &nbsp;&nbsp;
+		            </div>
 	            <br><br><br>
 	            <div align="center">
 		          	<table class="cart-header" id ="payMethodTable1">
@@ -330,7 +295,12 @@ function kakaoPay(){
 		          			<td></td>
 		          		</tr>
 		          	</table>
-		          	<table class="cart-header" id ="payMethodTable2">
+		          	<table class="cart-header" id ="payMethodTable4">
+		          		<tr>
+		          			<td>· 가장 빠른 모바일 결제</td>
+		          		</tr>
+		          	</table>
+		          	<!-- <table class="cart-header" id ="payMethodTable2">
 		          		<tr>
 		          			<td>
 		          			· 안심클릭 및 인터넷안전결제(IPS)서비스로 128bit SSL로 암호화된 결제 창이 새로 뜹니다. <br>
@@ -351,24 +321,23 @@ function kakaoPay(){
 							휴대폰과 카드 명의자가 동일해야 결제 가능하며, 결제금액 제한은 없습니다.
 		          			</td>
 		          		</tr>
-		          	</table>
-		          	<table class="cart-header" id ="payMethodTable4">
-		          		<tr>
-		          			<td>· 가장 빠른 모바일 결제</td>
-		          		</tr>
-		          	</table>
+		          	</table> -->
 		         </div>
 	          </div>	          
+	         <div align="right" class = "in-check">
+	         	<table>
+	         		<tbody>
+		         		<tr>
+		         			<td>
+		         				<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
+		         				<input type="hidden" name="ono" value="${ovo.ono}">
+		         				<input class="add-cart cart-check" type ="button" id="order" value="주문하기">
+		         			</td>
+		         		</tr>
+	         		</tbody>
+	         	</table>
+	         </div> 
          </div>  
-         <div align="right">
-         	<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
-         	<input type="hidden" name="ono" value="${ovo.ono}">
-         	<!-- <input class="add-cart cart-check" type ="submit" id="order" value="주문하기"> -->
-         	<input class="add-cart cart-check" type ="button" id="order" value="주문하기">
-         	<!-- <a href="order.do" class="add-cart cart-check" id = "order">주문하기</a> -->
-         </div> 
        </div>
-      </div>
-   </div>
-   </form>
-   <!--end-ckeckout-->
+  </form>
+  <!--end-ckeckout-->
