@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
+<c:set value="${lvo.pagingBean}" var="pb" />
+<c:set value="${order.memberVO.id}" var="id"/>
+
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
@@ -17,7 +20,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="order">
+						<c:forEach items="${lvo.list}" var="order">
 							<tr>
 								<td><a href="${pageContext.request.contextPath}/myOrderPrductList.do?ono=${order.ono}&id=<sec:authentication property="principal.id"/>">${order.ono}</a></td>
 								<td>${order.totalprice}</td>
@@ -38,6 +41,30 @@
 						</c:forEach> 
 					</tbody>
 				</table>
+				
+				<%-- 페이징 처리 --%>
+				<div class="container" align="center">
+				  		<ul class="pager">
+				   			<c:if test="${pb.previousPageGroup==true}">
+				   			<li><a href="myOrderList.do?id=${id}&pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
+				   			</c:if>
+				   			<c:forEach begin="${pb.startPageOfPageGroup}" 
+				   			end="${pb.endPageOfPageGroup}" var="pageNum">
+				   			<c:choose>
+				   				<c:when test="${pageNum==pb.nowPage}">
+								<li>${pageNum}&nbsp;&nbsp;</li>
+								</c:when>
+								<c:otherwise>
+								<li><a href="myOrderList.do?id=${id}&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+								</c:otherwise>
+				   			</c:choose>
+				   			</c:forEach>
+				   			<c:if test="${pb.nextPageGroup==true}">
+				    		<li><a href="myOrderList.do?id=${id}&pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
+				    		</c:if>
+				 		 </ul>
+					</div>
+				
 			</div>
 		</div>
 	</div>

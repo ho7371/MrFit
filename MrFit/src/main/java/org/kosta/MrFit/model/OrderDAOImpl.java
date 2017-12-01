@@ -69,15 +69,19 @@ public class OrderDAOImpl implements OrderDAO {
 
 	// [영훈][2017.11.24][회원 주문내역 리스트]
 	@Override
-	public List<OrderVO> myOrderList(String id) {
-		return template.selectList("order.myOrderList", id);
+	public List<OrderVO> myOrderList(Map<String, Object> map) {
+		return template.selectList("order.myOrderList", map);
 	}
 
 	// [영훈][2017.11.24][회원 주문상품내역 리스트]
 	@Override
-	public List<OrderProductVO> myOrderPrductList(String ono) {
-		return template.selectList("order.myOrderPrductList", ono);
-		/* return template.selectList("order.findOrderProductInfoByPdnoAndOno",ono); */
+	public List<OrderProductVO> myOrderPrductList(Map<String, Object> map) {
+		PagingBean pb=(PagingBean)map.get("pagingBean");
+		System.out.println("DAO getStartRowNumber : *** "+pb.getStartRowNumber());
+		System.out.println("DAO getEndRowNumber : *** "+pb.getEndRowNumber());
+		List<OrderProductVO> list = template.selectList("order.myOrderPrductList", map);
+		System.out.println("DAO 주문상품 개수 : *** "+list.size());
+		return list;
 	}
 
 	// [김석환][2017.11.22][장바구니 상품 수량 수정]
@@ -283,5 +287,15 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public void reportPoint(Map<String, Object> map) {
 		template.insert("order.reportPoint",map);
+	}
+	// [영훈][11/30] 회원 주문 총건수
+	@Override
+	public int getTotalMyOrderCount(String id) {
+		return template.selectOne("order.getTotalMyOrderCount",id);
+	}
+	// [영훈][11/30] 회원 주문의 주문상품 총개수
+	@Override
+	public int getTotalMyOrderProductCount(String ono) {
+		return template.selectOne("order.getTotalMyOrderProductCount",ono);
 	}
 }

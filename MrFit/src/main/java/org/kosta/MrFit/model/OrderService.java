@@ -6,9 +6,9 @@ import java.util.Map;
 public interface OrderService {
 	OrderVO findMyCart(String id);
 
-	List<OrderVO> myOrderList(String id);
+	List<OrderVO> myOrderList(Map<String, Object> map);
 
-	List<OrderProductVO> myOrderPrductList(String ono);
+	List<OrderProductVO> myOrderPrductList(Map<String, Object> map);
 
 	int findMyCartCount(String id);
 
@@ -71,5 +71,9 @@ public interface OrderService {
 	int findMemberPointById(String id);
 
 	void reportPoint(Map<String, Object> map);
+
+	int getTotalMyOrderCount(String id);
+
+	int getTotalMyOrderProductCount(String ono);
 
 }

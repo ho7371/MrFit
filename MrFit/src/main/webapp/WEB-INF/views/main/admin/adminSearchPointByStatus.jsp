@@ -18,11 +18,17 @@
 	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입">상품 구입 이력</a>&nbsp; | &nbsp;
 	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급">관리자 지급 이력</a> &nbsp;
 	<form action="${pageContext.request.contextPath}/adminSearchPoint.do" id="searchTypeForm">
+				<%-- 
+			<select name="searchType">
+			<option value="memberId">회원아이디</option>
+			<option value="status">지급형태</option>
+		</select>
+			
+		 --%>
 		<input type="text" name="id" placeholder="아이디">
 		<input type="submit" value="검색">
 	</form>
 </div>
-<br><hr><br>
 <%-- 포인트 이력 테이블 --%>
 <table class="table-board">
 		<thead>
@@ -53,7 +59,7 @@
 	<ul class="pager">
 		<c:if test="${pb.previousPageGroup==true}">
 			<li><a
-				href="adminPointList.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a></li>
+				href="adminSearchPointByStatus.do?nowPage=${pb.startPageOfPageGroup-1}&status=${lvo.list[0].status}">Previous</a></li>
 		</c:if>
 		<c:forEach begin="${pb.startPageOfPageGroup}"
 			end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -62,13 +68,13 @@
 					<li>${pageNum}&nbsp;&nbsp;</li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="adminPointList.do?&nowPage=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
+					<li><a href="adminSearchPointByStatus.do?&nowPage=${pageNum}&status=${lvo.list[0].status}">${pageNum}</a>&nbsp;&nbsp;</li>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pb.nextPageGroup==true}">
 			<li><a
-				href="adminPointList.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a></li>
+				href="adminSearchPointByStatus.do?nowPage=${pb.endPageOfPageGroup+1}&status=${lvo.list[0].status}">Next</a></li>
 		</c:if>
 	</ul>
 </div>

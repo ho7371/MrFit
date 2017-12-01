@@ -126,6 +126,8 @@ CREATE TABLE product (
    hit NUMBER DEFAULT 0 
 );
 
+
+
       /* 상품 색상 [진행중인 테이블 선택시 추가해야 할 테이블] */   
       create sequence pcno_seq;
       CREATE TABLE product_color (
