@@ -161,14 +161,14 @@ insert into review(rno, pdno, id, content, regdate)
 values(rno_seq.nextval,2,'test2','test2이 기본하의상품1에 작성한 리뷰내용',sysdate);
 
 --------------- 상품 QnA 등록
-insert into product_qna(pqno,id,pno,content,regdate) 
-values(pqno_seq.nextval,'test1',1,'test1이 기본상의상품1에 작성한 상품QnA내용',sysdate);
-insert into product_qna(pqno,id,pno,content,regdate) 
-values(pqno_seq.nextval,'test2',1,'test2이 기본상의상품1에 작성한 상품QnA내용',sysdate);
-insert into product_qna(pqno,id,pno,content,regdate) 
-values(pqno_seq.nextval,'test1',2,'test1이 기본하의상품1에 작성한 상품QnA내용',sysdate);
-insert into product_qna(pqno,id,pno,content,regdate) 
-values(pqno_seq.nextval,'test2',3,'test2이 기본아우터상품1에 작성한 상품QnA내용',sysdate);
+insert into product_qna(pqno,id,pno,content,regdate,security) 
+values(pqno_seq.nextval,'java1',1,'test1이 기본상의상품1에 작성한 상품QnA내용',sysdate,'private');
+insert into product_qna(pqno,id,pno,content,regdate,security) 
+values(pqno_seq.nextval,'java1',1,'test2이 기본상의상품1에 작성한 상품QnA내용',sysdate,'public');
+insert into product_qna(pqno,id,pno,content,regdate,security) 
+values(pqno_seq.nextval,'java1',2,'test1이 기본하의상품1에 작성한 상품QnA내용',sysdate,'public');
+insert into product_qna(pqno,id,pno,content,regdate,security) 
+values(pqno_seq.nextval,'java1',3,'test2이 기본아우터상품1에 작성한 상품QnA내용',sysdate,'public');
 
 --------------- 주문
 /*

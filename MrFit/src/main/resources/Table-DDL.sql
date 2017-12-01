@@ -213,6 +213,7 @@ CREATE TABLE product_qna (
    pno NUMBER NOT NULL,
    content CLOB NOT NULL,
    regdate DATE NOT NULL,
+   security VARCHAR2(100) NOT NULL, 
    constraint fk_id_in_product_qna foreign key(id) references member(id),
    constraint fk_pno_in_product_qna foreign key(pno) references product(pno) on delete cascade
 );

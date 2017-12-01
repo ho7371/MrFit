@@ -15,6 +15,7 @@ import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.ProductDAO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductQnaVO;
 import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeGapVO;
@@ -194,7 +195,24 @@ public class ProductController {
 		// ProductReview paging처리 완료
 		
 		// ProductQnA paging 처리 부분(2차)
-		
+		totalCount=productService.getTotalProductQnaCountByPno(pno);
+		System.out.println(totalCount);
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println(pb.getEndRowNumber());
+		System.out.println(pb.getStartRowNumber());
+	/*	map.put("pno", pno);
+		map.put("paingBean", pb);*/
+		map.put("startRowNumber", pb.getStartRowNumber());
+		map.put("endRowNumber", pb.getEndRowNumber());
+		pb=(PagingBean)map.get("pagingBean");
+		System.out.println(pb.getEndRowNumber());
+		List<ProductQnaVO> pqlist=productService.findProductQnaByPno(map);
+		ListVO<ProductQnaVO> lpqlist= new ListVO<ProductQnaVO>(pqlist,pb);
+		mv.addObject("lpqlist", lpqlist);
+		System.out.println(lpqlist);
+	/*	if(checkScroll.equals("confirmScroll")) {
+			mv.addObject("checkScroll", checkScroll);
+		}*/
 		mv.setViewName("product/productDetail.tiles");
 		mv.addObject("clist", clist);
 		mv.addObject("pvo", pvo);
