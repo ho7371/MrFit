@@ -14,7 +14,7 @@
 	<div class="container">
 	
 		<form action="${pageContext.request.contextPath}/admin/FindProductByName.do">
-			<input type="text" name="keyword" placeholder="상품검색">
+			<input type="text" class="searchInput" name="keyword" placeholder="상품검색">
 			<input type="submit" value="검색">
 		</form>
 		<a href="${pageContext.request.contextPath}/admin/registerProductForm.do" type="button" class="btn btn-default">상품등록</a> &nbsp; 

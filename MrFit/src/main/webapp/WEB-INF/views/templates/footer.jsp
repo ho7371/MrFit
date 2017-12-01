@@ -54,13 +54,11 @@
 <div class="footer-text">
 	<div class="container">
 		<div class="footer-main">
+			<p class="footer-class">한국소프트웨어기술진흥원 KOSTA 163기 | Mr.Fit 프로젝트 | HotSix팀</p>
+			<p class="footer-class">만든 이들 : 현진호 | 김석환 | 진영훈 | 유정현 | 신재현 | 이현민</p>
 			<p class="footer-class">
-				한국소프트웨어기술진흥원 KOSTA 163기 | Mr.Fit 프로젝트 | HotSix팀  <br>
-				만든 이들 : 현진호 | 김석환 | 진영훈 | 유정현 | 신재현 | 이현민
-			</p>
-			<p class="footer-class">
-				© 2015 Free Style All Rights Reserved | Design by <a
-					href="http://w3layouts.com/" target="_blank">W3layouts</a>
+				© 2015 Free Style All Rights Reserved | Design by 
+				<a href="http://w3layouts.com/" target="_blank">W3layouts</a>
 			</p>
 		</div>
 	</div>
@@ -75,9 +73,9 @@
 			};
 			 */
 
-			$().UItoTop({
+			/* $().UItoTop({
 				easingType : 'easeOutQuart'
-			});
+			}); */
 
 		});
 	</script>

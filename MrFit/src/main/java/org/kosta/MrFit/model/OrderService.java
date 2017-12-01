@@ -8,7 +8,7 @@ public interface OrderService {
 
 	List<OrderVO> myOrderList(Map<String, Object> map);
 
-	List<OrderProductVO> myOrderPrductList(Map<String, Object> map);
+	List<OrderProductVO> myOrderPrductList(String ono);
 
 	int findMyCartCount(String id);
 
@@ -26,7 +26,7 @@ public interface OrderService {
 
 	String findPdno(ProductDetailVO pdvo);
 
-	void productOrderPayment(MemberVO vo, int payPoint, int depositMethod, OrderVO ovo);
+	void productOrderPayment(MemberVO vo, int payPoint, OrderVO ovo);
 
 	void myOrderStatusChange(String ono);
 

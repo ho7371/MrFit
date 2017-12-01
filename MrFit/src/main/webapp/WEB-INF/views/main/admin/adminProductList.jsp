@@ -16,54 +16,47 @@
 <!--start-ckeckout-->
 <div class="ckeckout">
 	<div class="container">
-	
-		<form action="${pageContext.request.contextPath}/admin/FindProductByName.do">
-			<input type="text" name="keyword" placeholder="상품검색">
-			<input type="submit" value="검색"><hr>
-		</form>
-		
-	
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>상품목록</h3>
-				<div align="right"><a href="${pageContext.request.contextPath}/admin/registerProductForm.do" type="button" class="btn btn-default">상품등록</a></div> 
-				<div class="in-check">
-					<ul class="unit">
-						<li><span>사진</span></li>
-						<li><span>상품명</span></li>
-						<li><span>내용</span></li>
-						<li><span>분류</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					
-					<c:forEach items="${lvo.list }" var="item">
-						<ul class="cart-header">
-							<li>
-								<span>
-									<img alt="${item.name} 사진" src="${pageContext.request.contextPath}/thumb/${item.name}.jpg">
-								</span>
-							</li>
-							<li>
-								<span>${item.name}</span>
-							</li>
-								<li>
-								<span>${item.content}</span>
-							</li>
-								<li>
-								<span>${item.category}</span>
-							</li>
-							<li>
-								<span>
+				<div align="right">
+					<form action="${pageContext.request.contextPath}/admin/FindProductByName.do">
+						<input type="text" class="searchInput" name="keyword" placeholder=" 상품검색">
+						<input type="submit" value="검색">
+					</form>
+				</div> 
+				
+				<%-- 주문 내역 리스트 --%>
+				<table class="table-board">
+					<thead>
+						<tr class="success">
+							<th>사진</th>
+							<th>상품명</th>
+							<th>내용</th>
+							<th>분류</th>
+							<th>변경</th>
+						</tr>
+					</thead>
+					<tbody>	
+						<c:forEach items="${lvo.list }" var="item">					
+							<tr>
+							    <td><img alt="${item.name} 사진" src="${pageContext.request.contextPath}/thumb/${item.name}.jpg"></td>				
+								<td>${item.name}</td>
+								<td>${item.content}</td>
+								<td>${item.category}</td>
+								<td>
 									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()"type="button" class="btn btn-default">수정</a>
-									&nbsp;<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
-								</span>
-							</li>
-						
-							<div class="clearfix"></div>
-						</ul>
-					</c:forEach>
-				</div>
+									&nbsp;
+									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
+								</td>
+							</tr>	
+						</c:forEach>
+					</tbody>					
+				</table>
 			</div>
+			<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">
+				<button style="margin-top: 10px;">상품등록</button>
+			</a>
 		</div>
 	</div>
 </div>

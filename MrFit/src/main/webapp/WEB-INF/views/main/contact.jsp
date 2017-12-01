@@ -23,11 +23,13 @@
 				</div>
 				<div class="clearfix"> </div>
 			</div>
+			<h2 style="margin-top: 4em; font-weight: bold;">LOCATION</h2>
+			<div id="map" style="width: 100%; height: 500px; margin-top: 2em;"></div>
 		</div>
 	</div>
 	<!--end-contact-->
 	<!--start-map-->
-	<div id="map" style="width: 100%; height: 500px;"></div>
+
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5f1a88880da3f10b3af7bd82dd9cdf6a"></script>
 	<script>
 		var container = document.getElementById('map');

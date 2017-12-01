@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#selectProductType").change(function() {	
@@ -96,13 +97,14 @@ $(document).ready(function() {
 	</div>
 </div>
 <!--end-banner-bottom-->
-<select id="selectProductType">
-	<option selected="selected">신상품순</option>
-	<option>조회순</option>
-</select>
+
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
+		<select id="selectProductType">
+			<option selected="selected">신상품순</option>
+			<option>조회순</option>
+		</select>
 		<div class="product-one">
 		
 		<c:set value="${lvo.pagingBean}" var="pb" />
@@ -143,11 +145,11 @@ $(document).ready(function() {
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
 	   				<c:choose>
 	   					<c:when test="${pageNum==pb.nowPage}">
-							<li>${pageNum}&nbsp;&nbsp;</li>
+							<li><a>${pageNum}&nbsp;&nbsp;</a></li>
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="home.do?pageNopageNo=${pageNum}">${pageNum}</a>
+							<a href="home.do?pageNo=${pageNum}">${pageNum}</a>
 							&nbsp;&nbsp;
 						</li>
 					</c:otherwise>
@@ -155,7 +157,7 @@ $(document).ready(function() {
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="home.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="home.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		

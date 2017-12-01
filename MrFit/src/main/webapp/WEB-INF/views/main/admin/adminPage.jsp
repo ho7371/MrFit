@@ -8,52 +8,52 @@
 <div class="product">
 	<div class="container">
 		<div class="product-main">
-			<div class="col-md-1"></div>
-			<div class="col-md-10">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
 				<div class="product-one">
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
-								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
 								<p>주문 관리</p>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/adminProductList.do">
-								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt="" />
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt="" />
 								<p>상품 관리</p>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
-								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
 								<p>회원 관리</p>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
-								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
 								<p>게시글 관리</p>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-4 product-left single-left">
-						<div class="p-one simpleCart_shelfItem" style="padding: 20px;">
+						<div class="p-one simpleCart_shelfItem">
 							<a href="${pageContext.request.contextPath}/adminPointList.do">
-								<img src="${pageContext.request.contextPath}/resources/images/Logo.jpg" alt=""/>
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
 								<p>포인트 이력</p>
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-1"></div>
+			<div class="col-md-2"></div>
 			<div class="clearfix"></div>
 		</div>
 	</div>

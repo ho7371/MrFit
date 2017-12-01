@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -224,23 +225,7 @@ public class OrderController {
 	public ModelAndView myOrderPrductList(String ono, String id, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
-		int totalCount = orderService.getTotalMyOrderProductCount(ono);
-		System.out.println("controller ono의 주문상품개수 : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
-		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
-		if(pageNo != null) {
-			nowPage = Integer.parseInt(pageNo);
-		}
-		PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("controller pb : "+pb);
-		Map<String, Object> map0 = new HashMap<String, Object>();
-		map0.put("ono", ono);
-		map0.put("pagingBean", pb);
-		System.out.println("*************"+map0);
-		List<OrderProductVO> list = orderService.myOrderPrductList(map0);							// 주문번호로 주문상품리스트 생성
-		System.out.println("************** 주문상품 개수 : "+list.size());
+		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
 		for(int i=0;i<list.size();i++) {
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
 			Map<String, String> map = new HashMap<String, String>();								// id,ono,pdno를 이용해 맵 세팅 후 매개변수로 사용
@@ -261,10 +246,8 @@ public class OrderController {
 			}
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 종료");
 		}//for
-		System.out.println("      OrderController/myOrderPrductList()/진행 for문종료 list:" + list);
-		ListVO<OrderProductVO> lvo = new ListVO<OrderProductVO>(list,pb);
-		System.out.println("      OrderController/myOrderPrductList()/종료 lvo:" + lvo);
-		mv.addObject("lvo", lvo);
+		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
+		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
 	}
@@ -278,6 +261,7 @@ public class OrderController {
 	@ResponseBody
 	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
 		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
+		System.out.println(opvo.getOno());
 		int beforeQuantity=orderService.findBeforeQuantityByOnoAndPdno(opvo); //이전 수량
 		int quantity=opvo.getQuantity();									  //변경될 수량
 		int gapQuantity=quantity-beforeQuantity;							  //변결될 수량-이전 수량
@@ -298,7 +282,7 @@ public class OrderController {
 	 */
 	@Transactional
 	@RequestMapping("order.do")
-	public String productOrderPayment(int payPoint,int depositMethod,OrderVO ovo,HttpServletRequest request) {
+	public String productOrderPayment(int payPoint,String depositMethod,OrderVO ovo,HttpServletRequest request) {
 		System.out.println("      OrderController/productOrderPayment()/시작 매개변수 payPoint : "+payPoint+", depositMethod : "+depositMethod+", ovo : "+ovo);
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String[] pdno=request.getParameterValues("pdno");											// 상품상세번호 수량 배열 세팅
@@ -306,7 +290,8 @@ public class OrderController {
 		System.out.println("      OrderController/productOrderPayment()/진행 사용포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
 		System.out.println("      OrderController/productOrderPayment()/진행 totalprice : "+ovo.getTotalprice());
 		vo.setPoint(payPoint);
-		orderService.productOrderPayment(vo, payPoint, depositMethod, ovo);
+		ovo.setStatus(depositMethod);
+		orderService.productOrderPayment(vo, payPoint, ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 상품주문변경 : "+ovo);
 		System.out.println("      OrderController/productOrderPayment()/진행 depositMethod : "+depositMethod);
 		for(int i=0;i<pdno.length;i++) {
@@ -380,7 +365,7 @@ public class OrderController {
 		int totalprice=quantity*price;
 		MemberVO mvo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int point=orderService.findMemberPointById(mvo.getId());
-		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시결제",mvo,null);
+		OrderVO ovo=new OrderVO(null,totalprice,mvo.getAddress(),null,"즉시주문",mvo,null);
 		orderService.immediatelyPayRegisterOrder(ovo);
 		OrderProductVO opvo=new OrderProductVO();
 		String ono=ovo.getOno();
@@ -418,4 +403,14 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping(value="kakaoPayComplete.do", method=RequestMethod.POST)
+	//@RequestMapping("kakaoPayComplete.do")
+	@ResponseBody
+	public HashMap<String, String> kakaoPayComplete(String imp_uid) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("imp_uid", imp_uid);
+		System.out.println("      @@@@@ 카카오페이 로그 : "+imp_uid);
+		return map;
+	}
 }

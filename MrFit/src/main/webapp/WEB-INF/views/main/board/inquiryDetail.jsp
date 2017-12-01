@@ -11,66 +11,55 @@
 				<h3>문의 글</h3>
 				<sec:authentication property='principal.id' var="isId"/>
 				<c:if test="${ivo.id==isId}">
-						<a href="${pageContext.request.contextPath}/updateInquiryForm.do?iqno=${ivo.iqno}">문의 수정</a>
+					<div style="float:right;">
+						<a href="${pageContext.request.contextPath}/updateInquiryForm.do?iqno=${ivo.iqno}"><button style="margin-bottom: 20px;">문의 수정</button></a>
+					</div>
 				</c:if>
-				<div class="in-check" style="text-align: center;" align="center">
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>No</th><th>Title</th><th>Writer</th><th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${ivo.iqno}</td><td>${ivo.title}</td><td>${ivo.id}</td><td>${ivo.regdate}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr><th colspan="4">본문</th></tr>
+					</thead>
+					<tbody>
+						<tr><td colspan="4" style="height: 400px;">${ivo.content}</td></tr>
+					</tbody>
+				</table>
 				
-					
-					<ul class="unit">
-						<li><span>No</span></li>
-						<li><span>Title</span></li>
-						<li><span>Writer</span></li>
-						<li><span>작성일</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>${ivo.iqno}</span></li>
-						<li><span>${ivo.title}</span></li>
-						<li><span>${ivo.id}</span></li>
-						<li><span>${ivo.regdate}</span></li>
-						<div class="clearfix"></div>
-					</ul>
-				</div>
-				<div class="in-check" style="text-align: center;">
-					<ul class="unit">
-						<li><span></span></li>
-						<li><span></span></li>
-						<li><span>본문</span></li>
-						<li><span></span></li>
-						<li><span></span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header" style="text-align: center;">
-						${ivo.content}
-						<div class="clearfix"></div>
-					</ul>
-					<c:if test="${ivo.id==isId}">
-						<a href="${pageContext.request.contextPath}/deleteInquiry.do?iqno=${ivo.iqno}">문의 삭제</a>
+				<c:if test="${ivo.id==isId}">
+					<div>
+						<a href="${pageContext.request.contextPath}/deleteInquiry.do?iqno=${ivo.iqno}"><button>문의 삭제</button></a>
+					</div>
 				</c:if>
-					<c:choose>
-						<c:when test="${ivo.inquiryReplyVO != null}">
-							<ul class="unit">
-						<li><span>답글</span></li>
-						<li><span></span></li>
-						<li><span></span></li>
-						<li><span></span></li>
-						<li><span></span></li>
-						<div class="clearfix"></div>
-					</ul>
-							<ul class="cart-header" style="text-align: center;">
-								<li><span>관리자</span></li>
-								${ivo.inquiryReplyVO.content}
-								<li><span>${ivo.inquiryReplyVO.regdate}</span></li>
-								<div class="clearfix"></div>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
-							<c:if test="${isAdmin}">
-								<button class="my_popup_open" onclick='selectSendReply("${ivo.iqno}")'>댓글달기</button>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
+				<c:choose>
+					<c:when test="${ivo.inquiryReplyVO != null}">
+						<table class="table-board inquiry">
+							<thead><tr><th colspan="2">관리자 댓글</th></tr></thead>
+							<tbody>
+								<tr><td colspan="2">${ivo.inquiryReplyVO.content}</td></tr>
+								<tr>
+									<td style="background-color: #181b2a; color: white;">작성일</td><td>${ivo.inquiryReplyVO.regdate}</td>
+								</tr>
+							</tbody>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+						<c:if test="${isAdmin}">
+							<button class="my_popup_open btn btn-default" onclick='selectSendReply("${ivo.iqno}")'>댓글달기</button>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+					
+					
 					<%-- 쪽지 창  --%>
 					<div id="my_popup" style="display: none;">
 						<h4 align="center">댓글</h4>
@@ -81,6 +70,8 @@
 					    <button class="my_popup_close" type ="button">Close</button>
 						</div>
 					</div>
+					
+					
 					<script type="text/javascript">
 						function selectSendReply(iqno){
 							 $('#my_popup').popup({

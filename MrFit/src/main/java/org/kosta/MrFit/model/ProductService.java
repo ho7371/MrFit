@@ -49,7 +49,7 @@ public interface ProductService {
 
 	int productTotalCount(String keyword);
 
-	int getTotalProductReviewCount();
+	int getTotalProductReviewCount(String pno);
 
 	void hitUpByPno(String pno);
 
@@ -59,5 +59,7 @@ public interface ProductService {
 
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 	
+	int getTotalProductQnaCountByPno(String pno);
 
+	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 }

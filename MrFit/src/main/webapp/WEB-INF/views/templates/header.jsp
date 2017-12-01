@@ -99,7 +99,7 @@
 </div>
 <!--top-header-->
 <!--bottom-header-->
-<div class="header-bottom">
+<div class="header-bottom" style=" border-bottom: solid 1px #999999;border-top: solid 1px #999999;">
 	<div class="container">
 		<div class="top-nav">
 			<ul class="memenu skyblue">

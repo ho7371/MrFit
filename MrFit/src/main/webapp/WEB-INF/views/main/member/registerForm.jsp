@@ -71,7 +71,11 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-md-6 account-left"></div>
+				<div class="col-md-6 account-left">
+					<div style="padding: 15px;">
+						<img alt="" src="${pageContext.request.contextPath}/resources/images/memberRegForm.jpg" style="width: 90%; margin-top: 50px;">
+					</div>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 		</div>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 
-<c:set value="${lvo.pagingBean}" var="pb" />
+<%-- <c:set value="${lvo.pagingBean}" var="pb" /> --%>
 
 <!--start-ckeckout-->
 <div class="ckeckout">
@@ -24,7 +24,7 @@
 						<li><span>상품 리뷰작성</span></li>
 						<div class="clearfix"></div>
 					</ul>
-					<c:forEach items="${lvo.list}" var="orderProduct">
+					<c:forEach items="${list}" var="orderProduct">
 					<ul class="cart-header">
 						<li><span>${orderProduct.ono}</span></li>
 						<li><span>${orderProduct.name}</span></li>
@@ -53,7 +53,7 @@
 				</div>
 				
 				<%-- 페이징 처리 --%>
-				<div class="container" align="center">
+				<%-- <div class="container" align="center">
 				  		<ul class="pager">
 				   			<c:if test="${pb.previousPageGroup==true}">
 				   			<li><a href="myOrderPrductList.do?ono=${orderProduct.ono}&id=<sec:authentication property="principal.id"/>&pageNo=${pb.startPageOfPageGroup-1}">Previous</a></li>
@@ -73,7 +73,7 @@
 				    		<li><a href="myOrderPrductList.do?ono=${orderProduct.ono}&id=<sec:authentication property="principal.id"/>&pageNo=${pb.endPageOfPageGroup+1}">Next</a></li>
 				    		</c:if>
 				 		 </ul>
-				</div>
+				</div> --%>
 					
 			</div>
 		</div>

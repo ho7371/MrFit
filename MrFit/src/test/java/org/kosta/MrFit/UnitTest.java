@@ -1,16 +1,21 @@
 package org.kosta.MrFit;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.BoardService;
-import org.kosta.MrFit.model.InquiryVO;
+import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
+import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.ProductQnaVO;
 import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +41,21 @@ public class UnitTest {
 	private AdminService adminService;
 	 @Test
 	 public void unitTest() {
-		 System.out.println(orderService.findProductImageByPdno("43"));
+			int totalCount = 2;
+			int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+			int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+			int nowPage = 1;
+			PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pno", "22");
+			map.put("pagingBean", pb);
+			pb=(PagingBean) map.get("pagingBean");
+			System.out.println(pb.getStartRowNumber());
+			System.out.println(pb.getEndRowNumber());			
+			System.out.println(map.get("pagingBean"));
+			List<ProductReviewVO> pqlist=productService.findProductReplyByPno(map);
+			System.out.println(pqlist);
+	//System.out.println(productService.getTotalProductQnaCountByPno("1"));
 		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
 		 //System.out.println(productService.findProductReplyByPno("1"));
 		// System.out.println(prvolist);

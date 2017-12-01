@@ -84,7 +84,7 @@ public class HomeController {
 		
 			/* 페이징 처리 공통 영역 */
 			int totalCount = productService.getTotalProductCount();
-			int postCountPerPage = 9;
+			int postCountPerPage = 8;
 			int postCountPerPageGroup = 5;
 			int nowPage = 1;
 			String pageNo = request.getParameter("pageNo");
@@ -122,7 +122,7 @@ public class HomeController {
 		
 			/* 페이징 처리 공통 영역 */
 			int totalCount = productService.getTotalProductCount();
-			int postCountPerPage = 9;
+			int postCountPerPage = 8;
 			int postCountPerPageGroup = 5;
 			int nowPage = 1;
 			String pageNo = request.getParameter("pageNo");

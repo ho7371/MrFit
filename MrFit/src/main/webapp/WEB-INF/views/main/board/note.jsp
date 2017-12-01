@@ -39,58 +39,56 @@
 						  
 				<h3>쪽지함</h3>
 				<c:if test="${isAdmin}">
-					<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">쪽지보내기</a>
+					<div style="float:right;">
+						<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
+							<button style="margin-bottom: 1em;">쪽지보내기</button>
+						</a>
+					</div>
 				</c:if>
-				<div class="in-check">
-					<ul class="unit">
-					<%-- 쪽지함 돌릴 때 사용할 코드--%>
-						<c:choose>
-							<c:when test="${isAdmin}">
-								<li><span>쪽지번호</span></li>
-								<li><span>받는사람</span></li>
-								<li><span>받은내용</span></li>
-								<li><span>받은날짜</span></li>
-							</c:when>
-							<c:otherwise>
-								<li><span>쪽지번호</span></li>
-								<li><span>보낸사람</span></li>
-								<li><span>보낸내용</span></li>
-								<li><span>보낸날짜</span></li>
-							</c:otherwise>
-						</c:choose>
-						
-						<div class="clearfix"></div>
-					</ul>
-						<%-- 쪽지함 돌릴 때 사용할 코드 --%>
-						<c:choose>
-							<c:when test="${isAdmin}"> <!-- 관리자가 보는 쪽지 리스트 -->
-								<c:forEach items="${requestScope.lvo.list}" var="i">
-									<ul class="cart-header">
-										<li><span>${i.note_no}</span></li>
-										<li><span>${i.id}</span></li>
-										<li><span>${i.content}</span></li>
-										<li><span>${i.send_date}</span></li>
-										<div class="clearfix"></div>
-									</ul>
-								</c:forEach>
-							</c:when>
-							<c:otherwise><!-- 회원이 보는 쪽지 리스트 -->
-								<c:forEach items="${requestScope.lvo.list}" var="i">
-									<ul class="cart-header">
-										<li><span>${i.note_no}</span></li>
-										<li><span>관리자</span></li>
-										<li><span>${i.content}</span></li>
-										<li><span>${i.send_date}</span></li>
-										<div class="clearfix"></div>
-									</ul>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose> 
+				
+				<table class="table-board">
+					<thead>
+						<tr class="success">
+							<c:choose>
+								<c:when test="${isAdmin}">
+									<th>쪽지번호</th><th>받는사람</th><th>받은내용</th><th>받은날짜</th>
+								</c:when>
+								<c:otherwise>
+									<th>쪽지번호</th><th>보낸사람</th><th>보낸내용</th><th>보낸날짜</th>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+					</thead>
+						<tbody><%-- 쪽지함 돌릴 때 사용할 코드 --%>						
+							<c:choose>
+								<c:when test="${isAdmin}"> <!-- 관리자가 보는 쪽지 리스트 -->
+									<c:forEach items="${requestScope.lvo.list}" var="i">
+										<tr>
+											<td>${i.note_no}</td>
+											<td>${i.id}</td>
+											<td>${i.content}</td>
+											<td>${i.send_date}</td>
+										</tr>
+									</c:forEach>
+								</c:when>
+								<c:otherwise><!-- 회원이 보는 쪽지 리스트 -->
+									<c:forEach items="${requestScope.lvo.list}" var="i">
+										<tr>
+											<td>${i.note_no}</td>
+											<td>관리자</td>
+											<td>${i.content}</td>
+											<td>${i.send_date}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose> 
+						</tbody>					
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
 <!--end-ckeckout-->
 
 <%-- 페이징 처리 --%>

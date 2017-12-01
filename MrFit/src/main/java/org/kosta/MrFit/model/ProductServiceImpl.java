@@ -300,8 +300,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	//[영훈][11/29][상품리뷰 총 개수]
 	@Override
-	public int getTotalProductReviewCount() {
-		return productDAO.getTotalProductReviewCount();
+	public int getTotalProductReviewCount(String pno) {
+		return productDAO.getTotalProductReviewCount(pno);
 	}
 	@Override
 	public void hitUpByPno(String pno) {

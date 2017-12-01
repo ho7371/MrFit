@@ -6,25 +6,6 @@
 $(document).ready(function() {
 	var quantity=$(".findQuantity").attr("id");
 	
-	// 상품 수량변경 클릭시
-	$("#updateBtan").click(function() {
-		if(confirm('수량을 변경하시겠습니까?')==true){
-			var info="";
-			info="수량 :<input id='updateQuantity' type='text' value='";
-			info+=quantity;
-			info+="' size='5'>";
-			$("#updateField").html(info);        		
-			$("#updateGround").html("<a href='#' class='add-cart cart-check' id='updateBtn1'>수정완료</a>");
-		}
-	});//click()
-	
-	// 
-	$("#updateGround").on("click", "#updateBtn1", function(){
-		location.href="${pageContext.request.contextPath}/updateOrderQuantity.do?ono="
-			+$(".findOno").attr("id")+"&pdno="+$(".findPdno").attr("id")
-			+"&quantity="+$("#updateQuantity").val()+"&price="+$(".findPrice").attr("id");
-	});//on()
-	
 	/* $('.close1').on('click', function(c){
 		$('.cart-header').fadeOut('slow', function(c){
 			$('.cart-header').remove();
@@ -50,9 +31,9 @@ $(document).ready(function() {
 	
 	$(".updateBtn").click(function() {
 		if(confirm('수량을 변경하시겠습니까?')){
-			var quantity = $(this).parent().find(".productCount").val();
-			var price = $(this).parent().find(".hiddenPrice").val();
-			var pdno = $(this).parent().find(".hiddenPdno").val();
+			var quantity = $(this).parent().parent().find(".productCount").val();
+			var price = $(this).parent().parent().find(".hiddenPrice").val();
+			var pdno = $(this).parent().parent().find(".hiddenPdno").val();
 			alert("보낼 데이터 : quantity-"+quantity+", price-"+price+", pdno-"+pdno);
 				$.ajax({
 					type:"POST",

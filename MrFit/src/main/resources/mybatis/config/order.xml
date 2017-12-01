@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				row_number() over(order by ono desc) as rnum
 				from orders
 				)
-		where id=#{id} and status!='장바구니' and status!='즉시결제'
+		where id=#{id} and status!='장바구니' and status!='즉시주문'
 		and rnum between
 		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
 		order by ono desc
@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="i.url" property="url" />
 	</resultMap>
 	<!-- [영훈][11.21] 주문 상품 내역 보기 -->
-	<select id="myOrderPrductList" parameterType="map"
+	<select id="myOrderPrductList" parameterType="string"
 		resultMap="OPRM1" resultType="orderProductVO">
 		select op.ono, op.pdno, op.quantity,
 				p.name, p.price, p.category,
@@ -96,20 +96,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				pc.color_name,
 				ps.size_name,
 				i.url
-		from (	select ono, pdno, quantity,
-				row_number() over(order by pdno desc) as rnum
-				from ORDER_PRODUCT where ono = #{ono}) op, 
+		from ORDER_PRODUCT op,
 			PRODUCT p, PRODUCT_DETAIL pd, product_color pc,
 			product_size ps, IMAGE i
-		where  ono = #{ono}
+		where  op.ono = #{value}
 		and pd.pdno = op.pdno 
 		and p.pno = pd.pno 
 		and pd.psno = ps.psno 
 		and pd.pcno = pc.pcno
 		and p.pno = i.pno
-		and rnum between
-		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
-		order by pdno desc		
+		and i.url like '%' || 'thumb' || '%'
 	</select>
 
 	<resultMap type="productVO" id="PRM">
@@ -189,14 +185,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- [석환][11.23] 상품 주문시 무통장일 경우 입금대기로 변경 -->
 	<update id="updateStatusOrder" parameterType="orderVO">
-		update orders set status='입금대기', destination=#{destination},
+		update orders set status=#{status}, destination=#{destination},
 		ordertime=sysdate
 		where ono=#{ono}
 	</update>
 	
-	<!-- [석환][11.23] 상품 주문시 무통장 외 배송준비중으로 변경 -->
+	<!-- [석환][11.23] 카카오페이 결제 후 주문시 배송준비중으로 변경 -->
 	<update id="updateStatusOrderEtc" parameterType="orderVO">
-		update orders set status='배송준비중', destination=#{destination},
+		update orders set status=#{status}, destination=#{destination},
 		ordertime=sysdate
 		where ono=#{ono}
 	</update>
@@ -228,7 +224,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- [석환][11.25]장바구니 수량 변경시 총금액 수정 -->
 	<update id="updateOrderCartTotalPrice" parameterType="orderVO">
-		update orders set totalprice=#{totalprice}
+		update orders set totalprice=totalprice+#{totalprice}
 		where ono=#{ono}
 	</update>
 	
@@ -289,7 +285,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select ono_seq.nextval from dual
 		</selectKey>
 		insert into orders(ono,totalprice,ordertime,status,id,destination)
-		values(#{ono},#{totalprice},sysdate,'즉시결제',#{memberVO.id},#{memberVO.address})
+		values(#{ono},#{totalprice},sysdate,'즉시주문',#{memberVO.id},#{memberVO.address})
 	</insert>
 	
 	<!--[석환][11.27] 즉시 구매시 orders_product 테이블 등록 -->

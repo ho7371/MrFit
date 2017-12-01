@@ -206,8 +206,8 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	//[영훈][11/29][상품리뷰 총 개수]
 	@Override
-	public int getTotalProductReviewCount() {
-		return template.selectOne("product.getTotalProductReviewCount");
+	public int getTotalProductReviewCount(String pno) {
+		return template.selectOne("product.getTotalProductReviewCount",pno);
 	}
 	//[정현][11/30][상품 상세보기시 hit +1]
 	@Override

@@ -13,7 +13,9 @@
 				<h3>고객문의</h3>
 				<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
 					<c:if test="${isMember}">
-						<a href="${pageContext.request.contextPath}/registerInquiryForm.do">고객문의 등록</a>
+						<div style="float:right;">
+							<a href="${pageContext.request.contextPath}/registerInquiryForm.do"><button style="margin-bottom: 20px;">고객문의 등록</button></a>
+						</div>
 					</c:if>
 				<table class="table-board">
 					<thead>
