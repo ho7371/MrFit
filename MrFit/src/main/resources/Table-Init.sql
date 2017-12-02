@@ -58,13 +58,27 @@ insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료�
 
 --------------- 회원
 /* 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 */
--- 관리자용 테스트  id: admin / pwd:admin
--- 회원용 테스트  id: test1 / pwd:test1
--- 회원용 테스트  id: test2 / pwd:test2
+-- 관리자용 테스트  id: admin / pwd:1
+-- 회원용 테스트  id: test1 / pwd:1
+-- 회원용 테스트  id: test2 / pwd:1
+-- 회원용 테스트  id: test3 / pwd:1
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('admin','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','관리자','031','판교','kosta',999999,0,'1','21',1,'골드'); 
+
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test1','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터1','031','지구','kosta',0,0,'1','21',1,'브론즈'); 
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test2','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터2','031','한국','kosta',0,0,'1','21',1,'브론즈'); 
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터3','031','성남','kosta',0,0,'0','21',1,'브론즈'); 
+
 commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
+insert into auth(id, auth) values('test1','ROLE_MEMBER');
+insert into auth(id, auth) values('test2','ROLE_MEMBER');
+insert into auth(id, auth) values('test3','ROLE_MEMBER');
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록
@@ -469,13 +483,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 
 -------4번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 44, 34,175);
 
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 35,152);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 36,170);
 
 
 
@@ -605,26 +619,26 @@ values(iqrno_seq.nextval,'test2이 작성한 1번째 고객문의에 대한 관�
 --------------- 리뷰 등록
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,1,'java1','java1 기본상의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,65,'test1','이거 쭉쭉 늘어나는게....',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,1,'java1','java1 기본상의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,66,'test2','호날두 이거입고 축구하는거 내가봄',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,2,'java1','java1 기본하의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,66,'test3','택배받고 팔토시 온줄알앗는데 내다리가 들어감',sysdate);
 
 insert into review(rno, pdno, id, content, regdate)
-values(rno_seq.nextval,2,'java1','java1 기본하의상품1에 작성한 리뷰내용',sysdate);
+values(rno_seq.nextval,70,'admin','본상품은 호날두와 관련이 1도 없습니다.',sysdate);
 
 --------------- 상품 QnA 등록
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java1',22,'test1이 기본상의상품1에 작성한 상품QnA내용',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java1',22,'test2이 기본상의상품1에 작성한 상품QnA내용',sysdate,'public');
+values(pqno_seq.nextval,'test2',12,'이거 호날두가 입은거 맞나요?',sysdate,'public');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java1',22,'test1이 기본하의상품1에 작성한 상품QnA내용',sysdate,'public');
+values(pqno_seq.nextval,'test1',12,'질문있습니다.',sysdate,'public');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java1',22,'test2이 기본아우터상품1에 작성한 상품QnA내용',sysdate,'public');
+values(pqno_seq.nextval,'test2',12,'가격좀 낮춰주세요',sysdate,'public');
 
 --------------- 주문
 /*
@@ -667,15 +681,16 @@ insert into order_product(ono,pdno,quantity) values(3,7,2);
 	*/
 
 --------------- 게시판
-
 insert into board(bno,id,title,content,regdate,security,category) 
-values(bno_seq.nextval,'admin','첫번째 공지사항 제목','첫번째 공지사항 본문',sysdate,'public','공지');	
+values(bno_seq.nextval,'admin','크리스마스 이벤트 안내','관리자가 솔로라 그런거 안함 다른데가서 알아보세요',sysdate,'public','공지');	
 insert into board(bno,id,title,content,regdate,security,category) 
-values(bno_seq.nextval,'admin','2번째 공지사항 제목','2번째 공지사항 본문',sysdate,'public','공지');		
+values(bno_seq.nextval,'admin','12월 입고사항','이것저것 많이 들어왔어서 찾아보세요',sysdate,'public','공지');	
 insert into board(bno,id,title,content,regdate,security,category) 
-values(bno_seq.nextval,'admin','3번째 공지사항 제목','3번째 공지사항 본문',sysdate,'public','공지');	
+values(bno_seq.nextval,'admin','11월 입고사항','사실 그런거 없음',sysdate,'public','공지');		
 insert into board(bno,id,title,content,regdate,security,category) 
-values(bno_seq.nextval,'admin','4번째 공지사항 제목','4번째 공지사항 본문',sysdate,'public','공지');		
+values(bno_seq.nextval,'admin','11월 이벤트 안내','이벤트 없어',sysdate,'public','공지');	
+insert into board(bno,id,title,content,regdate,security,category) 
+values(bno_seq.nextval,'admin','오픈 이벤트 안내','오픈을 아직 안해서 없음',sysdate,'public','공지');		
 
 --------------- 테이블 select
 
