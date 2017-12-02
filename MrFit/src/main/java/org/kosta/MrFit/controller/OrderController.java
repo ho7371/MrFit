@@ -1,7 +1,5 @@
 package org.kosta.MrFit.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,17 +46,14 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("cartForm.do")
 	public ModelAndView cartForm() {
-		System.out.println("   	OrderController/cartForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("    OrderController/cartForm()/진행1 Id : "+mvo.getId());
 		OrderVO ovo = orderService.findMyCart(mvo.getId());
 		System.out.println("    OrderController/cartForm()/진행2 ovo : "+ovo);
 		if(ovo != null) {
 			ovo.setMemberVO(mvo);
-			System.out.println("    OrderController/cartForm()/종료 if(ovo!=null) ovo : " + ovo);
 			return new ModelAndView("product/myCart.tiles", "ovo", ovo);
 		}else {
-			System.out.println("    OrderController/cartForm()/종료 if(ovo==null) ovo : ");
 			return new ModelAndView("product/myCart_fail.tiles"); 
 		}//else
 	}//method
@@ -76,7 +71,6 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("registerCart.do")
 	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
-		System.out.println("   	OrderController/registerCart()/시작 매개변수 ProductVO : "+prodeuctVO);
 		OrderVO ovo = new OrderVO(); 											//registerCart 생성을 위해 사용하는 객체들 생성 주문,주문상품,주문상품리스트,회원~
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
@@ -99,17 +93,14 @@ public class OrderController {
 		if (cartCount==0) {
 			orderService.registerOrder(ovo);
 			orderService.registerOrderProduct(ovo);
-			System.out.println("    OrderController/registerCart()/종료 if(cartCount==0)");
 			return "redirect:cartForm.do";
 		} else {
 			OrderProductVO opCount=orderService.findCartOderproduct(ovo);
 			if(opCount==null) {
 				orderService.updateOrder(ovo);
 				orderService.registerOrderProduct(ovo);
-				System.out.println("    OrderController/registerCart()/종료 cartCount!=0 , opCount==null");
 				return "redirect:cartForm.do";
 			}else {
-				System.out.println("    OrderController/registerCart()/종료 cartCount!=0 , opCount!=null");
 				return "order/existOrder.tiles";
 			}//else의 else
 		}//else
@@ -125,7 +116,6 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("deleteCart.do")
 	public String deleteCart(HttpServletRequest request,OrderProductVO orpvo) {
-		System.out.println("   	OrderController/deleteCart()/시작 매개변수 OrderProductVO : "+orpvo);
 		OrderVO ovo = new OrderVO(); 					// 사용 객체 생성 주문,주문상품,주문상품리스트~
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
@@ -144,7 +134,6 @@ public class OrderController {
 		System.out.println("   	OrderController/deleteCart()/진행 ovo : " + ovo);
 		orderService.deleteOrderProduct(opvo);
 		orderService.updateOrder(ovo);
-		System.out.println("   	OrderController/deleteCart()/종료 ovo : "+ovo);
 		return "redirect:cartForm.do";
 	}
 
@@ -156,7 +145,6 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("orderForm.do")
 	public String orderForm(Model model) {
-		System.out.println("   	OrderController/orderForm()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		int point=orderService.findMemberPointById(mvo.getId());
 		System.out.println("    OrderController/orderForm()/진행 id : "+mvo.getId());
@@ -165,7 +153,6 @@ public class OrderController {
 		ovo.setMemberVO(mvo);
 		model.addAttribute("ovo", ovo);
 		model.addAttribute("point", point);
-		System.out.println("    OrderController/orderForm()/종료 ovo : " + ovo);
 		return "order/orderForm.tiles";
 	}
 
@@ -180,7 +167,6 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myOrderList.do")
 	public ModelAndView myOrderList(String id, HttpServletRequest request) {
-		System.out.println("      OrderController/myOrderList()/시작 매개변수 id : "+id);
 		int totalCount = orderService.getTotalMyOrderCount(id);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
@@ -197,7 +183,6 @@ public class OrderController {
 		List<OrderVO> list = orderService.myOrderList(map);
 		System.out.println("      OrderController/myOrderList()/진행 list : " + list);
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(list,pb);
-		System.out.println("      OrderController/myOrderList()/종료 lvo : " + lvo);
 		return new ModelAndView("order/myOrderList.tiles", "lvo", lvo);
 	}
 	
@@ -224,7 +209,6 @@ public class OrderController {
 	@RequestMapping("myOrderPrductList.do")
 	public ModelAndView myOrderPrductList(String ono, String id, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("      OrderController/myOrderPrductList()/시작 매개변수 ono : "+ono+", id : "+id);
 		List<OrderProductVO> list = orderService.myOrderPrductList(ono);							// 주문번호로 주문상품리스트 생성
 		for(int i=0;i<list.size();i++) {
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 시작");	// for문은 리뷰작성 폼에 조건 주기위해 필요(리뷰작성체크,주문상태체크) 
@@ -246,7 +230,6 @@ public class OrderController {
 			}
 			System.out.println("      OrderController/myOrderPrductList()/진행 for문 "+i+" 번 종료");
 		}//for
-		System.out.println("      OrderController/myOrderPrductList()/종료 list:" + list);
 		mv.addObject("list", list);
 		mv.setViewName("order/myOrderProductList.tiles");
 		return mv;
@@ -260,7 +243,6 @@ public class OrderController {
 	@RequestMapping("updateOrderQuantity.do")
 	@ResponseBody
 	public OrderProductVO updateOrderQuantity(OrderProductVO opvo) {
-		System.out.println("      OrderController/updateOrderQuantity()/시작 ");
 		System.out.println(opvo.getOno());
 		int beforeQuantity=orderService.findBeforeQuantityByOnoAndPdno(opvo); //이전 수량
 		int quantity=opvo.getQuantity();									  //변경될 수량
@@ -271,7 +253,6 @@ public class OrderController {
 		ovo.setTotalprice(updateTotalprice);
 		orderService.updateOrderCartTotalPrice(ovo);
 		orderService.updateOrderQuantity(opvo);
-		System.out.println("      OrderController/updateOrderQuantity()/종료 ");
 		return opvo;
 	}
 	
@@ -283,7 +264,6 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("order.do")
 	public String productOrderPayment(int payPoint,String depositMethod,OrderVO ovo,HttpServletRequest request) {
-		System.out.println("      OrderController/productOrderPayment()/시작 매개변수 payPoint : "+payPoint+", depositMethod : "+depositMethod+", ovo : "+ovo);
 		MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String[] pdno=request.getParameterValues("pdno");											// 상품상세번호 수량 배열 세팅
 		String[] quantity=request.getParameterValues("quantity");
@@ -310,7 +290,6 @@ public class OrderController {
 			map.put("id", vo.getId());												// 회원 id를 
 			orderService.reportPoint(map);											// 포인트 이력 작성
 		}
-		System.out.println("      OrderController/productOrderPayment()/종료 id : "+vo.getId());
 		return "redirect:myOrderList.do?id="+vo.getId();
 	}
 	
@@ -326,7 +305,6 @@ public class OrderController {
 	@Transactional
 	@RequestMapping("myOrderStatusChange.do")
 	public String myOrderStatusChange(String ono,String id,int totalprice) {
-		System.out.println("      OrderController/myOrderStatusChange()/시작 매개변수 ono : "+ono+", id : "+id+", totalprice : "+totalprice);
 		orderService.myOrderStatusChange(ono);									// 주문상태 변경
 		MemberVO mvo = new MemberVO();											// 멤버, 등급 객체생성
 		GradeVO gvo=new GradeVO();
@@ -342,7 +320,6 @@ public class OrderController {
 		map.put("point", totalprice*percent/100);								// 사용 포인트 
 		map.put("id", mvo.getId());												// 회원 id를 
 		orderService.reportPoint(map);											// 포인트 이력 작성
-		System.out.println("      OrderController/myOrderStatusChange()/종료 id : "+id);
 		return "redirect:myOrderList.do?id="+id;
 	}
 	/**
@@ -353,7 +330,6 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("immediatelyPay.do")
 	public String immediatelyPay(int quantity,ProductDetailVO pdvo,Model model) {
-		System.out.println("      OrderController/immediatelyPay()/시작 매개변수 quantity : "+quantity+", pdvo : "+pdvo);
 		String pdno=orderService.findPdno(pdvo);														
 		ProductVO pvo=orderService.findProductDetailByPdno(pdno);									
 		ProductDetailVO npdvo=orderService.findProductImmediatelyPay(pdno);
@@ -381,7 +357,6 @@ public class OrderController {
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("ono", ono);
 		model.addAttribute("point", point);
-		System.out.println("      OrderController/immediatelyPay()/종료");
 		return "order/immediatelyOrderForm.tiles";
 	}
 	
@@ -394,11 +369,9 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("immediatelyPayOrderCancle.do")
 	public String immediatelyPayOrderCancle(OrderProductVO opvo) {
-		System.out.println("      OrderController/immediatelyPayOrderCancle()/시작 매개변수 opvo : "+opvo);
 		System.out.println("      OrderController/immediatelyPayOrderCancle()/진행 즉시 구매 pdno : "+opvo.getPdno()+" 즉시 구매 ono : "+opvo.getOno());
 		orderService.deleteImmediatelyPayOrdersProduct(opvo);
 		orderService.deleteImmediatelyPayOrders(opvo);
-		System.out.println("      OrderController/immediatelyPayOrderCancle()/종료");
 		return "redirect:home.do";
 	}
 	

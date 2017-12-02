@@ -62,7 +62,6 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductByCategory.do")
 	public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model) {
-		System.out.println("      ProductController/findProductByCategory()/시작");
 		// 페이징 처리 공통 영역 
 		int totalCount = productService.getCategoryProductCount(category); //카테고리 별 상품의 개수
 		int postCountPerPage = 10;										   //한 페이지에 보여줄 상품 개수
@@ -95,7 +94,6 @@ public class ProductController {
 		//페이징 처리,카테고리별 리스트를 ListVO 담아 jsp로 보냄
 		mv.addObject("lvo", lvo);
 		mv.setViewName("product/productList.tiles");
-		System.out.println("      ProductController/findProductByCategory()/종료");
 		return mv;
 	}
 	/**
@@ -107,7 +105,6 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductByName.do")
 	public ModelAndView findProductByName(HttpServletRequest request, String keyword) {
-		System.out.println("   	ProductController/registerProduct()/시작");
 		ModelAndView mv = new ModelAndView();
 		// 페이징 처리 공통 영역 
 		int totalOrderCount = productService.productTotalCount(keyword); //키워드 별 리스트의 총 개수
@@ -138,7 +135,6 @@ public class ProductController {
 			//검색된 값이 없을 경우 아래 jsp로 보냄
 			mv.setViewName("main/product/findProductByName_fail");
 		}
-		System.out.println("    ProductController/registerProduct()/종료");
 		return mv;
 	}
 	/**
@@ -150,7 +146,6 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByPno.do")
 	public ModelAndView findProductDetailByPno(String pno,HttpServletRequest request) {
-		System.out.println("   	ProductController/findProductDetailByPno()/시작");
 		ModelAndView mv = new ModelAndView();
 		String checkScroll=request.getParameter("checkScroll");
 		//상품 번호(pno)로 상품 검색
@@ -224,7 +219,6 @@ public class ProductController {
 		mv.addObject("prlvo",prlvo);
 		mv.addObject("id", null);
 		mv.addObject("checkScroll", checkScroll);
-		System.out.println("    ProductController/findProductDetailByPno()/종료");
 		return mv;
 	}
 	
@@ -257,10 +251,8 @@ public class ProductController {
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
 	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO) {
-		System.out.println("    ProductController/findProductDetailByColorAjax()/시작");
 		//상품의 색상을 조건으로 사이즈를 검색해 jsp에 보내줌
 		List<ProductSizeVO> sizeList = productService.findProductDetailByColorAjax(pdVO);
-		System.out.println("    ProductController/findProductDetailByColorAjax()/종료");
 		return sizeList;
 	}
 
@@ -273,7 +265,6 @@ public class ProductController {
 	@RequestMapping("registerProductReview.do")
 	@ResponseBody
 	public ModelAndView registerProductReview(ProductReviewVO prvo, String ono) {
-		System.out.println("    ProductController/registerProductReview()/시작");
 		ModelAndView mv = new ModelAndView();
 		//회원이 리뷰작성 페이지에서 입력한 값을 등록
 		productService.registerProductReview(prvo);
@@ -281,7 +272,6 @@ public class ProductController {
 		mv.addObject("ono", ono);
 		mv.addObject("id", prvo.getId());
 		mv.setViewName("product/productReviewCheck_ok.tiles");
-		System.out.println("    ProductController/registerProductReview()/종료");
 		return mv;
 	}
 

@@ -58,8 +58,5 @@ public interface ProductService {
 	int getTotalProductQnaCountByPno(String pno);
 
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
-	
-	int getTotalProductQnaCountByPno(String pno);
 
-	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 }

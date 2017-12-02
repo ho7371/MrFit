@@ -116,7 +116,6 @@ public class HomeController {
 			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			orderService.findImmediatelyPayGarbage(vo.getId());
 		}
-		System.out.println("      HomeController/productListByHit()/시작");
 		ModelAndView mv = new ModelAndView();
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
 		
@@ -140,7 +139,6 @@ public class HomeController {
 			
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("product/productHitList.tiles");
-		System.out.println("      HomeController/productListByHit()/종료");
 		return mv;
 	}
 	
@@ -151,8 +149,6 @@ public class HomeController {
 	 */
 	@RequestMapping("inquiry.do")
 	public String inquiry(Model model,HttpServletRequest request){
-		System.out.println("      HomeController/inquiry()/시작");
-			
 		/* 페이징 처리 공통 영역 */
 	      int totalCount = boardService.getTotalInquiryCount();         // 보여줄 상품 총 개수
 	      int postCountPerPage = 10;                              // 한 페이지에 보여줄 상품 개수
@@ -169,7 +165,6 @@ public class HomeController {
 		System.out.println("      HomeController/inquiry()/진행 list : "+ivoList);
 		model.addAttribute("list", ivoList);
 		model.addAttribute("pb", pb);
-		System.out.println("      HomeController/inquiry()/종료");
 		return "board/inquiry.tiles";
 	}
 	
@@ -180,12 +175,10 @@ public class HomeController {
 	 */
 	@RequestMapping("inquiryDetail.do")
 	public String inquiryDetail(String iqno, Model model){
-		System.out.println("      HomeController/inquiryDetail()/시작");
 		System.out.println("      HomeController/inquiryDetail()/진행 iqno : "+iqno);
 		InquiryVO inquiryVO = boardService.inquiryDetail(iqno);
 		System.out.println("      HomeController/inquiryDetail()/진행 inquiryVO : "+inquiryVO);
 		model.addAttribute("ivo", inquiryVO);
-		System.out.println("      HomeController/inquiryDetail()/종료");
 		return "board/inquiryDetail.tiles";
 	}
 	
@@ -198,12 +191,10 @@ public class HomeController {
 	 */
 	@RequestMapping("inquiryReply.do")
 	public String inquiryReply(String message, String iqno, Model model) {
-		System.out.println("      HomeController/inquiryReply()/시작");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("message", message);
 		map.put("iqno", iqno);
 		boardService.inquiryReply(map);
-		System.out.println("      HomeController/inquiryDetail()/종료");
 		return "board/inquiryReply_ok.tiles";
 	}
 	
@@ -213,12 +204,9 @@ public class HomeController {
 		@Secured("ROLE_MEMBER")
 		@RequestMapping("deleteInquiry.do")	
 		public String deleteInquiry(HttpServletRequest  request){	
-			System.out.println("   	HomeController/deleteInquiry()/시작");		
 			String iqno=request.getParameter("iqno");
 			System.out.println("   	HomeController/deleteInquiry()/진행");		
 			boardService.deleteInquiry(iqno);		
-			System.out.println("   	HomeController/deleteInquiry()/종료");
-			
 			return "redirect:inquiry.do";
 		}
 		
@@ -226,8 +214,6 @@ public class HomeController {
 		@Secured("ROLE_MEMBER")
 		@RequestMapping("registerInquiryForm.do")			
 			public String registerNoticeForm(HttpServletRequest  request){		
-			System.out.println("   	HomeController/registerInquiryForm()/시작");
-			System.out.println("   	HomeController/registerInquiryForm()/종료");		
 				return "board/registerInquiryForm.tiles";
 			}
 			
@@ -235,7 +221,6 @@ public class HomeController {
 		@Secured("ROLE_MEMBER")
 		@RequestMapping("registerInquiry.do")	
 			public String registerNotice(HttpServletRequest  request){
-			System.out.println("   	HomeController/registerInquiry()/시작");
 				MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				InquiryVO ivo=new InquiryVO();
 				String title=request.getParameter("title");
@@ -245,7 +230,6 @@ public class HomeController {
 				ivo.setContent(content);
 				System.out.println("   	HomeController/registerInquiry()/진행 ivo : "+ivo);
 				boardService.registerInquiry(ivo);	
-				System.out.println("   	HomeController/registerNotice()/종료");
 				return "redirect:inquiry.do";
 			}
 		
@@ -254,21 +238,18 @@ public class HomeController {
 		@Secured("ROLE_MEMBER")
 		@RequestMapping("updateInquiryForm.do")
 		public ModelAndView updateInquiryForm(HttpServletRequest  request) {
-			System.out.println("   	HomeController/updateInquiryForm()/시작");
 			ModelAndView mv = new ModelAndView();
 			String iqno=request.getParameter("iqno");
 			InquiryVO ivo=boardService.inquiryDetail(iqno);
 			System.out.println("   	HomeController/updateInquiryForm()/진행");
 			mv.addObject("ivo",ivo);
 			mv.setViewName("board/updateInquiryForm.tiles");
-			System.out.println("   	HomeController/updateInquiryForm()/종료");
 			return mv;
 		}
 		//[정현][11/29][고객문의 수정 ]
 			@Secured("ROLE_MEMBER")
 			@RequestMapping("updateInquiry.do")
 			public String updateInquiry(HttpServletRequest  request) {
-				System.out.println("   	AdminController/updateInquiry()/시작");
 				MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				String iqno=request.getParameter("iqno");
 				InquiryVO ivo=new InquiryVO();
@@ -280,7 +261,6 @@ public class HomeController {
 				ivo.setTitle(title);
 				ivo.setContent(content);		
 				boardService.updateInquiry(ivo);		
-				System.out.println("   	HomeController/updateInquiry()/종료");
 				return "redirect:inquiry.do";
 			}
 	

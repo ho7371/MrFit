@@ -39,8 +39,6 @@ public class MemberController {
 	 */
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
-		System.out.println("   	MemberController/loginFail()/시작");
-		System.out.println("    MemberController/loginFail()/종료");
 		return "main/member/login_fail";
 	}
 
@@ -67,8 +65,6 @@ public class MemberController {
 	 */
 	@RequestMapping("findMemberById.do")
 	public ModelAndView findMemberById(String id) {
-		System.out.println("   	MemberController/findMemberById()/시작");
-		System.out.println("    MemberController/findMemberById()/종료");
 		return null;
 	}
 	
@@ -78,8 +74,6 @@ public class MemberController {
 	 */
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
-		System.out.println("   	MemberController/loginForm()/시작");
-		System.out.println("    MemberController/loginForm()/종료");
 		return "member/loginForm.tiles";
 	}
 	
@@ -90,8 +84,6 @@ public class MemberController {
 	 */
 	@RequestMapping("findIdPasswordForm.do")
 	public String findIdPasswordForm() {
-		System.out.println("   	MemberController/findId()/시작");
-		System.out.println("    MemberController/findId()/종료");
 		return "member/findIdPasswordForm.tiles";
 	}
 	
@@ -102,7 +94,6 @@ public class MemberController {
 	 */
 	@RequestMapping("findIdByEmailAndName.do")
 	public ModelAndView findIdByEmailAndName(MemberVO memberVO) {
-		System.out.println("   	MemberController/findIdByEmailAndName()/시작");
 		ModelAndView mv=new ModelAndView();
 		String id= memberService.findIdByEmailAndName(memberVO);
 		if(id == null) { // 찾는 아이디가 없을 경우
@@ -112,7 +103,6 @@ public class MemberController {
 		}
 		mv.setViewName("member/findId_ok.tiles");
 		mv.addObject("lostid", id);
-		System.out.println("    MemberController/findIdByEmailAndName()/종료");
 		return mv;
 	}
 	
@@ -123,7 +113,6 @@ public class MemberController {
 	 */
 	@RequestMapping("findQnaByIdNameEmail.do")
 	public ModelAndView findQnaByIdNameEmail(MemberVO memberVO) {
-		System.out.println("   	MemberController/findQnaByIdNameEmail()/시작");
 		ModelAndView mv=new ModelAndView();
 		String question=memberService.findQnaByIdNameEmail(memberVO);
 		if (question == null) { // 입력한 회원의 정보에 질문이 없을 경우
@@ -133,7 +122,6 @@ public class MemberController {
 		mv.addObject("question", question);
 		mv.addObject("memberVO", memberVO);
 		mv.setViewName("member/findAnswer.tiles");
-		System.out.println("    MemberController/findQnaByIdNameEmail()/종료");
 		return mv;
 	}
 	
@@ -144,9 +132,7 @@ public class MemberController {
 	 */
 	@RequestMapping("findMemberByQna.do")
 	public ModelAndView findMemberByQna(MemberVO memberVO) {
-		System.out.println("   	MemberController/findPassword()/시작");
 		MemberVO mvo=memberService.findMemberByQna(memberVO);
-		System.out.println("    MemberController/findPassword()/종료");
 		// match answer
 		return new ModelAndView("member/updatePasswordForm.tiles","upid",mvo);
 	}
@@ -158,10 +144,8 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "updatePasswordById.do", method = RequestMethod.POST)
 	public String updatePasswordById(MemberVO memberVO) {
-		System.out.println("   	MemberController/updatePasswordById()/시작");
 		memberService.updatePasswordById(memberVO);
 		// updatePasswordById
-		System.out.println("    MemberController/updatePasswordById()/종료");
 		return "redirect:updatePassword_ok.do";
 	}
 	
@@ -172,8 +156,6 @@ public class MemberController {
 	 */
 	@RequestMapping("updatePassword_ok.do")
 	public String updatePassword_ok() {
-		System.out.println("   	MemberController/updatePassword_ok()/시작");
-		System.out.println("    MemberController/updatePassword_ok()/종료");
 		// updatePasswordById
 		return "member/updatePassword_ok.tiles";
 	}
@@ -184,9 +166,7 @@ public class MemberController {
 	 */
 	@RequestMapping("registerForm.do")
 	public ModelAndView findQuestionList() {
-		System.out.println("   	MemberController/findQuestionList()/시작");
 		List<QuestionVO> list = memberService.findQuestionList(); 
-		System.out.println("    MemberController/findQuestionList()/종료");
 		return new ModelAndView("member/registerForm.tiles","list",list);
 	}
 	
@@ -197,10 +177,8 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String register(MemberVO vo) {
-		System.out.println("   	MemberController/register()/시작");
 		memberService.registerMember(vo);
 		memberService.registerMemberSize(vo.getId());
-		System.out.println("    MemberController/register()/종료");
 		return "redirect:registerResultView.do?id=" + vo.getId();
 	}
 	
@@ -211,9 +189,7 @@ public class MemberController {
 	 */
 	@RequestMapping("registerResultView.do")
 	public ModelAndView registerResultView(String id) {
-		System.out.println("   	MemberController/registerResultView()/시작");
 		MemberVO vo = memberService.findMemberById(id);
-		System.out.println("    MemberController/registerResultView()/종료");
 		return new ModelAndView("member/registerMemberResult.tiles", "memberVO", vo);
 	}
 	
@@ -225,8 +201,6 @@ public class MemberController {
 	@RequestMapping("idcheckAjax.do")
 	@ResponseBody
 	public String idcheckAjax(String id) {
-		System.out.println("   	MemberController/idcheckAjax()/시작");
-		System.out.println("     MemberController/idcheckAjax()/종료");
 		return memberService.idcheck(id);
 	}
 	
@@ -248,7 +222,6 @@ public class MemberController {
 	 */
 	@RequestMapping("updateMemberSizeForm.do")
 	public String updateMemberSizeForm() {
-		System.out.println("   	MemberController/updateMemberSizeForm()/시작");
 		return "member/updateMemberSizeForm.tiles";
 	}
 	
@@ -274,8 +247,6 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPage.do")
 	public String myPage() {
-		System.out.println("   	MemberController/myPage()/시작");
-		System.out.println("    MemberController/myPage()/종료");
 		return "member/myPage.tiles";
 	}
 	
@@ -286,9 +257,7 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPageInfo.do")
 	public ModelAndView myPageInfo() {
-		System.out.println("   	MemberController/myPageInfo()/시작");
 		List<QuestionVO> list = memberService.findQuestionList(); 
-		System.out.println("    MemberController/myPageInfo()/종료");
 		return new ModelAndView("member/myPage_info.tiles","list",list);
 	}
 	
@@ -299,8 +268,6 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("updateMemberForm.do")
 	public String updateMemberForm() {
-		System.out.println("   	MemberController/updateMemberForm()/시작");
-		System.out.println("    MemberController/updateMemberForm()/종료");
 		return"member/updateMemberForm.tiles";
 	}
 	
@@ -313,7 +280,6 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping(value="updateMemberAction.do", method=RequestMethod.POST)
 	public String updateMemberAction(HttpServletRequest request, MemberVO memberVO) {
-		System.out.println("   	MemberController/updateMemberAction()/시작");
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("    MemberController/updateMemberAction()/진행1 - Spring Security 세션 수정 전 회원정보: "+pvo);
 		memberService.updateMember(memberVO);		//회원 정보를 DB에 셋팅
@@ -322,7 +288,6 @@ public class MemberController {
 		pvo.setPhone(memberVO.getPhone());
 		pvo.setAddress(memberVO.getAddress());
 		pvo.setEmail(memberVO.getEmail());
-		System.out.println("    MemberController/updateMemberAction()/종료1");
 		return "member/update_result.tiles";
 	}
 	/**[정현][회원탈퇴]
@@ -334,14 +299,12 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("updateStatusMember.do")
 	public String updateStatusMember(HttpServletRequest request) {
-		System.out.println("   	MemberController/updateStatusMember()/시작");
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String memberId=pvo.getId();
 		System.out.println("    MemberController/updateStatusMember()/진행1 - 회원아이디: "+memberId);
 		memberService.updateStatusMember(memberId);		//회원 탈퇴를 위해 해당 member의 status 0으로 변경
 		memberService.deleteAuth(memberId);			//Auth에서 해당 회원의 정보삭제
 		
-		System.out.println("    MemberController/updateStatusMember()/종료");
 		return "member/updateStatus_result.tiles";
 
 	}
@@ -354,7 +317,6 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("memberNoteList.do")
 	public ModelAndView memberNoteList(HttpServletRequest request) {
-		System.out.println("    MemberController/memberNoteList()/시작");
 		MemberVO vo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
@@ -381,7 +343,6 @@ public class MemberController {
 		}
 		mv.setViewName("board/note.tiles");
 		mv.addObject("lvo", lvo);
-		System.out.println("    MemberController/memberNoteList()/종료");
 		return mv;
 	}
 	

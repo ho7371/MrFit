@@ -49,7 +49,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminPage.do")
 	public String adminPage() {
-		System.out.println("   	AdminController/adminPage()/시작 및 종료");
 		return "admin/adminPage.tiles";
 	}
 	
@@ -62,8 +61,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminProductList.do")
 	public ModelAndView adminProductList(HttpServletRequest request, Model model) {
-		System.out.println("   	AdminController/adminProductList()/시작");
-		
 		/* 페이징 처리 공통 영역 */
 		int totalCount = productService.getTotalProductCount();			// 보여줄 상품 총 개수
 		int postCountPerPage = 10;										// 한 페이지에 보여줄 상품 개수
@@ -88,7 +85,6 @@ public class AdminController {
 		}
 		
 		mv.setViewName("admin/adminProductList.tiles");
-		System.out.println("      AdminController/adminProductList()/종료");
 		return mv;
 	}
 	
@@ -100,7 +96,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProductForm.do")
 	public String registerProductForm() {
-		System.out.println("   	AdminController/registerProductForm()/시작 및 종료");
 		return "admin/registerProductForm.tiles";
 	}
 	
@@ -112,7 +107,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/FindProductByName.do")
 	public ModelAndView findProductByName(String keyword, HttpServletRequest request){
-		System.out.println("   	AdminController/findProductByName()/시작");
 		ModelAndView mv = new ModelAndView();
 		
 		/* 페이징 처리 공통 영역 */
@@ -139,8 +133,6 @@ public class AdminController {
 		}else {
 			mv.setViewName("main/product/findProductByName_fail");
 		}
-		
-		System.out.println("    AdminController/findProductByName()/종료");
 		return mv;
 	}
 	
@@ -159,8 +151,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/registerProduct.do")
 	public ModelAndView registerProduct(UploadVO uploadVO, ProductVO productVO, HttpServletRequest request) {
-		System.out.println("   	AdminController/registerProduct()/시작 - productVO : "+productVO +", uploadVO:"+uploadVO);
-		
 		productService.registerProduct(productVO);		// 하나의 상품이 가지는 공통정보 등록 (상품번호, 상품명, 가격, 상품설명, 카테고리)
 		
 		// 상품 치수정보 등록
@@ -271,7 +261,6 @@ public class AdminController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("admin/registerProductResult.tiles");
-		System.out.println("   	AdminController/registerProduct()/종료 - 상품 등록 & 업로드 완료");
 		return mv;
 	}
 
@@ -284,7 +273,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/deleteProduct.do")
 	public String deleteProduct(String pno) {
-		System.out.println("   	AdminController/deleteProduct()/시작");
 		adminService.deleteProduct(pno);
 		return "admin/deleteProductResult.tiles";
 	}
@@ -297,7 +285,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/updateProductForm.do")
 	public ModelAndView updateProductForm(String pno) {
-		System.out.println("   	AdminController/updateProductForm()/시작");
 		ModelAndView mv = new ModelAndView();
 		List<ProductDetailVO> pdvolist=adminService.updateProductForm(pno);
 		//ProductVO pvo=new ProductVO();
@@ -316,7 +303,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("admin/updateProduct.do")
 	public String updateProduct(HttpServletRequest request) {
-		System.out.println("   	AdminController/updateProduct()/시작");
 		String pdno[]=request.getParameterValues("pdno");
 		//request.getParameterValues("pcno");
 		//request.getParameterValues("psno");
@@ -328,7 +314,6 @@ public class AdminController {
 			pdvo.setInventory(Integer.parseInt(inventory[i]));
 			adminService.updateProductInventory(pdvo);
 		}
-		
 		return "admin/registerProductResult.tiles";
 	}
 	
@@ -342,7 +327,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("commonMemberList.do")
 	public ModelAndView commonMemberList(HttpServletRequest request, int status) {
-		System.out.println("   	AdminController/commonMemberList()/시작");
 		ModelAndView mv = new ModelAndView();
 		
 		/* 페이징 처리 공통 영역 */
@@ -370,8 +354,6 @@ public class AdminController {
 		}else {																// 현재 비활성상태인 회원을 검색한 경우
 			mv.setViewName("admin/unregisterMemberList.tiles");
 		}
-		
-		System.out.println("   	AdminController/commonMemberList()/종료");
 		return mv;
 	}
 	
@@ -384,10 +366,8 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminUnregisterMember.do")
 	public ModelAndView adminUnregisterMember(String id) {
-		System.out.println("   	AdminController/adminUnregisterMember()/시작");
 		adminService.adminDeleteMemberAuthority(id);
 		adminService.adminUpdateMemberStatus(id);
-		System.out.println("   	AdminController/adminUnregisterMember()/종료");
 		return new ModelAndView("admin/adminUnregisterMember.tiles");
 	}
 	
@@ -401,7 +381,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchMember.do")
 	public ModelAndView adminSearchMember(String id) {
-		System.out.println("   	AdminController/adminSearchMember()/시작");
 		MemberVO mvo = adminService.adminSearchMember(id);	
 		ModelAndView mv = null;
 		if(mvo==null) {		//검색한 회원이 없을 경우
@@ -409,7 +388,6 @@ public class AdminController {
 		}else {				//검색한 회원이 있을 경우
 			mv = new ModelAndView("admin/adminSearchMember_ok.tiles","member",mvo);
 		}
-		System.out.println("   	AdminController/adminSearchMember()/종료");
 		return mv;
 	}
 	
@@ -422,9 +400,7 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMemberForm.do", method=RequestMethod.POST)
 	public ModelAndView adminGivePointToMemberForm(String id) {
-		System.out.println("   	AdminController/adminGivePointToMemberForm()/시작");
 		MemberVO mvo = adminService.adminSearchMember(id);
-		System.out.println("   	AdminController/adminGivePointToMemberForm()/종료 - 포인트 지급할 회원 :"+mvo);
 		return new ModelAndView("admin/adminGivePointToMemberForm.tiles","member",mvo);
 	}
 	
@@ -437,7 +413,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="adminGivePointToMember.do", method=RequestMethod.POST)
 	public String adminGivePointToMember(MemberVO mvo) {
-		System.out.println("   	AdminController/adminGivePointToMember()/시작 - 포인트 지급할 회원 :"+mvo);
 		adminService.adminGivePointToMember(mvo);
 		if(mvo.getPoint()!=0) {
 			Map<String, Object> map = new HashMap<String, Object>();				// 포인트 이력에 작성될 
@@ -458,7 +433,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminAllOrderList.do")
 	public ModelAndView adminAllOrderList(HttpServletRequest request) {
-		System.out.println("   	AdminController/adminAllOrderList()/시작");
 		ModelAndView mv = new ModelAndView();
 		
 		/* 페이징 처리 공통 영역 */
@@ -483,7 +457,6 @@ public class AdminController {
 		ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
 		mv.setViewName("admin/adminAllOrderList.tiles");
 		mv.addObject("lvo", lvo);
-		System.out.println("   	AdminController/adminAllOrderList()/종료");
 		return mv;
 	}
 
@@ -498,7 +471,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchOrder.do")
 	public ModelAndView adminSearchOrderByKeyword(HttpServletRequest request, String searchType, String searchKeyword) {
-		System.out.println("   	AdminController/adminSearchOrderByKeyword()/시작");
 		ModelAndView mv = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -549,7 +521,6 @@ public class AdminController {
 				mv.setViewName("admin/adminsearchOrder_fail.tiles");
 			}
 		}
-		System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 종료");
 		return mv;
 	}
 	
@@ -564,7 +535,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("updateOrderStatus.do")
 	public ModelAndView updateOrderStatus(String ono) {
-		System.out.println("   	AdminController/updateOrderStatus()/시작 ono : "+ono);
 		ModelAndView mv = new ModelAndView();
 		OrderVO ovo = adminService.adminfindOrderByOno(ono);
 		System.out.println("   	AdminController/updateOrderStatus()/진행1 ");
@@ -580,7 +550,6 @@ public class AdminController {
 		adminService.updateOrderStatus(map);
 		System.out.println("   	AdminController/updateOrderStatus()/진행2 ");
 		mv.setViewName("admin/updateOrderStatus_ok.tiles");
-		System.out.println("   	AdminController/updateOrderStatus()/종료");
 		return mv;
 	}
 	
@@ -589,7 +558,6 @@ public class AdminController {
 	public ModelAndView notice(HttpServletRequest  request){
 		ModelAndView mv = new ModelAndView();
 		ListVO<BoardVO> lvo = new ListVO<BoardVO>();
-		System.out.println("      AdminController/notice()/시작");		
 		
 		/* 페이징 처리 공통 영역 */
 		int totalCount = boardService.getTotalNoticeCount();							// 보여줄 공지사항 총 개수				 
@@ -612,21 +580,18 @@ public class AdminController {
 		System.out.println("      AdminController/notice()/진행4 - lvo :"+lvo);
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("board/notice.tiles");		
-		System.out.println("      AdminController/notice()/종료");
 		return mv;
 	}
 	
 	//[정현][11/25][ 공지사항 상세보기 ]
 	@RequestMapping(value="noticeDetail.do", method=RequestMethod.GET)	
 	public ModelAndView noticeDetail(HttpServletRequest  request){
-		System.out.println("   	AdminController/noticeDetail()/시작");	
 		ModelAndView mv = new ModelAndView();
 		String bno=request.getParameter("bno");
 		BoardVO bvo=boardService.noticeDetail(bno);
 		System.out.println("   	AdminController/noticeDetail()/진행");	
 		mv.addObject("bvo",bvo);
 		mv.setViewName("board/noticeDetail.tiles");
-		System.out.println("   	AdminController/noticeDetail()/종료");	
 		return mv;
 	}
 	
@@ -634,11 +599,9 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="deleteNotice.do", method=RequestMethod.GET)	
 	public String deleteNotice(HttpServletRequest  request){	
-		System.out.println("   	AdminController/deleteNotice()/시작");		
 		String bno=request.getParameter("bno");
 		System.out.println("   	AdminController/deleteNotice()/진행");		
 		boardService.deleteNotice(bno);		
-		System.out.println("   	AdminController/deleteNotice()/종료");
 		
 		return "redirect:notice.do";
 	}
@@ -646,8 +609,6 @@ public class AdminController {
 	//[정현][11/25][ 공지사항 등록 폼으로 넘기기 ]	
 	@RequestMapping("registerNoticeForm.do")			
 	public String registerNoticeForm(HttpServletRequest  request){		
-	System.out.println("   	AdminController/registerNoticeForm()/시작");
-	System.out.println("   	AdminController/registerNoticeForm()/종료");		
 		return "board/registerNoticeForm.tiles";
 	}
 		
@@ -655,7 +616,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="registerNotice.do", method=RequestMethod.POST)	
 	public String registerNotice(HttpServletRequest  request){
-		System.out.println("   	AdminController/registerNotice()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		BoardVO bvo=new BoardVO();
 		String title=request.getParameter("title");
@@ -665,7 +625,6 @@ public class AdminController {
 		bvo.setContent(content);										
 		System.out.println("   	AdminController/registerNotice()/진행");
 		boardService.registerNotice(bvo);								
-		System.out.println("   	AdminController/registerNotice()/종료");
 		return "redirect:notice.do";
 	}
 	
@@ -673,14 +632,12 @@ public class AdminController {
 	//[정현][11/27][공지사항 수정폼] 
 	@RequestMapping("updateNoticeForm.do")
 	public ModelAndView updateNoteForm(HttpServletRequest request) {
-		System.out.println("   	AdminController/updateNoteForm()/시작");
 		ModelAndView mv = new ModelAndView();
 		String bno=request.getParameter("bno");
 		BoardVO bvo=boardService.noticeDetail(bno);
 		System.out.println("   	AdminController/updateNoteForm()/진행");
 		mv.addObject("bvo",bvo);
 		mv.setViewName("admin/updateNoticeForm.tiles");
-		System.out.println("   	AdminController/updateNoteForm()/종료");
 		return mv;
 	}
 	
@@ -688,7 +645,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="updateNotice.do", method=RequestMethod.GET)
 	public String updateNotice(HttpServletRequest request) {
-		System.out.println("   	AdminController/updateNotice()/시작");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		BoardVO bvo=new BoardVO();
 		String bno=request.getParameter("bno");							
@@ -700,7 +656,6 @@ public class AdminController {
 		bvo.setTitle(title);
 		bvo.setContent(content);		
 		boardService.updateNotice(bvo);									
-		System.out.println("   	AdminController/updateNotice()/종료");
 		return "redirect:notice.do";
 	}
 	
@@ -710,7 +665,6 @@ public class AdminController {
 	 */
 	@RequestMapping("adminNoteList.do")
 	public ModelAndView adminNoteList(HttpServletRequest request) {
-		System.out.println("   	AdminController/adminNoteList()/시작");
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
@@ -733,14 +687,12 @@ public class AdminController {
 		}
 		mv.setViewName("board/note.tiles");
 		mv.addObject("lvo", lvo);
-		System.out.println("   	AdminController/adminNoteList()/종료");
 		return mv;
 	}
 	
 
 	@RequestMapping("adminNoticeList.do")
 	public String adminNoticeList() {
-		System.out.println("   	AdminController/adminNoticeList()/시작");
 		return "board/notice.tiles";
 	}
 	
@@ -753,13 +705,11 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("sendMessage.do")
 	public ModelAndView sendMessage(String message,String id) {
-		System.out.println("   	AdminController/message()/시작 ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("message", message);
 		map.put("id", id);
 		System.out.println("   	AdminController/message()/진행 message : "+message+" id : "+id);
 		adminService.sendMessage(map);
-		System.out.println("   	AdminController/message()/종료 ");
 		return new ModelAndView("admin/message_ok.tiles","id",id);
 	}
 	
@@ -771,13 +721,11 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("orderProductInfo.do")
 	public ModelAndView orderProductInfo(String ono) {
-		System.out.println("   	AdminController/orderProductInfo()/시작 ");
 		ModelAndView mv = new ModelAndView();
 		List<OrderProductVO> list = adminService.orderProductInfo(ono);					// 주문번호로 주문 상품 정보 찾기
 		System.out.println("   	AdminController/orderProductInfo()/진행 list : "+list);
 		mv.setViewName("admin/orderProductInfo.tiles");
 		mv.addObject("list", list);
-		System.out.println("   	AdminController/orderProductInfo()/종료 ");
 		return mv;
 	}
 	
@@ -789,7 +737,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminPointList.do")
 	public ModelAndView adminPointList(HttpServletRequest request) {
-		System.out.println("   	AdminController/adminPointList()/시작 ");
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalPointListCount();			// 보여줄 포인트 이력 총 개수
@@ -812,7 +759,6 @@ public class AdminController {
 		}
 		mv.setViewName("admin/adminPointList.tiles");
 		mv.addObject("lvo", lvo);
-		System.out.println("   	AdminController/adminPointList()/종료 ");
 		return mv;
 	}
 	/**[현민][11/30][포인트 내역 아이디 검색]
@@ -825,7 +771,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchPoint.do")
 	public ModelAndView adminSearchPoint(HttpServletRequest request, String id) {
-		System.out.println("   	AdminController/adminSearchPoint()/시작 ");
 		ModelAndView mv = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
@@ -853,7 +798,6 @@ public class AdminController {
 			System.out.println("   	AdminController/adminSearchPoint()/ 회원아이디로 주문검색3 - 보여줄 주문 없음");
 			mv.setViewName("admin/adminSearchPoint_fail.tiles");
 		}
-		System.out.println("   	AdminController/adminSearchPoint()/종료 ");
 		return mv;
 	}
 	/**[현민][11/30][포인트 지급형태(관리자 지급/상품구입)로 리스트]
@@ -865,7 +809,6 @@ public class AdminController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminSearchPointByStatus.do")
 	public ModelAndView adminSearchPointByStatus(HttpServletRequest request, String status) {
-		System.out.println("   	AdminController/adminSearchPointByStatus()/시작 ");
 		ModelAndView mv = new ModelAndView();
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
@@ -893,7 +836,6 @@ public class AdminController {
 			System.out.println("   	AdminController/adminSearchPoint()/ 지급형태로 주문검색3 - 검색 결과 없음");
 			mv.setViewName("admin/adminSearchPoint_fail.tiles");
 		}
-		System.out.println("   	AdminController/adminSearchPointByStatus()/종료 ");
 		return mv;
 	}
 }
