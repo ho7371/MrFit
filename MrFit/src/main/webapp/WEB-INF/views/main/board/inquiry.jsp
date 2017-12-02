@@ -25,24 +25,27 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${requestScope.list}" var="i">
-							<tr>
+						<c:choose>
+								<c:when test="${isAdmin}">
+							<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
 								<td>${i.iqno}</td>
-								<td>
-									<c:choose>
-										<c:when test="${isAdmin}">
-											<a href="${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}">${i.title}</a>
-										</c:when>
-										<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
-											비밀글입니다.
-										</c:when>
-										<c:otherwise>
-											<a href="${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}">${i.title}</a>
-										</c:otherwise>
-									</c:choose>
-								</td>
+								<td>${i.title}</td>
 								<td>${i.id}</td>
 								<td>${i.regdate}</td>
 							</tr>
+							</c:when>
+							<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
+											비밀글입니다.
+							</c:when>
+							<c:otherwise>
+								<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
+								<td>${i.iqno}</td>
+								<td>${i.title}</td>
+								<td>${i.id}</td>
+								<td>${i.regdate}</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 						</c:forEach> 
 					</tbody>
 				</table>

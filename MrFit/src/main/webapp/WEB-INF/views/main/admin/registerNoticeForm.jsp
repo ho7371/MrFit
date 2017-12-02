@@ -41,10 +41,8 @@
 				<div class="contact-bottom"> 
 					<form action="${pageContext.request.contextPath}/registerNotice.do" method="post">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="col-md-6 contact-left"> 
-						<input type="text" name="title" placeholder="제목" required>
-					</div>
-					<div class="col-md-6 contact-left">
+					<div class="col-md-6 contact-left" >
+						<input type="text" name="title" placeholder="제목" required>					
 						<textarea name="content" placeholder="공지사항 본문"></textarea>
 						<input type="submit" value="공지사항 등록">
 					</div>

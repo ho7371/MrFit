@@ -57,14 +57,28 @@ insert into question(qno,question) values (qno_seq.nextval,'자신의 보물 1�
 insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료는?');
 
 --------------- 회원
-/* 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 */
--- 관리자용 테스트  id: admin / pwd:admin
--- 회원용 테스트  id: test1 / pwd:test1
--- 회원용 테스트  id: test2 / pwd:test2
+------------- 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 -------------
+-- 관리자용 테스트  id: admin / pwd:1
+-- 회원용 테스트  id: test1 / pwd:1
+-- 회원용 테스트  id: test2 / pwd:1
+-- 회원용 테스트  id: test3 / pwd:1
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('admin','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','관리자','031','판교','kosta',999999,0,'1','21',1,'골드'); 
+
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test1','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터1','031','지구','kosta',0,0,'1','21',1,'브론즈'); 
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test2','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터2','031','한국','kosta',0,0,'1','21',1,'브론즈'); 
+insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
+values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터3','031','성남','kosta',0,0,'0','21',1,'브론즈'); 
+
 commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 
+insert into auth(id, auth) values('test1','ROLE_MEMBER');
+insert into auth(id, auth) values('test2','ROLE_MEMBER');
+insert into auth(id, auth) values('test3','ROLE_MEMBER');
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록

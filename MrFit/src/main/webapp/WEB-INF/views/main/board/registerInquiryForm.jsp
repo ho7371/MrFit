@@ -40,11 +40,9 @@
 				<div class="col-md-8">
 				<div class="contact-bottom"> 
 					<form action="${pageContext.request.contextPath}/registerInquiry.do" method="post">
-					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="col-md-6 contact-left"> 
-						<input type="text" name="title" placeholder="제목" required>
-					</div>
-					<div class="col-md-6 contact-left">
+						<sec:csrfInput/><%-- csrf 토큰 --%>
+						<div class="col-md-6 contact-left"> 
+						<input type="text" name="title" placeholder="제목" size="39" required>					
 						<textarea name="content" placeholder="고객문의 본문"></textarea>
 						<input type="submit" value="고객문의 등록">
 					</div>
