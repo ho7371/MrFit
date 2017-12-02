@@ -143,11 +143,11 @@ $(document).ready(function() {
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
 	   				<c:choose>
 	   					<c:when test="${pageNum==pb.nowPage}">
-							<li>${pageNum}&nbsp;&nbsp;</li>
+							<li><a>${pageNum}&nbsp;&nbsp;</a></li>
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="productListByHit.do?pageNopageNo=${pageNum}">${pageNum}</a>
+							<a href="productListByHit.do?pageNo=${pageNum}">${pageNum}</a>
 							&nbsp;&nbsp;
 						</li>
 					</c:otherwise>
@@ -155,7 +155,7 @@ $(document).ready(function() {
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="productListByHit.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="productListByHit.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		
