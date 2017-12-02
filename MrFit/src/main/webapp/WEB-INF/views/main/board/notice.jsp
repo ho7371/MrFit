@@ -52,11 +52,11 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${lvo.list}" var="nlist">
-							<tr>
+							<tr style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath}/noticeDetail.do?bno=${nlist.bno}'">
 								<td>${nlist.bno}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/noticeDetail.do?bno=${nlist.bno}">
-									${nlist.title}</a>
+									
+									${nlist.title}
 								</td>
 								<td>관리자</td>
 								<td>${nlist.regdate}</td>

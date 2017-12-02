@@ -57,7 +57,7 @@ insert into question(qno,question) values (qno_seq.nextval,'자신의 보물 1�
 insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료는?');
 
 --------------- 회원
-/* 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 */
+------------- 비밀번호 암호화가 적용되므로, 테스트할 회원은 직접 회원가입해야 함 -------------
 -- 관리자용 테스트  id: admin / pwd:1
 -- 회원용 테스트  id: test1 / pwd:1
 -- 회원용 테스트  id: test2 / pwd:1
@@ -641,7 +641,7 @@ insert into product_qna(pqno,id,pno,content,regdate,security)
 values(pqno_seq.nextval,'test2',12,'가격좀 낮춰주세요',sysdate,'public');
 
 --------------- 주문
-/*
+-------------
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
 values(ono_seq.nextval,60000,sysdate,'장바구니','java', '기본주소');
 
@@ -664,11 +664,11 @@ insert into orders(ono,totalprice,ordertime,status,id, destination)
 values(ono_seq.nextval,40000,sysdate,'배송완료','java', '용인 수지');
 
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
-values(ono_seq.nextval,64000,sysdate,'배송완료','spring', '용인 수지');*/
+values(ono_seq.nextval,64000,sysdate,'배송완료','spring', '용인 수지');-------------
 
 
 --------------- 주문상품
-/*
+-------------
 insert into order_product(ono,pdno,quantity) values(1,1,3);
 
 insert into order_product(ono,pdno,quantity) values(2,4,8);
@@ -678,7 +678,7 @@ insert into order_product(ono,pdno,quantity) values(2,2,10);
 insert into order_product(ono,pdno,quantity) values(3,1,2);
 insert into order_product(ono,pdno,quantity) values(3,2,6);
 insert into order_product(ono,pdno,quantity) values(3,7,2);
-	*/
+	-------------
 
 --------------- 게시판
 insert into board(bno,id,title,content,regdate,security,category) 

@@ -33,7 +33,7 @@
 						<tr><td colspan="4" style="height: 400px;">${ivo.content}</td></tr>
 					</tbody>
 				</table>
-				
+				<br>
 				<c:if test="${ivo.id==isId}">
 					<div>
 						<a href="${pageContext.request.contextPath}/deleteInquiry.do?iqno=${ivo.iqno}"><button>문의 삭제</button></a>

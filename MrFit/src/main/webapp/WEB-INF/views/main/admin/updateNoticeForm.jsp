@@ -9,6 +9,7 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>공지사항 수정</h3>
+				<br><br>
 				<form action="${pageContext.request.contextPath}/updateNotice.do">
 				<input type="hidden" name="bno" value="${bvo.bno}">
 				제목 : <input type="text" id="title" name="title" value="${bvo.title}"><br>
