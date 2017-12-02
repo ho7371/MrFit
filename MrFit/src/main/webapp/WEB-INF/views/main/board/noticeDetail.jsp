@@ -39,39 +39,31 @@
 				<!-- 관리자 입장시 공지사항 등록/삭제 버튼 생성 -->
 				<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 					<c:if test="${isAdmin}">
-						<a href="${pageContext.request.contextPath}/updateNoticeForm.do?bno=${bvo.bno }">공지사항 수정</a>
-						
+					<div style="float:right;">
+						<a href="${pageContext.request.contextPath}/updateNoticeForm.do?bno=${bvo.bno }"><button style="margin-bottom: 20px;">공지사항 수정</button></a>
+						</div>
 					</c:if>
-				<div class="in-check">
-					<ul class="unit">
-						<li><span>No</span></li>
-						<li><span>Title</span></li>
-						<li><span>Writer</span></li>					
-						<li><span>작성일</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					
-					
-				
-							<ul class="cart-header">
-								<li><span>${bvo.bno }</span></li>
-								<li><span>${bvo.title}</span></li>
-								<li><span>${bvo.id}</span></li>
-								<li><span>${bvo.regdate}</span></li>								 
-								<div class="clearfix"></div>
-							</ul>
-							
-					<ul class="unit">
-											
-						<li><span>내용</span></li>
-						<div class="clearfix"></div>
-					</ul>
-					<ul class="cart-header">
-						<li><span>${bvo.content }</span></li>							 
-						<div class="clearfix"></div>
-					</ul>
+				<table class="table-board">
+					<thead>
+						<tr>
+							<th>No</th><th>Title</th><th>Writer</th><th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${bvo.bno}</td><td>${bvo.title}</td><td>${bvo.id}</td><td>${bvo.regdate}</td>
+						</tr>
+					</tbody>
+					<thead>
+						<tr><th colspan="4">본문</th></tr>
+					</thead>
+					<tbody>
+						<tr><td colspan="4" style="height: 400px;">${bvo.content}</td></tr>
+					</tbody>
+				</table>
+				<br>
 								<c:if test="${isAdmin}">
-									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${bvo.bno}">${bvo.bno}번 공지 삭제</a>
+									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${bvo.bno}"><button style="margin-bottom: 20px;">${bvo.bno}번 공지 삭제</button></a>
 								</c:if> 
 					
 			

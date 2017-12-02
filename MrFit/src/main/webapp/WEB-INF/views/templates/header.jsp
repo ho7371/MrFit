@@ -59,10 +59,11 @@
 						   <c:when test="${isAdmin}">
 							   	<p>
 							   		<sec:authentication property="principal.name" />님 <br>
-									<a href="${pageContext.request.contextPath}/adminPage.do">관리자페이지</a><br>
-									<a href="${pageContext.request.contextPath}/adminNoteList.do">쪽지함</a>
+									<a href="${pageContext.request.contextPath}/adminPage.do"><button style="margin-bottom: 1px;">관리자페이지</button></a>
+									<a href="${pageContext.request.contextPath}/adminNoteList.do"><button style="margin-bottom: 1px;">쪽지함</button></a>
+									<a href="#" id="logoutAction"><button style="margin-bottom: 1px;">로그아웃</button></a>
 								</p>
-								<a href="#" id="logoutAction">로그아웃</a>
+								
 								<form action="${pageContext.request.contextPath}/logout.do"
 									id="logoutForm" method="post" style="display: none;">
 									<sec:csrfInput />
@@ -71,22 +72,22 @@
 							<c:when test="${isMember}">
 								<p>
 									<sec:authentication property="principal.name" />님 <br>
-									<a href="cartForm.do">
-									<img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />
-									 My Cart</a> <br>
-									<a href="${pageContext.request.contextPath}/myPage.do">MyPage</a>&nbsp;
-									<a href="${pageContext.request.contextPath}/memberNoteList.do">쪽지함</a>
+																		<a href="cartForm.do">
+									<%-- <img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" /> --%>
+									<button style="margin-bottom: 1px;"> MyCart</button></a>
+									<a href="${pageContext.request.contextPath}/myPage.do"><button style="margin-bottom:1px;">MyPage</button></a>
+									<a href="${pageContext.request.contextPath}/memberNoteList.do"><button style="margin-bottom: 1px;">쪽지함</button></a>
+									<br><a href="#" id="logoutAction"><button style="margin-bottom: 1px;">로그아웃</button></a>
 								</p>
-								<a href="#" id="logoutAction">로그아웃</a>
+								
 								<form action="${pageContext.request.contextPath}/logout.do"
 									id="logoutForm" method="post" style="display: none;">
 									<sec:csrfInput />
 								</form>
 							</c:when>
 						   <c:otherwise>
-						   		<a href="${pageContext.request.contextPath}/loginForm.do">로그인</a>
-								&nbsp;|&nbsp;
-								<a href="${pageContext.request.contextPath}/registerForm.do">회원가입</a>
+						   		<a href="${pageContext.request.contextPath}/loginForm.do"><button style="margin-top: 3px;">로그인</button></a>
+								<a href="${pageContext.request.contextPath}/registerForm.do"><button style="margin-bottom: 1px;">회원가입</button></a>
 						   </c:otherwise>
 						</c:choose>
 					

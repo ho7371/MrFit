@@ -39,8 +39,8 @@
 							 <input type="password" name="password" size="10" required="required">
 						</div>
 						<div class="address">
-							<input type="submit" value="Login">
-							<a class="forgot" href="findIdPasswordForm.do">아이디|비밀번호 찾기</a> 
+							<input type="submit" value="Login">							
+						<button style="margin-bottom: 1px;" onclick="location.href='findIdPasswordForm.do'">아이디|비밀번호 찾기</button>
 						</div>
 					</form>
 				</div>
