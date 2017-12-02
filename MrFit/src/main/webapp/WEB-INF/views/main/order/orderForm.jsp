@@ -86,6 +86,8 @@ function kakaoPay(){
 				if(confirm("구매를 진행 하시겠습니까?")==true){
 					if($("#payMethod4").is(":checked")){
 						kakaoPay();
+					}else{
+						$("#orderForm").submit();
 					}
 				};
 			}

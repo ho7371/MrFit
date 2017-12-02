@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ono, id, totalprice, ordertime, status, destination
 		  from orders where status <![CDATA[ <> ]]> '장바구니'
 		) o, member m 
-		where rnum between #{startRowNumber} and #{endRowNumber} and m.id = o.id 
+		where rnum between #{startRowNumber} and #{endRowNumber} and m.id = o.id order by o.ono desc
     </select>
     
     	 <resultMap type="orderVO" id="MemberRM">
