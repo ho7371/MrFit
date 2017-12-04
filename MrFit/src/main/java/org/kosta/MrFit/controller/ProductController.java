@@ -154,7 +154,7 @@ public class ProductController {
 		productService.hitUpByPno(pno);
 		//상품 번호(pno)로 상품들의 사이즈 리스트 받아옴
 		List<ProductSizeVO> psList = productDAO.sizeGapMemberAndProduct(pno);
-		System.out.println("    ProductController/findProductDetailByPno()/진행1");
+		System.out.println("      ProductController/findProductDetailByPno()/진행1");
 		//회원 or 비회원을 식별해 회원일 경우에는 회원의 신체 치수와 해당 상품의 치수를 비교함.
 		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
 			MemberVO vo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -171,7 +171,7 @@ public class ProductController {
 		// 해당 상품 리뷰 불러오는 메서드
 		/* 페이징 처리 공통 영역  영훈 추가 */
 		int totalCount = productService.getTotalProductReviewCount(pno);
-		System.out.println("    ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
+		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
@@ -183,11 +183,11 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pno", pno);
 		map.put("pagingBean", pb);
-		System.out.println("    ProductController/findProductDetailByPno()/진행3 - 리뷰 map : "+map);
+		System.out.println("      ProductController/findProductDetailByPno()/진행3 - 리뷰 map : "+map);
 		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(map);
-		System.out.println("    ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
+		System.out.println("      ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
 		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
-		System.out.println("    ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
+		System.out.println("      ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
 		// ProductReview paging처리 완료
 		
 		// ProductQnA paging 처리 부분(2차)
@@ -198,14 +198,14 @@ public class ProductController {
 		}
 		totalCount=productService.getTotalProductQnaCountByPno(pno);
 		pb = new PagingBean(totalCount,nowPqPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("    ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pqPageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
+		System.out.println("      ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pqPageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
 		Map<String, Object> pqmap = new HashMap<String, Object>();
 		pqmap.put("pno", pno);
 		pqmap.put("PaingBean", pb);
 		List<ProductQnaVO> pqlist=productService.findProductQnaByPno(pqmap);
 		ListVO<ProductQnaVO> lpqlist= new ListVO<ProductQnaVO>(pqlist,pb);
 		mv.addObject("lpqlist", lpqlist);
-		System.out.println("    ProductController/findProductDetailByPno()/진행7 - lpqlist: "+lpqlist);
+		System.out.println("      ProductController/findProductDetailByPno()/진행7 - lpqlist: "+lpqlist);
 		//mv.addObject("checkScroll", checkScroll);
 		
 		mv.setViewName("product/productDetail.tiles");

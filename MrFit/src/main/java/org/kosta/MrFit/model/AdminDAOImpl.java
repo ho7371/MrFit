@@ -104,7 +104,6 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public OrderVO adminSearchOrderByOno(String ono) {
 		OrderVO orderVO = template.selectOne("admin.adminSearchOrderByOno",ono);
-		System.out.println("                  AdminDAOImpl/adminSearchOrderByOno()/종료 - 찾은 주문 :"+orderVO);
 		return orderVO;
 	}
 	

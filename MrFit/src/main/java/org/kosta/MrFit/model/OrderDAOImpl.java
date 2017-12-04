@@ -34,28 +34,24 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public int findMyCartCount(String id) {
 		int cartCount = template.selectOne("order.findMyCartCount", id);
-		System.out.println("                  OrderDAOImpl/findMyCartCount()/진행 cartCount : " + cartCount);
 		return cartCount;
 	}
 
 	// [정현][11/24] 해당 아이디에 장바구니 생성
 	@Override
 	public void registerOrder(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/registerOrder()/시작 ovo : " + ovo);
 		template.insert("order.registerOrder", ovo);
 	}
 
 	// [정현][11/24] 장바구니에 상품 상세 정보를 엮어 주문수량 저장
 	@Override
 	public void registerOrderProduct(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/registerOrderProduct()/시작 ovo : " + ovo);
 		template.insert("order.registerOrderProduct", ovo);
 	}
 
 	// [정현][11/24] 주문에서 해당 정보의 가격 수정
 	@Override
 	public void updateOrder(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/updateOrder()/시작 ovo : " + ovo);
 		template.update("order.updateOrder", ovo);
 
 	}
@@ -88,7 +84,6 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public void updateOrderProduct(OrderVO ovo) {
-		System.out.println("                  OrderDAOImpl/updateOrderProduct()/시작 ovo : " + ovo);
 		template.update("order.updateOrderProduct", ovo);
 
 	}
@@ -96,16 +91,13 @@ public class OrderDAOImpl implements OrderDAO {
 	// [정현][11/24] 주문 삭제
 	@Override
 	public void deleteOrderProduct(OrderProductVO opvo) {
-		System.out.println("                  OrderDAOImpl/deleteOrderProduct()/시작 ovo : " + opvo);
-		System.out.println("opvo.pdno : " + opvo.getPdno());
+		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdno : " +  opvo.getPdno());
 		template.update("order.deleteOrderProduct", opvo);
 	}
 
 	// [정현][11/24] 해당 주문 정보가 있는지 체크
 	@Override
 	public String findPdno(ProductDetailVO pdvo) {
-		System.out.println("                  OrderDAOImpl/findPdno()/시작 pdvo : " + pdvo);
-
 		return template.selectOne("order.findPdno", pdvo);
 	}
 
@@ -158,7 +150,6 @@ public class OrderDAOImpl implements OrderDAO {
 		//[영훈][11.27]리뷰작성 주문상태확인
 		@Override
 		public int statusCheck(Map<String, String> map) {
-			System.out.println("                  OrderDAOImpl/statusCheck()/시작 map : "+map);
 			return template.selectOne("order.statusCheck", map);
 		}
 	
@@ -196,7 +187,6 @@ public class OrderDAOImpl implements OrderDAO {
 	// [영훈][11.27]리뷰작성 확인
 	@Override
 	public int reviewCheck(Map<String, String> map) {
-		System.out.println("                  OrderDAOImpl/reviewCheck()/시작 map : " + map);
 		return template.selectOne("order.reviewCheck", map);
 	}
 
