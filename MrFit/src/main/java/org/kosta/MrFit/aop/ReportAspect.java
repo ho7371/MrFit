@@ -17,24 +17,26 @@ public class ReportAspect {
 		//Object arg[]=point.getArgs();	
 		String className=point.getTarget().getClass().getName();
 		String methodName=point.getSignature().getName();
-		
+		String cn[]=className.split("\\.");
+		className=cn[4];
 		try {
+			//retValue=arg[0];
 			if(className.contains("ServiceImpl")) {
-				System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+				System.out.println("            "+className+" /"+methodName+" /입력값:"+retValue);
 			}else if(className.contains("DAOImpl")) {
-				System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+				System.out.println("                  "+className+" /"+methodName+" /입력값: "+retValue);
 			}else {
-				System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+				System.out.println("      "+className+" /"+methodName+" /입력값: "+retValue);
 			}
 			retValue=point.proceed();
 		} finally {
 			if (retValue!=null) {			
 				if(className.contains("ServiceImpl")) {
-					System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+					System.out.println("            "+className+" /"+methodName+" /리턴값:"+retValue);
 				}else if(className.contains("DAOImpl")) {
-					System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+					System.out.println("                  "+className+" /"+methodName+" /리턴값: "+retValue);
 				}else {
-					System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+					System.out.println("      "+className+" /"+methodName+" /리턴값: "+retValue);
 				}
 			}
 		}

@@ -199,7 +199,7 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<input type="submit" value="장바구니담기" id= "insertCart"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; "/>
+									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " />
 								</c:when>
 								<c:otherwise>
 									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
