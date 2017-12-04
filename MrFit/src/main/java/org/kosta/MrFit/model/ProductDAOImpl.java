@@ -239,5 +239,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
 		return template.selectList("product.findProductQnaByPno", map);
 	}
+	//[영훈][12/1][리뷰수정]
+	@Override
+	public void reviewUpdateAjax(ProductReviewVO prvo) {
+		template.update("product.reviewUpdateAjax", prvo);
+	}
 }
 
