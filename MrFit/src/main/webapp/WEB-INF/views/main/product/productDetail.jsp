@@ -110,17 +110,16 @@ $(document).ready(function() {
       	}
     })// my_popup_close click
     
-});//ready
 
-function reviewUpdateButton(){
+
+$("#rvUBtn").click(function() {
 	alert(1);
    	 var rno = $('#my_popup #rno').val();
    	 alert('2 - rno : '+rno);
-   	 var content2= document.getElementById("#rvUContent").value;
-   	 alert('3 - content2 : '+content2);
-   	// var content =  $(this).parent().parent().find(".reviewArea").value;
+   	 var content = $("#rvUContent").val();
+   	 alert(content);
+   	 
   	 	if(confirm("리뷰를 수정하시겠습니까?")){
-  	 		alert("content : "+content2);
   	  		$.ajax({
 				type:"post",
 				url:"${pageContext.request.contextPath}/reviewUpdateAjax.do",				
@@ -131,13 +130,16 @@ function reviewUpdateButton(){
                contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
 				success:function(data){						
 					$("#${mId}").text(data.content);
-					
+					alert("리뷰 수정이 완료되었습니다. close를 클릭하여 창을 닫아주세요");
+					$('#my_popup').popup('hide');
 				}//callback			
 			});//ajax
   	 	}else{
   		  	return false;
   	  	}//confirm 종료
-}//reviewUpdateButton  종료
+});//reviewUpdateButton  종료
+
+});//ready
 
 function rvUpdateForm(rno,content){
 	$('#my_popup').popup({
@@ -239,7 +241,7 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<input type="submit" value="장바구니담기" id= "insertCart"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " />
+									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; "/>
 								</c:when>
 								<c:otherwise>
 									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
@@ -338,10 +340,10 @@ ${requestScope.pvo } --%>
 								    <tbody>
 								      <tr>
 								        <td>${list.rno}</td>
-								        <td>${list.content }</td>
+								        <td id="${list.id}">${list.content}</td>
 								        <td>${list.color_name}</td>
-								        <td>${list.size_name }</td>
-								        <td>${list.id }</td>
+								        <td>${list.size_name}</td>
+								        <td>${list.id}</td>
 								        <td>${list.regdate }</td>
 								        <c:if test="${list.id==mId}">
 								        	<td>
@@ -360,7 +362,7 @@ ${requestScope.pvo } --%>
 									<div align="center">
 										<input type="hidden" id="rno" value="">
 											<input type ="button" id = "rvUBtn" 
-												onclick="reviewUpdateButton()" value = "수정하기">
+												 value = "수정하기">
 											<button class="my_popup_close" type ="button">Close</button>
 									</div>
 								</div>
