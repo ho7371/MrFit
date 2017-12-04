@@ -323,7 +323,7 @@ public class ProductServiceImpl implements ProductService {
 	//[석환][11/30][상품문의 페이징 처리]
 	@Override
 	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
-		System.out.println("문의 처리 pno : "+map.get("pno"));
+		System.out.println("            ProductServiceImpl/findProductQnaByPno()/문의처리 pno:"+map.get("pno"));
 		return productDAO.findProductQnaByPno(map);
 	}
 		
