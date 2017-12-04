@@ -17,7 +17,6 @@ public class BoardDAOImpl  implements BoardDAO{
 	public List<BoardVO> noticeList(PagingBean pb) {
 		System.out.println("                  BoardDAOImpl/noticeList()/시작 pb :  "+pb.getStartRowNumber()+" ,"+pb.getEndRowNumber());
 		List<BoardVO> nList= template.selectList("board.noticeList",pb);
-		System.out.println("                  BoardDAOImpl/noticeList()/진행 nList : "+ nList);
 		return nList;
 	}
 	
@@ -25,39 +24,29 @@ public class BoardDAOImpl  implements BoardDAO{
 	@Override
 	public int getTotalNoticeCount() {
 		int ncount=template.selectOne("board.getTotalNoticeCount");
-		System.out.println("                  BoardDAOImpl/getTotalNoticeCount()/진행 notice_count : "+ncount);
-		// TODO Auto-generated method stub
 		return ncount;
 	}
 	//[정현][11/25][공지사항 상세보기]
 	@Override
 	public BoardVO noticeDetail(String bno) {
 		BoardVO bvo=template.selectOne("board.noticeDetail",bno);
-		System.out.println("                  BoardDAOImpl/noticeDetail()/진행 bvo : "+bvo);
-		// TODO Auto-generated method stub
 		return bvo;
 	}
 	//[정현][11/25][공지사항 삭제]
 	@Override
 	public void deleteNotice(String bno) {
-		System.out.println("                  BoardDAOImpl/deleteNotice()/시작 bno : "+bno);
 		template.delete("board.deleteNotice",bno);
-		System.out.println("                  BoardDAOImpl/deleteNotice()/진행 ");
 	}
 	//[정현][11/25][공지사항 등록]
 	@Override
 	public void registerNotice(BoardVO bvo) {
-		System.out.println("                  BoardDAOImpl/registerNotice()/시작 bvo : "+bvo);
 		template.insert("board.registerNotice",bvo);
-		System.out.println("                  BoardDAOImpl/registerNotice()/진행 ");
 		
 	}
 
 	@Override
 	public void updateNotice(BoardVO bvo) {
-		System.out.println("                  BoardDAOImpl/updateNotice()/시작 bvo : "+bvo);
 		template.update("board.updateNotice",bvo);
-		System.out.println("                  BoardDAOImpl/updateNotice()/진행 ");
 	}
 	
 	//[진호, 현민][11/28][고객문의]
@@ -90,31 +79,23 @@ public class BoardDAOImpl  implements BoardDAO{
 	@Override
 	public int getTotalInquiryCount() {
 		int Inquiry=template.selectOne("board.getTotalInquiryCount");
-		System.out.println("                  BoardDAOImpl/getTotalInquiryCount()/진행 InquiryCount : "+Inquiry);
-		// TODO Auto-generated method stub
 		return Inquiry;
 	}
 	//[정현][11/29] [고객문의 삭제 ]
 	@Override
 	public void deleteInquiry(String iqno) {
-		System.out.println("                  BoardDAOImpl/deleteInquiry()/시작 iqno : "+iqno);
 		template.delete("board.deleteInquiry",iqno);
-		System.out.println("                  BoardDAOImpl/deleteInquiry()/진행 ");
 	}
 
 	@Override
 	public void registerInquiry(InquiryVO ivo) {
-		System.out.println("                  BoardDAOImpl/registerInquiry()/시작 ivo : "+ivo);
 		template.insert("board.registerInquiry",ivo);
-		System.out.println("                  BoardDAOImpl/registerInquiry()/진행 ");
 		
 	}
 
 	@Override
 	public void updateInquiry(InquiryVO ivo) {
-		System.out.println("                  BoardDAOImpl/updateInquiry()/시작 bvo : "+ivo);
 		template.update("board.updateInquiry",ivo);
-		System.out.println("                  BoardDAOImpl/updateInquiry()/진행 ");
 		
 	}
 

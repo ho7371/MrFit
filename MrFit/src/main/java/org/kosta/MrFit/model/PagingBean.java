@@ -201,5 +201,11 @@ public class PagingBean {
 		  flag = true;
 	  return flag;
 	 }
-	 
+
+	@Override
+	public String toString() {
+		return "PagingBean [nowPage=" + this.nowPage + ", 스타트로우:"+ this.getStartRowNumber()+", 엔드로우:"+ this.getEndRowNumber()
+				+", postCountPerPage=" + this.postCountPerPage + ", postCountPerPageGroup="
+				+ this.postCountPerPageGroup + ", totalPostCount=" + this.totalPostCount +"]";
+	}
 }

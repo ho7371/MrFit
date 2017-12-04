@@ -24,9 +24,8 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	@Override
 	public MemberVO findMemberById(String id) {
-		System.out.println("                  MemberDAOImpl/findMemberById()/시작 - 아이디 :"+id);
 		MemberVO vo=template.selectOne("member.findMemberById",id);
-		System.out.println("                  MemberDAOImpl/findMemberById()/시작 - vo :"+vo);
+		System.out.println("                  MemberDAOImpl/findMemberById()/진행 - vo :"+vo);
 		return template.selectOne("member.findMemberById",id);
 	}
 
