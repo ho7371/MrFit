@@ -64,7 +64,7 @@ public class ProductController {
 	public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model) {
 		// 페이징 처리 공통 영역 
 		int totalCount = productService.getCategoryProductCount(category); //카테고리 별 상품의 개수
-		int postCountPerPage = 10;										   //한 페이지에 보여줄 상품 개수
+		int postCountPerPage = 8;										   //한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;									   //한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;												   //처음 시작시 페이지 번호
 		String pageNo = request.getParameter("pageNo");					   //현재 페이지 번호
