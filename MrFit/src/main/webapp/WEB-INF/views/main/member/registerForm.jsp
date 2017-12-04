@@ -17,45 +17,51 @@
 		<div class="container"> 
 			<div class="account-bottom">
 				<div class="col-md-6 account-left">
+					<div class="account-top heading">
+							<h3>REGISTER CUSTOMER</h3>
+						</div>
+					<div style="padding: 5px;">
+						<img alt="" src="${pageContext.request.contextPath}/resources/images/memberRegForm.jpg" style="width: 115%; margin-top: 20px;">
+					</div>
+				</div>
+				<div class="col-md-6 account-left" style="width:40%;padding-left: 10%; margin-top: 40px;">
 					<%-- 회원 가입 폼 --%>
 					<form method="post" action="${pageContext.request.contextPath}/registerMember.do" id="regForm">
 						<sec:csrfInput/><%-- csrf 토큰 --%>
-						<div class="account-top heading">
-							<h3>REGISTER CUSTOMER</h3>
-						</div>
+						
 						<div class="address">
-							<span>아이디</span>
+							<span><font color="#8c2830">아이디</font></span>
 							<input type="text" name="id" id="memberId">
 							<span id="idCheckView"></span>
 						</div>
 						<div class="address">
-							<span>비밀번호</span>
+							<span><font color="#8c2830">비밀번호</font></span>
 							<input type="password" name="password" id="password">
 						</div>
 						<div class="address">
-							<span>비밀번호 확인</span>
+							<span><font color="#8c2830">비밀번호 확인</font></span>
 							<input type="password" id="CheckPassword">
 							<span id="passwordCheckView"></span>
 						</div>
 						<div class="address">
-							<span>이름</span>
+							<span><font color="#8c2830">이름</font></span>
 							<input type="text" name="name">
 						</div>
 						<div class="address">
-							<span>전화</span>
+							<span><font color="#8c2830">전화</font></span>
 							<input type="text" name="phone">
 						</div>
 						<div class="address">
-							<span>주소</span>
+							<span><font color="#8c2830">주소</font></span>
 							<input type="text" name="address">
 						</div>
 						<div class="address">
-							<span>email</span>
+							<span><font color="#8c2830">email</font></span>
 							<input type="text" name="email">
 						</div>
 						<div class="address">
-							<span>비밀번호 확인 질문</span>
-							<select name="qno">
+							<span><font color="#8c2830">비밀번호 확인 질문</font></span>
+							<select name="qno" style="width:100%">
 								<option value="">--질문 선택--</option>
 								<c:forEach items="${list}" var="qvo">
 									<option value="${qvo.qno}">${qvo.question}</option>
@@ -63,19 +69,15 @@
 							</select>
 						</div>
 						<div class="address">
-							<span>질문답변</span>
+							<span><font color="#8c2830">질문답변</font></span>
 							<input type="text" name="answer">
 						</div>
-						<div class="address new">
+						<div class="address new" align="right">
 							<input type="submit" value="가입하기">
 						</div>
 					</form>
 				</div>
-				<div class="col-md-6 account-left">
-					<div style="padding: 15px;">
-						<img alt="" src="${pageContext.request.contextPath}/resources/images/memberRegForm.jpg" style="width: 90%; margin-top: 50px;">
-					</div>
-				</div>
+				
 				<div class="clearfix"></div>
 			</div>
 		</div>

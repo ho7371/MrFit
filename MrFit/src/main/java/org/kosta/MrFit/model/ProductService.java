@@ -59,4 +59,6 @@ public interface ProductService {
 
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 
+	void reviewUpdateAjax(ProductReviewVO prvo);
+	
 }

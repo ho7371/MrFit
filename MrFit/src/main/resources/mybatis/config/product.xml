@@ -228,6 +228,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and rnum between #{PaingBean.startRowNumber} and #{PaingBean.endRowNumber}
 	</select> 
 	
+	<update id="reviewUpdateAjax" parameterType="productReviewVO">
+		update review set content=#{content}
+		where rno=#{rno}
+	</update>
+	
 </mapper>
 
 

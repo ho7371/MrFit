@@ -64,7 +64,7 @@ public class ProductController {
 	public ModelAndView findProductByCategory(HttpServletRequest request, String category, Model model) {
 		// 페이징 처리 공통 영역 
 		int totalCount = productService.getCategoryProductCount(category); //카테고리 별 상품의 개수
-		int postCountPerPage = 10;										   //한 페이지에 보여줄 상품 개수
+		int postCountPerPage = 8;										   //한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;									   //한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;												   //처음 시작시 페이지 번호
 		String pageNo = request.getParameter("pageNo");					   //현재 페이지 번호
@@ -171,7 +171,7 @@ public class ProductController {
 		// 해당 상품 리뷰 불러오는 메서드
 		/* 페이징 처리 공통 영역  영훈 추가 */
 		int totalCount = productService.getTotalProductReviewCount(pno);
-		System.out.println("    ProductController/findProductDetailByPno()/리뷰 totalCount : "+totalCount);
+		System.out.println("    ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
@@ -183,32 +183,29 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pno", pno);
 		map.put("pagingBean", pb);
-		System.out.println("    ProductController/findProductDetailByPno()/리뷰 map : "+map);
+		System.out.println("    ProductController/findProductDetailByPno()/진행3 - 리뷰 map : "+map);
 		List<ProductReviewVO> prvolist = productService.findProductReplyByPno(map);
-		System.out.println("    ProductController/findProductDetailByPno()/리뷰 prvolist : "+prvolist);
+		System.out.println("    ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
 		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
-		System.out.println("    ProductController/findProductDetailByPno()/리뷰 prlvo : "+prlvo);
+		System.out.println("    ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
 		// ProductReview paging처리 완료
 		
 		// ProductQnA paging 처리 부분(2차)
 		int nowPqPage = 1;
 		String pqPageNo = request.getParameter("pqPageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
-		System.out.println(pqPageNo);
 		if(pqPageNo != null) {
 			nowPqPage = Integer.parseInt(pqPageNo);
 		}
 		totalCount=productService.getTotalProductQnaCountByPno(pno);
-		System.out.println(totalCount);
 		pb = new PagingBean(totalCount,nowPqPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println(pb.getEndRowNumber());
-		System.out.println(pb.getStartRowNumber());
+		System.out.println("    ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pqPageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
 		Map<String, Object> pqmap = new HashMap<String, Object>();
 		pqmap.put("pno", pno);
 		pqmap.put("PaingBean", pb);
 		List<ProductQnaVO> pqlist=productService.findProductQnaByPno(pqmap);
 		ListVO<ProductQnaVO> lpqlist= new ListVO<ProductQnaVO>(pqlist,pb);
 		mv.addObject("lpqlist", lpqlist);
-		System.out.println(lpqlist);
+		System.out.println("    ProductController/findProductDetailByPno()/진행7 - lpqlist: "+lpqlist);
 		//mv.addObject("checkScroll", checkScroll);
 		
 		mv.setViewName("product/productDetail.tiles");
@@ -221,26 +218,6 @@ public class ProductController {
 		mv.addObject("checkScroll", checkScroll);
 		return mv;
 	}
-	
-	/**
-	 * [영훈][11/30] 상품의 상세보기시 리뷰리스트를 Ajax로 페이징처리 하여 반환한다
-	 * @param 
-	 * @return
-	 */
-	/*@RequestMapping("productReviewListAjax.do")
-	public ModelAndView productReviewListAjax(String pno,HttpServletRequest request) {
-		System.out.println("   	ProductController/productReviewList()/시작 매개변수 pno : "+pno);
-		ModelAndView mv = new ModelAndView();
-		
-		
-		return mv;
-	}*/
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * [석환][11/21] 상품 상세보기 페이지에서 엑터가 상품의 색을 선택할 경우 해당 색에 포함 된 사이즈를 비교해
@@ -273,6 +250,15 @@ public class ProductController {
 		mv.addObject("id", prvo.getId());
 		mv.setViewName("product/productReviewCheck_ok.tiles");
 		return mv;
+	}
+	
+	@RequestMapping("reviewUpdateAjax.do")
+	@ResponseBody
+	public ProductReviewVO reviewUpdateAjax(ProductReviewVO prvo) {
+		System.out.println("reviewUpdateAjax 매개변수"+prvo);
+		productService.reviewUpdateAjax(prvo);
+		System.out.println("reviewUpdateAjax 종료 return"+prvo.getContent());
+		return prvo;
 	}
 
 }// class
