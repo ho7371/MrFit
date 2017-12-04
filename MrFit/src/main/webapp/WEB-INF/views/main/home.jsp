@@ -110,7 +110,7 @@ $(document).ready(function() {
 		<div class="product-one">		
 			<c:forEach items="${productList}" var="pvo">
 				 <div class="col-md-3 product-left">
-					<div class="p-one simpleCart_shelfItem">
+					<div class="p-two simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> 
 						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="min-width: 225px; min-height: 300px;"/>
 							<div class="mask">
