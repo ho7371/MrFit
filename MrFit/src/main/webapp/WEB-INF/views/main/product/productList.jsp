@@ -97,20 +97,19 @@
 		<c:set value="${lvo.pagingBean}" var="pb" />
 		<c:set value="${lvo.list}" var="productList" />
 		
-			<c:forEach items="${productList}" var="pvo">
+			<c:forEach items="${productList}" var="pvo" >
 				<div class="col-md-3 product-left">
 					<div class="p-one simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> 
-						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="max-width: 300px; max-height: 300px;"/>
+						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="max-width: 300px; max-height: 500px;"/>
 							<div class="mask">
 								<span>상세보기</span>
 							</div>
 						</a>
 						<h4>${pvo.name}</h4>
 						<p>
-							<a class="item_add" href="#"><i></i> <span class=" item_price">${pvo.price}</span></a>
-						</p>
-		
+							<a class="item_add" href="#"> <span class=" item_price">${pvo.price}</span></a>
+						</p>		
 					</div>
 				</div>	
 			</c:forEach>
@@ -132,11 +131,11 @@
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
 	   				<c:choose>
 	   					<c:when test="${pageNum==pb.nowPage}">
-							<li>${pageNum}&nbsp;&nbsp;</li>
+							<li><a>${pageNum}&nbsp;&nbsp;</a></li>
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="findProductByCategory.do?pageNopageNo=${pageNum}">${pageNum}</a>
+							<a href="findProductByCategory.do?pageNo=${pageNum}">${pageNum}</a>
 							&nbsp;&nbsp;
 						</li>
 					</c:otherwise>
@@ -144,11 +143,11 @@
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="findProductByCategory.do?pageNopageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="findProductByCategory.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		
-</div> 	
+</div> 
 
 
 

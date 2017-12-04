@@ -98,6 +98,8 @@ $(document).ready(function() {
 </div>
 <!--end-banner-bottom-->
 
+		<c:set value="${lvo.pagingBean}" var="pb" />
+		<c:set value="${lvo.list}" var="productList" />
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
@@ -105,16 +107,12 @@ $(document).ready(function() {
 			<option selected="selected">신상품순</option>
 			<option>조회순</option>
 		</select>
-		<div class="product-one">
-		
-		<c:set value="${lvo.pagingBean}" var="pb" />
-		<c:set value="${lvo.list}" var="productList" />
-		
+		<div class="product-one">		
 			<c:forEach items="${productList}" var="pvo">
-				<div class="col-md-3 product-left">
+				 <div class="col-md-3 product-left">
 					<div class="p-one simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> 
-						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="max-width: 300px; max-height: 300px;"/>
+						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="min-width: 225px; min-height: 300px;"/>
 							<div class="mask">
 								<span>상세보기</span>
 							</div>

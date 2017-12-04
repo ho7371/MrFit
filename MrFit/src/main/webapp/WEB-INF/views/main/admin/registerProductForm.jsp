@@ -47,35 +47,35 @@
 					      $("#topsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size1" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size2" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size3" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size4" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size5" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
 								+'</tr>'	  
 					      );
 		    	  }else{
 			    		  $("#bottomsize tbody").append(
 									'<tr id="'+cbname+'">'
 									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td><input type="number" name="size1" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size2" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size3" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size4" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td><input type="number" name="size5" size="10" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size1" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size2" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size3" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size4" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td><input type="number" name="size5" size="5" maxlength="3" oninput="maxLengthCheck(this)" required="required"></td>'
 								+'</tr>'	  
 					      ); 
 		    	  } //append else
 				    		 $("#colorlist tbody").append(
 									'<tr id="'+colid+'">'
-									+'<td><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
-									+'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
-									+'<td ><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
+									+'<td style="padding:5px!important;"><input type="text" name="size" value="'+cbname+'" readonly="readonly"></td>'
+									+'<td style="padding:5px!important;"><input type="text" name="color" size="5" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td style="padding:5px!important;"><input type="button" value="+" id="'+addcol+'"><input type="button" value="-" id="'+delcol+'">'
 									+'<input type="hidden" name="colleng" value="1" id="'+hidleng+'"></td>'
 									+'</tr>'
 									+'<tr id="'+invid+'">'
-									+'<td><input type="text" name="" value="재고수량" readonly="readonly"></td>'
-									+'<td ><input type="text" name="inventory"  size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
+									+'<td style="padding:5px!important;"><input type="text" name="" value="재고수량" readonly="readonly"></td>'
+									+'<td style="padding:5px!important;"><input type="text" name="inventory"  size="5" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
 									+'</tr>'
 						      );
 		      } // cbstat true
@@ -92,10 +92,10 @@
 					 // alert($(this).parent().find("input[name='colleng']").val());
 					  if( eql < 12){
 						$(this).parent().before(
-							'<td ><input type="text" name="color" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
+							'<td style="padding:5px!important;"><input type="text" name="color" size="5" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'
 						); 
 						$(this).parent().parent().next().append(
-							'<td ><input type="text" name="inventory" size="10" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'	
+							'<td style="padding:5px!important;"><input type="text" name="inventory" size="5" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'	
 						);
 					  }else{
 						  alert("최대 색상 수는 10개 입니다");
@@ -131,13 +131,19 @@
 			return true;
 	}// file type recheck
 </script>
+<style>
+th, td{
+	max-width: 200px;
+}
+</style>
 					<!-- Product -->
 <!--start-account-->
 	<div class="account">
 		<div class="container"> 
 			<div class="account-bottom">
+			<form method="post" action="${pageContext.request.contextPath}/admin/registerProduct.do" id="regForm" enctype="multipart/form-data" onsubmit="return recheck()">
+			<div class="row">
 				<div class="col-md-6 account-left">
-				<form method="post" action="${pageContext.request.contextPath}/admin/registerProduct.do" id="regForm" enctype="multipart/form-data" onsubmit="return recheck()">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
 					<div class="account-top heading">
 						<h3>REGISTER PRODUCT</h3>
@@ -153,7 +159,11 @@
 					<div class="address">
 						<span>가격</span>
 						<input type="text" name="price" size="10" required="required">
-					</div>		
+					</div>						
+
+
+				</div>
+				<div class="col-md-6 account-left">
 					<!-- image upload -->
 					<div class="address">
 						<div id="imagefile">
@@ -181,40 +191,37 @@
 							<input type="checkbox" name="size_name" value="L" >Large<br>
 						</div>
 					</div>	
-					<!--detail size and inventory -->
-						<table id="topsize">
+				</div>
+				</div>
+					<div class="row">				
+									<!--detail size and inventory -->
+						<table id="topsize" class="table table-board" style="width: 70% !important;">
 							<thead>
 								<tr><th>Size</th><th>어깨</th><th>가슴</th><th>소매</th><th>암홀</th><th>상의총기장</th></tr>
 							</thead>
 							<tbody>
-
 							</tbody>
 						</table>
-						<table id="bottomsize">
+						<table id="bottomsize" class="table table-board" style="width: 70% !important;">
 							<thead>
 								<tr><th>Size</th><th>허리</th><th>밑위</th><th>허벅지</th><th>밑단</th><th>하의총기장</th></tr>
 							</thead>
 							<tbody>
-
 							</tbody>
 						</table>
 							<!-- product_color -->		
-						<table id="colorlist">
+						<table id="colorlist" class="table-board" style="width: 70% !important;">
 							<thead>
 								<tr><th>Size</th><th>색상</th></tr>
 							</thead>
-							<tbody>
-								
+							<tbody>							
 							</tbody>
 						</table><br>
-					<div class="address new">
-						<input type="submit" value="등록">
+						<div class="address new">
+							<input type="submit" value="등록">
+						</div>
 					</div>
 				</form>	
-				</div>
-				<div class="col-md-6 account-left">
-					
-				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
