@@ -326,5 +326,10 @@ public class ProductServiceImpl implements ProductService {
 		System.out.println("문의 처리 pno : "+map.get("pno"));
 		return productDAO.findProductQnaByPno(map);
 	}
+	//[영훈][12/1][리뷰수정]
+	@Override
+	public void reviewUpdateAjax(ProductReviewVO prvo) {
+		productDAO.reviewUpdateAjax(prvo);
+	}
 		
 }

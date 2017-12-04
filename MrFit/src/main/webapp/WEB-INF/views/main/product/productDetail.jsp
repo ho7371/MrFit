@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+<sec:authentication property='principal.id' var="mId"/>
+
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
@@ -20,15 +23,6 @@ $(document).ready(function() {
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
 		
-		// 영훈 : 리뷰 리스트(페이징처리까지) Ajax작업 
-		/* $.ajax({
-				type:"get",
-				url:"${pageContext.request.contextPath}/productReviewListAjax.do",				
-				data:"pno="+pno,	
-				success:function(data){	
-					
-				}//callback			
-			});//ajax */
 		// 파일명.html#tab1
 		// 페이지가 로드될때 URI에 hash의 값이 없으면 hash값을 #tab1으로 설정,
  	    // hash값에 따라서 해당 div가 보여지게됨.	
@@ -109,7 +103,53 @@ $(document).ready(function() {
 		alert(pcno);
 		alert(1); */
 	});//immediatelyPay click
+	
+	$(".my_popup_close").click(function() {
+      	if($("#rvUContent").val() != ""){
+      		$("#rvUContent").val("");
+      	}
+    })// my_popup_close click
+    
 });//ready
+
+function reviewUpdateButton(){
+	alert(1);
+   	 var rno = $('#my_popup #rno').val();
+   	 alert('2 - rno : '+rno);
+   	 var content2= document.getElementById("#rvUContent").value;
+   	 alert('3 - content2 : '+content2);
+   	// var content =  $(this).parent().parent().find(".reviewArea").value;
+  	 	if(confirm("리뷰를 수정하시겠습니까?")){
+  	 		alert("content : "+content2);
+  	  		$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/reviewUpdateAjax.do",				
+				data:"rno="+rno+"&content="+content,	
+				beforeSend : function(xhr){   
+                   xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+               },
+               contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
+				success:function(data){						
+					$("#${mId}").text(data.content);
+					
+				}//callback			
+			});//ajax
+  	 	}else{
+  		  	return false;
+  	  	}//confirm 종료
+}//reviewUpdateButton  종료
+
+function rvUpdateForm(rno,content){
+	$('#my_popup').popup({
+  	  opacity: 0.3,
+  	  transition: 'all 0.3s'
+    });
+	 $('#my_popup #rno').val(rno);
+	 alert("ajax 시 사용할 리뷰번호 : "+rno);
+	 $('#my_popup #rvUContent').html(content);
+	 alert("ajax 시 사용할 수정내용 : "+content);
+}
+
 </script>
 <script>
 	// Can also be used with $(document).ready()
@@ -284,11 +324,12 @@ ${requestScope.pvo } --%>
   					  				<thead class="row">
 			    					  <tr>
 			    					   <th class="col-sm-1">문의번호</th>
-			     					   <th class="col-sm-6">내용</th>
+			     					   <th class="col-sm-5">내용</th>
 			     					   <th class="col-sm-1">색상</th>
 			     					   <th class="col-sm-1">사이즈</th>
 			     					   <th class="col-sm-1">작성자</th>
 			     					   <th class="col-sm-2">날짜</th>
+			     					    <th class="col-sm-1">수정</th>
 			     					   <th>
 			      					 </tr>					
 				    				 </thead>
@@ -302,10 +343,28 @@ ${requestScope.pvo } --%>
 								        <td>${list.size_name }</td>
 								        <td>${list.id }</td>
 								        <td>${list.regdate }</td>
+								        <c:if test="${list.id==mId}">
+								        	<td>
+												<button class="my_popup_open" 
+													onclick='rvUpdateForm("${list.rno}","${list.content}")'>리뷰 수정</button>
+								        	</td>
+										</c:if>
 								      </tr>
 								    </tbody>
 								 </c:forEach>
-								 </table>									
+								 </table>
+								 
+								 <div id="my_popup" style="display: none;">
+									<h4 align="center">리뷰 수정</h4>
+									<textarea rows="10" cols="30" class="reviewArea" id="rvUContent"></textarea><br>
+									<div align="center">
+										<input type="hidden" id="rno" value="">
+											<input type ="button" id = "rvUBtn" 
+												onclick="reviewUpdateButton()" value = "수정하기">
+											<button class="my_popup_close" type ="button">Close</button>
+									</div>
+								</div>
+								 									
 							<!-- review table paging처리 -->
 							<div class="container" align="center">
 			  					<ul class="pager">

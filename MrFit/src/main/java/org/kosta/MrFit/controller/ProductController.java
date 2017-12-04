@@ -223,26 +223,6 @@ public class ProductController {
 	}
 	
 	/**
-	 * [영훈][11/30] 상품의 상세보기시 리뷰리스트를 Ajax로 페이징처리 하여 반환한다
-	 * @param 
-	 * @return
-	 */
-	/*@RequestMapping("productReviewListAjax.do")
-	public ModelAndView productReviewListAjax(String pno,HttpServletRequest request) {
-		System.out.println("   	ProductController/productReviewList()/시작 매개변수 pno : "+pno);
-		ModelAndView mv = new ModelAndView();
-		
-		
-		return mv;
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	/**
 	 * [석환][11/21] 상품 상세보기 페이지에서 엑터가 상품의 색을 선택할 경우 해당 색에 포함 된 사이즈를 비교해
 	 * JSON 형식으로 통신해 해당 상품의 색상별 사이즈를 보내준다.
 	 * @param pdVO
@@ -273,6 +253,15 @@ public class ProductController {
 		mv.addObject("id", prvo.getId());
 		mv.setViewName("product/productReviewCheck_ok.tiles");
 		return mv;
+	}
+	
+	@RequestMapping("reviewUpdateAjax.do")
+	@ResponseBody
+	public ProductReviewVO reviewUpdateAjax(ProductReviewVO prvo) {
+		System.out.println("reviewUpdateAjax 매개변수"+prvo);
+		productService.reviewUpdateAjax(prvo);
+		System.out.println("reviewUpdateAjax 종료 return"+prvo.getContent());
+		return prvo;
 	}
 
 }// class
