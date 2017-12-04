@@ -20,7 +20,7 @@ public class ReportAspect {
 		String cn[]=className.split("\\.");
 		className=cn[4];
 		try {
-			//retValue=arg[0];
+
 			if(className.contains("ServiceImpl")) {
 				System.out.println("            "+className+" /"+methodName+" /입력값:"+retValue);
 			}else if(className.contains("DAOImpl")) {
