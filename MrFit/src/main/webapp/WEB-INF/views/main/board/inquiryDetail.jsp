@@ -50,6 +50,12 @@
 								</tr>
 							</tbody>
 						</table>
+						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+						<c:if test="${isAdmin}">
+							<div style="float: right;">
+								<a href=""><button>댓글수정</button></a>
+							</div>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
@@ -103,4 +109,3 @@
 			</div>
 		</div>
 	</div>
-</div>

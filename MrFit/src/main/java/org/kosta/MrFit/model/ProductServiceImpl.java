@@ -322,5 +322,9 @@ public class ProductServiceImpl implements ProductService {
 	public void reviewUpdateAjax(ProductReviewVO prvo) {
 		productDAO.reviewUpdateAjax(prvo);
 	}
-		
+	//[석환][12/02][상품문의 글 작성]
+	@Override
+	public void registerProductQnA(ProductQnaVO pqvo) {
+		productDAO.registerProductQnA(pqvo);
+	}	
 }

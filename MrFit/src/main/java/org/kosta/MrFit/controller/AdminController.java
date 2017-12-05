@@ -498,7 +498,7 @@ public class AdminController {
 				ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
 				mv.addObject("lvo", lvo);
 				mv.addObject("searchType","memberId");
-				mv.setViewName("admin/adminAllOrderList.tiles");
+				mv.setViewName("admin/adminSearchOrderList.tiles");
 			}else {		// 보여줄 주문이 없는 경우
 				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색3 - 보여줄 주문 없음");
 				mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
@@ -550,6 +550,7 @@ public class AdminController {
 		adminService.updateOrderStatus(map);
 		System.out.println("   	AdminController/updateOrderStatus()/진행2 ");
 		mv.setViewName("admin/updateOrderStatus_ok.tiles");
+		mv.addObject("ono", ono);
 		return mv;
 	}
 	

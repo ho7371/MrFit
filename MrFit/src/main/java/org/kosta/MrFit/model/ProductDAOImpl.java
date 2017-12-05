@@ -244,5 +244,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public void reviewUpdateAjax(ProductReviewVO prvo) {
 		template.update("product.reviewUpdateAjax", prvo);
 	}
+	//[석환][12/02][상품문의 글 작성]
+	@Override
+	public void registerProductQnA(ProductQnaVO pqvo) {
+		template.insert("product.registerProductQnA", pqvo);
+	}
 }
 

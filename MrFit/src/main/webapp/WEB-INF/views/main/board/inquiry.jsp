@@ -72,7 +72,7 @@
 		<c:set value="${lvo.pagingBean}" var="pb"/>
 		<c:if test="${pb.previousPageGroup==true}">
    			<li>
-   				<a href="memberNoteList.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a>
+   				<a href="inquiry.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a>
    			</li>
    			</c:if>
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -83,7 +83,7 @@
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="memberNoteList.do?nowPage=${pageNum}">${pageNum}</a>
+							<a href="inquiry.do?nowPage=${pageNum}">${pageNum}</a>
 							&nbsp;
 						</li>
 					</c:otherwise>
@@ -91,7 +91,7 @@
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="memberNoteList.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="inquiry.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		
