@@ -518,7 +518,7 @@ public class AdminController {
 				mv.setViewName("admin/adminSearchOrderList.tiles");
 			}else {
 				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 주문번호로 주문검색3 - 검색 결과 없음");
-				mv.setViewName("admin/adminsearchOrder_fail.tiles");
+				mv.setViewName("admin/adminSearchOrder_fail.tiles");
 			}
 		}
 		return mv;

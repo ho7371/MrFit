@@ -26,7 +26,14 @@ $(document).ready(function() {
 	}); 
 	
 	$("#orderForm").click(function() {
-		return confirm("상품을 주문하시겠습니까?");
+		if(confirm("상품을 주문하시겠습니까?")){
+			if(${requestScope.ovo.orderProductList.size()}!=0){
+				return true;
+			}else{
+				alert("주문할 상품이 없습니다.");
+			}	
+		}
+		return false;
 	}); //click
 	
 	$(".updateBtn").click(function() {
