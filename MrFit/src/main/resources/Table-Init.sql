@@ -482,13 +482,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 
 -------4번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 44, 34,175);
 
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 35,152);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 36,170);
 
 
 
@@ -700,22 +700,22 @@ values(bno_seq.nextval,'admin','4번째 공지사항 제목','4번째 공지사�
 
 --상품문의
 insert into product_qna(pqno,id,pno,content,regdate,security)
-values(pqno_seq.nextval,'test1',12,'상품문의 게시글 1',sysdate,'public');
+values(pqno_seq.nextval,'test1','상품문의 게시글 1',sysdate,'public');
 
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?1',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?1',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?2',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?2',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?3',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?3',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?4',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?4',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?5',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?5',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?6',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?6',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?7',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
@@ -761,3 +761,38 @@ select * from PRODUCT_SIZE;
 select * from BOARD;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
+--test
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,60000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,12000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,20000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,16000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
+
+
+
+
+
+
+insert into order_product(ono,pdno,quantity) values(1,1,3);
+
+insert into order_product(ono,pdno,quantity) values(2,4,8);
+insert into order_product(ono,pdno,quantity) values(2,5,6);
+insert into order_product(ono,pdno,quantity) values(2,2,10);
+
+insert into order_product(ono,pdno,quantity) values(6,1,2);
+insert into order_product(ono,pdno,quantity) values(6,2,6);
+insert into order_product(ono,pdno,quantity) values(6,7,2);
+
+
