@@ -75,7 +75,6 @@ values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','�
 commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
-
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
 insert into auth(id, auth) values('test3','ROLE_MEMBER');
@@ -706,39 +705,39 @@ values(pqno_seq.nextval,'test1','상품문의 게시글 1',sysdate,'public');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?1',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?1',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?2',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?3',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?3',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?4',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?5',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?5',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?6',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?7',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?7',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?8',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?9',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?9',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?10',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?11',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?11',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?12',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?13',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?13',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?14',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?15',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?15',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?16',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?17',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?17',sysdate,'private');
 
 
 --------------- 테이블 select
