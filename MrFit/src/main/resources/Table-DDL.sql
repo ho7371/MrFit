@@ -160,7 +160,6 @@ CREATE TABLE product (
          constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno) on delete cascade
       );
          CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
-         ------- CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); -------
 
 
 ------- 고객문의 게시판 -------
@@ -174,12 +173,7 @@ CREATE TABLE inquiry (
    id VARCHAR2(100) NOT NULL,
    constraint fk_id_in_inquiry foreign key(id) references member(id)
 );
--------
- *	delete from INQUIRY;
-delete from INQUIRY_REPLY;
-alter table inquiry add title VARCHAR2(100) NOT NULL;
- 
- -------
+
 
       ------- 고객문의 댓글 -------
       create sequence iqrno_seq;
