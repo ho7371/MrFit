@@ -140,7 +140,13 @@ $("#rvUBtn").click(function() {
   	 	}else{
   		  	return false;
   	  	}//confirm 종료
+  	  	//상품문의 등록
 });//reviewUpdateButton  종료
+  	 	$("#registerPQ").click(function() {
+  	 	  	/* openPopup(); */
+  	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
+  	 	  					+pno+"&checkScroll=QnAScroll";
+  	 		});
 
 });//ready
 
@@ -154,11 +160,6 @@ function rvUpdateForm(rno,content){
 	 $('#my_popup #rvUContent').html(content);
 	 alert("ajax 시 사용할 수정내용 : "+content);
 }
-$("#registerPQ").click(function() {
-  	/* openPopup(); */
-  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
-  					+pno+"&checkScroll=QnAScroll";
-	});
 
 
 </script>
