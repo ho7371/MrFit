@@ -108,8 +108,8 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		// 페이징 처리 공통 영역 
 		int totalOrderCount = productService.productTotalCount(keyword); //키워드 별 리스트의 총 개수
-		int postCountPerPage = 4;										 //한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;									 //한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 8;										 //한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;									 //한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;												 //처음 시작시 페이지 번호
 		String pageNo = request.getParameter("nowPage");				 //현재 페이지 번호
 		if (pageNo != null) {											 // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
@@ -131,6 +131,7 @@ public class ProductController {
 			//검색된 값이 있을 경우 ListVO를 jsp로 보냄
 			mv.setViewName("product/findProductByName_ok.tiles");
 			mv.addObject("lvo", lvo);
+			mv.addObject("keyword",keyword);
 		} else {
 			//검색된 값이 없을 경우 아래 jsp로 보냄
 			mv.setViewName("main/product/findProductByName_fail");

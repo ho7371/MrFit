@@ -46,8 +46,8 @@
 						</a>
 					</div>
 					<div style="float: right;">
-						<form action="${pageContext.request.contextPath}/adminSearchMember.do">&nbsp;
-							<input type="text" name="id" class="searchInput" placeholder="  회원검색">
+						<form action="${pageContext.request.contextPath}/adminSearchMember.do">
+							<input type="text" name="id" id="id" class="searchInput" style="font-family: monospace;" placeholder="  회원검색">
 							<input type="submit" value="아이디 검색">
 						</form>
 					</div>

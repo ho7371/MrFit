@@ -244,11 +244,11 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart"/> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="submit" class="btn btn-default" id= "insertCart">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
 									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="submit" class="btn btn-default" id= "insertCart">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:when>

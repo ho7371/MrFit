@@ -68,8 +68,8 @@ public class ProductVO {
 	}
 	@Override
 	public String toString() {
-		return "ProductVO [pno=" + pno + ", name=" + name + ", price=" + price + ", content=" + content.length() + ", category="
-				+ category;
+		return "ProductVO [pno=" + pno + ", name=" + name + ", price=" + price + ", category=" + category + "]";
 	}
+	
 	
 }
