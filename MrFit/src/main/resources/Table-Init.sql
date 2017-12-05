@@ -482,13 +482,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 
 -------4번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 44, 34,175);
 
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 35,152);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 36,170);
 
 
 
@@ -700,22 +700,22 @@ values(bno_seq.nextval,'admin','4번째 공지사항 제목','4번째 공지사�
 
 --상품문의
 insert into product_qna(pqno,id,pno,content,regdate,security)
-values(pqno_seq.nextval,'test1',12,'상품문의 게시글 1',sysdate,'public');
+values(pqno_seq.nextval,'test1','상품문의 게시글 1',sysdate,'public');
 
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?1',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?1',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?2',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?2',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?3',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?3',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?4',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?4',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?5',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?5',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?6',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?6',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
 values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?7',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 

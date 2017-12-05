@@ -160,6 +160,7 @@ CREATE TABLE product (
          constraint fk_psno_in_product_detail foreign key(psno) references product_size(psno) on delete cascade
       );
          CREATE INDEX product_detail_unique ON product_detail(pno, pcno, psno);
+         ------- CREATE INDEX 인덱스명 ON 테이블명(칼럼1, 칼럼2, 칼럼3); -------
 
 
 ------- 고객문의 게시판 -------
