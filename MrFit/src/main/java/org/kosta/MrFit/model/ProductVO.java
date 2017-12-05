@@ -70,6 +70,4 @@ public class ProductVO {
 	public String toString() {
 		return "ProductVO [pno=" + pno + ", name=" + name + ", price=" + price + ", category=" + category + "]";
 	}
-	
-	
 }

@@ -122,7 +122,7 @@
 						<textarea rows="10" cols="30" id = "message" name = "message"></textarea><br>
 						<div align="center">
 						<input type="hidden" id="hiddenMemberId" value="">
-						<input type ="button" id = "messageBtn" value = "전송">
+						<button id = "messageBtn">전송</button>
 					    <button class="my_popup_close" type ="button">Close</button>
 						</div>
 					</div>

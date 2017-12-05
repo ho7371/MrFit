@@ -45,8 +45,11 @@ public class ReportAspect {
 	
 	public String printArgs(Object[] args) {
 		String argStr = "";
+		if(args.length==0) {
+			return argStr;
+		}
 		for(int i=0; i<args.length; i++) {
-			argStr = argStr+args[i].toString()+", ";
+			argStr = argStr+args[i]+", ";
 		}
 		return argStr;
 	}

@@ -9,16 +9,32 @@
 			location.href="${pageContext.request.contextPath}/updateOrderStatus.do?ono="+ono;
 		}
 	}
+	
+	$(document).ready(function(){
+		$("#searchTypeForm").submit(function(){
+			if($("#searchTypeForm select").val()=="orderNo"){
+				var orderNumber = $("#searchTypeForm [name=searchKeyword]").val();
+				if(isNaN(orderNumber)){
+					alert('주문번호를 숫자로 입력해주세요.');
+					return false;
+				}else{
+					return true;
+				}
+			}
+		});
+	});
 </script>
 <div class="ckeckout">
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>주문 관리</h3>
+				<h3 style="margin-bottom: 1em!important;">주문 관리</h3>
 				<%-- 주문 검색 --%>
-				<div align="right">
-					<a href="${pageContext.request.contextPath}/adminAllOrderList.do">전체 주문 보기</a> &nbsp;
-						<form action="${pageContext.request.contextPath}/adminSearchOrder.do">
+				<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
+					<button>전체 주문 보기</button>
+				</a> 
+				<div style="float: right;">
+						<form action="${pageContext.request.contextPath}/adminSearchOrder.do" id="searchTypeForm">
 						<select name="searchType" class="searchInput">
 							<option value="memberId">회원아이디</option>
 							<option value="orderNo">주문번호</option>
@@ -46,17 +62,21 @@
 									<tbody>						
 										<tr>
 										    <td><a href="${pageContext.request.contextPath}/orderProductInfo.do?ono=${order.ono}">${order.ono}</a></td>				
-											<td>${order.memberVO.id} / ${order.memberVO.name }</td>
-											<c:forEach items="${order.orderProductList}" var="product">
+											<td>${order.memberVO.id}</td>
+											<td>${order.memberVO.name}</td>
+											<%-- <c:forEach items="${order.orderProductList}" var="product">
 												<td>${product.name}</td>
 												<td>${product.category} </td>
 												<td>${product.color_name}</td>
 												<td>${product.size_name}</td>
-											</c:forEach>
+											</c:forEach> --%>
 											<td>${order.ordertime}</td>
 											<td>
 											<c:choose>
 												<c:when test="${order.status =='배송완료'}">
+													${order.status}
+												</c:when>
+												<c:when test="${order.status =='구매확정'}">
 													${order.status}
 												</c:when>
 												<c:otherwise>
@@ -78,6 +98,9 @@
 									<td>
 										<c:choose>
 											<c:when test="${order.status =='배송완료'}">
+												${order.status}
+											</c:when>
+											<c:when test="${order.status =='구매확정'}">
 												${order.status}
 											</c:when>
 											<c:otherwise>

@@ -3,5 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 	alert("메시지 가 전달 되었습니다.");
-	location.href="${pageContext.request.contextPath}/home.do";
+	location.href="${pageContext.request.contextPath}/commonMemberList.do?status=1&pageNo=1";
 </script>

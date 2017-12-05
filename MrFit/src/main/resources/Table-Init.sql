@@ -374,15 +374,18 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 3,150);
 -------2번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 4,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 5,170);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 4,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 5,180);
 -------3번째 상품 
@@ -406,6 +409,7 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 12,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 12,150);
@@ -429,11 +433,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 17,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 17,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 17,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 18,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 18,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 18,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 19,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 19,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 19,180);
@@ -761,3 +767,38 @@ select * from PRODUCT_SIZE;
 select * from BOARD;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
+--test
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,60000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,12000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,20000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,16000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
+
+
+
+
+
+
+insert into order_product(ono,pdno,quantity) values(1,1,3);
+
+insert into order_product(ono,pdno,quantity) values(2,4,8);
+insert into order_product(ono,pdno,quantity) values(2,5,6);
+insert into order_product(ono,pdno,quantity) values(2,2,10);
+
+insert into order_product(ono,pdno,quantity) values(6,1,2);
+insert into order_product(ono,pdno,quantity) values(6,2,6);
+insert into order_product(ono,pdno,quantity) values(6,7,2);
+
+
