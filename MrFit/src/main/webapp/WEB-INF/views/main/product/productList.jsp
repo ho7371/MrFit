@@ -101,7 +101,7 @@
 				<div class="col-md-3 product-left">
 					<div class="p-two simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> 
-						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="max-width: 300px; max-height: 500px;"/>
+						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="min-width: 100%; min-height: 80%;"/>
 							<div class="mask">
 								<span>상세보기</span>
 							</div>

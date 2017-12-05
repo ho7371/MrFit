@@ -49,7 +49,7 @@ public class ReportAspect {
 			return argStr;
 		}
 		for(int i=0; i<args.length; i++) {
-			argStr = argStr+args[i].toString()+", ";
+			argStr = argStr+args[i]+", ";
 		}
 		return argStr;
 	}
