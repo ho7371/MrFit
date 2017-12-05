@@ -9,6 +9,9 @@
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="screen" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style>  
 .tab_item:target {
             display:block;  }
@@ -240,12 +243,24 @@ ${requestScope.pvo } --%>
 							<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
 							<c:choose>
 								<c:when test="${isMember}">
-									<input type="submit" value="장바구니담기" id= "insertCart"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; "/>
+									<!-- <input type="submit" value="장바구니담기" id= "insertCart"/> -->
+									<button type="button" class="btn btn-default" id= "insertCart">
+										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
+									</button>
+									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
+									<button type="button" class="btn btn-default" id= "insertCart">
+										<span class="glyphicon glyphicon-usd"></span> 즉시주문
+									</button>
 								</c:when>
 								<c:otherwise>
-									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/>
+									<!-- <input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
+									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/> -->
+									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
+									</button>
+									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+										<span class="glyphicon glyphicon-usd"></span> 즉시주문
+									</button>
 								</c:otherwise>
 							</c:choose>
 							</div>
@@ -312,14 +327,18 @@ ${requestScope.pvo } --%>
 					<input id="checkvHas" value="${requestScope.vHash}" style="display: none;">
 					<!-- start review table -->
 					<div class="ckeckout">
-						<div class="container">
+						<div class="container" style="padding-left: 0px;">
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
 									 <section class="buttons">
             							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section>
-        						<!-- 상품리뷰 -->
+        							</section> --%>
+									<ul class="nav nav-tabs">
+										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
+										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
+									</ul>
+									<!-- 상품리뷰 -->
         						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
