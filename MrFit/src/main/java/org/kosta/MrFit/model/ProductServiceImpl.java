@@ -33,7 +33,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> ProductList(PagingBean pb) {
 		List<ProductVO> ProductList=productDAO.ProductList(pb);
-		System.out.println("      		ProductServiceImpl/ProductList()/종료 - ProductList:"+ProductList);
 		return ProductList;
 	}
 	
@@ -63,14 +62,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> findProductByCategory(HashMap<String, Object> map) {
 		List<ProductVO> ProductList=productDAO.findProductByCategory(map);
-		System.out.println("            ProductServiceImpl/findProductByCategory()/진행"+ProductList);
-		
 		return ProductList;
 	}
 	//[정현][11/24] 해당 카테고리의 총갯수 파악
 	@Override
 	public int getCategoryProductCount(String category) {
-		System.out.println("            ProductServiceImpl/getCategoryProductCount()/시작"+category);
 		return productDAO.getCategoryProductCount(category);
 	}	
 	/* [2017.11.20][김석환
@@ -117,10 +113,7 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<ProductSizeGapVO> sizeGapMemberAndProduct(String pno,MemberSizeVO msvo,String pvo){
 		List<ProductSizeVO> psList=productDAO.sizeGapMemberAndProduct(pno);
 		ArrayList<ProductSizeGapVO> psgList=new ArrayList<ProductSizeGapVO>();
-		System.out.println(pno);
-		System.out.println(msvo);
-		System.out.println(pvo);
-		System.out.println(psList);
+		System.out.println("            ProductServiceImpl/sizeGapMemberAndProduct()/진행 - pno:"+pno+", msvo :"+msvo+", pvo:"+pvo+", pslist:"+psList);
 		int sizeGap1=0;
 		int sizeGap2=0;
 		int sizeGap3=0;
@@ -310,9 +303,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public List<ProductVO> productListByHit(PagingBean pb) {
-		System.out.println("            ProductServiceImpl/productListByHit()/시작");
 		List<ProductVO> ProductList=productDAO.productListByHit(pb);
-		System.out.println("      		ProductServiceImpl/productListByHit()/종료 - ProductList:"+ProductList);
 		return ProductList;
 	}
 	//[석환][11/30][상품문의 총 개수]
@@ -323,8 +314,13 @@ public class ProductServiceImpl implements ProductService {
 	//[석환][11/30][상품문의 페이징 처리]
 	@Override
 	public List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map){
-		System.out.println("문의 처리 pno : "+map.get("pno"));
+		System.out.println("            ProductServiceImpl/findProductQnaByPno()/문의처리 pno:"+map.get("pno"));
 		return productDAO.findProductQnaByPno(map);
+	}
+	//[영훈][12/1][리뷰수정]
+	@Override
+	public void reviewUpdateAjax(ProductReviewVO prvo) {
+		productDAO.reviewUpdateAjax(prvo);
 	}
 		
 }

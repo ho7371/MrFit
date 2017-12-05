@@ -2,10 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+
+
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
 <link rel="stylesheet" href="css/flexslider.css" type="text/css"
 	media="screen" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style>  
 .tab_item:target {
             display:block;  }
@@ -20,15 +26,6 @@ $(document).ready(function() {
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
 		
-		// 영훈 : 리뷰 리스트(페이징처리까지) Ajax작업 
-		/* $.ajax({
-				type:"get",
-				url:"${pageContext.request.contextPath}/productReviewListAjax.do",				
-				data:"pno="+pno,	
-				success:function(data){	
-					
-				}//callback			
-			});//ajax */
 		// 파일명.html#tab1
 		// 페이지가 로드될때 URI에 hash의 값이 없으면 hash값을 #tab1으로 설정,
  	    // hash값에 따라서 해당 div가 보여지게됨.	
@@ -109,7 +106,55 @@ $(document).ready(function() {
 		alert(pcno);
 		alert(1); */
 	});//immediatelyPay click
+	
+	$(".my_popup_close").click(function() {
+      	if($("#rvUContent").val() != ""){
+      		$("#rvUContent").val("");
+      	}
+    })// my_popup_close click
+    
+
+
+$("#rvUBtn").click(function() {
+	alert(1);
+   	 var rno = $('#my_popup #rno').val();
+   	 alert('2 - rno : '+rno);
+   	 var content = $("#rvUContent").val();
+   	 alert(content);
+   	 
+  	 	if(confirm("리뷰를 수정하시겠습니까?")){
+  	  		$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/reviewUpdateAjax.do",				
+				data:"rno="+rno+"&content="+content,	
+				beforeSend : function(xhr){   
+                   xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+               },
+               contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
+				success:function(data){						
+					$("#${mId}").text(data.content);
+					alert("리뷰 수정이 완료되었습니다. close를 클릭하여 창을 닫아주세요");
+					$('#my_popup').popup('hide');
+				}//callback			
+			});//ajax
+  	 	}else{
+  		  	return false;
+  	  	}//confirm 종료
+});//reviewUpdateButton  종료
+
 });//ready
+
+function rvUpdateForm(rno,content){
+	$('#my_popup').popup({
+  	  opacity: 0.3,
+  	  transition: 'all 0.3s'
+    });
+	 $('#my_popup #rno').val(rno);
+	 alert("ajax 시 사용할 리뷰번호 : "+rno);
+	 $('#my_popup #rvUContent').html(content);
+	 alert("ajax 시 사용할 수정내용 : "+content);
+}
+
 </script>
 <script>
 	// Can also be used with $(document).ready()
@@ -198,12 +243,24 @@ ${requestScope.pvo } --%>
 							<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
 							<c:choose>
 								<c:when test="${isMember}">
-									<input type="submit" value="장바구니담기" id= "insertCart"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; "/>
+									<!-- <input type="submit" value="장바구니담기" id= "insertCart"/> -->
+									<button type="button" class="btn btn-default" id= "insertCart">
+										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
+									</button>
+									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
+									<button type="button" class="btn btn-default" id= "insertCart">
+										<span class="glyphicon glyphicon-usd"></span> 즉시주문
+									</button>
 								</c:when>
 								<c:otherwise>
-									<input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
-									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/>
+									<!-- <input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
+									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/> -->
+									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
+									</button>
+									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+										<span class="glyphicon glyphicon-usd"></span> 즉시주문
+									</button>
 								</c:otherwise>
 							</c:choose>
 							</div>
@@ -270,25 +327,31 @@ ${requestScope.pvo } --%>
 					<input id="checkvHas" value="${requestScope.vHash}" style="display: none;">
 					<!-- start review table -->
 					<div class="ckeckout">
-						<div class="container">
+						<div class="container" style="padding-left: 0px;">
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
 									 <section class="buttons">
             							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section>
-        						<!-- 상품리뷰 -->
+        							</section> --%>
+									<ul class="nav nav-tabs">
+										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
+										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
+									</ul>
+									<!-- 상품리뷰 -->
+        						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 									<table class="table table-hover">
   					  				<thead class="row">
 			    					  <tr>
 			    					   <th class="col-sm-1">문의번호</th>
-			     					   <th class="col-sm-6">내용</th>
+			     					   <th class="col-sm-5">내용</th>
 			     					   <th class="col-sm-1">색상</th>
 			     					   <th class="col-sm-1">사이즈</th>
 			     					   <th class="col-sm-1">작성자</th>
 			     					   <th class="col-sm-2">날짜</th>
+			     					    <th class="col-sm-1">수정</th>
 			     					   <th>
 			      					 </tr>					
 				    				 </thead>
@@ -297,15 +360,33 @@ ${requestScope.pvo } --%>
 								    <tbody>
 								      <tr>
 								        <td>${list.rno}</td>
-								        <td>${list.content }</td>
+								        <td id="${list.id}">${list.content}</td>
 								        <td>${list.color_name}</td>
-								        <td>${list.size_name }</td>
-								        <td>${list.id }</td>
+								        <td>${list.size_name}</td>
+								        <td>${list.id}</td>
 								        <td>${list.regdate }</td>
+								        <c:if test="${list.id==mId}">
+								        	<td>
+												<button class="my_popup_open" 
+													onclick='rvUpdateForm("${list.rno}","${list.content}")'>리뷰 수정</button>
+								        	</td>
+										</c:if>
 								      </tr>
 								    </tbody>
 								 </c:forEach>
-								 </table>									
+								 </table>
+								 
+								 <div id="my_popup" style="display: none;">
+									<h4 align="center">리뷰 수정</h4>
+									<textarea rows="10" cols="30" class="reviewArea" id="rvUContent"></textarea><br>
+									<div align="center">
+										<input type="hidden" id="rno" value="">
+											<input type ="button" id = "rvUBtn" 
+												 value = "수정하기">
+											<button class="my_popup_close" type ="button">Close</button>
+									</div>
+								</div>
+								 									
 							<!-- review table paging처리 -->
 							<div class="container" align="center">
 			  					<ul class="pager">

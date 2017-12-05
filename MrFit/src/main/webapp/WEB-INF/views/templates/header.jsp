@@ -59,9 +59,9 @@
 						   <c:when test="${isAdmin}">
 							   	<p>
 							   		<sec:authentication property="principal.name" />님 <br>
-									<a href="${pageContext.request.contextPath}/adminPage.do"><button style="margin-bottom: 1px;">관리자페이지</button></a>
-									<a href="${pageContext.request.contextPath}/adminNoteList.do"><button style="margin-bottom: 1px;">쪽지함</button></a>
-									<a href="#" id="logoutAction"><button style="margin-bottom: 1px;">로그아웃</button></a>
+									<a href="${pageContext.request.contextPath}/adminPage.do"style="text-decoration: none;"><font color="#8c2830">관리자페이지</font></a>&nbsp;&nbsp;
+									<a href="${pageContext.request.contextPath}/adminNoteList.do"style="text-decoration: none;"><font color="#8c2830">쪽지함</font></a>&nbsp;&nbsp;
+									<a href="#" id="logoutAction"style="text-decoration: none;"><font color="#8c2830">로그아웃</font></a>
 								</p>
 								
 								<form action="${pageContext.request.contextPath}/logout.do"
@@ -72,12 +72,12 @@
 							<c:when test="${isMember}">
 								<p>
 									<sec:authentication property="principal.name" />님 <br>
-																		<a href="cartForm.do">
-									<%-- <img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" /> --%>
-									<button style="margin-bottom: 1px;"> MyCart</button></a>
-									<a href="${pageContext.request.contextPath}/myPage.do"><button style="margin-bottom:1px;">MyPage</button></a>
-									<a href="${pageContext.request.contextPath}/memberNoteList.do"><button style="margin-bottom: 1px;">쪽지함</button></a>
-									<br><a href="#" id="logoutAction"><button style="margin-bottom: 1px;">로그아웃</button></a>
+										<a href="cartForm.do" style="text-decoration: none;">
+									<%--  <img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />  --%>
+									<font color="#8c2830">MyCart</font></a>&nbsp;&nbsp;
+									<a href="${pageContext.request.contextPath}/myPage.do" style="text-decoration: none;"><font color="#8c2830"> MyPage</font></a>&nbsp;&nbsp;
+									<a href="${pageContext.request.contextPath}/memberNoteList.do" style="text-decoration: none;"><font color="#8c2830">쪽지함</font></a>&nbsp;&nbsp;
+									<a href="#" id="logoutAction" style="text-decoration: none;"><font color="#8c2830">로그아웃</font></a>
 								</p>
 								
 								<form action="${pageContext.request.contextPath}/logout.do"
@@ -86,8 +86,8 @@
 								</form>
 							</c:when>
 						   <c:otherwise>
-						   		<a href="${pageContext.request.contextPath}/loginForm.do"><button style="margin-top: 3px;">로그인</button></a>
-								<a href="${pageContext.request.contextPath}/registerForm.do"><button style="margin-bottom: 1px;">회원가입</button></a>
+						   		<a href="${pageContext.request.contextPath}/loginForm.do"style="text-decoration: none;"><font color="#8c2830">로그인</font></a>&nbsp;&nbsp;
+								<a href="${pageContext.request.contextPath}/registerForm.do"style="text-decoration: none;"><font color="#8c2830">회원가입</font></a>
 						   </c:otherwise>
 						</c:choose>
 					

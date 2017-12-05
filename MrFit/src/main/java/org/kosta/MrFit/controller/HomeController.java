@@ -216,7 +216,7 @@ public class HomeController {
 		@RequestMapping("deleteInquiry.do")	
 		public String deleteInquiry(HttpServletRequest  request){	
 			String iqno=request.getParameter("iqno");
-			System.out.println("   	HomeController/deleteInquiry()/진행");		
+			System.out.println("      HomeController/deleteInquiry()/진행");		
 			boardService.deleteInquiry(iqno);		
 			return "redirect:inquiry.do";
 		}
@@ -242,7 +242,7 @@ public class HomeController {
 				ivo.setSecurity(status);
 				ivo.setTitle(title);
 				ivo.setContent(content);
-				System.out.println("   	HomeController/registerInquiry()/진행 ivo : "+ivo);
+				System.out.println("      HomeController/registerInquiry()/진행 ivo : "+ivo);
 				boardService.registerInquiry(ivo);	
 				return "redirect:inquiry.do";
 			}
@@ -255,7 +255,7 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView();
 			String iqno=request.getParameter("iqno");
 			InquiryVO ivo=boardService.inquiryDetail(iqno);
-			System.out.println("   	HomeController/updateInquiryForm()/진행");
+			System.out.println("      HomeController/updateInquiryForm()/진행");
 			mv.addObject("ivo",ivo);
 			mv.setViewName("board/updateInquiryForm.tiles");
 			return mv;
@@ -269,7 +269,7 @@ public class HomeController {
 				InquiryVO ivo=new InquiryVO();
 				String title=request.getParameter("title");
 				String content=request.getParameter("content");
-				System.out.println("   	HomeController/updateInquiry()/진행");
+				System.out.println("      HomeController/updateInquiry()/진행");
 				ivo.setId(mvo.getId());
 				ivo.setIqno(iqno);
 				ivo.setTitle(title);

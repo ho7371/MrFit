@@ -14,30 +14,40 @@ public class ReportAspect {
 	@Around("execution(public * org.kosta.MrFit.model.*ServiceImpl.*(..)) || execution(public * org.kosta.MrFit.controller.*Controller.*(..)) || execution(public * org.kosta.MrFit.model.*DAOImpl.*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
 		Object retValue=null;
-		//Object arg[]=point.getArgs();	
+		Object[] args=point.getArgs();	
 		String className=point.getTarget().getClass().getName();
 		String methodName=point.getSignature().getName();
-		
+		String cn[]=className.split("\\.");
+		className=cn[4];
 		try {
+
 			if(className.contains("ServiceImpl")) {
-				System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+				System.out.println("            "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}else if(className.contains("DAOImpl")) {
-				System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+				System.out.println("                  "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}else {
-				System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+				System.out.println("      "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}
 			retValue=point.proceed();
 		} finally {
 			if (retValue!=null) {			
 				if(className.contains("ServiceImpl")) {
-					System.out.println("					"+className+" //"+methodName+" //리턴값:"+retValue);
+					System.out.println("            "+className+"/"+methodName+"/리턴값:"+retValue);
 				}else if(className.contains("DAOImpl")) {
-					System.out.println("								"+className+" //"+methodName+" //리턴값: "+retValue);
+					System.out.println("                  "+className+"/"+methodName+"/리턴값: "+retValue);
 				}else {
-					System.out.println("		"+className+" //"+methodName+" //리턴값: "+retValue);
+					System.out.println("      "+className+"/"+methodName+"/리턴값: "+retValue);
 				}
 			}
 		}
 		return retValue;
-}
+	}
+	
+	public String printArgs(Object[] args) {
+		String argStr = "";
+		for(int i=0; i<args.length; i++) {
+			argStr = argStr+args[i].toString()+", ";
+		}
+		return argStr;
+	}
 }

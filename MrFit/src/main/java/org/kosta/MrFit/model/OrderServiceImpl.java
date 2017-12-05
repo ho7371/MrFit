@@ -35,28 +35,24 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int findMyCartCount(String id) {
 		int cartCount = orderDAO.findMyCartCount(id);
-		System.out.println("            OrderServiceImpl/findMyCart()/종료 - map :" + cartCount);
 		return cartCount;
 	}
 
 	// [정현][11/24] 주문 생성
 	@Override
 	public void registerOrder(OrderVO ovo) {
-		System.out.println("            OrderServiceImpl/registerOrder()/시작 ovo : " + ovo);
 		orderDAO.registerOrder(ovo);
 	}
 
 	// [정현][11/24] 주문과 상품 상세 정보를 엮어 주문 수량을 저장
 	@Override
 	public void registerOrderProduct(OrderVO ovo) {
-		System.out.println("            OrderServiceImpl/registerOrderProduct()/시작 ovo : " + ovo);
 		orderDAO.registerOrderProduct(ovo);
 	}
 
 	// [정현][11/24] 주문에서 총가격을 수정하여 준다.
 	@Override
 	public void updateOrder(OrderVO ovo) {
-		System.out.println("            OrderServiceImpl/updateOrder()/시작 ovo : " + ovo);
 		orderDAO.updateOrder(ovo);
 	}
 
@@ -69,9 +65,7 @@ public class OrderServiceImpl implements OrderService {
 	// [정현][11/24] 주문에 해당 주문 정보가 있는지 체크해서 있으면 그값을 리턴해준다.
 	@Override
 	public OrderProductVO findCartOderproduct(OrderVO ovo) {
-		System.out.println("            OrderServiceImpl/findCartOderproduct()/진행 ovo : " + ovo);
 		OrderProductVO opCount = orderDAO.findCartOderproduct(ovo);
-		System.out.println("            OrderServiceImpl/findCartOderproduct()/종료 opCount : " + opCount);
 		return opCount;
 
 	}
@@ -79,15 +73,12 @@ public class OrderServiceImpl implements OrderService {
 	// [정현][11/24] 주문 상품상세에서 해당 정보를 삭제한다.
 	@Override
 	public void deleteOrderProduct(OrderProductVO opvo) {
-
-		System.out.println("            OrderServiceImpl/deleteOrderProduct()/시작 ovo : " + opvo);
 		orderDAO.deleteOrderProduct(opvo);
 	}
 
 	// [정현][11/24] pcno와psno를 통하여 pdno를 찾는다.
 	@Override
 	public String findPdno(ProductDetailVO pdvo) {
-		System.out.println("            OrderServiceImpl/findPdno()/시작 pdvo : " + pdvo);
 		String pdno = orderDAO.findPdno(pdvo);
 		return pdno;
 	}
@@ -126,7 +117,6 @@ public class OrderServiceImpl implements OrderService {
 		//[영훈][11.27]리뷰작성 주문상태확인
 		@Override
 		public int statusCheck(Map<String, String> map) {
-			System.out.println("            OrderServiceImpl/statusCheck()/시작 map : "+ map);
 			return orderDAO.statusCheck(map);
 		}
 
@@ -169,7 +159,6 @@ public class OrderServiceImpl implements OrderService {
 	// [영훈][11.27]리뷰작성 확인 Ajax
 	@Override
 	public int reviewCheck(Map<String, String> map) {
-		System.out.println("            OrderServiceImpl/reviewCheck()/시작 map : " + map);
 		return orderDAO.reviewCheck(map);
 	}
 

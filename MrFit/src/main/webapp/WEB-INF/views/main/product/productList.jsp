@@ -99,7 +99,7 @@
 		
 			<c:forEach items="${productList}" var="pvo" >
 				<div class="col-md-3 product-left">
-					<div class="p-one simpleCart_shelfItem">
+					<div class="p-two simpleCart_shelfItem">
 						<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${pvo.pno}"> 
 						<img src="${pageContext.request.contextPath}/resources/upload/${pvo.imageList[0].url}" alt="" style="max-width: 300px; max-height: 500px;"/>
 							<div class="mask">
@@ -125,7 +125,7 @@
 	<ul class="pagination">
 		<c:if test="${pb.previousPageGroup==true}">
    			<li>
-   				<a href="findProductByCategory.do?pageNo=${pb.startPageOfPageGroup-1}">Previous</a>
+   				<a href="findProductByCategory.do?pageNo=${pb.startPageOfPageGroup-1}&category=${productList[0].category}">Previous</a>
    			</li>
    			</c:if>
    				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
@@ -135,7 +135,7 @@
 						</c:when>
 					<c:otherwise>
 						<li>
-							<a href="findProductByCategory.do?pageNo=${pageNum}">${pageNum}</a>
+							<a href="findProductByCategory.do?pageNo=${pageNum}&category=${productList[0].category}">${pageNum}</a>
 							&nbsp;&nbsp;
 						</li>
 					</c:otherwise>
@@ -143,7 +143,7 @@
    			</c:forEach>
    			<c:if test="${pb.nextPageGroup==true}">
     			<li>
-    				<a href="findProductByCategory.do?pageNo=${pb.endPageOfPageGroup+1}">Next</a>
+    				<a href="findProductByCategory.do?pageNo=${pb.endPageOfPageGroup+1}&category=${productList[0].category}">Next</a>
     			</li>
     		</c:if>
 	</ul>	 		

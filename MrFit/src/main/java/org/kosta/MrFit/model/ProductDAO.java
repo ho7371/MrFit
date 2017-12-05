@@ -58,4 +58,6 @@ public interface ProductDAO {
 	int getTotalProductQnaCountByPno(String pno);
 
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
+	
+	void reviewUpdateAjax(ProductReviewVO prvo); 
 }
