@@ -75,7 +75,6 @@ values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','�
 commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
-
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
 insert into auth(id, auth) values('test3','ROLE_MEMBER');
@@ -375,15 +374,18 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 3,150);
 -------2번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 4,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 5,170);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 4,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 5,180);
 -------3번째 상품 
@@ -407,6 +409,7 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 12,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 12,150);
@@ -430,11 +433,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 17,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 17,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 17,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 18,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 18,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 18,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 19,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 19,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 19,180);
@@ -483,13 +488,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 
 -------4번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 44, 34,175);
 
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 44, 35,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 35,152);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 36,170);
 
 
 
@@ -701,44 +706,44 @@ values(bno_seq.nextval,'admin','4번째 공지사항 제목','4번째 공지사�
 
 --상품문의
 insert into product_qna(pqno,id,pno,content,regdate,security)
-values(pqno_seq.nextval,'java','상품문의 게시글 1',sysdate,'public');
+values(pqno_seq.nextval,'test1','상품문의 게시글 1',sysdate,'public');
 
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?1',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?1',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?2',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?2',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?3',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?3',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?4',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?4',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?5',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?5',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?6',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?6',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?7',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?7',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?8',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?8',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?9',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?9',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?10',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?10',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?11',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?11',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?12',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?12',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?13',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?13',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?14',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?14',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?15',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?15',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?16',sysdate,'private');
+values(pqno_seq.nextval,'test1',12,'이옷 왜 비싼거죠?16',sysdate,'private');
 insert into product_qna(pqno,id,pno,content,regdate,security) 
-values(pqno_seq.nextval,'java',12,'이옷 왜 비싼거죠?17',sysdate,'private');
+values(pqno_seq.nextval,'test2',12,'이옷 왜 비싼거죠?17',sysdate,'private');
 
 
 --------------- 테이블 select
@@ -762,3 +767,38 @@ select * from PRODUCT_SIZE;
 select * from BOARD;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
+--test
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,60000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,12000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,20000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,16000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
+
+
+
+
+
+
+insert into order_product(ono,pdno,quantity) values(1,1,3);
+
+insert into order_product(ono,pdno,quantity) values(2,4,8);
+insert into order_product(ono,pdno,quantity) values(2,5,6);
+insert into order_product(ono,pdno,quantity) values(2,2,10);
+
+insert into order_product(ono,pdno,quantity) values(6,1,2);
+insert into order_product(ono,pdno,quantity) values(6,2,6);
+insert into order_product(ono,pdno,quantity) values(6,7,2);
+
+
