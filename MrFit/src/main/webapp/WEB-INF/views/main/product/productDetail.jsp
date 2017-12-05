@@ -244,21 +244,21 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart"/> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="submit" class="btn btn-default" id="insertCart">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
 									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="submit" class="btn btn-default" id="immediatelyPay">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:when>
 								<c:otherwise>
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
 									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/> -->
-									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+									<button type="submit" class="btn btn-default" id= "insertCart" disabled="disabled">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
-									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+									<button type="submit" class="btn btn-default" id= "immediatelyPay" disabled="disabled">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:otherwise>
@@ -333,7 +333,7 @@ ${requestScope.pvo } --%>
 									 <section class="buttons">
             							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section> --%>
+        							</section>
 									<ul class="nav nav-tabs">
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
