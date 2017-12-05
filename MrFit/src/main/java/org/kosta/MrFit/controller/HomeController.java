@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
+import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.PagingBean;
@@ -151,8 +152,8 @@ public class HomeController {
 	public String inquiry(Model model,HttpServletRequest request){
 		/* 페이징 처리 공통 영역 */
 	      int totalCount = boardService.getTotalInquiryCount();         // 보여줄 상품 총 개수
-	      int postCountPerPage = 10;                              // 한 페이지에 보여줄 상품 개수
-	      int postCountPerPageGroup = 5;                           // 한 페이지 그룹에 들어갈 페이지 개수
+	      int postCountPerPage = 10;                              		// 한 페이지에 보여줄 상품 개수
+	      int postCountPerPageGroup = 5;                           		// 한 페이지 그룹에 들어갈 페이지 개수
 	      int nowPage = 1;   
 	      String pageNo = request.getParameter("pageNo");               // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 	      if(pageNo != null) {
@@ -162,9 +163,19 @@ public class HomeController {
 	      pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 	      
 		List<InquiryVO> ivoList = boardService.inquiry(pb);
+		ListVO<InquiryVO> lvo = new ListVO<InquiryVO>();
 		System.out.println("      HomeController/inquiry()/진행 list : "+ivoList);
-		model.addAttribute("list", ivoList);
-		model.addAttribute("pb", pb);
+		if(ivoList!=null&&!ivoList.isEmpty()) {
+			lvo.setList(ivoList);
+			lvo.setPagingBean(pb);
+		}
+		model.addAttribute("lvo",lvo);
+		if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+			MemberVO vo=(MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("mvo",vo);
+		}else {
+			model.addAttribute("user","user");
+		}
 		return "board/inquiry.tiles";
 	}
 	
@@ -223,9 +234,12 @@ public class HomeController {
 			public String registerNotice(HttpServletRequest  request){
 				MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				InquiryVO ivo=new InquiryVO();
+				String status=request.getParameter("status");
+				System.out.println(status);
 				String title=request.getParameter("title");
 				String content=request.getParameter("content");
 				ivo.setId(mvo.getId());
+				ivo.setSecurity(status);
 				ivo.setTitle(title);
 				ivo.setContent(content);
 				System.out.println("   	HomeController/registerInquiry()/진행 ivo : "+ivo);

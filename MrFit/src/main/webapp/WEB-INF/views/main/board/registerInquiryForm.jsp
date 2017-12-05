@@ -29,6 +29,14 @@
 		});
 	});
 </script>
+<script>
+	$(document).ready(function(c) {
+		$("#registerButton").click(function() {
+			alert($("#selectStatusType :selected").val());
+			$("#status").val($("#selectStatusType :selected").val());
+		});//click
+	});//ready
+</script>
 
 <!--start-ckeckout-->
 <div class="ckeckout">
@@ -36,15 +44,21 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>고객문의 등록</h3>
-				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<select id="selectStatusType">
+						<option selected="selected" value="public">공개글</option>
+						<option value="private">비밀글</option>
+					</select>
+				</div>
 				<div class="col-md-8">
 				<div class="contact-bottom"> 
 					<form action="${pageContext.request.contextPath}/registerInquiry.do" method="post">
 						<sec:csrfInput/><%-- csrf 토큰 --%>
-						<div class="col-md-6 contact-left"> 
+						<div class="col-md-6 contact-left">
+						<input type="hidden" name = "status" value = "" id = "status">
 						<input type="text" name="title" placeholder="제목" size="39" required>					
 						<textarea name="content" placeholder="고객문의 본문"></textarea>
-						<input type="submit" value="고객문의 등록">
+						<input type="submit" value="고객문의 등록" id = "registerButton">
 					</div>
 					</form>	
 					<div class="clearfix"> </div>
