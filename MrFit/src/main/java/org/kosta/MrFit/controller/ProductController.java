@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -163,6 +164,8 @@ public class ProductController {
 			ArrayList<ProductSizeGapVO> psglist = productService.sizeGapMemberAndProduct(pno, msvo, pvo.getCategory());
 			mv.addObject("psglist", psglist);
 			mv.addObject("id", vo.getId());
+		}else {
+			mv.addObject("id", "anonymousUser");
 		}
 		mv.addObject("psList", psList);
 		//상품 번호(pno)로 상품의 색상 값을 보내줌
@@ -260,5 +263,24 @@ public class ProductController {
 		System.out.println("reviewUpdateAjax 종료 return"+prvo.getContent());
 		return prvo;
 	}
-
+	
+	@RequestMapping("registerProductQnaView.do")
+	public String registerProductQnaView(Model model,String pno) {
+		model.addAttribute("pno", pno);
+		return "product/registerProductQnaForm.tiles";
+	}
+	
+	@RequestMapping(value="productRegisterQna.do",method=RequestMethod.POST)
+	public String registerProductQna(ProductQnaVO pqvo,String pno,String content,String security,Model model) {
+		System.out.println("글 작성 controller 실행");
+		System.out.println("문의 내용 : "+pqvo.getContent()+"공개 설정 : "+pqvo.getSecurity());
+		System.out.println("pno : "+pno+" content : "+content+" security : "+security);
+		System.out.println(pqvo.getPno());
+		MemberVO vo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		pqvo.setId(vo.getId());
+		productService.registerProductQnA(pqvo);
+		return "redirect:findProductDetailByPno.do?pno="
+		    	+pqvo.getPno()+"&checkScroll=QnAScroll&pqPageNo=1";
+	}
+	
 }// class
