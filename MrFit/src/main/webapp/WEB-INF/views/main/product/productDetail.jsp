@@ -248,7 +248,7 @@ ${requestScope.pvo } --%>
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
 									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
-									<button type="submit" class="btn btn-default" id="immediatelyPay">
+									<button type="submit" class="btn btn-default" id= "immediatelyPay">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:when>

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	</resultMap>
  	
  	 <!-- 회원 검색 -->
-    <select id="adminSearchMember" parameterType="string" resultType="memberVO">
+    <select id="adminSearchMember" parameterType="string" resultType="memberVO" resultMap="MRM">
     	select id, name, phone, address, email, point, totalSpent, grade, status
     	from member
     	where id=#{value} and status=1
