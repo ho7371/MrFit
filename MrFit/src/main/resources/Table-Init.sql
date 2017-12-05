@@ -761,3 +761,38 @@ select * from PRODUCT_SIZE;
 select * from BOARD;
 
 ------------------------------ 테이블 만든 순서대로 select 종료
+--test
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,60000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,12000,sysdate,'장바구니','test4', '기본 주소');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,20000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,16000,sysdate,'입금대기','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
+
+insert into orders(ono,totalprice,ordertime,status,id, destination) 
+values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
+
+
+
+
+
+
+insert into order_product(ono,pdno,quantity) values(1,1,3);
+
+insert into order_product(ono,pdno,quantity) values(2,4,8);
+insert into order_product(ono,pdno,quantity) values(2,5,6);
+insert into order_product(ono,pdno,quantity) values(2,2,10);
+
+insert into order_product(ono,pdno,quantity) values(6,1,2);
+insert into order_product(ono,pdno,quantity) values(6,2,6);
+insert into order_product(ono,pdno,quantity) values(6,7,2);
+
+
