@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-<sec:authentication property='principal.id' var="mId"/>
+
 
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
@@ -320,6 +320,7 @@ ${requestScope.pvo } --%>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
         							</section>
         						<!-- 상품리뷰 -->
+        						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 									<table class="table table-hover">
