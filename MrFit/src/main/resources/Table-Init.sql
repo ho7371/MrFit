@@ -374,15 +374,18 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 2, 3,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 3, 3,150);
 -------2번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 4,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 4, 5,170);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 4,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 2, 5, 5,180);
 -------3번째 상품 
@@ -406,6 +409,7 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 12,150);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 10,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 11,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 12,150);
@@ -429,11 +433,13 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 17,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 17,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 17,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 18,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 18,180);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 18,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 18,180);
+
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 19,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 19,175);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 19,180);
