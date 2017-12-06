@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,8 +97,11 @@ public class BoardDAOImpl  implements BoardDAO{
 	@Override
 	public void updateInquiry(InquiryVO ivo) {
 		template.update("board.updateInquiry",ivo);
-		
 	}
 
+	@Override
+	public void updateInquiryReply(HashMap<String, String> map) {
+		template.update("board.updateInquiryReply",map);
+	}
 		
 }
