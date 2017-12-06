@@ -16,7 +16,7 @@ public interface ProductDAO {
 	
 	int getTotalProductCount();
 
-	List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
+	List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
 
 	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
 

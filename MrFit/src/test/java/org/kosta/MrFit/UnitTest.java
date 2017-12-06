@@ -15,6 +15,7 @@ import org.kosta.MrFit.model.MemberDAO;
 import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.PagingBean;
+import org.kosta.MrFit.model.ProductDetailVO;
 import org.kosta.MrFit.model.ProductQnaVO;
 import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
@@ -41,20 +42,10 @@ public class UnitTest {
 	private AdminService adminService;
 	 @Test
 	 public void unitTest() {
-			int totalCount = 2;
-			int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-			int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-			int nowPage = 1;
-			PagingBean pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("pno", "22");
-			map.put("pagingBean", pb);
-			pb=(PagingBean) map.get("pagingBean");
-			System.out.println(pb.getStartRowNumber());
-			System.out.println(pb.getEndRowNumber());			
-			System.out.println(map.get("pagingBean"));
-			List<ProductReviewVO> pqlist=productService.findProductReplyByPno(map);
-			System.out.println(pqlist);
+			ProductDetailVO pdvo=new ProductDetailVO();
+			pdvo.setPno("1");
+			pdvo.setPcno("1");
+			System.out.println(productService.findProductDetailByColorAjax(pdvo));
 	//System.out.println(productService.getTotalProductQnaCountByPno("1"));
 		 //List<ProductReviewVO> prvolist=productService.findProductReplyByPno("1");
 		 //System.out.println(productService.findProductReplyByPno("1"));

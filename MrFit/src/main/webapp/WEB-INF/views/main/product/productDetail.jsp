@@ -73,13 +73,13 @@ $(document).ready(function() {
 					var infoSize = "";
 						infoSize = "<h3>사이즈</h3>"
 						infoSize += "<select id='sizeSelectAjax'>";
-						infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
-						infoSize += "<option>-----------------------------------------</option>";
+						infoSize += "<option value=0>-[필수] 옵션을 선택해주세요-</option>";
+						infoSize += "<option value=0>-----------------------------------------</option>";
 					for (var i = 0; i < data.length; i++) {
-						infoSize += "<option value='"
-						infoSize+=data[i].psno;
+						infoSize += "<option value='";
+						infoSize+=data[i].productSizeVO.psno;
 						infoSize+="'>";
-						infoSize += "Size : "+data[i].size_name;
+						infoSize += "Size : "+data[i].productSizeVO.size_name+" / 재고량 : "+data[i].inventory;
 						infoSize += "</option>";
 					}
 						infoSize += "</select>";
@@ -88,12 +88,32 @@ $(document).ready(function() {
 		});//ajax
 	});//change
 	$("#insertCart").click(function() {
+		if($("#quantity").val()==0){
+			alert("1개 이상 주문하셔야 합니다");
+			return false;
+		}else if($("#colorCheck").val()==0){
+			alert("색상을 선택해주세요");
+			return false;
+		}else if($("#sizeSelectAjax").val()==0){
+			alert("사이즈를 선택해주세요");
+			return false;
+		}
 		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
 		$("#sendPcno").val(pcno);  
 	});//click
 	
 	//즉시구매
 	$("#immediatelyPay").click(function() {
+		if($("#quantity").val()==0){
+			alert("1개 이상 주문하셔야 합니다");
+			return false;
+		}else if($("#colorCheck").val()==0){
+			alert("색상을 선택해주세요");
+			return false;
+		}else if($("#sizeSelectAjax").val()==0){
+			alert("사이즈를 선택해주세요");
+			return false;
+		}
 		pcno=$("#colorCheck").val();
 		var psno=$("#sizeSelectAjax").val();
 		var quantity=$("#quantity").val();
@@ -147,7 +167,18 @@ $("#rvUBtn").click(function() {
   	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
   	 	  					+pno+"&checkScroll=QnAScroll";
   	 		});
-
+$("#quantity").change(function() {
+	 var a=$("#sizeSelectAjax :selected").text().split(":");
+	if(parseInt($(this).val())>parseInt(a[2].toString())){
+		alert("재고량보다 많습니다");
+		$(this).val(0).focus();
+		return false;
+	}else if($(this).val()<0){
+		alert("주문수량을 다시 한번 확인해 주세요");
+		$(this).val(0).focus();
+		return false; 
+	}
+});
 });//ready
 
 function rvUpdateForm(rno,content){
@@ -199,7 +230,7 @@ ${requestScope.pvo } --%>
 						</div>
 					</div>
 					<!-- 상품번호 -->
-					<form action="${pageContext.request.contextPath}/registerCart.do">
+					<form name="detailForm" action="${pageContext.request.contextPath}/registerCart.do" onsubmit="return checkRegisterCart()">
 						<%-- <input type="hidden" name="pvo" id="" value="${pvo}">
 						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
 						<input type="hidden" name="psno" id="sendPsno" value="">
@@ -232,9 +263,10 @@ ${requestScope.pvo } --%>
 								<div class="clear" id="slsSize">
 									<h3>사이즈</h3>
 									<select id="sizeSelectAjax">
-										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option id="psno">-----------------------------------------</option>
+										<option value="0">-[필수] 옵션을 선택해주세요-</option>
+										<option id="psno" value="0">-----------------------------------------</option>
 									</select>
+									<input type="hidden" id="sizeInventory" value="0">
 								</div>
 							</ul>
 
@@ -255,7 +287,7 @@ ${requestScope.pvo } --%>
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
 									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
-									<button type="submit" class="btn btn-default" id= "immediatelyPay">
+									<button type="button" class="btn btn-default" id= "immediatelyPay">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:when>

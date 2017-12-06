@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductDetailByColorAjax(pdno);
 	}*/
 	@Override
-		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+		public List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
 			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
 	//[정현][11/24] 해당 카테고리 리스트 받아오기
