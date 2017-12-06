@@ -166,7 +166,7 @@ public class ProductController {
 			mv.addObject("psglist", psglist);
 			mv.addObject("id", vo.getId());
 		}else {
-			mv.addObject("id", "anonymousUser");
+			mv.addObject("user", "anonymousUser");
 		}
 		mv.addObject("psList", psList);
 		//상품 번호(pno)로 상품의 색상 값을 보내줌
@@ -264,13 +264,26 @@ public class ProductController {
 		System.out.println("reviewUpdateAjax 종료 return"+prvo.getContent());
 		return prvo;
 	}
-	
+	/** [석환][12/05]상품 문의글 쓰기 페이지 이동
+	 * 
+	 * @param model
+	 * @param pno
+	 * @return
+	 */
 	@RequestMapping("registerProductQnaView.do")
 	public String registerProductQnaView(Model model,String pno) {
 		model.addAttribute("pno", pno);
 		return "product/registerProductQnaForm.tiles";
 	}
-	
+	/** [석환][12/05]상품 문의 게시글 등록
+	 * 
+	 * @param pqvo
+	 * @param pno
+	 * @param content
+	 * @param security
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="productRegisterQna.do",method=RequestMethod.POST)
 	public String registerProductQna(ProductQnaVO pqvo,String pno,String content,String security,Model model) {
 		System.out.println("글 작성 controller 실행");
@@ -283,5 +296,16 @@ public class ProductController {
 		return "redirect:findProductDetailByPno.do?pno="
 		    	+pqvo.getPno()+"&checkScroll=QnAScroll&pqPageNo=1";
 	}
-	
+	/** [석환][12/06]상품 문의 게시글 삭제
+	 * 
+	 * @param pqno
+	 * @param pno
+	 * @return
+	 */
+	@RequestMapping("deleteProductQnA.do")
+	public String deleteProductQna(String pqno,String pno) {
+		productService.deleteProductQna(pqno);
+		return "redirect:findProductDetailByPno.do?pno="
+		    	+pno+"&checkScroll=QnAScroll&pqPageNo=1";
+	}
 }// class
