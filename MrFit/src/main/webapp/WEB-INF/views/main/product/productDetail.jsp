@@ -390,7 +390,7 @@ ${requestScope.pvo } --%>
 								    <tbody>
 								      <tr>
 								        <td>${list.rno}</td>
-								        <td id="${list.id}">${list.content}</td>
+								        <td id="listContent${list.rno}">${list.content}</td>
 								        <td>${list.color_name}</td>
 								        <td>${list.size_name}</td>
 								        <td>${list.id}</td>
