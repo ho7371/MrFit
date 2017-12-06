@@ -4,6 +4,9 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 
+<c:if test="<sec:authentication property='principal.id'/>!=null">
+	<sec:authentication property='principal.id' var="mId"/>
+</c:if>
 
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
@@ -333,26 +336,25 @@ ${requestScope.pvo } --%>
 									 <section class="buttons">
             							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section> --%>
+        							</section>
 									<ul class="nav nav-tabs">
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul>
 									<!-- 상품리뷰 -->
-        						<sec:authentication property='principal.id' var="mId"/>
+								
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 									<table class="table table-hover">
   					  				<thead class="row">
 			    					  <tr>
-			    					   <th class="col-sm-1">문의번호</th>
+			    					   <th class="col-sm-1">리뷰번호</th>
 			     					   <th class="col-sm-5">내용</th>
 			     					   <th class="col-sm-1">색상</th>
 			     					   <th class="col-sm-1">사이즈</th>
 			     					   <th class="col-sm-1">작성자</th>
 			     					   <th class="col-sm-2">날짜</th>
 			     					    <th class="col-sm-1">수정</th>
-			     					   <th>
 			      					 </tr>					
 				    				 </thead>
 				    				<c:set value="${prlvo.pagingBean}" var="pb"/>
