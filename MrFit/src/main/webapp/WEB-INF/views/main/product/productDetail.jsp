@@ -370,7 +370,6 @@ ${requestScope.pvo } --%>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul> -->
 									<!-- 상품리뷰 -->
-        						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 									<table class="table table-hover">

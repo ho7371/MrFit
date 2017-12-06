@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +79,10 @@ public  class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateInquiry(InquiryVO ivo) {
 		boardDAO.updateInquiry(ivo);
+	}
+	// [진호][고객문의에 달린 관리자 댓글 수정]
+	@Override
+	public void updateInquiryReply(HashMap<String, String> map) {
+		boardDAO.updateInquiryReply(map);
 	}
 }

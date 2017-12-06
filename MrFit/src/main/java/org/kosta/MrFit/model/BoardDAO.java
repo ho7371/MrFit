@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,6 @@ public interface BoardDAO {
 	void registerInquiry(InquiryVO ivo);
 
 	void updateInquiry(InquiryVO ivo);
+
+	void updateInquiryReply(HashMap<String, String> map);
 }
