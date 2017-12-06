@@ -399,7 +399,7 @@ ${requestScope.pvo } --%>
 					        				<c:choose>
 								        		<c:when test="${list.id==mId}">
 													<button id="reviewUFormGoBtn"
-														onclick='rvUpdateForm("${list.rno}")'>리뷰 수정하기</button>
+														onclick='rvUpdateForm("${list.rno}")'><font color="white">수정</font></button>
 								        		</c:when>
 												<c:otherwise>
 													-
@@ -408,12 +408,12 @@ ${requestScope.pvo } --%>
 								        </td>
 								      </tr>
 								      <tr class="reviewUForm" id="rno${list.rno}">
-								      	<td colspan="8">
+								      	<td colspan="5">
 											<textarea rows="5" cols="100" name="content" id="rvUContent${list.rno}">${list.content}</textarea>
 						 				</td>
 						 				<td>
 						 					<input type="hidden" id="rno" value="${list.rno}">
-						 					<button id = "rvUBtn" onclick='rvUpdate("${list.rno}")'>수정하기</button>
+						 					<button id = "rvUBtn" onclick='rvUpdate("${list.rno}")'><font color="white">수정하기</font></button>
 						 				</td>
 								      </tr>
 								    </tbody>
@@ -483,7 +483,7 @@ ${requestScope.pvo } --%>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
 				        <c:if test="${pqlist.id==mId}">
-				        <td><button type="button">삭제</button></td>
+				        <td><button type="button"><font color="white">삭제</font></button></td>
 				        </c:if>
 				      </tr>
 				    </c:otherwise>
