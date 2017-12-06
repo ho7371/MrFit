@@ -839,6 +839,16 @@ public class AdminController {
 		}
 		return mv;
 	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("restoreMemberStatus.do")
+	public ModelAndView restoreMemberStatus(String id) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("   	AdminController/restoreMemberStatus()/ 되살릴 회원아이디 : "+id);
+		adminService.restoreMemberStatus(id);
+		mv.setViewName("admin/restoreMemberStatus_ok.tiles");
+		return mv;
+	}
 }
 
 
