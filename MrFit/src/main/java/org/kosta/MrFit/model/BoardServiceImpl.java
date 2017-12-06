@@ -79,4 +79,19 @@ public  class BoardServiceImpl implements BoardService {
 	public void updateInquiry(InquiryVO ivo) {
 		boardDAO.updateInquiry(ivo);
 	}
+	@Override
+	public void deleteReview(String rno) {
+		boardDAO.deleteReview(rno);
+		
+	}
+	@Override
+	public void deletePQna(String pqno) {
+		boardDAO.deletePQna(pqno);
+		
+	}
+	@Override
+	public void deleteQna(String iqno) {
+		boardDAO.deleteQna(iqno);
+		
+	}
 }

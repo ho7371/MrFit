@@ -855,7 +855,9 @@ public class AdminController {
 		mv.setViewName("admin/restoreMemberStatus_ok.tiles");
 		return mv;
 	}
-	
+	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	 * 
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminBoardList.do")
 	public ModelAndView adminBoardList(HttpServletRequest request) {
@@ -883,7 +885,9 @@ public class AdminController {
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
-	
+	/*[재현][12/06][게시물 관리 상품qna 리스트]
+	 * 
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminBoardListPQna.do")
 	public ModelAndView adminBoardListPQna(HttpServletRequest request) {
@@ -913,7 +917,9 @@ public class AdminController {
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
-	
+	/*[재현][12/06][게시물 관리 고객qna 리스트]
+	 * 
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminBoardListQna.do")
 	public ModelAndView adminBoardListQna(HttpServletRequest request) {
@@ -945,6 +951,34 @@ public class AdminController {
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
+	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deleteReview.do")
+	public String deleteReview(String rno) {
+		boardService.deleteReview(rno);
+		return "admin/delete_result";
+	}
+	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deletePQna.do")
+	public String deletePQna(String pqno) {
+		boardService.deletePQna(pqno);
+		return "admin/delete_result";
+	}
+	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deleteQna.do")
+	public String deleteQna(String iqno) {
+		boardService.deleteQna(iqno);
+		return "admin/delete_result";
+	}
+	
 }
 
 

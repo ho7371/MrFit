@@ -113,7 +113,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	 select count(*) from inquiry where security='public'
     </select> 	
  	
+ 	<delete id="deleteReview" parameterType="string">
+ 		delete from review where rno=#{value}
+ 	</delete>
  	
+ 	<delete id="deletePQna" parameterType="string">
+ 		delete from product_qna where pqno=#{value}
+ 	</delete>
+ 	
+ 	<delete id="deleteQna" parameterType="string">
+ 		delete from inquiry where iqno=#{value}
+ 	</delete>
 </mapper>
 
 

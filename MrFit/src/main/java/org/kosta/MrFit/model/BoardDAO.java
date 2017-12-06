@@ -29,4 +29,10 @@ public interface BoardDAO {
 	void registerInquiry(InquiryVO ivo);
 
 	void updateInquiry(InquiryVO ivo);
+
+	void deleteReview(String rno);
+
+	void deletePQna(String pqno);
+
+	void deleteQna(String iqno);
 }
