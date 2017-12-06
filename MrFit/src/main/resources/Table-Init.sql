@@ -802,3 +802,4 @@ insert into order_product(ono,pdno,quantity) values(6,2,6);
 insert into order_product(ono,pdno,quantity) values(6,7,2);
 
 
+update inquiry_reply set content='etg' where iqrno=3;

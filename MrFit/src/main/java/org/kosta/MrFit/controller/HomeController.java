@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
-import org.kosta.MrFit.model.MemberSizeVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.OrderService;
 import org.kosta.MrFit.model.PagingBean;
@@ -22,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -42,37 +42,22 @@ public class HomeController {
 	 * @return
 	 */
 	
-	/** [정현] - 수정자 : 진호
-	 * 
-	 * @param request
-	 * @param model
+	/**
+	 * [진호][고객문의에 달린 관리자댓글 수정]
+	 * @param iqrno
+	 * @param content
 	 * @return
 	 */
-	/*@RequestMapping("home.do")
-	public String home(HttpServletRequest request,Model model){
-		System.out.println("      HomeController/home()/시작");
-			
-		int pbCount=productService.getTotalProductCount();
-		String pno=request.getParameter("pageNo");
-		
-		if(pno==null){
-			pb = new PagingBean(pbCount);
-		}else{
-			pb = new PagingBean(pbCount,Integer.parseInt(pno));
-		}
-		
-		List<ProductVO> ProductList=productService.ProductList(pb);
-		System.out.println("      HomeController/home()/진행 - pno:"+pno+", 상품목록:"+ProductList);		
-		if(ProductList!=null&&!ProductList.isEmpty()) {
-			model.addAttribute("ProductList",ProductList);
-			model.addAttribute("pb",pb);
-			System.out.println("      HomeController/home()/종료");
-			return "home.tiles";
-		}else {
-			System.out.println("      HomeController/home()/종료");
-			return "home.tiles";
-		}
-	}*/
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="updateInquiryReply.do", method=RequestMethod.POST)
+	public String updateInquiryReply(String iqno, String iqrno, String content){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("iqrno", iqrno);
+		map.put("content", content);
+		boardService.updateInquiryReply(map);
+		return "redirect:inquiryDetail.do?iqno="+iqno;
+	}
+	
 	
 	@RequestMapping("home.do")
 	public ModelAndView home(HttpServletRequest request,Model model){
@@ -186,7 +171,6 @@ public class HomeController {
 	 */
 	@RequestMapping("inquiryDetail.do")
 	public String inquiryDetail(String iqno, Model model){
-		System.out.println("      HomeController/inquiryDetail()/진행 iqno : "+iqno);
 		InquiryVO inquiryVO = boardService.inquiryDetail(iqno);
 		System.out.println("      HomeController/inquiryDetail()/진행 inquiryVO : "+inquiryVO);
 		model.addAttribute("ivo", inquiryVO);
