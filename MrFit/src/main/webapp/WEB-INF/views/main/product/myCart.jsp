@@ -108,8 +108,8 @@ function delConfirm(){
 								</a>
 							</td>
 							<td>
-								<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
-			                		<img alt="사진~~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" class="img-responsive" height="50%" width="50%"/>
+								<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${j.pno}" >
+			                		<img alt="사진~~~" src="${pageContext.request.contextPath}/resources/upload/${j.url}" height="100" width="100" />
 			                	</a>
 							</td>
 							<td>${j.name}</td>
@@ -127,8 +127,9 @@ function delConfirm(){
 						</tr>
 					</c:forEach> 
 				</tbody>
-			</table>		
-            <div><button class="add-cart cart-check" id = "orderForm" type="button" >주문하기</button>
+			</table>	
+			<hr>	
+            <div align="right"><button class="add-cart cart-check" id = "orderForm" type="button">주문하기</button>
             <!-- <a class="add-cart cart-check" id = "orderForm">주문하기</a> --></div>
 			</div>
 		</div>  
