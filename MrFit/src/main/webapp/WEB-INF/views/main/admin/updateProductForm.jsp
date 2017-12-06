@@ -10,16 +10,16 @@
 <!--start-account-->
 	<div class="account">
 		<div class="container"> 
-			<div class="account-bottom">
+			<div class="account-bottom" align="right">
 				<div class="col-md-6 account-left">
 				<form method="post" action="${pageContext.request.contextPath}/admin/updateProduct.do" id="regForm">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="account-top heading">
+					<div class="account-top heading" align="left">
 						<h3>Update PRODUCT</h3>
 					</div>
 					<!--detail size and inventory -->
-						<table class="address" style="padding: 10px;">
-							<thead>
+						<table class="address" style="padding: 10px; " >
+							<thead >
 								<tr>
 								<th><input type="text" value="색상" size="10" readonly="readonly"></th>
 								<th><input type="text" value="사이즈" size="10" readonly="readonly"></th>
@@ -36,7 +36,7 @@
 								<td><input type="text" value="${list.productSizeVO.size_name}" size="10" readonly="readonly">
 								<input type="hidden" name="psno" value="${list.psno}">
 								</td>
-								<td><input type="text" name="inventory"  size="10" maxlength="10" required="required" value="${list.inventory}">
+								<td><input type="text" name="inventory"  size="10" maxlength="10" required="required" style="color:#cc0000;" value="${list.inventory}">
 								</td>
 								</tr>
 							</c:forEach>

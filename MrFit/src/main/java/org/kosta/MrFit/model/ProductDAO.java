@@ -59,5 +59,7 @@ public interface ProductDAO {
 
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 	
-	void reviewUpdateAjax(ProductReviewVO prvo); 
+	void reviewUpdateAjax(ProductReviewVO prvo);
+
+	void registerProductQnA(ProductQnaVO pqvo); 
 }

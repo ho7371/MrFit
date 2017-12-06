@@ -140,7 +140,13 @@ $("#rvUBtn").click(function() {
   	 	}else{
   		  	return false;
   	  	}//confirm 종료
+  	  	//상품문의 등록
 });//reviewUpdateButton  종료
+  	 	$("#registerPQ").click(function() {
+  	 	  	/* openPopup(); */
+  	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
+  	 	  					+pno+"&checkScroll=QnAScroll";
+  	 		});
 
 });//ready
 
@@ -154,6 +160,7 @@ function rvUpdateForm(rno,content){
 	 $('#my_popup #rvUContent').html(content);
 	 alert("ajax 시 사용할 수정내용 : "+content);
 }
+
 
 </script>
 <script>
@@ -331,13 +338,17 @@ ${requestScope.pvo } --%>
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
 									 <section class="buttons">
-            							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
-            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section> --%>
-									<ul class="nav nav-tabs">
+									 <ul class="nav nav-tabs">
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul>
+            						<!-- 	<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
+            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label> -->
+        							</section> 
+								<!-- 	<ul class="nav nav-tabs">
+										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
+										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
+									</ul> -->
 									<!-- 상품리뷰 -->
         						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
@@ -414,25 +425,47 @@ ${requestScope.pvo } --%>
 			 </div>
 				<!-- star QnA table -->
 			<div class="tab_item" id="tab2">
+			 <div align="right">
+				<c:if test="${isMember}">
+				<button id="registerPQ" type="button" class="btn btn-primary btn-sm">문의 글쓰기</button>
+				</c:if>
+				</div>
 				 <div class="in-check">
 				   <table class="table table-hover">
   					  <thead class="row">
     					  <tr>
     					   <th class="col-sm-1">문의번호</th>
      					   <th class="col-sm-6">내용</th>
-     					   <th class="col-sm-2">작성자</th>
+     					   <th class="col-sm-1">작성자</th>
      					   <th class="col-sm-3">날짜</th>
-      					 </tr>					
+     					   <th class="col-sm-1">비고</th>
+      					 </tr>				
     				 </thead>
     				<c:set value="${lpqlist.pagingBean}" var="pqpb"/>
 					<c:forEach items="${lpqlist.list}" var="pqlist" varStatus="order">
-				    <tbody>
+				   <tbody>				   
+				      <c:choose>
+				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
 				      <tr>
+				        <td>${pqlist.pqno}</td>
+				        <td>비공개 게시물입니다</td>
+				        <td>${pqlist.id}</td>
+				        <td>${pqlist.regdate}</td>
+				        <td><td>
+				      </tr>
+				    </c:when>
+				    <c:otherwise>
+				     <tr>
 				        <td>${pqlist.pqno}</td>
 				        <td>${pqlist.content}</td>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
+				        <c:if test="${pqlist.id==mId}">
+				        <td><button type="button">삭제</button></td>
+				        </c:if>
 				      </tr>
+				    </c:otherwise>
+				    </c:choose>
 				    </tbody>
 				 </c:forEach>
 				 </table>
