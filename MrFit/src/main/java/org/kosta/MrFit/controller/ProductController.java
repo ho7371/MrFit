@@ -231,9 +231,9 @@ public class ProductController {
 	 */
 	@RequestMapping("findProductDetailByColorAjax.do")
 	@ResponseBody
-	public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO) {
+	public List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO) {
 		//상품의 색상을 조건으로 사이즈를 검색해 jsp에 보내줌
-		List<ProductSizeVO> sizeList = productService.findProductDetailByColorAjax(pdVO);
+		List<ProductDetailVO> sizeList = productService.findProductDetailByColorAjax(pdVO);
 		return sizeList;
 	}
 

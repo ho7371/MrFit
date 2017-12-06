@@ -945,7 +945,6 @@ public class AdminController {
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
-	
 }
 
 

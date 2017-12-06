@@ -62,5 +62,7 @@ public interface AdminService {
 
 	void updateProductInventory(ProductDetailVO pdvo);
 
+	void restoreMemberStatus(String id);
+
 	
 }

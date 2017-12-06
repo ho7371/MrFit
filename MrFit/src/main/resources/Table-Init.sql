@@ -72,6 +72,10 @@ values('test2','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','�
 insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
 values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터3','031','성남','kosta',0,0,'0','21',1,'브론즈'); 
 
+-- admin status 2로 변경
+update MEMBER set status=2 where id='admin'
+
+
 commit
 --------------- 권한
 insert into auth(id, auth) values('admin','ROLE_ADMIN');

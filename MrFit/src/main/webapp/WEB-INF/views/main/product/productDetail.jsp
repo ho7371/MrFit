@@ -26,6 +26,7 @@
    </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".reviewUForm").hide();
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");

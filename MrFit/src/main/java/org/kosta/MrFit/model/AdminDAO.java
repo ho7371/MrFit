@@ -60,4 +60,6 @@ public interface AdminDAO {
 	List<ProductDetailVO> updateProductForm(String pno);
 
 	void updateProductInventory(ProductDetailVO pdvo);
+	
+	void restoreMemberStatus(String id);
 }
