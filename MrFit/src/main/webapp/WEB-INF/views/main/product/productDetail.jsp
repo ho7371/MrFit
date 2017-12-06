@@ -137,6 +137,7 @@ $(document).ready(function() {
   	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
   	 	  					+pno+"&checkScroll=QnAScroll";
   	 		});
+	//상품재고 비교
 $("#quantity").change(function() {
 	 var a=$("#sizeSelectAjax :selected").text().split(":");
 	if(parseInt($(this).val())>parseInt(a[2].toString())){
@@ -147,6 +148,15 @@ $("#quantity").change(function() {
 		alert("주문수량을 다시 한번 확인해 주세요");
 		$(this).val(0).focus();
 		return false; 
+	}
+});
+//상품문의 게시글 삭제
+$(".deletePQ").click(function() {
+	var deletePQPqno=$(this).parent().parent().children().children().eq(0).text();
+	alert(deletePQPqno);
+	if(confirm("게시글을 삭제하시겠습니까?")){
+		location.href="${pageContext.request.contextPath}/deleteProductQnA.do?pqno="+deletePQPqno
+				+"&pno="+pno;
 	}
 });
 });//ready
@@ -455,24 +465,60 @@ ${requestScope.pvo } --%>
 				   <table class="table table-hover">
   					  <thead class="row">
     					  <tr>
-    					    <th class="col-sm-1">문의번호</th>
+    					   <th class="col-sm-1">문의번호</th>
      					   <th class="col-sm-6">내용</th>
      					   <th class="col-sm-1">작성자</th>
      					   <th class="col-sm-3">날짜</th>
      					   <th class="col-sm-1">비고</th>
-      					 </tr>					
+      					 </tr>				
     				 </thead>
     				<c:set value="${lpqlist.pagingBean}" var="pqpb"/>
 					<c:forEach items="${lpqlist.list}" var="pqlist" varStatus="order">
-				    <tbody>
+				   <tbody>				   
 				      <c:choose>
-				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
-				      <tr>
+				    <c:when test="${isAdmin}">
+				     <tr>
 				        <td>${pqlist.pqno}</td>
-				        <td>비공개 게시물입니다</td>
+				        <td>${pqlist.content}</td>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
-				        <<td><td>
+				      <c:if test="${pqlist.id==mId}">
+				        <td class="deletePQ"><button class="btn btn-primary btn-sm" type="button" style="background-color: red;">삭제</button></td>
+				      </c:if>
+				      </tr>
+				    </c:when>
+				     <c:when test="${isMember}">
+				     <tr>
+				        <td>${pqlist.pqno}</td>
+				      <c:choose>
+				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
+				        <td>비공개 게시물입니다</td>
+				      </c:when>
+				      <c:otherwise>
+				         <td>${pqlist.content}</td>
+				      </c:otherwise>
+				      </c:choose>
+				        <td>${pqlist.id}</td>
+				        <td>${pqlist.regdate}</td>
+				      <c:if test="${pqlist.id==mId}">
+				        <td class="deletePQ"><button class="btn btn-primary btn-sm" type="button" style="background-color: red;">삭제</button></td>
+				      </c:if>
+				      </tr>
+				    </c:when>
+				    <c:when test="${requestScope.user=='anonymousUser'}">
+				    	<tr>
+				        <td>${pqlist.pqno}</td>
+				      <c:choose>
+				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
+				        <td>비공개 게시물입니다</td>
+				      </c:when>
+				      <c:otherwise>
+				         <td>${pqlist.content}</td>
+				      </c:otherwise>
+				      </c:choose>
+				        <td>${pqlist.id}</td>
+				        <td>${pqlist.regdate}</td>
+				        <td></td>
 				      </tr>
 				    </c:when>
 				    <c:otherwise>
@@ -482,7 +528,7 @@ ${requestScope.pvo } --%>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
 				        <c:if test="${pqlist.id==mId}">
-				        <td><button type="button"><font color="white">삭제</font></button></td>
+				        <td class="deletePQ"><button class="btn btn-primary btn-sm" type="button" style="background-color: red;">삭제</button></td>
 				        </c:if>
 				      </tr>
 				    </c:otherwise>

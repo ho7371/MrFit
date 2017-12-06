@@ -265,5 +265,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductQnaVO> findProductQna(PagingBean pb) {
 		return template.selectList("product.findProductQna");
 	}
+	//[석환][12/06][상품문의글 삭제]
+	@Override
+	public void deleteProductQna(String pqno) {
+				template.delete("product.deleteProductQna", pqno);
+	}
 }
 
