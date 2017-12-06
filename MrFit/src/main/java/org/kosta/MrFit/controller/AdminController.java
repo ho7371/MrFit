@@ -498,7 +498,7 @@ public class AdminController {
 				ListVO<OrderVO> lvo = new ListVO<OrderVO>(orderList,pb);
 				mv.addObject("lvo", lvo);
 				mv.addObject("searchType","memberId");
-				mv.setViewName("admin/adminAllOrderList.tiles");
+				mv.setViewName("admin/adminSearchOrderList.tiles");
 			}else {		// 보여줄 주문이 없는 경우
 				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 회원아이디로 주문검색3 - 보여줄 주문 없음");
 				mv.setViewName("admin/adminSearchMemberOrder_fail.tiles");
@@ -518,7 +518,7 @@ public class AdminController {
 				mv.setViewName("admin/adminSearchOrderList.tiles");
 			}else {
 				System.out.println("   	AdminController/adminSearchOrderByKeyword()/ 주문번호로 주문검색3 - 검색 결과 없음");
-				mv.setViewName("admin/adminsearchOrder_fail.tiles");
+				mv.setViewName("admin/adminSearchOrder_fail.tiles");
 			}
 		}
 		return mv;
@@ -550,6 +550,7 @@ public class AdminController {
 		adminService.updateOrderStatus(map);
 		System.out.println("   	AdminController/updateOrderStatus()/진행2 ");
 		mv.setViewName("admin/updateOrderStatus_ok.tiles");
+		mv.addObject("ono", ono);
 		return mv;
 	}
 	
@@ -836,6 +837,18 @@ public class AdminController {
 			System.out.println("   	AdminController/adminSearchPoint()/ 지급형태로 주문검색3 - 검색 결과 없음");
 			mv.setViewName("admin/adminSearchPoint_fail.tiles");
 		}
+		return mv;
+	}
+	/*[현민][12/06][탈퇴 회원 살리기]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("restoreMemberStatus.do")
+	public ModelAndView restoreMemberStatus(String id) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("   	AdminController/restoreMemberStatus()/ 되살릴 회원아이디 : "+id);
+		adminService.restoreMemberStatus(id);
+		mv.setViewName("admin/restoreMemberStatus_ok.tiles");
 		return mv;
 	}
 }

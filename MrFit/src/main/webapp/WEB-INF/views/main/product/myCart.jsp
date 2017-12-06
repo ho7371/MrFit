@@ -5,13 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var quantity=$(".findQuantity").attr("id");
-	
-	/* $('.close1').on('click', function(c){
-		$('.cart-header').fadeOut('slow', function(c){
-			$('.cart-header').remove();
-		});
-	});   */
-	
+	var updateQuantity="";
 	// 
 	$('.close2').on('click', function(c){
 		$('.cart-header1').fadeOut('slow', function(c){
@@ -26,7 +20,27 @@ $(document).ready(function() {
 	}); 
 	
 	$("#orderForm").click(function() {
-		return confirm("상품을 주문하시겠습니까?");
+		if(confirm("상품을 주문하시겠습니까?")){
+			var odquantity = $(this).parent().parent().find(".productCount").val();
+			var odprice = $(this).parent().parent().find(".hiddenPrice").val();
+			var odpdno = $(this).parent().parent().find(".hiddenPdno").val();
+			var odinventory = $(this).parent().parent().find(".hiddenInventory").val();
+			alert(odquantity);
+			alert(odinventory);	
+			if(parseInt(odinventory)<parseInt(odquantity)){
+				alert("재고량 보다 더 많이 입력하셨습니다. 현재 재고량 보다 낮게 입력해주세요. 현재 재고량 : "+odinventory);
+				return false;
+			}else if(${requestScope.ovo.orderProductList.size()==0}){
+				alert("주문할 상품이 없습니다.");
+				return false;
+			}else if(odquantity==0){
+				alert("상품수량을 다시 변경해주세요");
+				return false;
+			}
+			else{
+				location.href="orderForm.do";
+			}	 
+		}
 	}); //click
 	
 	$(".updateBtn").click(function() {
@@ -34,7 +48,13 @@ $(document).ready(function() {
 			var quantity = $(this).parent().parent().find(".productCount").val();
 			var price = $(this).parent().parent().find(".hiddenPrice").val();
 			var pdno = $(this).parent().parent().find(".hiddenPdno").val();
-			alert("보낼 데이터 : quantity-"+quantity+", price-"+price+", pdno-"+pdno);
+			var inventory = $(this).parent().parent().find(".hiddenInventory").val();
+			alert(inventory);
+			if(parseInt(inventory)<parseInt(quantity)){
+				alert("재고량 보다 더 많이 입력하셨습니다. 현재 재고량 보다 낮게 입력해주세요. 현재 재고량 : "+inventory);
+				$(this).parent().parent().find(".productCount").val(0);
+				return false;
+			}
 				$.ajax({
 					type:"POST",
 					url:"${pageContext.request.contextPath}/updateOrderQuantity.do",				
@@ -52,12 +72,12 @@ $(document).ready(function() {
 						// ajax 통신 실패시 동작
 					}//callback			
 				});//ajax
-		}else{
-			return false;
-		}
+		}else
+			return false;	
 	});
 	
 });//ready
+
 function delConfirm(){
 	return confirm('상품을 삭제하시겠습니까?');
 }
@@ -97,7 +117,9 @@ function delConfirm(){
 							<td>${j.color_name}</td>
 							<td>수량 : <input type="number" class="productCount" value="${j.quantity}">
 								<input type="hidden" class="hiddenPdno" value="${j.pdno}">
-								<input type="hidden" class="hiddenPrice" value="${j.price}"><br>
+								<input type="hidden" class="hiddenPrice" value="${j.price}">
+								<input type="hidden" class="hiddenInventory" value="${j.inventory}">
+								<br>
 							</td>
 							<td>
 								<button class="updateBtn">수량변경</button>
@@ -105,8 +127,9 @@ function delConfirm(){
 						</tr>
 					</c:forEach> 
 				</tbody>
-			</table>
-            <div><a href="orderForm.do" class="add-cart cart-check" id = "orderForm">주문하기</a></div>
+			</table>		
+            <div><button class="add-cart cart-check" id = "orderForm" type="button" >주문하기</button>
+            <!-- <a class="add-cart cart-check" id = "orderForm">주문하기</a> --></div>
 			</div>
 		</div>  
 	</div>

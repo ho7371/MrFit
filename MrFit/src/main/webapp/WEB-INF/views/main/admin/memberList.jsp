@@ -46,8 +46,8 @@
 						</a>
 					</div>
 					<div style="float: right;">
-						<form action="${pageContext.request.contextPath}/adminSearchMember.do">&nbsp;
-							<input type="text" name="id" class="searchInput" placeholder="  회원검색">
+						<form action="${pageContext.request.contextPath}/adminSearchMember.do">
+							<input type="text" name="id" id="id" class="searchInput" style="font-family: monospace;" placeholder="  회원검색">
 							<input type="submit" value="아이디 검색">
 						</form>
 					</div>
@@ -122,7 +122,7 @@
 						<textarea rows="10" cols="30" id = "message" name = "message"></textarea><br>
 						<div align="center">
 						<input type="hidden" id="hiddenMemberId" value="">
-						<input type ="button" id = "messageBtn" value = "전송">
+						<button id = "messageBtn">전송</button>
 					    <button class="my_popup_close" type ="button">Close</button>
 						</div>
 					</div>

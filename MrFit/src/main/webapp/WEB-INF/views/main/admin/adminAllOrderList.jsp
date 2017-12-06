@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">	
 	function changeStatus(ono){
-		alert(1);
 		if(confirm(ono+" 를 상태변경하시겠습니까?")==true){
-			alert("주문번호 : " + ono);
 			location.href="${pageContext.request.contextPath}/updateOrderStatus.do?ono="+ono;
 		}
 	}

@@ -155,6 +155,11 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.updateProductInventory(pdvo);
 		
 	}
+
+	@Override
+	public void restoreMemberStatus(String id) {
+		adminDAO.restoreMemberStatus(id);
+	}
 	
 }
 

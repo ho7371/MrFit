@@ -24,9 +24,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${requestScope.list}" var="i">
+						<c:forEach items="${requestScope.lvo.list}" var="i">
 						<c:choose>
-								<c:when test="${isAdmin}">
+							<c:when test="${isAdmin}">
 							<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
 								<td>${i.iqno}</td>
 								<td>${i.title}</td>
@@ -34,8 +34,21 @@
 								<td>${i.regdate}</td>
 							</tr>
 							</c:when>
-							<c:when test="${i.id != mvo.id && i.security=='private' && isMember}">
-											비밀글입니다.
+							<c:when test="${user =='user' && i.security=='private'}">
+							<tr  style="cursor: pointer;"  <%-- onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}' --%>">
+								<td>${i.iqno}</td>
+								<td>비밀글입니다.</td>
+								<td>${i.id}</td>
+								<td>${i.regdate}</td>
+							</tr>
+							</c:when>
+							<c:when test="${i.security=='private' && i.id != mvo.id && isMember}">
+							<tr>
+								<td>${i.iqno}</td>
+								<td>비밀글입니다.</td>
+								<td>${i.id}</td>
+								<td>${i.regdate}</td>
+							</tr>
 							</c:when>
 							<c:otherwise>
 								<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
@@ -54,3 +67,32 @@
 	</div>
 </div>
 <!--end-ckeckout-->
+<div class="pagingInfo" align="center">
+	<ul class="pagination">
+		<c:set value="${lvo.pagingBean}" var="pb"/>
+		<c:if test="${pb.previousPageGroup==true}">
+   			<li>
+   				<a href="inquiry.do?nowPage=${pb.startPageOfPageGroup-1}">Previous</a>
+   			</li>
+   			</c:if>
+   				<c:forEach begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}" var="pageNum">
+	   			
+	   				<c:choose>
+	   					<c:when test="${pageNum==pb.nowPage}">
+							<li><a>${pageNum}</a>&nbsp;</li>
+						</c:when>
+					<c:otherwise>
+						<li>
+							<a href="inquiry.do?nowPage=${pageNum}">${pageNum}</a>
+							&nbsp;
+						</li>
+					</c:otherwise>
+   				</c:choose>
+   			</c:forEach>
+   			<c:if test="${pb.nextPageGroup==true}">
+    			<li>
+    				<a href="inquiry.do?nowPage=${pb.endPageOfPageGroup+1}">Next</a>
+    			</li>
+    		</c:if>
+	</ul>	 		
+</div>

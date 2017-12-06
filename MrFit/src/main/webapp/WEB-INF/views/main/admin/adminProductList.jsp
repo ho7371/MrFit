@@ -69,6 +69,7 @@
 
 <!--end-shoes-->
 <!-- pagingBean -->
+<c:set value="${lvo.pagingBean}" var="pb" />
 <div class="pagingInfo" align="center">
 	<ul class="pagination">
 		<c:if test="${pb.previousPageGroup}">	

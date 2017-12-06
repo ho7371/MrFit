@@ -15,7 +15,7 @@ public interface ProductService {
 	
 	int getTotalProductCount();
 
-	List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
+	List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO);
 
 	List<ProductVO> findProductByCategory(HashMap<String, Object> map);
 
@@ -60,5 +60,7 @@ public interface ProductService {
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 
 	void reviewUpdateAjax(ProductReviewVO prvo);
+
+	void registerProductQnA(ProductQnaVO pqvo);
 	
 }

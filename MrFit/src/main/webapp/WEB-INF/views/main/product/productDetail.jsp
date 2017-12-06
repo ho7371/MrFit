@@ -76,13 +76,13 @@ $(document).ready(function() {
 					var infoSize = "";
 						infoSize = "<h3>사이즈</h3>"
 						infoSize += "<select id='sizeSelectAjax'>";
-						infoSize += "<option>-[필수] 옵션을 선택해주세요-</option>";
-						infoSize += "<option>-----------------------------------------</option>";
+						infoSize += "<option value=0>-[필수] 옵션을 선택해주세요-</option>";
+						infoSize += "<option value=0>-----------------------------------------</option>";
 					for (var i = 0; i < data.length; i++) {
-						infoSize += "<option value='"
-						infoSize+=data[i].psno;
+						infoSize += "<option value='";
+						infoSize+=data[i].productSizeVO.psno;
 						infoSize+="'>";
-						infoSize += "Size : "+data[i].size_name;
+						infoSize += "Size : "+data[i].productSizeVO.size_name+" / 재고량 : "+data[i].inventory;
 						infoSize += "</option>";
 					}
 						infoSize += "</select>";
@@ -91,12 +91,32 @@ $(document).ready(function() {
 		});//ajax
 	});//change
 	$("#insertCart").click(function() {
+		if($("#quantity").val()==0){
+			alert("1개 이상 주문하셔야 합니다");
+			return false;
+		}else if($("#colorCheck").val()==0){
+			alert("색상을 선택해주세요");
+			return false;
+		}else if($("#sizeSelectAjax").val()==0){
+			alert("사이즈를 선택해주세요");
+			return false;
+		}
 		$("#sendPsno").val($("#sizeSelectAjax :selected").val());
 		$("#sendPcno").val(pcno);  
 	});//click
 	
 	//즉시구매
 	$("#immediatelyPay").click(function() {
+		if($("#quantity").val()==0){
+			alert("1개 이상 주문하셔야 합니다");
+			return false;
+		}else if($("#colorCheck").val()==0){
+			alert("색상을 선택해주세요");
+			return false;
+		}else if($("#sizeSelectAjax").val()==0){
+			alert("사이즈를 선택해주세요");
+			return false;
+		}
 		pcno=$("#colorCheck").val();
 		var psno=$("#sizeSelectAjax").val();
 		var quantity=$("#quantity").val();
@@ -143,8 +163,25 @@ $("#rvUBtn").click(function() {
   	 	}else{
   		  	return false;
   	  	}//confirm 종료
+  	  	//상품문의 등록
 });//reviewUpdateButton  종료
-
+  	 	$("#registerPQ").click(function() {
+  	 	  	/* openPopup(); */
+  	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
+  	 	  					+pno+"&checkScroll=QnAScroll";
+  	 		});
+$("#quantity").change(function() {
+	 var a=$("#sizeSelectAjax :selected").text().split(":");
+	if(parseInt($(this).val())>parseInt(a[2].toString())){
+		alert("재고량보다 많습니다");
+		$(this).val(0).focus();
+		return false;
+	}else if($(this).val()<0){
+		alert("주문수량을 다시 한번 확인해 주세요");
+		$(this).val(0).focus();
+		return false; 
+	}
+});
 });//ready
 
 function rvUpdateForm(rno,content){
@@ -157,6 +194,7 @@ function rvUpdateForm(rno,content){
 	 $('#my_popup #rvUContent').html(content);
 	 alert("ajax 시 사용할 수정내용 : "+content);
 }
+
 
 </script>
 <script>
@@ -195,7 +233,7 @@ ${requestScope.pvo } --%>
 						</div>
 					</div>
 					<!-- 상품번호 -->
-					<form action="${pageContext.request.contextPath}/registerCart.do">
+					<form name="detailForm" action="${pageContext.request.contextPath}/registerCart.do" onsubmit="return checkRegisterCart()">
 						<%-- <input type="hidden" name="pvo" id="" value="${pvo}">
 						<input type="hidden" name="pno" id="" value="${pvo.pno}"> --%>						
 						<input type="hidden" name="psno" id="sendPsno" value="">
@@ -228,9 +266,10 @@ ${requestScope.pvo } --%>
 								<div class="clear" id="slsSize">
 									<h3>사이즈</h3>
 									<select id="sizeSelectAjax">
-										<option>-[필수] 옵션을 선택해주세요-</option>
-										<option id="psno">-----------------------------------------</option>
+										<option value="0">-[필수] 옵션을 선택해주세요-</option>
+										<option id="psno" value="0">-----------------------------------------</option>
 									</select>
+									<input type="hidden" id="sizeInventory" value="0">
 								</div>
 							</ul>
 
@@ -247,21 +286,21 @@ ${requestScope.pvo } --%>
 							<c:choose>
 								<c:when test="${isMember}">
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart"/> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="submit" class="btn btn-default" id= "insertCart">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
 									<!-- <input type="button" id="immediatelyPay" value="즉시주문"  style="background-color: orange; " /> -->
-									<button type="button" class="btn btn-default" id= "insertCart">
+									<button type="button" class="btn btn-default" id= "immediatelyPay">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:when>
 								<c:otherwise>
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
 									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/> -->
-									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+									<button type="submit" class="btn btn-default" id= "insertCart" disabled="disabled">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
-									<button type="button" class="btn btn-default" id= "insertCart" disabled="disabled">
+									<button type="submit" class="btn btn-default" id= "immediatelyPay" disabled="disabled">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:otherwise>
@@ -333,16 +372,20 @@ ${requestScope.pvo } --%>
 						<div class="container" style="padding-left: 0px;">
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
-									 <section class="buttons">
-            							<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
-            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label>
-        							</section>
+									 <section class="buttons">            							
 									<ul class="nav nav-tabs">
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul>
+									<!-- 	<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
+            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label> -->
+        							</section> 
+								<!-- 	<ul class="nav nav-tabs">
+										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
+										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
+									</ul> -->
 									<!-- 상품리뷰 -->
-								
+        						<sec:authentication property='principal.id' var="mId"/>
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">
 									<table class="table table-hover">
@@ -416,25 +459,47 @@ ${requestScope.pvo } --%>
 			 </div>
 				<!-- star QnA table -->
 			<div class="tab_item" id="tab2">
+			 <div align="right">
+				<c:if test="${isMember}">
+				<button id="registerPQ" type="button" class="btn btn-primary btn-sm">문의 글쓰기</button>
+				</c:if>
+				</div>
 				 <div class="in-check">
 				   <table class="table table-hover">
   					  <thead class="row">
     					  <tr>
-    					   <th class="col-sm-1">문의번호</th>
+    					    <th class="col-sm-1">문의번호</th>
      					   <th class="col-sm-6">내용</th>
-     					   <th class="col-sm-2">작성자</th>
+     					   <th class="col-sm-1">작성자</th>
      					   <th class="col-sm-3">날짜</th>
+     					   <th class="col-sm-1">비고</th>
       					 </tr>					
     				 </thead>
     				<c:set value="${lpqlist.pagingBean}" var="pqpb"/>
 					<c:forEach items="${lpqlist.list}" var="pqlist" varStatus="order">
 				    <tbody>
+				      <c:choose>
+				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
 				      <tr>
+				        <td>${pqlist.pqno}</td>
+				        <td>비공개 게시물입니다</td>
+				        <td>${pqlist.id}</td>
+				        <td>${pqlist.regdate}</td>
+				        <<td><td>
+				      </tr>
+				    </c:when>
+				    <c:otherwise>
+				     <tr>
 				        <td>${pqlist.pqno}</td>
 				        <td>${pqlist.content}</td>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
+				        <c:if test="${pqlist.id==mId}">
+				        <td><button type="button">삭제</button></td>
+				        </c:if>
 				      </tr>
+				    </c:otherwise>
+				    </c:choose>
 				    </tbody>
 				 </c:forEach>
 				 </table>

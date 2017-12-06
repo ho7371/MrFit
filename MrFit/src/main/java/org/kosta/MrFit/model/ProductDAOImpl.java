@@ -81,7 +81,7 @@ public class ProductDAOImpl implements ProductDAO {
 
    //[김석환][2017.11.18][상품디테일정보에서 color 값을 통해 사이즈 정보 ajax형식으로 표시하기위함]
    @Override
-   public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+   public List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
       return template.selectList("product.findProductListByPcnoAjax", pdVO);
    }
 /*   @Override
@@ -243,6 +243,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void reviewUpdateAjax(ProductReviewVO prvo) {
 		template.update("product.reviewUpdateAjax", prvo);
+	}
+	//[석환][12/02][상품문의 글 작성]
+	@Override
+	public void registerProductQnA(ProductQnaVO pqvo) {
+		template.insert("product.registerProductQnA", pqvo);
 	}
 }
 

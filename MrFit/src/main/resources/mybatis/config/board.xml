@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="inquiry" resultType="inquiryVO" parameterType="pagingBean">
     	SELECT iqno,id,title,content,regdate,security
 		from (select row_number() over(order by iqno desc) as rnum,iqno,id,title,content,regdate,security  from inquiry 
-				where security='public')
+		)
 		board
 		where rnum between #{startRowNumber} and #{endRowNumber}
 		ORDER BY iqno DESC  
@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- [정현][고객문의 등록] -->
     <insert id="registerInquiry" parameterType="inquiryVO">
    	 insert into inquiry(iqno,id,title,content,regdate,security) 
-		values(iqno_seq.nextval,#{id},#{title},#{content},sysdate,'public')
+		values(iqno_seq.nextval,#{id},#{title},#{content},sysdate,#{security})
 		
     </insert>
     

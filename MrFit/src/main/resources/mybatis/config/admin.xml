@@ -212,7 +212,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateProductInventory" parameterType="productDetailVO">
 		update product_detail set inventory=#{inventory} where pdno=#{pdno}
 	</update>
-		
+	
+	<!-- 탈퇴 회원 살리기 ( 권한 부여 ) -->
+	<insert id="restoreMemberAuthority" parameterType="string">
+		insert into auth(auth, id) values('ROLE_MEMBER',#{value})
+	</insert>
+	
+	<!-- 탈퇴 회원 살리기 ( 활성 상태 변경 ) -->
+	<update id="restoreMemberStatus" parameterType="string">
+		update member set status = 1 where id = #{value}
+	</update>
 </mapper>
 
 

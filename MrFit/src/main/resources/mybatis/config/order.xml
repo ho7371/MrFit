@@ -36,13 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="pc.color_name" property="color_name" />
 		<result column="ps.size_name" property="size_name" />
 		<result column="i.url" property="url" />
+		<result column="pd.inventory" property="inventory"/>
 	</resultMap>
 	
 	<!-- 주문 테이블에서 받은 주문 번호로 상품 정보 가져오기 -->
 	<select id="findOrderProductInfoByPdnoAndOno" parameterType="string"
 		resultMap="OPRM">
 		SELECT op.quantity, p.pno, pd.pdno, p.name, p.price, p.category,
-		pc.color_name, ps.size_name, i.url
+		pc.color_name, ps.size_name, i.url, pd.inventory
 		FROM product_detail pd, product p,
 		product_color pc, product_size ps, order_product op, orders o , image
 		i

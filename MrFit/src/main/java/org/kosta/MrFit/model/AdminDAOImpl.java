@@ -188,7 +188,14 @@ public class AdminDAOImpl implements AdminDAO {
 			template.update("admin.updateProductInventory", pdvo);
 			
 		}
+		//[현민][탈퇴회원 살리기]
+		@Override
+		public void restoreMemberStatus(String id) {
+			template.insert("admin.restoreMemberAuthority",id);
+			template.insert("admin.restoreMemberStatus",id);
+		}
 	
+		
 }
 
 
