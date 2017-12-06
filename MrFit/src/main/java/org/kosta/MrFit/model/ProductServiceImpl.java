@@ -326,5 +326,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void registerProductQnA(ProductQnaVO pqvo) {
 		productDAO.registerProductQnA(pqvo);
+	}
+	@Override
+	public int getTotalProductReviewCountAdmin() {
+		return productDAO.getTotalProductReviewCountAdmin();
+	}
+	@Override
+	public List<ProductReviewVO> findProductReply(PagingBean pb) {
+		return productDAO.findProductReply(pb);
+	}
+	@Override
+	public int getTotalProductQnaCountAdmin() {
+		return productDAO.getTotalProductQnaCountAdmin();
+	}
+	@Override
+	public List<ProductQnaVO> findProductQna(PagingBean pb) {
+		return productDAO.findProductQna(pb);
 	}	
 }

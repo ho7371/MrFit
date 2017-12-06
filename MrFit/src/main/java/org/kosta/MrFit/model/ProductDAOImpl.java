@@ -249,5 +249,21 @@ public class ProductDAOImpl implements ProductDAO {
 	public void registerProductQnA(ProductQnaVO pqvo) {
 		template.insert("product.registerProductQnA", pqvo);
 	}
+	@Override
+	public int getTotalProductReviewCountAdmin() {
+		return template.selectOne("product.getTotalProductReviewCountAdmin");
+	}
+	@Override
+	public List<ProductReviewVO> findProductReply(PagingBean pb) {
+		return template.selectList("product.findProductReply");
+	}
+	@Override
+	public int getTotalProductQnaCountAdmin() {
+		return template.selectOne("product.getTotalProductQnaCountAdmin");
+	}
+	@Override
+	public List<ProductQnaVO> findProductQna(PagingBean pb) {
+		return template.selectList("product.findProductQna");
+	}
 }
 

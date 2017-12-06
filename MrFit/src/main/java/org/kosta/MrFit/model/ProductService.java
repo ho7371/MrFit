@@ -62,5 +62,13 @@ public interface ProductService {
 	void reviewUpdateAjax(ProductReviewVO prvo);
 
 	void registerProductQnA(ProductQnaVO pqvo);
+
+	int getTotalProductReviewCountAdmin();
+
+	List<ProductReviewVO> findProductReply(PagingBean pb);
+
+	int getTotalProductQnaCountAdmin();
+
+	List<ProductQnaVO> findProductQna(PagingBean pb);
 	
 }

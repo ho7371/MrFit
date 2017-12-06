@@ -40,7 +40,7 @@
 					<tbody>	
 						<c:forEach items="${lvo.list }" var="item">					
 							<tr>
-							    <td><img alt="${item.name} 사진" src="${pageContext.request.contextPath}/thumb/${item.name}.jpg"></td>				
+							    <td><img alt="${item.name} 사진" src="${pageContext.request.contextPath}/resources/upload/${item.imageList[0].url}" style="max-height: 50px; max-width: 50px;"></td>				
 								<td>${item.name}</td>
 								<td>${item.content}</td>
 								<td>${item.category}</td>

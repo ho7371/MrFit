@@ -37,7 +37,7 @@
 					</div>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
+							<a href="${pageContext.request.contextPath}/adminBoardList.do">
 								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
 								<p>게시글 관리</p>
 							</a>

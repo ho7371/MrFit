@@ -60,6 +60,14 @@ public interface ProductDAO {
 	List<ProductQnaVO> findProductQnaByPno(Map<String, Object> map);
 	
 	void reviewUpdateAjax(ProductReviewVO prvo);
+	
+	void registerProductQnA(ProductQnaVO pqvo);
 
-	void registerProductQnA(ProductQnaVO pqvo); 
+	int getTotalProductReviewCountAdmin();
+
+	List<ProductReviewVO> findProductReply(PagingBean pb);
+
+	int getTotalProductQnaCountAdmin();
+
+	List<ProductQnaVO> findProductQna(PagingBean pb); 
 }

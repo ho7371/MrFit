@@ -14,6 +14,7 @@ import org.kosta.MrFit.model.AdminService;
 import org.kosta.MrFit.model.BoardService;
 import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ImageVO;
+import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
@@ -22,6 +23,8 @@ import org.kosta.MrFit.model.OrderVO;
 import org.kosta.MrFit.model.PagingBean;
 import org.kosta.MrFit.model.PointVO;
 import org.kosta.MrFit.model.ProductDetailVO;
+import org.kosta.MrFit.model.ProductQnaVO;
+import org.kosta.MrFit.model.ProductReviewVO;
 import org.kosta.MrFit.model.ProductService;
 import org.kosta.MrFit.model.ProductSizeVO;
 import org.kosta.MrFit.model.ProductVO;
@@ -839,6 +842,7 @@ public class AdminController {
 		}
 		return mv;
 	}
+	
 	/*[현민][12/06][탈퇴 회원 살리기]
 	 * 
 	 */
@@ -849,6 +853,96 @@ public class AdminController {
 		System.out.println("   	AdminController/restoreMemberStatus()/ 되살릴 회원아이디 : "+id);
 		adminService.restoreMemberStatus(id);
 		mv.setViewName("admin/restoreMemberStatus_ok.tiles");
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminBoardList.do")
+	public ModelAndView adminBoardList(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		// review
+		int totalCount = productService.getTotalProductReviewCountAdmin();
+		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
+		}
+		if(totalCount!=0) {
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		List<ProductReviewVO> prvolist = productService.findProductReply(pb);
+		System.out.println("      ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
+		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
+		System.out.println("      ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
+		mv.addObject("prlvo", prlvo);
+		}
+		mv.addObject("tab", "tab1");
+		// ProductReview paging처리 완료
+		mv.setViewName("admin/adminBoardList.tiles");
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminBoardListPQna.do")
+	public ModelAndView adminBoardListPQna(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		// review
+		int totalCount=productService.getTotalProductQnaCountAdmin();
+		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		
+		// ProductQnA 
+		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		if(pageNo != null) {
+			nowPage = Integer.parseInt(pageNo);
+		}
+		if(totalCount!=0) {
+		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
+		System.out.println("      ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
+		List<ProductQnaVO> list=productService.findProductQna(pb);
+		ListVO<ProductQnaVO> pqlist= new ListVO<ProductQnaVO>(list,pb);
+		mv.addObject("pqlist", pqlist);
+		System.out.println("      ProductController/findProductDetailByPno()/진행7 - lpqlist: "+pqlist);
+		}
+		
+		mv.addObject("tab", "tab2");
+		mv.setViewName("admin/adminBoardList.tiles");
+		return mv;
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminBoardListQna.do")
+	public ModelAndView adminBoardListQna(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		int totalCount = boardService.getTotalInquiryCount();
+		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
+		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int nowPage = 1;
+		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		
+		// inquiry
+         // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+	    if(pageNo != null) {
+	       nowPage = Integer.parseInt(pageNo);
+	    }
+	    if(totalCount!=0) {
+	    pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);	      
+		List<InquiryVO> ivoList = boardService.inquiry(pb);
+		ListVO<InquiryVO> inqlvo = new ListVO<InquiryVO>();
+		System.out.println("      HomeController/inquiry()/진행 list : "+ivoList);
+		if(ivoList!=null&&!ivoList.isEmpty()) {
+			inqlvo.setList(ivoList);
+			inqlvo.setPagingBean(pb);
+		}
+	    mv.addObject("inqlvo",inqlvo);
+	    }
+	    mv.addObject("tab", "tab3");
+		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
 }

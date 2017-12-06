@@ -4,6 +4,10 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 
+<sec:authorize access="hasRole('ROLE_MEMBER')" var="isMember" />
+<c:if test="${isMember}">
+	<sec:authentication property='principal.id' var="mId"/>
+</c:if>
 
 <!-- FlexSlider -->
 <script defer src="js/jquery.flexslider.js"></script>
@@ -22,6 +26,7 @@
    </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".reviewUForm").hide();
 		var productCategory = $(".quick_desc").attr("id");
 		var pcno = "";
 		var pno = $(".productPno").attr("id");
@@ -126,42 +131,7 @@ $(document).ready(function() {
 		alert(pcno);
 		alert(1); */
 	});//immediatelyPay click
-	
-	$(".my_popup_close").click(function() {
-      	if($("#rvUContent").val() != ""){
-      		$("#rvUContent").val("");
-      	}
-    })// my_popup_close click
     
-
-
-$("#rvUBtn").click(function() {
-	alert(1);
-   	 var rno = $('#my_popup #rno').val();
-   	 alert('2 - rno : '+rno);
-   	 var content = $("#rvUContent").val();
-   	 alert(content);
-   	 
-  	 	if(confirm("리뷰를 수정하시겠습니까?")){
-  	  		$.ajax({
-				type:"post",
-				url:"${pageContext.request.contextPath}/reviewUpdateAjax.do",				
-				data:"rno="+rno+"&content="+content,	
-				beforeSend : function(xhr){   
-                   xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-               },
-               contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
-				success:function(data){						
-					$("#${mId}").text(data.content);
-					alert("리뷰 수정이 완료되었습니다. close를 클릭하여 창을 닫아주세요");
-					$('#my_popup').popup('hide');
-				}//callback			
-			});//ajax
-  	 	}else{
-  		  	return false;
-  	  	}//confirm 종료
-  	  	//상품문의 등록
-});//reviewUpdateButton  종료
   	 	$("#registerPQ").click(function() {
   	 	  	/* openPopup(); */
   	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
@@ -181,17 +151,35 @@ $("#quantity").change(function() {
 });
 });//ready
 
-function rvUpdateForm(rno,content){
-	$('#my_popup').popup({
-  	  opacity: 0.3,
-  	  transition: 'all 0.3s'
-    });
-	 $('#my_popup #rno').val(rno);
-	 alert("ajax 시 사용할 리뷰번호 : "+rno);
-	 $('#my_popup #rvUContent').html(content);
-	 alert("ajax 시 사용할 수정내용 : "+content);
-}
+function rvUpdateForm(rno){
+	alert("rno:"+rno);
+	$("#rno"+rno).toggle();
+	alert("***");
+}// function rvUpdateForm
 
+function rvUpdate(rno){
+	alert(' rno : '+rno);
+   	var content = $("#rvUContent"+rno).val();
+   	alert(content);
+   	
+   	if(confirm("리뷰를 수정하시겠습니까?")){
+	  		$.ajax({
+			type:"post",
+			url:"${pageContext.request.contextPath}/reviewUpdateAjax.do",				
+			data:"rno="+rno+"&content="+content,	
+			beforeSend : function(xhr){   
+               xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+           },
+           contentType: "application/x-www-form-urlencoded; charset=UTF-8",  
+			success:function(data){						
+				$("#listContent"+rno).text(data.content);
+				$("#rno"+rno).toggle();
+			}//callback			
+		});//ajax
+	 	}else{
+		  	return false;
+	  	}//confirm 종료
+}
 
 </script>
 <script>
@@ -369,12 +357,12 @@ ${requestScope.pvo } --%>
 						<div class="container" style="padding-left: 0px;">
 							<div class="ckeckout-top">
 								<div class=" cart-items heading">
-									 <section class="buttons">
-									 <ul class="nav nav-tabs">
+									 <section class="buttons">            							
+									<ul class="nav nav-tabs">
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul>
-            						<!-- 	<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
+									<!-- 	<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
             							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label> -->
         							</section> 
 								<!-- 	<ul class="nav nav-tabs">
@@ -388,14 +376,13 @@ ${requestScope.pvo } --%>
 									<table class="table table-hover">
   					  				<thead class="row">
 			    					  <tr>
-			    					   <th class="col-sm-1">문의번호</th>
+			    					   <th class="col-sm-1">리뷰번호</th>
 			     					   <th class="col-sm-5">내용</th>
 			     					   <th class="col-sm-1">색상</th>
 			     					   <th class="col-sm-1">사이즈</th>
 			     					   <th class="col-sm-1">작성자</th>
 			     					   <th class="col-sm-2">날짜</th>
 			     					    <th class="col-sm-1">수정</th>
-			     					   <th>
 			      					 </tr>					
 				    				 </thead>
 				    				<c:set value="${prlvo.pagingBean}" var="pb"/>
@@ -408,27 +395,30 @@ ${requestScope.pvo } --%>
 								        <td>${list.size_name}</td>
 								        <td>${list.id}</td>
 								        <td>${list.regdate }</td>
-								        <c:if test="${list.id==mId}">
-								        	<td>
-												<button class="my_popup_open" 
-													onclick='rvUpdateForm("${list.rno}","${list.content}")'>리뷰 수정</button>
-								        	</td>
-										</c:if>
+								       	<td>
+					        				<c:choose>
+								        		<c:when test="${list.id==mId}">
+													<button id="reviewUFormGoBtn"
+														onclick='rvUpdateForm("${list.rno}")'>리뷰 수정하기</button>
+								        		</c:when>
+												<c:otherwise>
+													-
+												</c:otherwise>
+								    		</c:choose>
+								        </td>
+								      </tr>
+								      <tr class="reviewUForm" id="rno${list.rno}">
+								      	<td colspan="8">
+											<textarea rows="5" cols="100" name="content" id="rvUContent${list.rno}">${list.content}</textarea>
+						 				</td>
+						 				<td>
+						 					<input type="hidden" id="rno" value="${list.rno}">
+						 					<button id = "rvUBtn" onclick='rvUpdate("${list.rno}")'>수정하기</button>
+						 				</td>
 								      </tr>
 								    </tbody>
 								 </c:forEach>
 								 </table>
-								 
-								 <div id="my_popup" style="display: none;">
-									<h4 align="center">리뷰 수정</h4>
-									<textarea rows="10" cols="30" class="reviewArea" id="rvUContent"></textarea><br>
-									<div align="center">
-										<input type="hidden" id="rno" value="">
-											<input type ="button" id = "rvUBtn" 
-												 value = "수정하기">
-											<button class="my_popup_close" type ="button">Close</button>
-									</div>
-								</div>
 								 									
 							<!-- review table paging처리 -->
 							<div class="container" align="center">
@@ -466,16 +456,16 @@ ${requestScope.pvo } --%>
 				   <table class="table table-hover">
   					  <thead class="row">
     					  <tr>
-    					   <th class="col-sm-1">문의번호</th>
+    					    <th class="col-sm-1">문의번호</th>
      					   <th class="col-sm-6">내용</th>
      					   <th class="col-sm-1">작성자</th>
      					   <th class="col-sm-3">날짜</th>
      					   <th class="col-sm-1">비고</th>
-      					 </tr>				
+      					 </tr>					
     				 </thead>
     				<c:set value="${lpqlist.pagingBean}" var="pqpb"/>
 					<c:forEach items="${lpqlist.list}" var="pqlist" varStatus="order">
-				   <tbody>				   
+				    <tbody>
 				      <c:choose>
 				      <c:when test="${pqlist.security=='private'&&pqlist.id!=mId}">
 				      <tr>
@@ -483,7 +473,7 @@ ${requestScope.pvo } --%>
 				        <td>비공개 게시물입니다</td>
 				        <td>${pqlist.id}</td>
 				        <td>${pqlist.regdate}</td>
-				        <td><td>
+				        <<td><td>
 				      </tr>
 				    </c:when>
 				    <c:otherwise>

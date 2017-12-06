@@ -808,6 +808,16 @@ ul.unit li {
 	width:20%;
 	float:left;
 }
+ul.unit2 li {
+	margin-top:10px;
+	background:#181b2a;
+	color:white;
+	font-size:1.2em;
+	text-align:center;
+	display:inline-block;
+	width:10%;
+	float:left;
+}
  ul.unit li span{
 	display:inline-block;
 	color:#fff;
@@ -855,7 +865,16 @@ ul.cart-header2{
 	width:20%;
 	float:left;
 }
-
+ ul.cart-header0 li{
+ 	
+	display:inline-block;
+	width:10%;
+	float:left;
+	text-align:center;
+}
+ul.cart-header0 li img{
+	margin-left: 20px;
+}
 ul.cart-header li span,ul.cart-header1 li span,ul.cart-header2 li span{
 	margin: 2.3em 0 0;
 	display: inline;

@@ -23,7 +23,7 @@
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-			<h3><a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">리스트로 돌아가기</a><br><br></h3>
+			<h3><a href="${pageContext.request.contextPath}/commonMemberList.do?status=1" style="text-decoration: none;"><font color="#8c2830">리스트로 돌아가기</font></a><br><br></h3>
 			
 			<table class="table-board">
 					<thead>
@@ -53,7 +53,7 @@
 							<td>
 							<form action="${pageContext.request.contextPath}/restoreMemberStatus.do" onclick="return restoreStatus()">
 								<input type="hidden" name="id" value="${member.id}">
-								<button type = "submit" class = "btn btn-default">되돌리기</button>
+								<button type = "submit" class = "btn btn-default"><font color="#8c2830">되돌리기</font></button>
 							</form>
 							</td>
 						</tr>	
