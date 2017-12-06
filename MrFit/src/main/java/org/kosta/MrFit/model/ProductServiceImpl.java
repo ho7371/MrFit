@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findProductDetailByColorAjax(pdno);
 	}*/
 	@Override
-		public List<ProductSizeVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
+		public List<ProductDetailVO> findProductDetailByColorAjax(ProductDetailVO pdVO){
 			return productDAO.findProductDetailByColorAjax(pdVO);
 	}	
 	//[정현][11/24] 해당 카테고리 리스트 받아오기
@@ -326,5 +326,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void registerProductQnA(ProductQnaVO pqvo) {
 		productDAO.registerProductQnA(pqvo);
+	}
+	@Override
+	public int getTotalProductReviewCountAdmin() {
+		return productDAO.getTotalProductReviewCountAdmin();
+	}
+	@Override
+	public List<ProductReviewVO> findProductReply(PagingBean pb) {
+		return productDAO.findProductReply(pb);
+	}
+	@Override
+	public int getTotalProductQnaCountAdmin() {
+		return productDAO.getTotalProductQnaCountAdmin();
+	}
+	@Override
+	public List<ProductQnaVO> findProductQna(PagingBean pb) {
+		return productDAO.findProductQna(pb);
 	}	
 }
