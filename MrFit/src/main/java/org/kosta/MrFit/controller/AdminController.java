@@ -839,7 +839,9 @@ public class AdminController {
 		}
 		return mv;
 	}
-	
+	/*[현민][12/06][탈퇴 회원 살리기]
+	 * 
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("restoreMemberStatus.do")
 	public ModelAndView restoreMemberStatus(String id) {
