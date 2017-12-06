@@ -11,21 +11,22 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>주문 상세 내역</h3>
-				<div class="in-check">
-					<ul class="unit">
+				<div>
+					<ul class="unit2">
+						<li><span>이미지</span></li>
 						<li><span>주문번호</span></li>
 						<li><span>주문상품명</span></li>
 						<li><span>상품가격</span></li>
 						<li><span>상품카테고리</span></li>
 						<li><span>상품색상</span></li>
 						<li><span>상품사이즈</span></li>
-						<li><span>수량</span></li>
-						<li><span>이미지</span></li>
+						<li><span>수량</span></li>						
 						<li><span>상품 리뷰작성</span></li>
 						<div class="clearfix"></div>
 					</ul>
 					<c:forEach items="${list}" var="orderProduct">
-					<ul class="cart-header">
+					<ul class="cart-header0">
+					<li><span><img alt="이미지~~" src="${pageContext.request.contextPath}/resources/upload/${orderProduct.url}"class="img-responsive" height="50%" width="50%"/></span></li>
 						<li><span>${orderProduct.ono}</span></li>
 						<li><span>${orderProduct.name}</span></li>
 						<li><span>${orderProduct.price}</span></li>
@@ -33,7 +34,6 @@
 						<li><span>${orderProduct.color_name}</span></li>
 						<li><span>${orderProduct.size_name}</span></li>
 						<li><span>${orderProduct.quantity}</span></li>
-						<li><span>${orderProduct.url}</span></li>
 						<div class="clearfix"></div>
 						<c:if test="${orderProduct.reviewCheck==0}">
 						 <form action="${pageContext.request.contextPath}/registerProductReview.do">
