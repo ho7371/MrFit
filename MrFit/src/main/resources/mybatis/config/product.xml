@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- [석환][색상에 맞춰 size리스트를 가지고옴 ajax용] -->
 	<select id="findProductListByPcnoAjax" parameterType="productDetailVO"
-		resultType="productSizeVO">
+		resultType="productDetailVO" resultMap="productSizeListRM">
 		SELECT ps.psno ,ps.size_name,ps.size1, ps.size2, ps.size3, ps.size4,
 		ps.size5,pd.inventory
 		FROM product_detail pd, product_color pc, product_size ps
