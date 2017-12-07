@@ -123,7 +123,8 @@ CREATE TABLE product (
    price NUMBER NOT NULL,
    content CLOB NOT NULL, 
    category VARCHAR2(100) NOT NULL,
-   hit NUMBER DEFAULT 0 
+   hit NUMBER DEFAULT 0 ,
+   status VARCHAR2(100) DEFAULT '판매중' NOT NULL
 );
 
 
