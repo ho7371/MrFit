@@ -69,7 +69,7 @@ function kakaoPay(){
 			totalprice += ${list.totalprice}
 		</c:forEach> */
 		var totalprice=$("#checkTotalprice").val();
-		$("#totalprice").text("총 상품금액 : "+totalprice);
+		/* $("#totalprice").text("총 상품금액 : "+totalprice); */
 		$("#pointCharge").change(function() {
 			var pointCharge=$(this).val();
 			if(pointCharge%1000!=0){
@@ -166,9 +166,6 @@ function kakaoPay(){
 						</tr>
 					</thead>
 					<tbody>
-						 <c:forEach items="${requestScope.ovo.orderProductList}" var="j">
-						 <input type="hidden" name="pdno" value="${j.pdno}">
-						 <input type="hidden" name="quantity" value="${j.quantity}">
 							<tr>
 								<td>
 									<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${ovo.ono}" >
@@ -180,9 +177,11 @@ function kakaoPay(){
 								<td>${requestScope.pdvo.color_name}</td>
 								<td>${requestScope.quantity}</td>
 							</tr>
-						</c:forEach> 
 					</tbody>
 				</table>
+				<!-- pdno quantity 값 -->
+			 <input type="hidden" name="pdno" value="${requestScope.pdvo.pdno}">
+			 <input type="hidden" name="quantity" value="${requestScope.quantity}">
 				<br><br><br>
 <%-- 주문 정보 테이블 --%>
 				<table class="table-board">
@@ -194,8 +193,8 @@ function kakaoPay(){
 					<tbody>
 						<tr>
 							<td>
-								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
-								<input type="hidden" name="totalprice" value="${ovo.totalprice}">
+								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${requestScope.totalprice}</div>
+								<input type="hidden" name="totalprice" value="${requestScope.totalprice}">
 							</td>
 						</tr>
 						<tr>
@@ -223,18 +222,18 @@ function kakaoPay(){
 					          	</thead>
 				          		<tbody>
 					          		<tr>
-					          			<td>이름 : <span id = "memberName"><span id = "memberName"><sec:authentication property="principal.name"/></span></td>
+					          			<td>이름 : <span id = "memberName"><sec:authentication property="principal.name"/></span></td>
 					          		</tr>
 					          		
 					          		<tr>
-					          			<td>이메일 : <span id = "memberEmail">${ovo.memberVO.email}</span> &nbsp;
-					          			연락처 : <span id = "memberPhone" value ="${ovo.memberVO.phone}">${ovo.memberVO.phone}</span></td>
+					          			<td>이메일 : <span id = "memberEmail"><sec:authentication property="principal.email"/></span> &nbsp;
+					          			연락처 : <span id = "memberPhone" value ='<sec:authentication property="principal.phone"/>'><sec:authentication property="principal.phone"/></span></td>
 					          		</tr>
 					          		<tr>
-					          			<td>주소 : <span id = "memberAddress" value ="${ovo.memberVO.address}">${ovo.memberVO.address}</span></td>
+					          			<td>주소 : <span id = "memberAddress" value ='<sec:authentication property="principal.address"/>'><sec:authentication property="principal.address"/></span></td>
 					          		</tr>
 					          		<tr>
-					          			<td>등급 : [ ${ovo.memberVO.gradeVO.grade} ] &nbsp;  적립 비율 : [ ${ovo.memberVO.gradeVO.percent} ]</td>
+					          			<td>[<sec:authentication property="principal.gradeVO.grade"/> ] &nbsp;  적립 비율 : [ <sec:authentication property="principal.gradeVO.percent"/>% ]</td>
 					          		</tr>
 				          		</tbody>
 				          	</table>
@@ -333,8 +332,8 @@ function kakaoPay(){
 		         		<tr>
 		         			<td>
 		         				<input type = "checkbox" id = "agreeOrder" name = "agreeOrder"> 결제정보를 확인했으며, 구매진행에 동의합니다 &nbsp;
-		         				<input type="hidden" name="ono" value="${ovo.ono}">
-		         				<input class="add-cart cart-check" type ="button" id="order" value="주문하기">
+		         				<input type="hidden" name="ono" value="${requestScope.ono}">
+		         				<input class="add-cart cart-check" type ="submit" id="order" value="주문하기">
 		         			</td>
 		         		</tr>
 	         		</tbody>
