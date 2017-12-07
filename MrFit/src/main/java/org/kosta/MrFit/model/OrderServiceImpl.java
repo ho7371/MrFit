@@ -95,6 +95,8 @@ public class OrderServiceImpl implements OrderService {
 		}else
 		// 무통장 외 입금시 배송준비중으로 변경
 		orderDAO.updateStatusOrderEtc(ovo);
+		//주문시 총금액 - 포인트
+		orderDAO.updateOrderTotalpriceAndPoint(ovo);
 	}
 
 	// [영훈][2017.11.21][회원 주문내역 상태변경]

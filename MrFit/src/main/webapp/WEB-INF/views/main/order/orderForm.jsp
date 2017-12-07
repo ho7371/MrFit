@@ -196,6 +196,7 @@ function kakaoPay(){
 						<tr>
 							<td>
 								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
+								<input type="hidden" name="totalprice" value="${ovo.totalprice}">
 							</td>
 						</tr>
 						<tr>

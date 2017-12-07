@@ -269,6 +269,8 @@ public class OrderController {
 		String[] quantity=request.getParameterValues("quantity");
 		System.out.println("      OrderController/productOrderPayment()/진행 사용포인트 : "+payPoint+" 사용자 아이디 주문결제 : "+vo.getId());
 		System.out.println("      OrderController/productOrderPayment()/진행 totalprice : "+ovo.getTotalprice());
+		int totalprice=ovo.getTotalprice()-payPoint;
+		ovo.setTotalprice(totalprice);
 		vo.setPoint(payPoint);
 		ovo.setStatus(depositMethod);
 		orderService.productOrderPayment(vo, payPoint, ovo);
