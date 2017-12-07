@@ -77,7 +77,7 @@ update MEMBER set status=2 where id='admin'
 
 
 commit
---------------- 권한
+--------------- 권한---------------
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
