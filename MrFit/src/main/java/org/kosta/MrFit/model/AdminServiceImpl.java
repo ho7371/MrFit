@@ -166,6 +166,12 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.adminProductList(pb);
 	}
 	
+	@Override
+	public void deletePendingDepositOrders() {
+		adminDAO.deletePendingDepositOrders();
+	}
+
+	
 }
 
 

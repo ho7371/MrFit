@@ -66,5 +66,5 @@ public interface AdminService {
 
 	List<ProductVO> adminProductList(PagingBean pb);
 
-	
+	void deletePendingDepositOrders();
 }

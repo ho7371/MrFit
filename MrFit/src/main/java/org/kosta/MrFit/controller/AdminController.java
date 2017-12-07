@@ -951,6 +951,13 @@ public class AdminController {
 		return "redirect:adminBoardList.do?tab=tab3";
 	}
 	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deletePendingDepositOrders.do")
+	public ModelAndView deletePendingDepositOrders() {
+		adminService.deletePendingDepositOrders();
+		return new ModelAndView("");
+	}
+	
 }
 
 
