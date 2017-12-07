@@ -158,7 +158,7 @@ th, td{
 					</div>
 					<div class="address">
 						<span>가격</span>
-						<input type="text" name="price" size="10" required="required">
+						<input type="number" name="price" size="10" required="required" style="width: 100%;">
 					</div>						
 
 
