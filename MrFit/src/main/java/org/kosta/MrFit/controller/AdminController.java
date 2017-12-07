@@ -953,9 +953,9 @@ public class AdminController {
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("deletePendingDepositOrders.do")
-	public ModelAndView deletePendingDepositOrders() {
+	public String deletePendingDepositOrders() {
 		adminService.deletePendingDepositOrders();
-		return new ModelAndView("");
+		return "redirect:adminAllOrderList.do";
 	}
 	
 }
