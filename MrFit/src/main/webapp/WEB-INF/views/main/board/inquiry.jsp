@@ -96,3 +96,13 @@
     		</c:if>
 	</ul>	 		
 </div>
+<p align="center">
+<img alt="고객문의 메인" style="height:350px; width:1000px;" id="inquiryMain"
+	 src="${pageContext.request.contextPath}/resources/images/고객문의3.gif">
+</p>
+
+
+
+
+
+
