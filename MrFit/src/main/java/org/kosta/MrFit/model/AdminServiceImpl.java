@@ -99,8 +99,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteProduct(String pno) {
-		adminDAO.deleteProduct(pno);
+	public void changeStatusProduct(ProductVO vo) {
+		adminDAO.changeStatusProduct(vo);
 	}
 
 	@Override

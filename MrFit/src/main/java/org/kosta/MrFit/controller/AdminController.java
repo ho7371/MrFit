@@ -269,15 +269,16 @@ public class AdminController {
 
 	
 	/**
-	 * [재현][11/27][상품삭제]
+	 * [재현][11/27][상품상태변경]
 	 * @param pno
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("admin/deleteProduct.do")
-	public String deleteProduct(String pno) {
-		adminService.deleteProduct(pno);
-		return "admin/deleteProductResult.tiles";
+	@RequestMapping("admin/changeStatusProduct.do")
+	public String changeStatusProduct(ProductVO vo) {
+		System.out.println(vo.getPno()+" "+vo.getStatus());
+		adminService.changeStatusProduct(vo);
+		return "admin/changeStatusProductResult.tiles";
 	}
 	
 	/**

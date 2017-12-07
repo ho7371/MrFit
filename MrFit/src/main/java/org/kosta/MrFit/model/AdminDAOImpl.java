@@ -124,11 +124,16 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
 	}
 
-	//[재현][상품 삭제]
+	//[재현][상품 상태변경]
 	@Override
-	public void deleteProduct(String pno) {
-		template.delete("admin.deleteProduct",pno);
-		
+	public void changeStatusProduct(ProductVO vo) {
+		if(vo.getStatus().equals("판매중")) {
+			vo.setStatus("판매중지");
+			template.update("admin.changeStatusProduct", vo);
+		}else{
+			vo.setStatus("판매중");
+			template.update("admin.changeStatusProduct", vo);
+		}
 	}
 	
 	//[현민][관리자 쪽지함 리스트 개수]
