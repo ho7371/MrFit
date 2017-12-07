@@ -55,6 +55,14 @@ public class AdminController {
 		return "admin/adminPage.tiles";
 	}
 	
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminMypage.do")
+	public String adminMypage() {
+		
+		return "admin/adminPage.tiles";
+	}
+	
 	/** [진호][관리자 상품 목록보기]
 	 * 
 	 * @param request
@@ -440,8 +448,8 @@ public class AdminController {
 		
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminTotalOrderCount();			// 보여줄 주문 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
