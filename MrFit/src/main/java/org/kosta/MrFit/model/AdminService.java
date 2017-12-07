@@ -64,5 +64,7 @@ public interface AdminService {
 
 	void restoreMemberStatus(String id);
 
+	List<ProductVO> adminProductList(PagingBean pb);
+
 	
 }

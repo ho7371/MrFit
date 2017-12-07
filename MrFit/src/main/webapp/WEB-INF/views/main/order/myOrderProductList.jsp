@@ -80,7 +80,6 @@
 							</tbody>
 						</c:forEach>
 					</table>
-				</div>
 			</div>
 		</div>
 	</div>

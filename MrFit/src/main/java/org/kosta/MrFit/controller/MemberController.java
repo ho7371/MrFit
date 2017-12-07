@@ -321,8 +321,8 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = memberService.totalNoteCount(vo.getId());		// 보여줄 쪽지 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {

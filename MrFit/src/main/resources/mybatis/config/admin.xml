@@ -222,6 +222,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="restoreMemberStatus" parameterType="string">
 		update member set status = 1 where id = #{value}
 	</update>
+	<!-- [석환] 상품리스트 -->
+	<select id="adminProductList" parameterType="pagingBean" resultType="productVO">
+		SELECT pno, name, price, content, category, status
+		from (select row_number() over(order by pno desc) as
+		rnum,pno,price,name,category,content,status from Product)
+		product
+		where rnum 
+		between #{startRowNumber} and #{endRowNumber}
+		ORDER BY pno DESC
+	</select>
 </mapper>
 
 

@@ -17,8 +17,11 @@
 	<div class="account">
 		<div class="container"> 
 			<div class="account-bottom">
-				<div class="col-md-6 account-left">
-					<div style="width: 500px; height: 250px; background-color: gray;"></div>
+			<div class="col-md-1 account-left"></div>
+				<div class="col-md-4 account-left">
+					<div style="width: 200px; height: 250px;">
+						<img alt="" src="${pageContext.request.contextPath}/resources/images/pass.jpg">
+					</div>
 				</div>
 				<%-- 비밀번호 찾기 폼 --%>				
 				<div class="col-md-6 account-left">
