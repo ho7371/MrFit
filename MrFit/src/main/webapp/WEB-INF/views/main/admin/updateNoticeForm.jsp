@@ -9,15 +9,19 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>공지사항 수정</h3>
-				<br><br>
-				<form action="${pageContext.request.contextPath}/updateNotice.do">
+				<div class="col-md-3">
+				<br><br><br>
+					<img alt="" align="middle" src="${pageContext.request.contextPath}/resources/images/notice_image.png">
+				</div>
+				
+				<form action="${pageContext.request.contextPath}/updateNotice.do" >
 				<input type="hidden" name="bno" value="${bvo.bno}">
 				제목 : <input type="text" id="title" name="title" value="${bvo.title}"><br>
 				내용<br>
-				<textarea rows="20" cols="90" id="content" name="content">
+				<textarea rows="15" cols="60" id="content" name="content">
 				${bvo.content}
 				</textarea>	<br>
-				<input type="submit" value="공지사항 수정">
+				<input type="submit" style="margin-left: 55%"  value="공지사항 수정">
 					</form>			
 					
 			
