@@ -77,7 +77,7 @@ public class AdminController {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 			
 		ModelAndView mv = new ModelAndView();
-		List<ProductVO> productList=productService.ProductList(pb);		// 페이징빈을 던져서 받아온 상품목록
+		List<ProductVO> productList=adminService.adminProductList(pb);		// 페이징빈을 던져서 받아온 상품목록
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
 		System.out.println("      AdminController/adminProductList()/진행 - productList : "+productList);
 		
@@ -114,8 +114,8 @@ public class AdminController {
 		
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = productService.productTotalCount(keyword);	// 보여줄 상품의 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");
 			if(pageNo != null) {											// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
@@ -440,8 +440,8 @@ public class AdminController {
 		
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminTotalOrderCount();			// 보여줄 주문 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -672,8 +672,8 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -744,8 +744,8 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalPointListCount();			// 보여줄 포인트 이력 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -779,8 +779,8 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = 0;											// 보여줄 포인트 이력 총 개수 : 키워드에 따라 다르기에 초기값으로 설정
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -817,8 +817,8 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminSearchPointCountByStatus(status);// 보여줄 포인트 이력 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {

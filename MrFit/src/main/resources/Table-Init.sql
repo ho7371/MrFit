@@ -807,3 +807,7 @@ insert into order_product(ono,pdno,quantity) values(6,7,2);
 
 
 update inquiry_reply set content='etg' where iqrno=3;
+
+--product 컬럼 추가
+ALTER TABLE PRODUCT 
+ADD STATUS VARCHAR2(100) DEFAULT '판매중' NOT NULL

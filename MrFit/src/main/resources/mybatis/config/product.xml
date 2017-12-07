@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 		( select row_number() over(order by pno desc) as rnum,
 		pno, name, price, content, category from product
-		where name like '%' || #{keyword} || '%' )
+		where name like '%' || #{keyword} || '%' and status='판매중' ) 
 		where rnum between
 		#{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
 	</select>
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- [현민][상품 검색 개수] -->
 	<select id="productTotalCount" parameterType="string" resultType="int">
 		select count(*) from product
-		where name like '%' || #{value}	|| '%'
+		where status='판매중' and name like '%' || #{value}	|| '%'
 	</select>
 
 	<!-- [석환][상품상세정보 중 상품값] -->
@@ -82,21 +82,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="ProductList" parameterType="pagingBean" resultType="productVO">
 		SELECT pno, name, price, content, category
 		from (select row_number() over(order by pno desc) as
-		rnum,pno,price,name,category,content from Product)
+		rnum,pno,price,name,category,content from Product where status='판매중')
 		product
-		where rnum
+		where rnum 
 		between #{startRowNumber} and #{endRowNumber}
 		ORDER BY pno DESC
 	</select>
 
 	<!-- [정현][상품 개수] -->
 	<select id="getTotalProductCount" resultType="int">
-		select count(*) from product
+		select count(*) from product where status='판매중'
 	</select>
 
 	<!-- [정현][카테고리에 따른 상품 개수] -->
 	<select id="getCategoryProductCount" parameterType="string" resultType="int">
-		select count(*) from product where category=#{value}
+		select count(*) from product where category=#{value} and status='판매중'
 	</select>
 
 	<!-- [정현][카테고리에 따른 상품 찾기] -->
@@ -104,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT pno, name, price, content, category
 		from (select row_number() over(order by pno desc) as
 		rnum,pno,price,name,category,content
-		from Product where category=#{category})
+		from Product where category=#{category} and status='판매중')
 		product
 		where rnum between
 		#{startNumber} and #{endNumber}
@@ -195,7 +195,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where r.pdno=pd.pdno and pd.pno=p.pno and p.pno=#{value}
 	</select>
 	
-	<!-- [정현][11/30][상품 조회시 hit +!] -->
+	<!-- [정현][11/30][상품 조회시 hit +1] -->
 	<update id="hitUpByPno" >
 		update product 
  		set hit=hit+1	where pno=#{value}
@@ -205,7 +205,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="productListByHit" parameterType="pagingBean" resultType="productVO">
 		SELECT pno, name, price, content, category,hit
 		from (select row_number() over(order by hit desc) as
-		rnum,pno,price,name,category,content,hit from Product)
+		rnum,pno,price,name,category,content,hit from Product where status='판매중')
 		product
 		where rnum
 		between #{startRowNumber} and #{endRowNumber}
@@ -232,7 +232,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update review set content=#{content}
 		where rno=#{rno}
 	</update>
-	<!--[석환][상품문의 글 작성 -->
+	<!--[석환][상품문의 글 작성] -->
 	<insert id="registerProductQnA" parameterType="productQnaVO">
 		insert into PRODUCT_QNA(pqno,id,pno,content,regdate,security)
 		values(pqno_seq.nextval,#{id},#{pno},#{content},sysdate,#{security})

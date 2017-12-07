@@ -62,4 +62,6 @@ public interface AdminDAO {
 	void updateProductInventory(ProductDetailVO pdvo);
 	
 	void restoreMemberStatus(String id);
+
+	List<ProductVO> adminProductList(PagingBean pb);
 }
