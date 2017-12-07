@@ -71,5 +71,7 @@ public interface ProductDAO {
 
 	List<ProductQnaVO> findProductQna(PagingBean pb);
 
-	void deleteProductQna(String pqno); 
+	void deleteProductQna(String pqno);
+
+	List<ProductVO> findTop2Product(); 
 }

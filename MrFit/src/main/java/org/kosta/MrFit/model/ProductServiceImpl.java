@@ -348,4 +348,10 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteProductQna(String pqno) {
 		productDAO.deleteProductQna(pqno);
 	}
+	
+	// [진호][12/07][인기상품 2개 조회]
+	@Override
+	public List<ProductVO> findTop2Product() {
+		return productDAO.findTop2Product();
+	}
 }

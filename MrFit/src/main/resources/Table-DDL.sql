@@ -293,3 +293,9 @@ select * from REVIEW;
 select * from PRODUCT_QNA;
 select * from BOARD;
 
+
+
+--product 컬럼 추가
+ALTER TABLE PRODUCT 
+ADD STATUS VARCHAR2(100) DEFAULT '판매중' NOT NULL
+

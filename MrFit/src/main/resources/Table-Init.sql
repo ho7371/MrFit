@@ -758,6 +758,26 @@ insert into order_product(ono,pdno,quantity) values(6,7,2);
 
 update inquiry_reply set content='etg' where iqrno=3;
 
---product 컬럼 추가
-ALTER TABLE PRODUCT 
-ADD STATUS VARCHAR2(100) DEFAULT '판매중' NOT NULL
+SELECT rnum, pno, name, price, category
+FROM(
+	select row_number() over(order by hit desc) as rnum, pno, name, price, category,status 
+	from product
+	where status='판매중'
+)
+WHERE rnum between 1 and 2;
+
+select * from product order by hit desc;
+
+
+
+
+SELECT p.rnum, p.pno, p.name, p.price, p.category, i.url
+	FROM(
+		select row_number() over(order by hit desc) as rnum, pno, name, price, category
+		from product
+		where status='판매중'
+	) p, image i
+where p.rnum between 1 and 2
+and i.pno = p.pno
+and i.url like '%' || 'thumb' || '%';
+

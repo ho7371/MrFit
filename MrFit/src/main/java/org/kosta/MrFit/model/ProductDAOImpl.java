@@ -268,7 +268,20 @@ public class ProductDAOImpl implements ProductDAO {
 	//[석환][12/06][상품문의글 삭제]
 	@Override
 	public void deleteProductQna(String pqno) {
-				template.delete("product.deleteProductQna", pqno);
+		template.delete("product.deleteProductQna", pqno);
+	}
+	
+	@Override
+	public List<ProductVO> findTop2Product() {
+		List<ProductVO> top2List = template.selectList("product.findTop2Product");
+		
+	      for(int i=0;i<top2List.size();i++) {         
+	         List<ImageVO> ivo=template.selectList("product.findProductImageList",top2List.get(i).getPno());
+	         if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+	        	 top2List.get(i).setImageList(ivo);
+	         }
+	      }      
+	      return top2List;
 	}
 }
 
