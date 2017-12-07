@@ -18,13 +18,13 @@
 </script>
 
 <br>
-<h3><a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>">주문 리스트로 돌아가기</a><br><br></h3>
 <!-- ver.2 -->
 <div class="ckeckout">
 	<div class="container">
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
-				<h3>주문 상세 내역</h3>
+				<h3>주문 상세 내역</h3><br>
+				<a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>"><button>주문 리스트로 돌아가기</button></a>
 					<table class="table-board">
   						<thead class="row">
   							<tr>

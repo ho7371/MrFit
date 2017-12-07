@@ -53,6 +53,7 @@ public class BoardDAOImpl  implements BoardDAO{
 	//[진호, 현민][11/28][고객문의]
 	@Override
 	public List<InquiryVO> inquiry(PagingBean pb) {
+		System.out.println("페이징빈 : "+pb);
 		return template.selectList("board.inquiry",pb);
 	}
 	

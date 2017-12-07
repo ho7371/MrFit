@@ -10,6 +10,13 @@
 		text-align: center;
 	}
 </style>
+<script type="text/javascript">
+   $(document).ready(function() {
+      $("#backPage").click(function() {
+         location.href="${pageContext.request.contextPath}/myPage.do";
+      });//click
+   });//ready
+</script>
 <!--start-account-->
 <div class="account">
 	<div class="container">
@@ -62,6 +69,7 @@
 						</table>
 					</div>
 						<input type="submit" value="수정하기">
+						<button type = "button" id = "backPage">뒤로</button>
 					</form>
 				</div>
 			<div class="col-md-3 account-left"></div>

@@ -55,6 +55,14 @@ public class AdminController {
 		return "admin/adminPage.tiles";
 	}
 	
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminMypage.do")
+	public String adminMypage() {
+		
+		return "admin/adminPage.tiles";
+	}
+	
 	/** [진호][관리자 상품 목록보기]
 	 * 
 	 * @param request
