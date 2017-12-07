@@ -61,14 +61,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	where id=#{id}
     </update>
     
-   <!-- 상품삭제 -->
-	<delete id="deleteProduct" parameterType="string">
-		delete from product where pno=#{value}
-	</delete>
+	<!-- 상품 상태 변경 -->
+	<update id="changeStatusProduct" parameterType="productVO">
+		update product set status = #{status} where pno = #{pno}
+	</update>
 
-	
-   
-    
     <!-- 모든 주문 내역 리스트 -->
     <select id="adminAllOrderList" resultType="orderVO" parameterType="pagingBean" resultMap="MemberRM">
 		select o.ono, m.id, m.name, o.totalprice, o.ordertime, o.status, o.destination, o.rnum 
@@ -222,6 +219,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="restoreMemberStatus" parameterType="string">
 		update member set status = 1 where id = #{value}
 	</update>
+	<!-- [석환] 상품리스트 -->
+	<select id="adminProductList" parameterType="pagingBean" resultType="productVO">
+		SELECT pno, name, price, content, category, status
+		from (select row_number() over(order by pno desc) as
+		rnum,pno,price,name,category,content,status from Product)
+		product
+		where rnum 
+		between #{startRowNumber} and #{endRowNumber}
+		ORDER BY pno DESC
+	</select>
 </mapper>
 
 

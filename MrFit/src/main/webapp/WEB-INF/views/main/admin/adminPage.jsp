@@ -51,6 +51,14 @@
 							</a>
 						</div>
 					</div>
+					<div class="col-md-4 product-left single-left">
+						<div class="p-one simpleCart_shelfItem">
+							<a href="${pageContext.request.contextPath}/adminMypage.do">
+								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
+								<p>관리자 정보</p>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-2"></div>

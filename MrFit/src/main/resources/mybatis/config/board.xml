@@ -89,6 +89,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(iqrno_seq.nextval, #{message},sysdate, 'public',#{iqno})
  	</insert>
  	
+ 	<!-- [진호][고객문의에 달린 관리자 댓글 수정] -->
+ 	<insert id="updateInquiryReply" parameterType="map">
+ 		update inquiry_reply set content=#{content} where iqrno=#{iqrno}
+ 	</insert>
+ 	
  	    <!--[정현][고객문의 삭제]  -->
     <delete id="deleteInquiry" parameterType="String">
     	delete  from inquiry
@@ -108,10 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where iqno=#{iqno}
     </update>
     
-    <!-- [정현][고객문의 수량] -->
+   <!-- [정현][고객문의 수량]  -->  
     <select id="getTotalInquiryCount" resultType="int">
-   	 select count(*) from inquiry where security='public'
-    </select> 	
+   	 select count(*) from inquiry
+    </select>	
  	
  	<delete id="deleteReview" parameterType="string">
  		delete from review where rno=#{value}

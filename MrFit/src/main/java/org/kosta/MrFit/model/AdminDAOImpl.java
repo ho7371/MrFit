@@ -124,11 +124,16 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
 	}
 
-	//[재현][상품 삭제]
+	//[재현][상품 상태변경]
 	@Override
-	public void deleteProduct(String pno) {
-		template.delete("admin.deleteProduct",pno);
-		
+	public void changeStatusProduct(ProductVO vo) {
+		if(vo.getStatus().equals("판매중")) {
+			vo.setStatus("판매중지");
+			template.update("admin.changeStatusProduct", vo);
+		}else{
+			vo.setStatus("판매중");
+			template.update("admin.changeStatusProduct", vo);
+		}
 	}
 	
 	//[현민][관리자 쪽지함 리스트 개수]
@@ -194,7 +199,19 @@ public class AdminDAOImpl implements AdminDAO {
 			template.insert("admin.restoreMemberAuthority",id);
 			template.insert("admin.restoreMemberStatus",id);
 		}
-	
+		
+		@Override
+		public List<ProductVO> adminProductList(PagingBean pb) {
+			List<ProductVO> ProductList=template.selectList("admin.adminProductList", pb);
+		      for(int i=0;i<ProductList.size();i++) {         
+		         List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+		         if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+		            ProductList.get(i).setImageList(ivo);
+		         }
+		         //System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
+		      }      
+		      return ProductList;
+		}
 		
 }
 

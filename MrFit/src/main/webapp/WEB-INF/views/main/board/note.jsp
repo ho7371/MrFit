@@ -106,12 +106,12 @@
 			   			
 			   				<c:choose>
 			   					<c:when test="${pageNum==pb.nowPage}">
-									<li><a>${pageNum}</a>&nbsp;</li>
+									<li><a>${pageNum}</a></li>
 								</c:when>
 							<c:otherwise>
 								<li>
 									<a href="adminNoteList.do?nowPage=${pageNum}">${pageNum}</a>
-									&nbsp;
+									
 								</li>
 							</c:otherwise>
 		   				</c:choose>
@@ -137,12 +137,12 @@
 			   			
 			   				<c:choose>
 			   					<c:when test="${pageNum==pb.nowPage}">
-									<li><a>${pageNum}</a>&nbsp;</li>
+									<li><a>${pageNum}</a></li>
 								</c:when>
 							<c:otherwise>
 								<li>
 									<a href="memberNoteList.do?nowPage=${pageNum}">${pageNum}</a>
-									&nbsp;
+									
 								</li>
 							</c:otherwise>
 		   				</c:choose>

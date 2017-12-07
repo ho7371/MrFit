@@ -104,6 +104,5 @@ public  class BoardServiceImpl implements BoardService {
 	@Transactional
 	public void deleteQna(String iqno) {
 		boardDAO.deleteQna(iqno);
-		
 	}
 }

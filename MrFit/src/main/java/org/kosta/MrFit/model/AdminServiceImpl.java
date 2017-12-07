@@ -99,8 +99,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteProduct(String pno) {
-		adminDAO.deleteProduct(pno);
+	public void changeStatusProduct(ProductVO vo) {
+		adminDAO.changeStatusProduct(vo);
 	}
 
 	@Override
@@ -159,6 +159,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void restoreMemberStatus(String id) {
 		adminDAO.restoreMemberStatus(id);
+	}
+
+	@Override
+	public List<ProductVO> adminProductList(PagingBean pb) {		
+		return adminDAO.adminProductList(pb);
 	}
 	
 }

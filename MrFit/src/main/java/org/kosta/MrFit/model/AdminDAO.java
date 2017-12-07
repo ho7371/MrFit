@@ -39,7 +39,7 @@ public interface AdminDAO {
 
 	List<OrderProductVO> orderProductInfo(String ono);
 
-	void deleteProduct(String pno);
+	void changeStatusProduct(ProductVO vo);
 
 	int totalNoteCount();
 
@@ -62,4 +62,6 @@ public interface AdminDAO {
 	void updateProductInventory(ProductDetailVO pdvo);
 	
 	void restoreMemberStatus(String id);
+
+	List<ProductVO> adminProductList(PagingBean pb);
 }

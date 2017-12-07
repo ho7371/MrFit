@@ -270,5 +270,6 @@ public class ProductDAOImpl implements ProductDAO {
 	public void deleteProductQna(String pqno) {
 				template.delete("product.deleteProductQna", pqno);
 	}
+
 }
 

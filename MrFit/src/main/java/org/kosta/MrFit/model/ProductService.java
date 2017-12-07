@@ -70,5 +70,7 @@ public interface ProductService {
 	int getTotalProductQnaCountAdmin();
 
 	List<ProductQnaVO> findProductQna(PagingBean pb);
+
+	void deleteProductQna(String pqno);
 	
 }

@@ -36,21 +36,26 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>공지사항 등록</h3>
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
+				<hr>
+				
+				<div class="col-md-3" >
+				<br><br><br>
+					<img alt="" src="${pageContext.request.contextPath}/resources/images/notice_image.png">
+				</div>				
+				<div class="col-md-8 contact-left"  style="width: 50%;">				
 				<div class="contact-bottom"> 
 					<form action="${pageContext.request.contextPath}/registerNotice.do" method="post">
 					<sec:csrfInput/><%-- csrf 토큰 --%>
-					<div class="col-md-6 contact-left"> 
-						<input type="text" name="title" placeholder="제목" size="39" required>
+						<input type="text" name="title" placeholder="제목"  required><br>
 				
-						<textarea name="content" placeholder="공지사항 본문"></textarea>
-						<input type="submit" value="공지사항 등록">
-					</div>
+						<textarea name="content" placeholder="공지사항 본문" ></textarea>
+						<br><input type="submit" style="float:right;"  value="공지사항 등록" >
+					
 					</form>	
 					<div class="clearfix"> </div>
 				</div>
-				<div class="col-md-2"></div>
+				<!-- <div class="col-md-2"></div> -->
+				</div>
 			</div>
 		</div>
 	</div>

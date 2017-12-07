@@ -120,5 +120,4 @@ public class BoardDAOImpl  implements BoardDAO{
 		template.delete("board.deleteQna",iqno);
 	}
 
-		
 }

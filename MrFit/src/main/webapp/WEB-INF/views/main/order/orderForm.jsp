@@ -5,13 +5,14 @@
 
 <script type="text/javascript">
 function kakaoPay(){
+	alert('결제할 금액 : '+$("#totalpricehidden").val());
 	alert("이름 : "+$("#name").val()+" 번호 : "+$("#phone").val()+" 배송지 : "+ $("#destination").val()+" 이메일 : "+$("#memberEmail").text());
 	IMP.request_pay({
 	    pg : 'kakao',
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : 1000,
+	    amount : $("#totalpricehidden").val(),
 	    buyer_email : $("#memberEmail").text(),
 	    buyer_name : $("#name").val(),
 	    buyer_tel : $("#phone").val(),
@@ -34,9 +35,11 @@ function kakaoPay(){
 		    		//기타 필요한 데이터가 있으면 추가 전달
 	    		}
 	    	}).done(function(data) {
-	    		alert('결제 완료');
 	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	    		if ( everythings_fine ) {
+	    		alert("uid:"+rsp.imp_uid+" / merchantuid:"+rsp.merchant_uid+" / paid_amount:"+rsp.paid_amount+" / status:"+rsp.status);
+	    		
+	    		if ( rsp.status == 'paid' && rsp.paid_amount == $("#totalpricehidden").val() ) {
+	    			alert('결제완료 : 결제 금액 == 주문 금액');
 	    			var msg = '결제가 완료되었습니다.';
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
@@ -49,6 +52,7 @@ function kakaoPay(){
 	    		} else {
 	    			//[3] 아직 제대로 결제가 되지 않았습니다.
 	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    			alert('결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.');
 	    		}
 	    		
 	    	});
@@ -101,12 +105,14 @@ function kakaoPay(){
 				alert("포인트는 1000단위로 사용가능 합니다");
 				$(this).val(0).focus();
 				$("#totalprice").text("총 상품금액 : "+totalprice);
+				$("#totalpricehidden").val(totalprice);
 				return false;
 			}
 			if(parseInt($("#membersPoint").val())<pointCharge){
 				alert("가지고 계신 포인트보다 많이 기입하셨습니다"+"사용할 포인트"+pointCharge+"소유 포인트"+$("#membersPoint").val());
 				$(this).val(0).focus();
 				$("#totalprice").text("총 상품금액 : "+totalprice);
+				$("#totalpricehidden").val(totalprice);
 				return false;
 			}
 			if(pointCharge<0){
@@ -116,6 +122,8 @@ function kakaoPay(){
 				return false;
 			}
 			$("#totalprice").text("총 상품금액 : "+(totalprice-pointCharge));
+			$("#totalpricehidden").val(totalprice-pointCharge);
+			
 		});
 		$("#equalMemberInfo").click(function() {
 			if($("#name").val()=="" && $("#phone").val()=="" && $("#destination").val()==""){
@@ -159,7 +167,7 @@ function kakaoPay(){
           		<h3 class="main-title">주문할 상품</h3>
           		</div>
           		
-<%-- 주문할 상품 목록 테이블 --%>
+				<%-- 주문할 상품 목록 테이블 --%>
 				<table class="table-board">
 					<thead>
 						<tr>
@@ -185,7 +193,7 @@ function kakaoPay(){
 					</tbody>
 				</table>
 				<br><br><br>
-<%-- 주문 정보 테이블 --%>
+				<%-- 주문 정보 테이블 --%>
 				<table class="table-board">
 					<thead>
 						<tr>
@@ -196,6 +204,7 @@ function kakaoPay(){
 						<tr>
 							<td>
 								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
+								<input type="hidden" name="totalprice" id="totalpricehidden" value="${ovo.totalprice}">
 							</td>
 						</tr>
 						<tr>
@@ -267,7 +276,7 @@ function kakaoPay(){
 			    <br><br><br>
 				</div>
 			</div>  
-<%-- 결제 정보 --%>
+			<%-- 결제 정보 --%>
 			  <div class = "in-check" >
 			  	<table class="table-board">
 			  		<thead>

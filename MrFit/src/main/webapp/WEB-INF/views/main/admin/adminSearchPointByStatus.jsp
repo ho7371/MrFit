@@ -67,7 +67,7 @@
 							end="${pb.endPageOfPageGroup}" var="pageNum">
 							<c:choose>
 								<c:when test="${pageNum==pb.nowPage}">
-									<li>${pageNum}&nbsp;&nbsp;</li>
+									<li><a>${pageNum}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li><a href="adminSearchPointByStatus.do?&nowPage=${pageNum}&status=${lvo.list[0].status}">${pageNum}</a>&nbsp;&nbsp;</li>

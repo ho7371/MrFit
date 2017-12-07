@@ -4,6 +4,40 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	 $("#messageBtn").click(function() {
+	   	 if(confirm("댓글을 작성하시겠습니까?")){
+		 	location.href="inquiryReply.do?message="+$("#message").val()+"&iqno="+$("#hiddenIqno").val();
+	   	 }else{
+	   	 	return false;
+	   	 }
+     }); // click
+     
+     $(".my_popup_close").click(function() {
+       	if($("#message").val() != ""){
+       		$("#message").val("");
+       	}
+     });
+}); //ready
+function selectSendReply(iqno){
+	 $('#my_popup').popup({
+    	  opacity: 0.3,
+    	  transition: 'all 0.3s'
+      });
+	 $('#my_popup #hiddenIqno').val(iqno);
+	 alert("전송될 고객문의 번호 : "+iqno);
+}
+function showReplyForm(){
+	if ( $("#updateReplyTable").css('display') == 'none'){
+		$("#updateReplyTable").css('display','block');
+		$("#updateReplyFormBtn").html('댓글취소');
+	}else{
+		$("#updateReplyTable").css('display','none');
+		$("#updateReplyFormBtn").html('댓글수정');
+	}
+}
+</script>
 <div class="ckeckout">
 	<div class="container">
 		<div class="ckeckout-top">
@@ -51,9 +85,30 @@
 							</tbody>
 						</table>
 						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
+						
+						<table class="table-board" style="display: none;" id="updateReplyTable">
+							<thead>
+								<tr><th colspan="2">수정할 내용</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<form action="updateInquiryReply.do" method="post" id="updateReplyForm">
+											<sec:csrfInput/>
+											<input type="hidden" name="iqno" value="${ivo.iqno}">
+											<input type="hidden" name="iqrno" value="${ivo.inquiryReplyVO.iqrno}">
+											<textarea rows="5" cols="60" name="content">${ivo.inquiryReplyVO.content}</textarea>
+										</form>
+									</td>
+									<td>
+										<button type="submit" form="updateReplyForm">수정완료</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 						<c:if test="${isAdmin}">
-							<div style="float: right;">
-								<a href=""><button>댓글수정</button></a>
+							<div>
+								<button onclick="showReplyForm()" id="updateReplyFormBtn" style="margin:0.5em;">댓글수정</button>
 							</div>
 						</c:if>
 					</c:when>
@@ -64,48 +119,17 @@
 						</c:if>
 					</c:otherwise>
 				</c:choose>
-					
-					
-					<%-- 쪽지 창  --%>
-					<div id="my_popup" style="display: none;">
-						<h4 align="center">댓글</h4>
-						<textarea rows="20" cols="70" id = "message" name = "message"></textarea><br>
-						<div align="center">
-						<input type="hidden" id="hiddenIqno" value="">
-						<input type ="button" id = "messageBtn" value = "전송">
-					    <button class="my_popup_close" type ="button">Close</button>
-						</div>
-					</div>
-					
-					
-					<script type="text/javascript">
-						function selectSendReply(iqno){
-							 $('#my_popup').popup({
-						    	  opacity: 0.3,
-						    	  transition: 'all 0.3s'
-						      });
-							 $('#my_popup #hiddenIqno').val(iqno);
-							 alert("전송될 고객문의 번호 : "+iqno);
-						}
-						
-						$(document).ready(function(){
-							 $("#messageBtn").click(function() {
-						    	  if(confirm("메세지를 보내시겠습니까?")){
-							    	  location.href="inquiryReply.do?message="+$("#message").val()+"&iqno="+$("#hiddenIqno").val();
-						    	  }else{
-						    		  return false;
-						    	  }
-						      	
-						      }); // click
-						      
-						      $(".my_popup_close").click(function() {
-						        	if($("#message").val() != ""){
-						        		$("#message").val("");
-						        	}
-						        })
-						}); //ready
-					</script>
 				</div>
 			</div>
 		</div>
 	</div>
+<%-- 쪽지 창  --%>
+<div id="my_popup" style="display: none;">
+	<h4 align="center">댓글</h4>
+	<textarea rows="20" cols="70" id = "message" name = "message"></textarea><br>
+	<div align="center">
+	<input type="hidden" id="hiddenIqno" value="">
+	<button type ="button" id = "messageBtn">전송</button>
+    <button class="my_popup_close" type ="button">Close</button>
+	</div>
+</div>

@@ -231,7 +231,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- [석환][11.25]주문 결제시 총금액 -포인트 -->
 	<update id="updateOrderTotalpriceAndPoint" parameterType="orderVO">
-		update orders set totalprice=totalprice-#{totalprice}
+		update orders set totalprice=#{totalprice}
 		where ono=#{ono}
 	</update>
 	

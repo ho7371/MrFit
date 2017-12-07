@@ -343,4 +343,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductQnaVO> findProductQna(PagingBean pb) {
 		return productDAO.findProductQna(pb);
 	}	
+	//[석환][12/06][상품문의글 삭제]
+	@Override
+	public void deleteProductQna(String pqno) {
+		productDAO.deleteProductQna(pqno);
+	}
 }
