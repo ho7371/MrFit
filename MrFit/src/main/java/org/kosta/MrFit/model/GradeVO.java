@@ -1,6 +1,9 @@
 package org.kosta.MrFit.model;
 
-public class GradeVO {
+import java.io.Serializable;
+
+public class GradeVO implements Serializable{
+	private static final long serialVersionUID = 2475552750763213178L;
 	private String grade;
 	private double percent;
 	public GradeVO() {

@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public class BoardDAOImpl  implements BoardDAO{
 	//[진호, 현민][11/28][고객문의]
 	@Override
 	public List<InquiryVO> inquiry(PagingBean pb) {
+		System.out.println("페이징빈 : "+pb);
 		return template.selectList("board.inquiry",pb);
 	}
 	
@@ -96,9 +98,13 @@ public class BoardDAOImpl  implements BoardDAO{
 	@Override
 	public void updateInquiry(InquiryVO ivo) {
 		template.update("board.updateInquiry",ivo);
-		
 	}
 
+	@Override
+	public void updateInquiryReply(HashMap<String, String> map) {
+		template.update("board.updateInquiryReply",map);
+	}
+	
 	@Override
 	public void deleteReview(String rno) {
 		template.delete("board.deleteReview",rno);

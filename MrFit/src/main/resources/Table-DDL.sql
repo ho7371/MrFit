@@ -123,7 +123,8 @@ CREATE TABLE product (
    price NUMBER NOT NULL,
    content CLOB NOT NULL, 
    category VARCHAR2(100) NOT NULL,
-   hit NUMBER DEFAULT 0 
+   hit NUMBER DEFAULT 0 ,
+   status VARCHAR2(100) DEFAULT '판매중' NOT NULL
 );
 
 
@@ -172,7 +173,7 @@ CREATE TABLE inquiry (
    regdate DATE NOT NULL, 
    security VARCHAR2(100) NOT NULL, 
    id VARCHAR2(100) NOT NULL,
-   constraint fk_id_in_inquiry foreign key(id) references member(id) cascade constraints
+   constraint fk_id_in_inquiry foreign key(id) references member(id)
 );
 
 
@@ -184,7 +185,7 @@ CREATE TABLE inquiry (
          regdate DATE NOT NULL, 
          security VARCHAR2(100) NOT NULL, 
          iqno NUMBER NOT NULL,
-         constraint fk_iqno_in_inquiry_reply foreign key(iqno) references inquiry(iqno) on delete cascade
+         constraint fk_iqno_in_inquiry_reply foreign key(iqno) references inquiry(iqno)
       );
 
 ------- 리뷰 -------
@@ -195,8 +196,8 @@ CREATE TABLE review (
    id VARCHAR2(100) NOT NULL,
    content CLOB NOT NULL,
    regdate DATE NOT NULL,
-   constraint fk_pdno_in_review foreign key(pdno) references product_detail(pdno) cascade constraints,
-   constraint fk_id_in_review foreign key(id) references member(id) cascade constraints
+   constraint fk_pdno_in_review foreign key(pdno) references product_detail(pdno),
+   constraint fk_id_in_review foreign key(id) references member(id)
 );
 CREATE INDEX review_unique ON review(pdno,id);
 
@@ -209,8 +210,8 @@ CREATE TABLE product_qna (
    content CLOB NOT NULL,
    regdate DATE NOT NULL,
    security VARCHAR2(100) NOT NULL, 
-   constraint fk_id_in_product_qna foreign key(id) references member(id) cascade constraints,
-   constraint fk_pno_in_product_qna foreign key(pno) references product(pno) cascade constraints
+   constraint fk_id_in_product_qna foreign key(id) references member(id),
+   constraint fk_pno_in_product_qna foreign key(pno) references product(pno) on delete cascade
 );
 
 

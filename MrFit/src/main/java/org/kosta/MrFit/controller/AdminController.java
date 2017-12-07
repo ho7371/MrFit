@@ -77,7 +77,7 @@ public class AdminController {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 			
 		ModelAndView mv = new ModelAndView();
-		List<ProductVO> productList=productService.ProductList(pb);		// 페이징빈을 던져서 받아온 상품목록
+		List<ProductVO> productList=adminService.adminProductList(pb);		// 페이징빈을 던져서 받아온 상품목록
 		ListVO<ProductVO> lvo = new ListVO<ProductVO>();
 		System.out.println("      AdminController/adminProductList()/진행 - productList : "+productList);
 		
@@ -114,8 +114,8 @@ public class AdminController {
 		
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = productService.productTotalCount(keyword);	// 보여줄 상품의 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");
 			if(pageNo != null) {											// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
@@ -269,15 +269,16 @@ public class AdminController {
 
 	
 	/**
-	 * [재현][11/27][상품삭제]
+	 * [재현][11/27][상품상태변경]
 	 * @param pno
 	 * @return
 	 */
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("admin/deleteProduct.do")
-	public String deleteProduct(String pno) {
-		adminService.deleteProduct(pno);
-		return "admin/deleteProductResult.tiles";
+	@RequestMapping("admin/changeStatusProduct.do")
+	public String changeStatusProduct(ProductVO vo) {
+		System.out.println(vo.getPno()+" "+vo.getStatus());
+		adminService.changeStatusProduct(vo);
+		return "admin/changeStatusProductResult.tiles";
 	}
 	
 	/**
@@ -440,8 +441,8 @@ public class AdminController {
 		
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminTotalOrderCount();			// 보여줄 주문 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("pageNo");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -672,8 +673,8 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalNoteCount();				// 보여줄 쪽지 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 상품 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -744,8 +745,8 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.totalPointListCount();			// 보여줄 포인트 이력 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -779,8 +780,8 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = 0;											// 보여줄 포인트 이력 총 개수 : 키워드에 따라 다르기에 초기값으로 설정
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -817,8 +818,8 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		/* 페이징 처리 공통 영역 */
 		int totalOrderCount = adminService.adminSearchPointCountByStatus(status);// 보여줄 포인트 이력 총 개수
-		int postCountPerPage = 4;											// 한 페이지에 보여줄 포인트 이력 개수
-		int postCountPerPageGroup = 2;										// 한 페이지 그룹에 들어갈 페이지 개수
+		int postCountPerPage = 10;											// 한 페이지에 보여줄 포인트 이력 개수
+		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
 		String pageNo = request.getParameter("nowPage");					// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 			if(pageNo != null) {
@@ -862,12 +863,11 @@ public class AdminController {
 	@RequestMapping("adminBoardList.do")
 	public ModelAndView adminBoardList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		// review
-		int totalCount = productService.getTotalProductReviewCountAdmin();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
+		// review
+		int totalCount = productService.getTotalProductReviewCountAdmin();
 		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 		if(pageNo != null) {
 			nowPage = Integer.parseInt(pageNo);
@@ -875,108 +875,72 @@ public class AdminController {
 		if(totalCount!=0) {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		List<ProductReviewVO> prvolist = productService.findProductReply(pb);
-		System.out.println("      ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
 		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
-		System.out.println("      ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
-		mv.addObject("prlvo", prlvo);
+		mv.addObject("prlvo", prlvo);		
 		}
-		mv.addObject("tab", "tab1");
-		// ProductReview paging처리 완료
-		mv.setViewName("admin/adminBoardList.tiles");
-		return mv;
-	}
-	/*[재현][12/06][게시물 관리 상품qna 리스트]
-	 * 
-	 */
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminBoardListPQna.do")
-	public ModelAndView adminBoardListPQna(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		// review
-		int totalCount=productService.getTotalProductQnaCountAdmin();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
 		
 		// ProductQnA 
-		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		nowPage = 1;
+		totalCount=productService.getTotalProductQnaCountAdmin();
+		pageNo = request.getParameter("pqnowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 		if(pageNo != null) {
 			nowPage = Integer.parseInt(pageNo);
 		}
 		if(totalCount!=0) {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("      ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
 		List<ProductQnaVO> list=productService.findProductQna(pb);
 		ListVO<ProductQnaVO> pqlist= new ListVO<ProductQnaVO>(list,pb);
 		mv.addObject("pqlist", pqlist);
-		System.out.println("      ProductController/findProductDetailByPno()/진행7 - lpqlist: "+pqlist);
 		}
 		
-		mv.addObject("tab", "tab2");
-		mv.setViewName("admin/adminBoardList.tiles");
-		return mv;
-	}
-	/*[재현][12/06][게시물 관리 고객qna 리스트]
-	 * 
-	 */
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminBoardListQna.do")
-	public ModelAndView adminBoardListQna(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		int totalCount = boardService.getTotalInquiryCount();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
-		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
-		
 		// inquiry
-         // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		nowPage = 1;
+		totalCount = boardService.getTotalInquiryCount();
+		pageNo = request.getParameter("inowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 	    if(pageNo != null) {
 	       nowPage = Integer.parseInt(pageNo);
 	    }
 	    if(totalCount!=0) {
 	    pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);	      
 		List<InquiryVO> ivoList = boardService.inquiry(pb);
-		ListVO<InquiryVO> inqlvo = new ListVO<InquiryVO>();
-		System.out.println("      HomeController/inquiry()/진행 list : "+ivoList);
-		if(ivoList!=null&&!ivoList.isEmpty()) {
-			inqlvo.setList(ivoList);
-			inqlvo.setPagingBean(pb);
-		}
+		ListVO<InquiryVO> inqlvo = new ListVO<InquiryVO>(ivoList,pb);
 	    mv.addObject("inqlvo",inqlvo);
 	    }
-	    mv.addObject("tab", "tab3");
+	    
+	    //tab
+	    String tab=request.getParameter("tab");
+	    if(tab!=null) {
+	    mv.addObject("tab", tab);
+	    }
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
-	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	/*[재현][12/06][게시물 관리 리뷰 삭제]
 	 * 
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("deleteReview.do")
 	public String deleteReview(String rno) {
 		boardService.deleteReview(rno);
-		return "admin/delete_result";
+		return "redirect:adminBoardList.do?tab=tab1";
 	}
-	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	/*[재현][12/06][게시물 관리 상품문의 삭제]
 	 * 
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("deletePQna.do")
 	public String deletePQna(String pqno) {
 		boardService.deletePQna(pqno);
-		return "admin/delete_result";
+		return "redirect:adminBoardList.do?tab=tab2";
 	}
-	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	/*[재현][12/06][게시물 관리 고객문의 삭제]
 	 * 
 	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("deleteQna.do")
 	public String deleteQna(String iqno) {
 		boardService.deleteQna(iqno);
-		return "admin/delete_result";
+		return "redirect:adminBoardList.do?tab=tab3";
 	}
 	
 }

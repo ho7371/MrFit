@@ -1,5 +1,6 @@
 package org.kosta.MrFit.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,8 @@ public interface BoardService {
 
 	void updateInquiry(InquiryVO ivo);
 
+	void updateInquiryReply(HashMap<String, String> map);
+	
 	void deleteReview(String rno);
 
 	void deletePQna(String pqno);
