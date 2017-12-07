@@ -40,7 +40,7 @@ public interface AdminService {
 
 	List<OrderProductVO> orderProductInfo(String ono);
 
-	void deleteProduct(String pno);
+	void changeStatusProduct(ProductVO vo);
 
 	int totalNoteCount();
 	
@@ -66,5 +66,5 @@ public interface AdminService {
 
 	List<ProductVO> adminProductList(PagingBean pb);
 
-	
+	void deletePendingDepositOrders();
 }

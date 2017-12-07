@@ -7,8 +7,8 @@
 	function updateConfirm(){
 		return confirm('해당 상품을 수정하시겠습니까?');
 	}
-	function deleteConfirm(){
-		return confirm('해당 상품을 삭제하시겠습니까?');
+	function changeStatusConfirm(){
+		return confirm('해당 상품 상태 변경 하시겠습니까?');
 	}
 </script>
 
@@ -49,7 +49,7 @@
 								<td>
 									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()"type="button" class="btn btn-default">수정</a>
 									&nbsp;
-									<a href="${pageContext.request.contextPath}/admin/deleteProduct.do?pno=${item.pno}" onclick="deleteConfirm()"type="button" class="btn btn-default">삭제</a>
+									<a href="${pageContext.request.contextPath}/admin/changeStatusProduct.do?status=${item.status}&pno=${item.pno}" onclick="changeStatusConfirm()" type="button" class="btn btn-default">상태변경</a>
 								</td>
 							</tr>	
 						</c:forEach>

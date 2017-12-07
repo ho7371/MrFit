@@ -255,7 +255,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	@Override
 	public List<ProductReviewVO> findProductReply(PagingBean pb) {
-		return template.selectList("product.findProductReply");
+		return template.selectList("product.findProductReply", pb);
 	}
 	@Override
 	public int getTotalProductQnaCountAdmin() {
@@ -263,7 +263,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	@Override
 	public List<ProductQnaVO> findProductQna(PagingBean pb) {
-		return template.selectList("product.findProductQna");
+		return template.selectList("product.findProductQna", pb);
 	}
 	//[석환][12/06][상품문의글 삭제]
 	@Override
@@ -283,5 +283,6 @@ public class ProductDAOImpl implements ProductDAO {
 	      }      
 	      return top2List;
 	}
+
 }
 

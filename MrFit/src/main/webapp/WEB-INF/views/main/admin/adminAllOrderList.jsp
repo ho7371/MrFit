@@ -28,9 +28,10 @@
 			<div class=" cart-items heading">
 				<h3 style="margin-bottom: 1em!important;">주문 관리</h3>
 				<%-- 주문 검색 --%>
-				<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
+				<%-- <a href="${pageContext.request.contextPath}/adminAllOrderList.do">
 					<button>전체 주문 보기</button>
-				</a>
+				</a> --%>
+				<a href="${pageContext.request.contextPath}/deletePendingDepositOrders.do"><button>7일이상 입금대기 삭제</button></a>
 				<div style="float: right;">
 					<form action="${pageContext.request.contextPath}/adminSearchOrder.do" id="searchTypeForm">
 						<select name="searchType" class="searchInput">

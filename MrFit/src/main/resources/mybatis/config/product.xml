@@ -257,17 +257,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="findProductReply" parameterType="pagingBean" resultType="productReviewVO">
-		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,
-		r.regdate
+		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,r.regdate 
 		from (select rno, pdno, id, content, regdate, 
-				row_number() over(order by rno desc) as rnum
-			 	from review) r,
-		(select pdno,pno,pcno,psno from product_detail) pd,
-		(select pcno,color_name from product_color) pc,
-		(select psno,size_name from product_size) ps
+				row_number() over(order by rno desc) as rnum 
+			 	from review) r, 
+		(select pdno,pno,pcno,psno from product_detail) pd, 
+		(select pcno,color_name from product_color) pc, 
+		(select psno,size_name from product_size) ps 
 		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) 
-		and rnum between
-		#{startRowNumber} and #{endRowNumber}
+		and rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	
 	<select id="getTotalProductQnaCountAdmin" resultType="int">

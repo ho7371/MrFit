@@ -124,11 +124,16 @@ public class AdminDAOImpl implements AdminDAO {
 		return template.selectList("order.findOrderProductInfoByPdnoAndOno", ono);
 	}
 
-	//[재현][상품 삭제]
+	//[재현][상품 상태변경]
 	@Override
-	public void deleteProduct(String pno) {
-		template.delete("admin.deleteProduct",pno);
-		
+	public void changeStatusProduct(ProductVO vo) {
+		if(vo.getStatus().equals("판매중")) {
+			vo.setStatus("판매중지");
+			template.update("admin.changeStatusProduct", vo);
+		}else{
+			vo.setStatus("판매중");
+			template.update("admin.changeStatusProduct", vo);
+		}
 	}
 	
 	//[현민][관리자 쪽지함 리스트 개수]
@@ -206,6 +211,12 @@ public class AdminDAOImpl implements AdminDAO {
 		         //System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
 		      }      
 		      return ProductList;
+		}
+		//[정현][7일이상 입금대기 삭제]
+		@Override
+		public void deletePendingDepositOrders() {
+			template.delete("admin.deletePendingDepositOrdersProduct");
+			template.delete("admin.deletePendingDepositOrders");			
 		}
 		
 }

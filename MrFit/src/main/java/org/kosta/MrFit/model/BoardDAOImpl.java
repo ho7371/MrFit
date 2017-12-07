@@ -104,5 +104,20 @@ public class BoardDAOImpl  implements BoardDAO{
 	public void updateInquiryReply(HashMap<String, String> map) {
 		template.update("board.updateInquiryReply",map);
 	}
-		
+	
+	@Override
+	public void deleteReview(String rno) {
+		template.delete("board.deleteReview",rno);
+	}
+
+	@Override
+	public void deletePQna(String pqno) {
+		template.delete("board.deletePQna",pqno);
+	}
+
+	@Override
+	public void deleteQna(String iqno) {
+		template.delete("board.deleteQna",iqno);
+	}
+
 }
