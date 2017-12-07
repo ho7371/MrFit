@@ -87,4 +87,8 @@ public interface OrderDAO {
 	int getTotalMyOrderCount(String id);
 
 	int getTotalMyOrderProductCount(String ono);
+
+	int findChangeTotalCount(String id);
+
+	void updateMemberGrade(MemberVO mvo);
 }

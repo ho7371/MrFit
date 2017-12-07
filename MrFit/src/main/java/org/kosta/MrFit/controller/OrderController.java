@@ -322,6 +322,14 @@ public class OrderController {
 		map.put("point", totalprice*percent/100);								// 사용 포인트 
 		map.put("id", mvo.getId());												// 회원 id를 
 		orderService.reportPoint(map);											// 포인트 이력 작성
+		
+		int changeTotalSpent=orderService.findChangeTotalCount(mvo.getId());    // 변경된 회원 totalspent값 가져오기
+		System.out.println(changeTotalSpent);
+		if(changeTotalSpent>=500000) {			
+			mvo.setTotalSpent(changeTotalSpent);
+			mvo.setId(id);
+			orderService.updateMemberGrade(mvo);
+		}
 		return "redirect:myOrderList.do?id="+id;
 	}
 	/**
