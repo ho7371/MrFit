@@ -189,7 +189,25 @@ function rvUpdate(rno){
 	 	}else{
 		  	return false;
 	  	}//confirm 종료
-}
+}// function rvUpdate() 종료
+
+	function loginForm(){
+		if(confirm("로그인을 하셔야합니다. 로그인 폼으로 가시겠습니까?")){
+			alert("로그인 폼으로 이동합니다");
+			location.href="${pageContext.request.contextPath}/loginForm.do";
+		}else{
+			return false;
+		}
+	}// cartLoginForm 종료
+	
+	/* function orderLoginForm(){
+		if(confirm("로그인을 하셔야합니다. 로그인 폼으로 가시겠습니까?")){
+			alert("로그인 폼으로 이동합니다");
+			location.href="${pageContext.request.contextPath}/loginForm.do";
+		}else{
+			return false;
+		}
+	} */
 
 </script>
 <script>
@@ -292,10 +310,10 @@ ${requestScope.pvo } --%>
 								<c:otherwise>
 									<!-- <input type="submit" value="장바구니담기" id= "insertCart" disabled="disabled"/> 
 									<input type="button" id="immediatelyPay" value="즉시주문" disabled="disabled"  style="background-color: orange; "/> -->
-									<button type="submit" class="btn btn-default" id= "insertCart" disabled="disabled">
+									<button type="button" onclick="loginForm()">
 										<span class="glyphicon glyphicon-shopping-cart"></span> 장바구니담기
 									</button>
-									<button type="submit" class="btn btn-default" id= "immediatelyPay" disabled="disabled">
+									<button type="button" onclick="loginForm()">
 										<span class="glyphicon glyphicon-usd"></span> 즉시주문
 									</button>
 								</c:otherwise>

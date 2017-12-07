@@ -73,7 +73,7 @@ insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,
 values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터3','031','성남','kosta',0,0,'0','21',1,'브론즈'); 
 
 -- admin status 2로 변경
-update MEMBER set status=2 where id='admin'
+update MEMBER set status=1 where id='admin'
 
 
 commit
