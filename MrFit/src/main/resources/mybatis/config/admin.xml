@@ -229,6 +229,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		between #{startRowNumber} and #{endRowNumber}
 		ORDER BY pno DESC
 	</select>
+	<!-- [정현 ][7일이상 입금대기 삭제] -->
+	 <delete id="deletePendingDepositOrdersProduct" >
+    	delete from order_product
+		where ono=(
+		    select ono from orders 
+		    where STATUS='입금대기'
+		    and  (to_char( sysdate, 'yyyymmdd')-to_char( ORDERTIME, 'yyyymmdd' ) )>=7
+		)
+    </delete>
+    
+     <delete id="deletePendingDepositOrders" >
+    	delete from orders 
+		where STATUS='입금대기'
+		and  (to_char( sysdate, 'yyyymmdd')-to_char( ORDERTIME, 'yyyymmdd' ) )>=7
+    </delete>
 </mapper>
 
 

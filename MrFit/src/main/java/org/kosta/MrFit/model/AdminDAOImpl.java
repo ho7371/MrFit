@@ -212,6 +212,12 @@ public class AdminDAOImpl implements AdminDAO {
 		      }      
 		      return ProductList;
 		}
+		//[정현][7일이상 입금대기 삭제]
+		@Override
+		public void deletePendingDepositOrders() {
+			template.delete("admin.deletePendingDepositOrdersProduct");
+			template.delete("admin.deletePendingDepositOrders");			
+		}
 		
 }
 

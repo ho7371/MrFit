@@ -64,4 +64,6 @@ public interface AdminDAO {
 	void restoreMemberStatus(String id);
 
 	List<ProductVO> adminProductList(PagingBean pb);
+	
+	void deletePendingDepositOrders();
 }
