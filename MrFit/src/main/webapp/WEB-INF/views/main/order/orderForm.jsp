@@ -36,13 +36,9 @@ function kakaoPay(){
 	    	}).done(function(data) {
 	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 	    		alert("uid:"+rsp.imp_uid+" / merchantuid:"+rsp.merchant_uid+" / paid_amount:"+rsp.paid_amount+" / status:"+rsp.status);
-	    		// uid:imp_250576215741 
-	    		// merchantuid:merchant_1512607576446 
-	    		// paid_amount:1000 
-	    		// status:paid
 	    		
-	    		if ( rsp.status == 'paid' && rsp.paid_amount == $("#totalpricehidden").val(totalprice) ) {
-	    			alert('결제 완료');
+	    		if ( rsp.status == 'paid' && rsp.paid_amount == $("#totalpricehidden").val() ) {
+	    			alert('결제완료 : 결제 금액 == 주문 금액');
 	    			var msg = '결제가 완료되었습니다.';
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
@@ -55,6 +51,7 @@ function kakaoPay(){
 	    		} else {
 	    			//[3] 아직 제대로 결제가 되지 않았습니다.
 	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    			alert('결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.');
 	    		}
 	    		
 	    	});
@@ -206,11 +203,7 @@ function kakaoPay(){
 						<tr>
 							<td>
 								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
-<<<<<<< HEAD
 								<input type="hidden" name="totalprice" id="totalpricehidden" value="${ovo.totalprice}">
-=======
-								<input type="hidden" name="totalprice" value="${ovo.totalprice}">
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 							</td>
 						</tr>
 						<tr>

@@ -11,18 +11,25 @@
 		});
 	});
 </script>
-<h3>포인트 이력</h3>
-<%-- 검색 --%>
-<div align="right">
-	<a href="${pageContext.request.contextPath}/adminPointList.do">전체 포인트 이력</a>&nbsp; | &nbsp;
-	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입">상품 구입 이력</a>&nbsp; | &nbsp;
-	<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급">관리자 지급 이력</a> &nbsp;
-	<form action="${pageContext.request.contextPath}/adminSearchPoint.do" id="searchTypeForm">
-		<input type="text" class="searchInput" name="id" placeholder="아이디">
-		<input type="submit" value="검색">
-	</form>
-</div>
+<div class="ckeckout">
+	<div class="container">
+		<div class="ckeckout-top">
+			<div class=" cart-items heading">
+				<h3 style="margin-bottom: 1em!important;">포인트 이력</h3>
+				<%-- 검색 --%>
+				<div style="float:left;">
+					<a href="${pageContext.request.contextPath}/adminPointList.do"><button>전체 포인트 이력</button></a>
+					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입"><button>상품 구입 이력</button></a>
+					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급"><button>관리자 지급 이력</button></a>
+				</div>
+				<div align="right">
+					<form action="${pageContext.request.contextPath}/adminSearchPoint.do" id="searchTypeForm">
+						<input type="text" class="searchInput" name="id" placeholder=" 아이디로 검색">
+						<input type="submit" value="검색">
+					</form>
+				</div>
 <%-- 포인트 이력 테이블 --%>
+
 <table class="table-board">
 		<thead>
 		<tr class="success">
@@ -45,7 +52,7 @@
 			</tbody>					
 		</c:forEach>
 	</table>
-	
+
 <%-- 페이징 처리 --%>
 <c:set value="${lvo.pagingBean}" var="pb" />
 <div class="container" align="center">
@@ -58,7 +65,7 @@
 			end="${pb.endPageOfPageGroup}" var="pageNum">
 			<c:choose>
 				<c:when test="${pageNum==pb.nowPage}">
-					<li>${pageNum}&nbsp;&nbsp;</li>
+					<li><a>${pageNum}</a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="adminSearchPoint.do?&nowPage=${pageNum}&id=${lvo.list[0].id}">${pageNum}</a>&nbsp;&nbsp;</li>
@@ -70,4 +77,8 @@
 				href="adminSearchPoint.do?nowPage=${pb.endPageOfPageGroup+1}&id=${lvo.list[0].id}">Next</a></li>
 		</c:if>
 	</ul>
+</div>
+			</div>
+		</div>
+	</div>
 </div>
