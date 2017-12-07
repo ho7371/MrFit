@@ -63,7 +63,7 @@ insert into question(qno,question) values (qno_seq.nextval,'좋아하는 음료�
 -- 회원용 테스트  id: test2 / pwd:1
 -- 회원용 테스트  id: test3 / pwd:1
 insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
-values('admin','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','관리자','031','판교','kosta',999999,0,'1','21',1,'골드'); 
+values('admin','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','관리자','031','판교','kosta',999999,0,'2','21',1,'골드'); 
 
 insert into MEMBER(id,password,name,phone,address,email,point,totalspent,status,answer,qno,grade) 
 values('test1','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','테스터1','031','지구','kosta',0,0,'1','21',1,'브론즈'); 
@@ -81,7 +81,7 @@ commit
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
-insert into auth(id, auth) values('test3','ROLE_MEMBER');
+
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록
@@ -208,68 +208,18 @@ tip.
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'화이트');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'브라운');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'베이지');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-
------------------------------------------하의------------------
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'레드');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'카키');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'스카이');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'네이비');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'화이트');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'차콜');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'베이지');
-
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'아이보리');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'진청');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'청');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'연청');
-
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'진청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'연청');
 
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'진청');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-
--------------------------------------아우터------------
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'그레이');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'카키');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'베이지');
-
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'블랙');
-insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'카키');
 
 ------------- 상품 치수 추가 
 ------------------------------상의  어깨 가슴 소매 암홀 상의 총기장
@@ -406,99 +356,99 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 
 -------6번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 14, 9,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 15, 9,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 12, 9,170);
 
 --------------하의
 -------1번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 10,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 11,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 16, 12,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 1, 10,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 1, 11,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 1, 12,150);
 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 10,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 11,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 17, 12,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7,2, 10,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7,2, 11,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7,2, 12,150);
 
 -------2번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 18, 13,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 19, 13,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 20, 13,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 21, 13,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 22, 13,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 23, 13,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 24, 13,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 25, 13,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 6, 13,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 7, 13,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 8, 13,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 9, 13,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 3, 13,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 10, 13,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 1, 13,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 8, 5, 13,180);
 -------3번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 26, 14,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 26, 15,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 26, 16,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 11, 14,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 11, 15,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 9, 11, 16,180);
 -------4번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 17,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 17,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 17,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 17,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 17,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 12, 17,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 13, 17,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 14, 17,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 1, 17,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 2, 17,180);
 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 18,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 18,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 18,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 18,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 18,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 12, 18,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 13, 18,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 1, 18,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 2, 18,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 14, 18,180);
 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 27, 19,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 28, 19,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 29, 19,180);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 30, 19,175);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 31, 19,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 12, 19,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 13, 19,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 1, 19,180);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 2, 19,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 10, 14, 19,180);
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 32, 20,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 33, 20,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 34, 20,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 32, 21,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 33, 21,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 34, 21,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 32, 22,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 33, 22,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 34, 22,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 12, 20,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 13, 20,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 14, 20,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 12, 21,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 13, 21,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 14, 21,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 12, 22,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 13, 22,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 11, 14, 22,170);
 -------6번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 35, 23,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 36, 23,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 35, 24,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 36, 24,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 35, 25,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 36, 25,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 1, 23,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 12, 23,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 1, 24,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 12, 24,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 1, 25,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 12, 25,170);
 
 -------7번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 37, 26,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 37, 27,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 37, 28,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 26,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 27,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 28,150);
 
 
 
 
 --------------아우터
 -------1번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 38, 29,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 38, 30,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 39, 29,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 39, 30,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 1, 29,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 1, 30,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 2, 29,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 2, 30,150);
 
 -------2번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 15, 40, 31,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 15, 40, 32,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 15, 1, 31,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 15, 1, 32,170);
 
 -------3번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 16, 41, 33,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 16, 42, 33,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 16, 1, 33,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 16, 7, 33,170);
 
 -------4번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 43, 34,150);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 44, 34,175);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 1, 34,150);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 17, 5, 34,175);
 
 -------5번째 상품 
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 45, 36,170);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 35,152);
-insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 46, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 1, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 1, 36,170);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 7, 35,152);
+insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 18, 7, 36,170);
 
 
 
