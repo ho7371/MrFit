@@ -1,5 +1,7 @@
 package org.kosta.MrFit.aop;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Aspect // AOP 객체임을 명시함
 public class ReportAspect {
 
-	//private Log log = LogFactory.getLog(getClass());
+	private Log log = LogFactory.getLog(getClass());
 
 	@Around("execution(public * org.kosta.MrFit.model.*ServiceImpl.*(..)) || execution(public * org.kosta.MrFit.controller.*Controller.*(..)) || execution(public * org.kosta.MrFit.model.*DAOImpl.*(..))")
 	public Object keywordUpload(ProceedingJoinPoint point) throws Throwable {
@@ -22,21 +24,21 @@ public class ReportAspect {
 		try {
 
 			if(className.contains("ServiceImpl")) {
-				System.out.println("            "+className+"/"+methodName+"/입력값:"+printArgs(args));
+				log.debug("            "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}else if(className.contains("DAOImpl")) {
-				System.out.println("                  "+className+"/"+methodName+"/입력값:"+printArgs(args));
+				log.debug("                  "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}else {
-				System.out.println("      "+className+"/"+methodName+"/입력값:"+printArgs(args));
+				log.debug("      "+className+"/"+methodName+"/입력값:"+printArgs(args));
 			}
 			retValue=point.proceed();
 		} finally {
 			if (retValue!=null) {			
 				if(className.contains("ServiceImpl")) {
-					System.out.println("            "+className+"/"+methodName+"/리턴값:"+retValue);
+					log.debug("            "+className+"/"+methodName+"/리턴값:"+retValue);
 				}else if(className.contains("DAOImpl")) {
-					System.out.println("                  "+className+"/"+methodName+"/리턴값: "+retValue);
+					log.debug("                  "+className+"/"+methodName+"/리턴값: "+retValue);
 				}else {
-					System.out.println("      "+className+"/"+methodName+"/리턴값: "+retValue);
+					log.debug("      "+className+"/"+methodName+"/리턴값: "+retValue);
 				}
 			}
 		}
