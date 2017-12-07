@@ -269,7 +269,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where r.pno=p.pno 
 		and rnum between #{startRowNumber} and #{endRowNumber}
 	</select> 
-
+	<!--[석환][상품문의 글 삭제] -->
+	<delete id="deleteProductQna" parameterType="string">
+		delete from product_qna where pqno=#{value}
+	</delete>
 </mapper>
 
 

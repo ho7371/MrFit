@@ -69,5 +69,7 @@ public interface ProductDAO {
 
 	int getTotalProductQnaCountAdmin();
 
-	List<ProductQnaVO> findProductQna(PagingBean pb); 
+	List<ProductQnaVO> findProductQna(PagingBean pb);
+
+	void deleteProductQna(String pqno); 
 }

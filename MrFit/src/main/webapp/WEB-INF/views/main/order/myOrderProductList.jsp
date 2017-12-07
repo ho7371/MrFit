@@ -28,10 +28,10 @@
 					<table class="table-board">
   						<thead class="row">
   							<tr>
-			    				<th class="col-sm-2">주문 상품</th>
+			    				<th class="col-sm-1">주문 상품</th>
 			    				<th class="col-sm-1">주문번호</th>
 			     				<th class="col-sm-2">상품명</th>
-			     				<th class="col-sm-1">가격</th>
+			     				<th class="col-sm-2">가격</th>
 			     				<th class="col-sm-1">카테고리</th>
 			     				<th class="col-sm-1">색상</th>
 			     				<th class="col-sm-1">사이즈</th>
@@ -42,7 +42,7 @@
 						<c:forEach items="${list}" var="orderProduct">
   							<tbody>
 								<tr>
-									<td><img alt="상품 대표사진" src=""></td>
+									<td><img alt="상품 대표사진" height=120px; width=75px; src="${pageContext.request.contextPath}/resources/upload/${orderProduct.url}"></td>
 									<td>${orderProduct.ono}</td>
 									<td>${orderProduct.name}</td>
 									<td>${orderProduct.price}</td>

@@ -206,7 +206,11 @@ function kakaoPay(){
 						<tr>
 							<td>
 								<div id = "totalprice" style="font-size: 8;">총 상품 금액 : ${ovo.totalprice}</div>
+<<<<<<< HEAD
 								<input type="hidden" name="totalprice" id="totalpricehidden" value="${ovo.totalprice}">
+=======
+								<input type="hidden" name="totalprice" value="${ovo.totalprice}">
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 							</td>
 						</tr>
 						<tr>
