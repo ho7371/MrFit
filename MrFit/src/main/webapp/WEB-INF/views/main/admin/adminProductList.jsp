@@ -34,6 +34,7 @@
 							<th>상품명</th>
 							<th>내용</th>
 							<th>분류</th>
+							<th>상태</th>
 							<th>변경</th>
 						</tr>
 					</thead>
@@ -44,6 +45,7 @@
 								<td>${item.name}</td>
 								<td>${item.content}</td>
 								<td>${item.category}</td>
+								<td>${item.status}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/admin/updateProductForm.do?pno=${item.pno}" onclick="updateConfirm()"type="button" class="btn btn-default">수정</a>
 									&nbsp;

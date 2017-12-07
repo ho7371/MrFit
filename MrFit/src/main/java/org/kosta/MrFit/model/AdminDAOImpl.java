@@ -194,7 +194,19 @@ public class AdminDAOImpl implements AdminDAO {
 			template.insert("admin.restoreMemberAuthority",id);
 			template.insert("admin.restoreMemberStatus",id);
 		}
-	
+		
+		@Override
+		public List<ProductVO> adminProductList(PagingBean pb) {
+			List<ProductVO> ProductList=template.selectList("admin.adminProductList", pb);
+		      for(int i=0;i<ProductList.size();i++) {         
+		         List<ImageVO> ivo=template.selectList("product.findProductImageList",ProductList.get(i).getPno());
+		         if(ivo!=null&&!ivo.isEmpty()&&!ivo.equals("")) {
+		            ProductList.get(i).setImageList(ivo);
+		         }
+		         //System.out.println("                  ProductDAOImpl/ProductList()/진행"+ProductList.get(i));
+		      }      
+		      return ProductList;
+		}
 		
 }
 

@@ -113,10 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where iqno=#{iqno}
     </update>
     
-    <!-- [정현][고객문의 수량] -->
+   <!-- [정현][고객문의 수량]  -->  
     <select id="getTotalInquiryCount" resultType="int">
-   	 select count(*) from inquiry where security='public'
-    </select> 	
+   	 select count(*) from inquiry
+    </select>	
  	
  	
 </mapper>

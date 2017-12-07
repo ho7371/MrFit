@@ -160,6 +160,11 @@ public class AdminServiceImpl implements AdminService {
 	public void restoreMemberStatus(String id) {
 		adminDAO.restoreMemberStatus(id);
 	}
+
+	@Override
+	public List<ProductVO> adminProductList(PagingBean pb) {		
+		return adminDAO.adminProductList(pb);
+	}
 	
 }
 

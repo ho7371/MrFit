@@ -5,13 +5,14 @@
 
 <script type="text/javascript">
 function kakaoPay(){
+	alert('결제할 금액 : '+$("#totalpricehidden").val());
 	alert("이름 : "+$("#name").val()+" 번호 : "+$("#phone").val()+" 배송지 : "+ $("#destination").val()+" 이메일 : "+$("#memberEmail").text());
 	IMP.request_pay({
 	    pg : 'kakao',
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : 1000,
+	    amount : $("#totalpricehidden").val(),
 	    buyer_email : $("#memberEmail").text(),
 	    buyer_name : $("#name").val(),
 	    buyer_tel : $("#phone").val(),

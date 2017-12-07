@@ -126,7 +126,7 @@
 								end="${pb.endPageOfPageGroup}" var="pageNum">
 								<c:choose>
 									<c:when test="${pageNum==pb.nowPage}">
-										<li>${pageNum}&nbsp;&nbsp;</li>
+										<li><a>${pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="adminSearchOrderList.do?&pageNo=${pageNum}">${pageNum}</a>&nbsp;&nbsp;</li>
