@@ -53,9 +53,9 @@
 					</div>
 					<div class="col-md-4 product-left single-left">
 						<div class="p-one simpleCart_shelfItem">
-							<a href="${pageContext.request.contextPath}/adminMypage.do">
+							<a href="${pageContext.request.contextPath}/updateAdminPasswordForm.do">
 								<img src="${pageContext.request.contextPath}/resources/images/MrFit_Logo.png" alt=""/>
-								<p>관리자 정보</p>
+								<p>관리자 비밀번호 수정</p>
 							</a>
 						</div>
 					</div>

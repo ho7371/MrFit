@@ -241,4 +241,19 @@ public class OrderServiceImpl implements OrderService {
 	public int getTotalMyOrderProductCount(String ono) {
 		return orderDAO.getTotalMyOrderProductCount(ono);
 	}
+	//[석환][12/07] 구매 확정시 등급 변경
+	@Override
+	public int findChangeTotalCount(String id) {
+		return orderDAO.findChangeTotalCount(id);
+	}
+	//[석환][12/07] 등급변경
+	@Override
+	public void updateMemberGrade(MemberVO mvo) {
+		if(mvo.getTotalSpent()>=1000000) {
+			mvo.setGradeVO(new GradeVO("골드",0));
+		}else if(mvo.getTotalSpent()>=500000) {
+			mvo.setGradeVO(new GradeVO("실버",0));
+		} 
+		orderDAO.updateMemberGrade(mvo);
+	}
 }
