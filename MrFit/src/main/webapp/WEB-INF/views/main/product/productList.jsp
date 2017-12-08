@@ -47,7 +47,7 @@
 </script>
 <!--End-slider-script-->
 <!--start-banner-bottom-->
-<div class="banner-bottom">
+<%-- <div class="banner-bottom">
 	<div class="container">
 		<div class="banner-bottom-top">
 			<div class="col-md-6 banner-bottom-left">
@@ -87,12 +87,14 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-</div>
+</div> --%>
 <!--end-banner-bottom-->
 <!--start-shoes-->
 <div class="shoes">
 	<div class="container">
 		<div class="product-one">
+		
+		<h1 style="margin-bottom:1em;"><%=request.getParameter("category") %></h1>
 		
 		<c:set value="${lvo.pagingBean}" var="pb" />
 		<c:set value="${lvo.list}" var="productList" />

@@ -71,7 +71,7 @@ $(document).ready(function() {
 						</div>
 						<div class="bnr-right">
 							<a href="single.html">
-								<img src="${pageContext.request.contextPath}/resources/upload/${topItem.imageList[0].url}" alt="" style="width: 100%; height: 100%;"/>
+								<img src="${pageContext.request.contextPath}/resources/upload/${topItem.imageList[0].url}" alt="" style="width: 250px; height: 190px;"/>
 							</a>
 						</div>
 						<div class="clearfix"></div>
