@@ -122,14 +122,14 @@ function delConfirm(){
 								<br>
 							</td>
 							<td>
-								<button class="updateBtn">수량변경</button>
+								<button class="updateBtn" style="color: white;">수량변경</button>
 							</td>
 						</tr>
 					</c:forEach> 
 				</tbody>
 			</table>	
 			<hr>	
-            <div align="right"><button class="add-cart cart-check" id = "orderForm" type="button">주문하기</button>
+            <div align="right"><button class="add-cart cart-check" id = "orderForm" type="button" style="color: white;">주문하기</button>
             <!-- <a class="add-cart cart-check" id = "orderForm">주문하기</a> --></div>
 			</div>
 		</div>  

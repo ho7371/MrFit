@@ -71,7 +71,7 @@
 								</form>
 							</c:when>
 							<c:when test="${isMember}">
-								<p>
+								<p style="font-style: inherit;">
 									<sec:authentication property="principal.name" />님 <br>
 									포인트 : <sec:authentication property="principal.point" />&nbsp;&nbsp;
 									<a href="${pageContext.request.contextPath}/memberNoteList.do" style="text-decoration: none;"><font color="#8c2830"><span class="glyphicon glyphicon-envelope"></span></font></a><br>

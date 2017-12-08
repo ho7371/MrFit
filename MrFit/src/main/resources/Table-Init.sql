@@ -86,10 +86,6 @@ insert into auth(id, auth) values('test2','ROLE_MEMBER');
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록
-
-
-
-
 insert into product(pno,name,price,content,category) 
 	values(pno_seq.nextval,'빅사이즈 꽈배기 터틀넥 니트',23000,'다양한 꽈배기 패턴디테일로 색다른 느낌을
 느껴보실 수 있는 제품!
@@ -225,8 +221,9 @@ insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'연청');
 
 
-------------- 상품 치수 추가 
-------------------------------상의  어깨 가슴 소매 암홀 상의 총기장
+------------- 상품 치수 추가 -------------------
+------------------------------상의  어깨 가슴 소매 암홀 상의 총기장-------------------
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'S',42,52,76,23,74);
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
@@ -556,8 +553,6 @@ insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval
 insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'test1',5000, sysdate);
 insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'test2',2000, sysdate);
 insert into point(point_no, id, updown, change_date) values(point_no_seq.nextval,'test2',-2000, sysdate);
-
-
 
 
 -----------------------------------------------------------------------

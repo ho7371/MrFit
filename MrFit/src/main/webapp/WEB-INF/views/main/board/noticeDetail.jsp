@@ -40,7 +40,7 @@
 				<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 					<c:if test="${isAdmin}">
 					<div style="float:right;">
-						<a href="${pageContext.request.contextPath}/updateNoticeForm.do?bno=${bvo.bno }"><button style="margin-bottom: 20px;">공지사항 수정</button></a>
+						<a href="${pageContext.request.contextPath}/updateNoticeForm.do?bno=${bvo.bno }"><button style="margin-bottom: 20px;color: white;">공지사항 수정</button></a>
 						</div>
 					</c:if>
 				<table class="table-board">
@@ -63,7 +63,7 @@
 				</table>
 				<br>
 								<c:if test="${isAdmin}">
-									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${bvo.bno}"><button style="margin-bottom: 20px;">${bvo.bno}번 공지 삭제</button></a>
+									<a href="${pageContext.request.contextPath}/deleteNotice.do?bno=${bvo.bno}"><button style="margin-bottom: 20px; color: white;">${bvo.bno}번 공지 삭제</button></a>
 								</c:if> 
 					
 			

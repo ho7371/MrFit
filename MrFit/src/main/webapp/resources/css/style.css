@@ -318,6 +318,7 @@ ul.callbacks_tabs.callbacks2_tabs {
 	float: left;
 }
 .bnr-right {
+	height:100%;
 	text-align:center;
 }
 .bnr-two{
@@ -608,8 +609,13 @@ ol.breadcrumb {
 	border: 1px solid rgba(24, 27, 42, 0.13);
 	padding: 40px 15px;
 	margin-bottom: 10px;
-	height: 480px;
-	
+	height: 480px;	
+}
+.p-two2 {
+	border: 1px solid rgba(24, 27, 42, 0.13);
+	padding: 40px 15px;
+
+	height: 360px;	
 }
 .product-left:hover .p-one{
 	border: 1px solid #8c2830;
@@ -656,6 +662,15 @@ ol.breadcrumb {
   margin-right:1px;
   width:100%;
   height: 60%;
+}
+.p-two2 img {
+  -webkit-transition-duration: 0.5s;
+  /* Webkit: Animation duration; */
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  margin-right:1px;
+  width:100%;
+  height: 100%;
 }
 .product-left:hover .p-one p a{
 	color: #8c2830;

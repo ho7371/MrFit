@@ -42,7 +42,7 @@
 				<div>
 					<div>
 						<a href="${pageContext.request.contextPath}/commonMemberList.do?status=0">
-							<button style="float:left;">탈퇴회원 보기</button>
+							<button style="float:left;color: white;">탈퇴회원 보기</button>
 						</a>
 					</div>
 					<div style="float: right;">
