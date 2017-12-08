@@ -25,8 +25,6 @@ $(document).ready(function() {
 			var odprice = $(this).parent().parent().find(".hiddenPrice").val();
 			var odpdno = $(this).parent().parent().find(".hiddenPdno").val();
 			var odinventory = $(this).parent().parent().find(".hiddenInventory").val();
-			alert(odquantity);
-			alert(odinventory);	
 			if(parseInt(odinventory)<parseInt(odquantity)){
 				alert("재고량 보다 더 많이 입력하셨습니다. 현재 재고량 보다 낮게 입력해주세요. 현재 재고량 : "+odinventory);
 				return false;
@@ -49,7 +47,6 @@ $(document).ready(function() {
 			var price = $(this).parent().parent().find(".hiddenPrice").val();
 			var pdno = $(this).parent().parent().find(".hiddenPdno").val();
 			var inventory = $(this).parent().parent().find(".hiddenInventory").val();
-			alert(inventory);
 			if(parseInt(inventory)<parseInt(quantity)){
 				alert("재고량 보다 더 많이 입력하셨습니다. 현재 재고량 보다 낮게 입력해주세요. 현재 재고량 : "+inventory);
 				$(this).parent().parent().find(".productCount").val(0);
@@ -64,7 +61,7 @@ $(document).ready(function() {
 	                    xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	                },
 					success:function(data){
-						alert(data.quantity);
+						alert("수량 "+data.quantity+"개로 변경완료");
 						// ajax 통신 성공시 동작
 					},	
 					timeout:1000,	
