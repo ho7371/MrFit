@@ -89,7 +89,7 @@
 				<td>${list.id}</td>
 				<td>${list.regdate }</td>
 				<td>
-				<a href="${pageContext.request.contextPath}/deleteReview.do?rno=${list.rno}" onclick="deleteConfirm()"type="button" class="btn btn-danger">삭제</a>
+				<a href="${pageContext.request.contextPath}/deleteReview.do?rno=${list.rno}" onclick="deleteConfirm()"type="button" class="btn btn-danger">삭제&nbsp;<span class="glyphicon glyphicon-trash"></span></a>
 				</td>
 				</tr>
 			</tbody>

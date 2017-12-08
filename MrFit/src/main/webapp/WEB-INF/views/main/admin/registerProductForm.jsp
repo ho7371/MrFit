@@ -87,9 +87,7 @@
 		      
 			  $("#"+addcol+"").on("click",function() {
 					  var eql=$(this).parent().parent().children().length;
-					 // alert($(this).parent().parent().html());
 					  $(this).parent().find("input[name='colleng']").val(eql-1);
-					 // alert($(this).parent().find("input[name='colleng']").val());
 					  if( eql < 12){
 						$(this).parent().before(
 							'<td style="padding:5px!important;"><input type="text" name="color" size="5" maxlength="10" oninput="maxLengthCheck(this)" required="required"></td>'

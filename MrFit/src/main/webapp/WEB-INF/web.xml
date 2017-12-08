@@ -24,6 +24,7 @@
 			<param-value>/WEB-INF/spring-web.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		 <!-- 파일업로드 최대사이즈 50MB로 셋팅(기본 2MB) -->
 		<multipart-config>
    		<max-file-size>52428800</max-file-size>   
  		</multipart-config>

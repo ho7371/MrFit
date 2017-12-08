@@ -75,32 +75,21 @@ values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','�
 -- admin status 2로 변경
 update MEMBER set status=1 where id='admin'
 
-<<<<<<< HEAD
-
 commit
 --------------- 권한---------------
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
-=======
 
-commit
---------------- 권한---------------
-insert into auth(id, auth) values('admin','ROLE_ADMIN');
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
-<<<<<<< HEAD
 
-
------------------------------------------- 상품등록--------------------------
-------------상의 등록
-
-=======
 
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록
 
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
+
+
+
 insert into product(pno,name,price,content,category) 
 	values(pno_seq.nextval,'빅사이즈 꽈배기 터틀넥 니트',23000,'다양한 꽈배기 패턴디테일로 색다른 느낌을
 느껴보실 수 있는 제품!
@@ -235,11 +224,7 @@ insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'진청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'연청');
 
-<<<<<<< HEAD
 
-=======
-
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 ------------- 상품 치수 추가 
 ------------------------------상의  어깨 가슴 소매 암홀 상의 총기장
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
@@ -267,7 +252,7 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'M',56,57,53,24,66);	
 	
--------------------------------하의 사이즈
+-------------------------------하의 사이즈-------------------------
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'S',40,30,28,18,96);
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
@@ -315,7 +300,7 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'L',44,34,32,18,96);
 	
---------------------------------------------아우터
+--------------------------------------------아우터------------------
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'M',58,65,58,30,106);
 	insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
@@ -341,9 +326,9 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	
 
 	
-------------- 상품 상세 정보 추가
---------------상의
--------1번째 상품 
+------------- 상품 상세 정보 추가-------------
+--------------상의----------------------
+-------1번째 상품 -----------------------
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 1,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 2,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 1, 1, 3,150);
@@ -376,11 +361,7 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 -------6번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 14, 9,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 12, 9,170);
-<<<<<<< HEAD
 
-=======
-
->>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 --------------하의
 -------1번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 1, 10,150);
@@ -440,16 +421,14 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 1, 25,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 12, 12, 25,170);
 
--------7번째 상품 
+-------7번째 상품 -----------
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 26,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 27,170);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 13, 1, 28,150);
 
 
-
-
---------------아우터
--------1번째 상품 
+--------------아우터--------------
+-------1번째 상품 ---------------
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 1, 29,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 1, 30,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 14, 2, 29,150);
