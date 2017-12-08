@@ -374,6 +374,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where ono=#{value}
 	</select>
 	
+	<!-- [석환][12/07] 상품 구매확정 후 회원 총결제액 찾기   -->
+	<select id="findChangeTotalCount" parameterType="string" resultType="int">
+		select totalspent from member where id=#{value}
+	</select>
+	
+	<resultMap type="memberVO" id="mvoRM">
+		<result column="grade" property="gradeVO.grade" />
+	</resultMap>
+	
+	
+	<!-- [석환][12/07] 상품 구매후 등급변경 -->
+	<update id="updateMemberGrade"  parameterType="memberVO">
+	  update member set grade=#{gradeVO.grade}
+	  where id=#{id}
+	</update>
 </mapper>
 
 

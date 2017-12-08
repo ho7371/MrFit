@@ -269,4 +269,14 @@ public class OrderDAOImpl implements OrderDAO {
 	public int getTotalMyOrderProductCount(String ono) {
 		return template.selectOne("order.getTotalMyOrderProductCount",ono);
 	}
+	//[석환][12/07] 구매 확정시 등급 변경시 금액 확인
+	@Override
+	public int findChangeTotalCount(String id) {
+		return template.selectOne("order.findChangeTotalCount", id);
+	}
+	//[석환][12/07] 등급변경
+	@Override
+	public void updateMemberGrade(MemberVO mvo) {
+		template.update("order.updateMemberGrade",mvo);
+	}
 }

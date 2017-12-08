@@ -33,6 +33,12 @@ public interface BoardService {
 	void updateInquiry(InquiryVO ivo);
 
 	void updateInquiryReply(HashMap<String, String> map);
+	
+	void deleteReview(String rno);
+
+	void deletePQna(String pqno);
+
+	void deleteQna(String iqno);
 
 	
 }

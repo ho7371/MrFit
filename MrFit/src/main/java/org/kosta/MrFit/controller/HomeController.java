@@ -79,13 +79,14 @@ public class HomeController {
 				}
 			pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		
+		List<ProductVO> top2List = productService.findTop2Product();
 		List<ProductVO> productList=productService.ProductList(pb);
 		System.out.println("      HomeController/home()/진행 - productList :"+productList);
 		if(productList!=null&&!productList.isEmpty()) {
 			lvo.setList(productList);
 			lvo.setPagingBean(pb);
 		}
-			
+		mv.addObject("top2List",top2List);
 		mv.addObject("lvo", lvo);		
 		mv.setViewName("home.tiles");
 		return mv;

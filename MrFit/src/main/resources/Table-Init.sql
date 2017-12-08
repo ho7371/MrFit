@@ -75,17 +75,32 @@ values('test3','$2a$10$UYkkG4AOyJ8aQbouh8t6ZuBIOtgUYPU1jmyMvF7IWyhW5kklIhmOG','�
 -- admin status 2로 변경
 update MEMBER set status=1 where id='admin'
 
+<<<<<<< HEAD
 
 commit
 --------------- 권한---------------
 insert into auth(id, auth) values('admin','ROLE_ADMIN');
+=======
+
+commit
+--------------- 권한---------------
+insert into auth(id, auth) values('admin','ROLE_ADMIN');
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 insert into auth(id, auth) values('test1','ROLE_MEMBER');
 insert into auth(id, auth) values('test2','ROLE_MEMBER');
+<<<<<<< HEAD
 
 
 ------------------------------------------ 상품등록--------------------------
 ------------상의 등록
 
+=======
+
+
+------------------------------------------ 상품등록--------------------------
+------------상의 등록
+
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 insert into product(pno,name,price,content,category) 
 	values(pno_seq.nextval,'빅사이즈 꽈배기 터틀넥 니트',23000,'다양한 꽈배기 패턴디테일로 색다른 느낌을
 느껴보실 수 있는 제품!
@@ -220,7 +235,11 @@ insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'진청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'청');
 insert into product_color(pcno, color_name)	values(pcno_seq.nextval,'연청');
 
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 ------------- 상품 치수 추가 
 ------------------------------상의  어깨 가슴 소매 암홀 상의 총기장
 insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
@@ -357,7 +376,11 @@ insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval
 -------6번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 14, 9,150);
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 6, 12, 9,170);
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/ho7371/MrFit.git
 --------------하의
 -------1번째 상품 
 insert into product_detail(pdno,pno,pcno,psno,inventory) values(pdno_seq.nextval, 7, 1, 10,150);
@@ -758,6 +781,26 @@ insert into order_product(ono,pdno,quantity) values(6,7,2);
 
 update inquiry_reply set content='etg' where iqrno=3;
 
---product 컬럼 추가
-ALTER TABLE PRODUCT 
-ADD STATUS VARCHAR2(100) DEFAULT '판매중' NOT NULL
+SELECT rnum, pno, name, price, category
+FROM(
+	select row_number() over(order by hit desc) as rnum, pno, name, price, category,status 
+	from product
+	where status='판매중'
+)
+WHERE rnum between 1 and 2;
+
+select * from product order by hit desc;
+
+
+
+
+SELECT p.rnum, p.pno, p.name, p.price, p.category, i.url
+	FROM(
+		select row_number() over(order by hit desc) as rnum, pno, name, price, category
+		from product
+		where status='판매중'
+	) p, image i
+where p.rnum between 1 and 2
+and i.pno = p.pno
+and i.url like '%' || 'thumb' || '%';
+

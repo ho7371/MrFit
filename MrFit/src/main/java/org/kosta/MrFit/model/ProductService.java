@@ -72,5 +72,8 @@ public interface ProductService {
 	List<ProductQnaVO> findProductQna(PagingBean pb);
 
 	void deleteProductQna(String pqno);
+
+	List<ProductVO> findTop2Product();
 	
+		
 }

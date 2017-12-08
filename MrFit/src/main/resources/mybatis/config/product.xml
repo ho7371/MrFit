@@ -8,6 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select pno, name, price, content, category from product
 	</sql>
 
+	<!-- [진호] 인기상품 2개 가져오기 -->
+   <select id="findTop2Product" resultType="productVO" >
+      SELECT p.rnum, p.pno, p.name, p.price, p.category, i.url
+         FROM(
+            select row_number() over(order by hit desc) as rnum, pno, name, price, category
+            from product
+            where status='판매중'
+         ) p, image i
+      where p.rnum between 1 and 2
+      and i.pno = p.pno
+      and i.url like '%' || 'thumb' || '%'
+   </select>
+
 	<!-- [현민][상품 검색] -->
 	<select id="findProductByName" parameterType="map" resultType="productVO">
 		select pno, name, price, content, category
@@ -244,17 +257,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="findProductReply" parameterType="pagingBean" resultType="productReviewVO">
-		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,
-		r.regdate
+		select r.rno, r.pdno, pd.pno, pc.color_name, ps.size_name, r.id, r.content,r.regdate 
 		from (select rno, pdno, id, content, regdate, 
-				row_number() over(order by rno desc) as rnum
-			 	from review) r,
-		(select pdno,pno,pcno,psno from product_detail) pd,
-		(select pcno,color_name from product_color) pc,
-		(select psno,size_name from product_size) ps
+				row_number() over(order by rno desc) as rnum 
+			 	from review) r, 
+		(select pdno,pno,pcno,psno from product_detail) pd, 
+		(select pcno,color_name from product_color) pc, 
+		(select psno,size_name from product_size) ps 
 		where (r.pdno=pd.pdno) and (pd.pcno=pc.pcno) and (ps.psno=pd.psno) 
-		and rnum between
-		#{startRowNumber} and #{endRowNumber}
+		and rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	
 	<select id="getTotalProductQnaCountAdmin" resultType="int">
@@ -274,13 +285,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from product_qna where pqno=#{value}
 	</delete>
 </mapper>
-
-
-
-
-
-
-
-
-
-

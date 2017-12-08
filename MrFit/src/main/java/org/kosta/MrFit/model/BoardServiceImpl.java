@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public  class BoardServiceImpl implements BoardService {
@@ -80,9 +81,28 @@ public  class BoardServiceImpl implements BoardService {
 	public void updateInquiry(InquiryVO ivo) {
 		boardDAO.updateInquiry(ivo);
 	}
+	
 	// [진호][고객문의에 달린 관리자 댓글 수정]
 	@Override
 	public void updateInquiryReply(HashMap<String, String> map) {
 		boardDAO.updateInquiryReply(map);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteReview(String rno) {
+		boardDAO.deleteReview(rno);
+		
+	}
+	@Override
+	@Transactional
+	public void deletePQna(String pqno) {
+		boardDAO.deletePQna(pqno);
+		
+	}
+	@Override
+	@Transactional
+	public void deleteQna(String iqno) {
+		boardDAO.deleteQna(iqno);
 	}
 }

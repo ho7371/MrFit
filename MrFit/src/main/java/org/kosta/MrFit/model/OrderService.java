@@ -76,4 +76,8 @@ public interface OrderService {
 
 	int getTotalMyOrderProductCount(String ono);
 
+	int findChangeTotalCount(String id);
+
+	void updateMemberGrade(MemberVO mvo);
+
 }

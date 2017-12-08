@@ -864,17 +864,18 @@ public class AdminController {
 		mv.setViewName("admin/restoreMemberStatus_ok.tiles");
 		return mv;
 	}
-	
+	/*[재현][12/06][게시물 관리 리뷰 리스트]
+	 * 
+	 */
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminBoardList.do")
 	public ModelAndView adminBoardList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		// review
-		int totalCount = productService.getTotalProductReviewCountAdmin();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
 		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
 		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
 		int nowPage = 1;
+		// review
+		int totalCount = productService.getTotalProductReviewCountAdmin();
 		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 		if(pageNo != null) {
 			nowPage = Integer.parseInt(pageNo);
@@ -882,78 +883,81 @@ public class AdminController {
 		if(totalCount!=0) {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
 		List<ProductReviewVO> prvolist = productService.findProductReply(pb);
-		System.out.println("      ProductController/findProductDetailByPno()/진행4 - 리뷰 prvolist : "+prvolist);
 		ListVO<ProductReviewVO> prlvo = new ListVO<ProductReviewVO>(prvolist,pb);
-		System.out.println("      ProductController/findProductDetailByPno()/진행5 - 리뷰 prlvo : "+prlvo);
-		mv.addObject("prlvo", prlvo);
+		mv.addObject("prlvo", prlvo);		
 		}
-		mv.addObject("tab", "tab1");
-		// ProductReview paging처리 완료
-		mv.setViewName("admin/adminBoardList.tiles");
-		return mv;
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminBoardListPQna.do")
-	public ModelAndView adminBoardListPQna(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		// review
-		int totalCount=productService.getTotalProductQnaCountAdmin();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
 		
 		// ProductQnA 
-		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		nowPage = 1;
+		totalCount=productService.getTotalProductQnaCountAdmin();
+		pageNo = request.getParameter("pqnowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 		if(pageNo != null) {
 			nowPage = Integer.parseInt(pageNo);
 		}
 		if(totalCount!=0) {
 		pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);
-		System.out.println("      ProductController/findProductDetailByPno()/진행6 - pqPageNo: "+pageNo+", totalCount:"+totalCount+", 엔드로우:"+pb.getEndRowNumber()+", 스타트로우:"+pb.getStartRowNumber());
 		List<ProductQnaVO> list=productService.findProductQna(pb);
 		ListVO<ProductQnaVO> pqlist= new ListVO<ProductQnaVO>(list,pb);
 		mv.addObject("pqlist", pqlist);
-		System.out.println("      ProductController/findProductDetailByPno()/진행7 - lpqlist: "+pqlist);
 		}
 		
-		mv.addObject("tab", "tab2");
-		mv.setViewName("admin/adminBoardList.tiles");
-		return mv;
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("adminBoardListQna.do")
-	public ModelAndView adminBoardListQna(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		int totalCount = boardService.getTotalInquiryCount();
-		System.out.println("      ProductController/findProductDetailByPno()/진행2 - 리뷰 totalCount : "+totalCount);
-		int postCountPerPage = 10;					 						// 한 페이지에 보여줄 상품 개수
-		int postCountPerPageGroup = 5;										// 한 페이지 그룹에 들어갈 페이지 개수
-		int nowPage = 1;
-		String pageNo = request.getParameter("nowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
-		
 		// inquiry
-         // 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
+		nowPage = 1;
+		totalCount = boardService.getTotalInquiryCount();
+		pageNo = request.getParameter("inowPage");						// 요청 페이지 넘버가 있는 경우, 그 페이지로 세팅함
 	    if(pageNo != null) {
 	       nowPage = Integer.parseInt(pageNo);
 	    }
 	    if(totalCount!=0) {
 	    pb = new PagingBean(totalCount,nowPage, postCountPerPage, postCountPerPageGroup);	      
 		List<InquiryVO> ivoList = boardService.inquiry(pb);
-		ListVO<InquiryVO> inqlvo = new ListVO<InquiryVO>();
-		System.out.println("      HomeController/inquiry()/진행 list : "+ivoList);
-		if(ivoList!=null&&!ivoList.isEmpty()) {
-			inqlvo.setList(ivoList);
-			inqlvo.setPagingBean(pb);
-		}
+		ListVO<InquiryVO> inqlvo = new ListVO<InquiryVO>(ivoList,pb);
 	    mv.addObject("inqlvo",inqlvo);
 	    }
-	    mv.addObject("tab", "tab3");
+	    
+	    //tab
+	    String tab=request.getParameter("tab");
+	    if(tab!=null) {
+	    mv.addObject("tab", tab);
+	    }
 		mv.setViewName("admin/adminBoardList.tiles");
 		return mv;
 	}
+	/*[재현][12/06][게시물 관리 리뷰 삭제]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deleteReview.do")
+	public String deleteReview(String rno) {
+		boardService.deleteReview(rno);
+		return "redirect:adminBoardList.do?tab=tab1";
+	}
+	/*[재현][12/06][게시물 관리 상품문의 삭제]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deletePQna.do")
+	public String deletePQna(String pqno) {
+		boardService.deletePQna(pqno);
+		return "redirect:adminBoardList.do?tab=tab2";
+	}
+	/*[재현][12/06][게시물 관리 고객문의 삭제]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deleteQna.do")
+	public String deleteQna(String iqno) {
+		boardService.deleteQna(iqno);
+		return "redirect:adminBoardList.do?tab=tab3";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("deletePendingDepositOrders.do")
+	public String deletePendingDepositOrders() {
+		adminService.deletePendingDepositOrders();
+		return "redirect:adminAllOrderList.do";
+	}
+	
 }
 
 
