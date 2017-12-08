@@ -59,9 +59,9 @@
 						<c:choose>
 						   <c:when test="${isAdmin}">
 							   	<p>
-							   		<sec:authentication property="principal.name" />님 <br>
+							   		<sec:authentication property="principal.name" />님 &nbsp;&nbsp;
+									<a href="${pageContext.request.contextPath}/adminNoteList.do"style="text-decoration: none;"><font color="#8c2830"><span class="glyphicon glyphicon-envelope"></span></font></a><br>
 									<a href="${pageContext.request.contextPath}/adminPage.do"style="text-decoration: none;"><font color="#8c2830">관리자페이지</font></a>&nbsp;&nbsp;
-									<a href="${pageContext.request.contextPath}/adminNoteList.do"style="text-decoration: none;"><font color="#8c2830">쪽지함</font></a>&nbsp;&nbsp;
 									<a href="#" id="logoutAction"style="text-decoration: none;"><font color="#8c2830">로그아웃</font></a>
 								</p>
 								
@@ -72,12 +72,13 @@
 							</c:when>
 							<c:when test="${isMember}">
 								<p style="font-style: inherit;">
-									<sec:authentication property="principal.name" />님 &nbsp; 포인트 : <sec:authentication property="principal.point" /><br>
+									<sec:authentication property="principal.name" />님 <br>
+									포인트 : <sec:authentication property="principal.point" />&nbsp;&nbsp;
+									<a href="${pageContext.request.contextPath}/memberNoteList.do" style="text-decoration: none;"><font color="#8c2830"><span class="glyphicon glyphicon-envelope"></span></font></a><br>
 										<a href="cartForm.do" style="text-decoration: none;">
 									<%--  <img src="${pageContext.request.contextPath}/resources/images/cart-1.png" alt="" />  --%>
 									<font color="#8c2830">MyCart</font></a>&nbsp;&nbsp;
 									<a href="${pageContext.request.contextPath}/myPage.do" style="text-decoration: none;"><font color="#8c2830"> MyPage</font></a>&nbsp;&nbsp;
-									<a href="${pageContext.request.contextPath}/memberNoteList.do" style="text-decoration: none;"><font color="#8c2830">쪽지함</font></a>&nbsp;&nbsp;
 									<a href="#" id="logoutAction" style="text-decoration: none;"><font color="#8c2830">로그아웃</font></a>
 								</p>
 								
