@@ -234,7 +234,8 @@ CREATE TABLE orders (
    ordertime DATE NOT NULL,
    status VARCHAR2(100) NOT NULL,
    destination VARCHAR2(100) NOT NULL,
-   constraint fk_id_in_orders foreign key(id) references member(id)
+   constraint fk_id_in_orders foreign key(id) references member(id) on delete cascade
+   
 );
 
 ------- 주문상품 -------
@@ -292,4 +293,10 @@ select * from PRODUCT_SIZE;
 select * from REVIEW;
 select * from PRODUCT_QNA;
 select * from BOARD;
+
+
+
+--product 컬럼 추가
+ALTER TABLE PRODUCT 
+ADD STATUS VARCHAR2(100) DEFAULT '판매중' NOT NULL
 
