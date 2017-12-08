@@ -18,9 +18,9 @@
 				<h3 style="margin-bottom: 1em!important;">포인트 이력</h3>
 				<%-- 검색 --%>
 				<div style="float:left;">
-					<a href="${pageContext.request.contextPath}/adminPointList.do"><button>전체 포인트 이력</button></a>
-					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입"><button>상품 구입 이력</button></a>
-					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급"><button>관리자 지급 이력</button></a>
+					<a href="${pageContext.request.contextPath}/adminPointList.do"><button style="color: white;">전체 포인트 이력</button></a>
+					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=상품구입"><button style="color: white;">상품 구입 이력</button></a>
+					<a href="${pageContext.request.contextPath}/adminSearchPointByStatus.do?status=관리자 지급"><button style="color: white;">관리자 지급 이력</button></a>
 				</div>
 				<div align="right">
 					<form action="${pageContext.request.contextPath}/adminSearchPoint.do" id="searchTypeForm">

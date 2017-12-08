@@ -101,21 +101,21 @@ function showReplyForm(){
 										</form>
 									</td>
 									<td>
-										<button type="submit" form="updateReplyForm">수정완료</button>
+										<button type="submit" form="updateReplyForm" style="color: white;">수정완료</button>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<c:if test="${isAdmin}">
 							<div>
-								<button onclick="showReplyForm()" id="updateReplyFormBtn" style="margin:0.5em;">댓글수정</button>
+								<button onclick="showReplyForm()" id="updateReplyFormBtn" style="margin:0.5em; color:white;">댓글수정</button>
 							</div>
 						</c:if>
 					</c:when>
 					<c:otherwise>
 						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 						<c:if test="${isAdmin}">
-							<button class="my_popup_open btn btn-default" onclick='selectSendReply("${ivo.iqno}")'>댓글달기</button>
+							<button class="my_popup_open btn btn-default" onclick='selectSendReply("${ivo.iqno}")' style="color: white;">댓글달기</button>
 						</c:if>
 					</c:otherwise>
 				</c:choose>

@@ -41,7 +41,7 @@
 				<c:if test="${isAdmin}">
 					<div style="float:right;">
 						<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
-							<button style="margin-bottom: 1em;">쪽지보내기</button>
+							<button style="margin-bottom: 1em;color: white;">쪽지보내기</button>
 						</a>
 					</div>
 				</c:if>
