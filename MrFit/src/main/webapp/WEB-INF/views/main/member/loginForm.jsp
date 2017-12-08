@@ -40,7 +40,7 @@
 						</div>
 						<div class="address">
 							<input type="submit" value="Login">							
-						<button style="margin-bottom: 1px;" onclick="location.href='findIdPasswordForm.do'">아이디|비밀번호 찾기</button>
+						<button style="margin-bottom: 1px; color: white;" onclick="location.href='findIdPasswordForm.do'">아이디|비밀번호 찾기</button>
 						</div>
 					</form>
 				</div>
