@@ -40,7 +40,7 @@
 				<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 				<c:if test="${isAdmin}">
 					<div style="float:right;">
-						<a href="${pageContext.request.contextPath}/registerNoticeForm.do"><button style="margin-bottom: 20px;">공지사항 등록</button></a>
+						<a href="${pageContext.request.contextPath}/registerNoticeForm.do"><button style="margin-bottom: 20px; color: white;">공지사항 등록</button></a>
 					</div>
 				</c:if>
 						

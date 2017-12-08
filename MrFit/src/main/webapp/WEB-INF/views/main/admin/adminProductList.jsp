@@ -57,7 +57,7 @@
 				</table>
 			</div>
 			<a href="${pageContext.request.contextPath}/admin/registerProductForm.do">
-				<button style="margin-top: 10px;">상품등록</button>
+				<button style="margin-top: 10px;color: white;">상품등록</button>
 			</a>
 		</div>
 	</div>

@@ -31,7 +31,7 @@
 				<%-- <a href="${pageContext.request.contextPath}/adminAllOrderList.do">
 					<button>전체 주문 보기</button>
 				</a> --%>
-				<a href="${pageContext.request.contextPath}/deletePendingDepositOrders.do"><button>7일이상 입금대기 삭제</button></a>
+				<a href="${pageContext.request.contextPath}/deletePendingDepositOrders.do"><button style="color: white;">7일이상 입금대기 삭제</button></a>
 				<div style="float: right;">
 					<form action="${pageContext.request.contextPath}/adminSearchOrder.do" id="searchTypeForm">
 						<select name="searchType" class="searchInput">
@@ -68,7 +68,7 @@
 											${order.status}
 										</c:when>
 										<c:otherwise>
-										 	<button onclick="changeStatus(${order.ono})">${order.status}</button>
+										 	<button onclick="changeStatus(${order.ono})" style="color: white;">${order.status}</button>
 										</c:otherwise>
 									</c:choose>
 									</td>
