@@ -68,8 +68,6 @@ function kakaoPay(){
 	$(document).ready(function() {
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp55065335'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		alert('IMP 결제 객체가 초기화됨');
-		
 		$("#order").click(function() {
 			if(!$("#agreeOrder").is(':checked')){
 				alert("구매 동의를 하시기 바랍니다.");
