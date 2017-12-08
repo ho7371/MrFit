@@ -16,6 +16,7 @@ import org.kosta.MrFit.model.BoardVO;
 import org.kosta.MrFit.model.ImageVO;
 import org.kosta.MrFit.model.InquiryVO;
 import org.kosta.MrFit.model.ListVO;
+import org.kosta.MrFit.model.MemberService;
 import org.kosta.MrFit.model.MemberVO;
 import org.kosta.MrFit.model.NoteVO;
 import org.kosta.MrFit.model.OrderProductVO;
@@ -45,6 +46,8 @@ public class AdminController {
 	private AdminService adminService;
 	@Resource
 	private ProductService productService;
+	@Resource 		
+	private MemberService memberService;
 	@Resource 
 	private BoardService boardService;
 	private PagingBean pb;
@@ -956,6 +959,29 @@ public class AdminController {
 	public String deletePendingDepositOrders() {
 		adminService.deletePendingDepositOrders();
 		return "redirect:adminAllOrderList.do";
+	}
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateAdminPasswordForm.do")
+	public String updateAdminPasswordForm() {
+		return "admin/adminPasswordUpdateForm.tiles";
+	}
+	/*[영훈][]12/08][관리자 비밀번호 수정]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value = "updateAdminPassword.do", method = RequestMethod.POST)
+	public String updateAdminPassword(MemberVO memberVO) {
+		memberService.updatePasswordById(memberVO);
+		return "redirect:updateAdminPassword_ok.do";
+	}
+	/*[영훈][]12/08][관리자 비밀번호 수정]
+	 * 
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateAdminPassword_ok.do")
+	public String updateAdminPassword_ok() {
+		// updatePasswordById
+		return "admin/updateAdminPassword_ok.tiles";
 	}
 	
 }
