@@ -10,7 +10,7 @@
 				<h3>포인트 지급</h3>
 				<hr>
 				<div style="float:right;">
-					<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1"><button>리스트로 돌아가기</button></a>
+					<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1"><button style="color: white;">리스트로 돌아가기</button></a>
 				</div>
 				<form action="${pageContext.request.contextPath}/adminGivePointToMember.do" method="post">
 				<table class="table-board" style="margin-top: 5em!important;">

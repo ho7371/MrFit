@@ -88,7 +88,7 @@
                      </tr>
                   </tbody>
                </table>
-               <div align="center"><input type="submit" id = "updateSize" value="수정완료"><button type = "button" id = "backPage">뒤로</button></div>
+               <div align="center"><input type="submit" id = "updateSize" value="수정완료"><button type = "button" id = "backPage" style="color: white;">뒤로</button></div>
             </form>
          </div>
          <div class="col-md-2 account-left"></div>

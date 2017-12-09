@@ -31,7 +31,7 @@ function selectSendReply(iqno){
 function showReplyForm(){
 	if ( $("#updateReplyTable").css('display') == 'none'){
 		$("#updateReplyTable").css('display','block');
-		$("#updateReplyFormBtn").html('댓글취소');
+		$("#updateReplyFormBtn").html('수정취소');
 	}else{
 		$("#updateReplyTable").css('display','none');
 		$("#updateReplyFormBtn").html('댓글수정');
@@ -115,7 +115,7 @@ function showReplyForm(){
 					<c:otherwise>
 						<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin" />
 						<c:if test="${isAdmin}">
-							<button class="my_popup_open btn btn-default" onclick='selectSendReply("${ivo.iqno}")' style="color: white;">댓글달기</button>
+							<button class="my_popup_open btn btn-default" onclick='selectSendReply("${ivo.iqno}")'>댓글달기</button>
 						</c:if>
 					</c:otherwise>
 				</c:choose>
@@ -129,7 +129,7 @@ function showReplyForm(){
 	<textarea rows="20" cols="70" id = "message" name = "message"></textarea><br>
 	<div align="center">
 	<input type="hidden" id="hiddenIqno" value="">
-	<button type ="button" id = "messageBtn">전송</button>
-    <button class="my_popup_close" type ="button">Close</button>
+	<button type ="button" id = "messageBtn" style="color: white;">전송</button>
+    <button class="my_popup_close" type ="button" style="color: white;">Close</button>
 	</div>
 </div>

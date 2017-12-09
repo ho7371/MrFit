@@ -53,44 +53,29 @@ $(document).ready(function() {
 </script>
 <!--End-slider-script-->
 <!--start-banner-bottom-->
-<div class="banner-bottom">
-	<div class="container">
-		<div class="banner-bottom-top">
-			<div class="col-md-6 banner-bottom-left">
-				<div class="bnr-one">
-					<div class="bnr-left">
-						<h1>
-							<a href="single.html">Duis dictum volutpat</a>
-						</h1>
-						<p>Nulla tempus facilisis purus at.</p>
-						<div class="b-btn">
-							<a href="single.html">SHOP NOW</a>
+<div class="banner-bottom"style="background-color: white; height: 300;" >
+	<div class="container" style="height: 400;">
+		<div class="banner-bottom-top"  >
+		<c:forEach items="${top2List}" var="topItem">
+				<div class="col-md-6 banner-bottom-left" >
+					<div class="p-two2 ">
+						<div class="bnr-left">
+							<h1>${topItem.name}</h1>
+							<p>미스터핏 최고의 인기 상품입니다.</p>
+							<div class="b-btn">
+								<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${topItem.pno}">SHOP NOW</a>
+							</div>
 						</div>
+						<div class="bnr-right" >
+							<a href="${pageContext.request.contextPath}/findProductDetailByPno.do?pno=${topItem.pno}">
+								<img src="${pageContext.request.contextPath}/resources/upload/${topItem.imageList[0].url}" alt="" style="min-width: 100%; min-height: 80%"/>
+							</a>
+						</div>						
 					</div>
-					<div class="bnr-right">
-						<a href="single.html"><img src="${pageContext.request.contextPath}/resources/images/b-1.jpg" alt="" /></a>
-					</div>
-					<div class="clearfix"></div>
 				</div>
-			</div>
-			<div class="col-md-6 banner-bottom-right">
-				<div class="bnr-two">
-					<div class="bnr-left">
-						<h2>
-							<a href="single.html">Phasellus quis nunc</a>
-						</h2>
-						<p>Nulla tempus facilisis purus at.</p>
-						<div class="b-btn">
-							<a href="single.html">SHOP NOW</a>
-						</div>
-					</div>
-					<div class="bnr-right">
-						<a href="single.html"><img src="${pageContext.request.contextPath}/resources/images/b-2.jpg" alt="" /></a>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			<div class="clearfix"></div>
+			</c:forEach>
+			
+			
 		</div>
 	</div>
 </div>

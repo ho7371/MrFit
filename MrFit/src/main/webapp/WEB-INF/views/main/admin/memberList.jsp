@@ -91,7 +91,7 @@
 									<form action="${pageContext.request.contextPath}/adminGivePointToMemberForm.do" method="post">
 										<sec:csrfInput/><%-- csrf 토큰 --%>   
 										<input type="hidden" name="id" value="${member.id}">
-										<button class="btn btn-default">지급</button>
+										<button class="btn btn-default" >지급</button>
 									</form>
 								</td>
 								<td>
@@ -122,8 +122,8 @@
 						<textarea rows="10" cols="30" id = "message" name = "message"></textarea><br>
 						<div align="center">
 						<input type="hidden" id="hiddenMemberId" value="">
-						<button id = "messageBtn">전송</button>
-					    <button class="my_popup_close" type ="button">Close</button>
+						<button id = "messageBtn" style="color:white;" >전송</button>
+					    <button class="my_popup_close"  style="color:white;">Close</button>
 						</div>
 					</div>
 					

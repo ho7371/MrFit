@@ -69,7 +69,7 @@
 						</table>
 					</div>
 						<input type="submit" value="수정하기">
-						<button type = "button" id = "backPage">뒤로</button>
+						<button type = "button" id = "backPage" style="color: white;">뒤로</button>
 					</form>
 				</div>
 			<div class="col-md-3 account-left"></div>

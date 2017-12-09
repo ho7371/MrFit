@@ -16,7 +16,7 @@
 				<h3>상품목록</h3>
 				<div style="margin-top:2em; margin-bottom: 2em;">
 					<a href="${pageContext.request.contextPath}/adminProductList.do">
-						<button type="button" style="float:left;">전체상품목록</button>
+						<button type="button" style="float:left; color: white;">전체상품목록</button>
 					</a>
 					<form action="${pageContext.request.contextPath}/admin/FindProductByName.do" style="float:right;">
 						<input type="text" class="searchInput" name="keyword" placeholder="상품검색">
