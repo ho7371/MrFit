@@ -31,7 +31,7 @@
 				<h3 style="margin-bottom: 1em!important;">주문 관리</h3>
 				<%-- 주문 검색 --%>
 				<a href="${pageContext.request.contextPath}/adminAllOrderList.do">
-					<button>전체 주문 보기</button>
+					<button style="color: white;">전체 주문 보기</button>
 				</a> 
 				<div style="float: right;">
 						<form action="${pageContext.request.contextPath}/adminSearchOrder.do" id="searchTypeForm">
@@ -80,7 +80,7 @@
 													${order.status}
 												</c:when>
 												<c:otherwise>
-												 	<button onclick="changeStatus(${order.ono})">${order.status}</button>
+												 	<button onclick="changeStatus(${order.ono})" style="color: white;">${order.status}</button>
 												</c:otherwise>
 											</c:choose>
 											</td>
@@ -104,7 +104,7 @@
 												${order.status}
 											</c:when>
 											<c:otherwise>
-											 	<button onclick="changeStatus(${order.ono})">${order.status}</button>
+											 	<button onclick="changeStatus(${order.ono})" style="color: white;">${order.status}</button>
 											</c:otherwise>
 										</c:choose>
 									</td>

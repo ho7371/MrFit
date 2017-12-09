@@ -9,7 +9,7 @@
 			<div class=" cart-items heading">
 				<div>
 					<a href="${pageContext.request.contextPath}/commonMemberList.do?status=1">
-					<button style="float:left;">리스트로 돌아가기</button></a><br><br>
+					<button style="float:left; color: white;">리스트로 돌아가기</button></a><br><br>
 				</div>
 			</div>
 		</div>

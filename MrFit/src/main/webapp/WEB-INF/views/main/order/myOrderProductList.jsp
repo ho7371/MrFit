@@ -24,7 +24,7 @@
 		<div class="ckeckout-top">
 			<div class=" cart-items heading">
 				<h3>주문 상세 내역</h3><br>
-				<a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>"><button>주문 리스트로 돌아가기</button></a>
+				<a href="${pageContext.request.contextPath}/myOrderList.do?id=<sec:authentication property="principal.id"/>"><button style="color:white;">주문 리스트로 돌아가기</button></a>
 					<table class="table-board">
   						<thead class="row">
   							<tr>
@@ -53,7 +53,7 @@
 									<td>
 										<c:choose>
 											<c:when test="${orderProduct.reviewCheck==0}">
-												<button id="reviewFormGoBtn" onclick='reviewFormGo("${orderProduct.pdno}")'>리뷰 작성하기</button>
+												<button id="reviewFormGoBtn" onclick='reviewFormGo("${orderProduct.pdno}")'style="color: white;">리뷰 작성하기</button>
 											</c:when>
 											<c:otherwise>
 												-
