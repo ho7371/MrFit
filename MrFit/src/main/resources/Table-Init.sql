@@ -321,7 +321,7 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'L',45,62,64,30,104);
 	
-
+commit
 	
 ------------- 상품 상세 정보 추가-------------
 --------------상의----------------------
@@ -613,10 +613,10 @@ insert into orders(ono,totalprice,ordertime,status,id, destination)
 values(ono_seq.nextval,12000,sysdate,'장바구니','spring', '기본주소');
 
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
-values(ono_seq.nextval,20000,sysdate,'입금대기','java', '용인 수지');
+values(ono_seq.nextval,20000,sysdate,'입금대기','test1', '용인 수지');
 
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
-values(ono_seq.nextval,16000,sysdate,'입금대기','spring', '용인 수지');
+values(ono_seq.nextval,16000,sysdate,'입금대기','test2', '용인 수지');
 
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
 values(ono_seq.nextval,30000,sysdate,'배송중','java', '용인 수지');
@@ -635,8 +635,8 @@ values(ono_seq.nextval,64000,sysdate,'배송완료','spring', '용인 수지');*
 /*
 insert into order_product(ono,pdno,quantity) values(1,1,3);
 
-insert into order_product(ono,pdno,quantity) values(2,4,8);
-insert into order_product(ono,pdno,quantity) values(2,5,6);
+insert into order_product(ono,pdno,quantity) values(44,4,8);
+insert into order_product(ono,pdno,quantity) values(45,5,6);
 insert into order_product(ono,pdno,quantity) values(2,2,10);
 
 insert into order_product(ono,pdno,quantity) values(3,1,2);
@@ -645,6 +645,8 @@ insert into order_product(ono,pdno,quantity) values(3,7,2);
 	*/
 
 --------------- 게시판
+
+select * from orders
 
 insert into board(bno,id,title,content,regdate,security,category) 
 values(bno_seq.nextval,'admin','첫번째 공지사항 제목','첫번째 공지사항 본문',sysdate,'public','공지');	
@@ -736,11 +738,6 @@ values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
 
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
 values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
-
-
-
-
-
 
 insert into order_product(ono,pdno,quantity) values(1,1,3);
 
