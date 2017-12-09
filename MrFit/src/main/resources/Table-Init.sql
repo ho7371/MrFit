@@ -739,11 +739,6 @@ values(ono_seq.nextval,30000,sysdate,'배송중','test3', '용인 수지');
 insert into orders(ono,totalprice,ordertime,status,id, destination) 
 values(ono_seq.nextval,23000,sysdate,'배송중','test3', '용인 수지');
 
-
-
-
-
-
 insert into order_product(ono,pdno,quantity) values(1,1,3);
 
 insert into order_product(ono,pdno,quantity) values(2,4,8);
