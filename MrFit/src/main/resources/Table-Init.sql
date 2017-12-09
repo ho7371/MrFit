@@ -321,8 +321,6 @@ insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	insert into product_size(psno,size_name,size1,size2,size3,size4,size5)
 	values(psno_seq.nextval,'L',45,62,64,30,104);
 	
-commit
-	
 ------------- 상품 상세 정보 추가-------------
 --------------상의----------------------
 -------1번째 상품 -----------------------
