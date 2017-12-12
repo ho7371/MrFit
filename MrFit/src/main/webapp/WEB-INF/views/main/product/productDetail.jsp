@@ -34,33 +34,18 @@ $(document).ready(function() {
 		// 파일명.html#tab1
 		// 페이지가 로드될때 URI에 hash의 값이 없으면 hash값을 #tab1으로 설정,
  	    // hash값에 따라서 해당 div가 보여지게됨.	
-		
-
-			  if($("#checkScroll").val()=="QnAScroll"){
-			   location.hash = "#tab2";
-			   $('html, body').animate({
+	  if($("#checkScroll").val()=="QnAScroll"){
+			  location.hash = "#tab2";
+		    $('html, body').animate({
 					scrollTop: $('#checkScroll').offset().top
 					}, 1);
-			  }else if($("#checkScroll").val()=="inquiryScroll"){
-				 location.hash = "#tab1";
-				$('html, body').animate({
+	 }else if($("#checkScroll").val()=="inquiryScroll"){
+			 location.hash = "#tab1";
+			   $('html, body').animate({
 				scrollTop: $('#checkScroll').offset().top
 				}, 1); 
-			  }else
+	  }else
 				 location.hash = "#tab1";
-			  
-		//리뷰, 상품문의 페이지 이동시 scroll 위치
-	/* 		if($("#checkScroll").val()=="QnAScroll"){
-			 $('html, body').animate({
-				scrollTop: $('#tab2').offset().top
-				}, 1); 
-			}else if($("#checkScroll").val()=="inquiryScroll"){
-				$('html, body').animate({
-					scrollTop: $('#tab1').offset().top
-					}, 1); 
-			}  */
-			 
-		
 		
 		//색상을 클릭했을 때 색상에 맞는 size를 ajax를 이용해 가지고 오는 이벤트
 		$("#colorCheck").change(function() {
@@ -126,20 +111,15 @@ $(document).ready(function() {
 		alert(image);
 		location.href="${pageContext.request.contextPath}/immediatelyPay.do?pcno="+pcno+
 		"&psno="+psno+"&pno="+pno+"&quantity="+quantity;
-/* 		alert(quantity);
-		alert(psno);
-		alert(pcno);
-		alert(1); */
 	});//immediatelyPay click
     
   	 	$("#registerPQ").click(function() {
-  	 	  	/* openPopup(); */
   	 	  		location.href="${pageContext.request.contextPath}/registerProductQnaView.do?pno="
   	 	  					+pno+"&checkScroll=QnAScroll";
   	 		});
 	//상품재고 비교
 $("#quantity").change(function() {
-	 var a=$("#sizeSelectAjax :selected").text().split(":");
+	var a=$("#sizeSelectAjax :selected").text().split(":");
 	if(parseInt($(this).val())>parseInt(a[2].toString())){
 		alert("재고량보다 많습니다");
 		$(this).val(0).focus();
@@ -199,15 +179,6 @@ function rvUpdate(rno){
 			return false;
 		}
 	}// cartLoginForm 종료
-	
-	/* function orderLoginForm(){
-		if(confirm("로그인을 하셔야합니다. 로그인 폼으로 가시겠습니까?")){
-			alert("로그인 폼으로 이동합니다");
-			location.href="${pageContext.request.contextPath}/loginForm.do";
-		}else{
-			return false;
-		}
-	} */
 
 </script>
 <script>
@@ -219,14 +190,6 @@ function rvUpdate(rno){
 		});
 	});
 </script>
-
-<%-- 
-<!-- 지울 부분 -->
-${requestScope.psglist}
-<br><br>
-<!-- 지울 부분 -->
-${requestScope.pvo } --%>
-
 
 <!--start-single-->
 <div class="single contact">
@@ -390,13 +353,7 @@ ${requestScope.pvo } --%>
 										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
 										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
 									</ul>
-									<!-- 	<label for="review"><a href="#tab1" style="font-size:30px">상퓸리뷰</a></label>
-            							<label for="productQnA"><a href="#tab2" style="font-size:30px">상품문의</a></label> -->
         							</section> 
-								<!-- 	<ul class="nav nav-tabs">
-										<li><a href="#tab1" style="font-size:20px">상품리뷰</a></li>
-										<li><a href="#tab2" style="font-size:20px">상품문의</a></li>
-									</ul> -->
 									<!-- 상품리뷰 -->
         						 <div class="tab_item" id="tab1">
 									<div class="in-check">

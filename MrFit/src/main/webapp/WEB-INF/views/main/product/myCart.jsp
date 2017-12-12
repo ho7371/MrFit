@@ -6,18 +6,6 @@
 $(document).ready(function() {
 	var quantity=$(".findQuantity").attr("id");
 	var updateQuantity="";
-	// 
-	$('.close2').on('click', function(c){
-		$('.cart-header1').fadeOut('slow', function(c){
-			$('.cart-header1').remove();
-		});
-	}); 
-	
-	$('.close3').on('click', function(c){
-		$('.cart-header2').fadeOut('slow', function(c){
-			$('.cart-header2').remove();
-		});
-	}); 
 	
 	$("#orderForm").click(function() {
 		if(confirm("상품을 주문하시겠습니까?")){

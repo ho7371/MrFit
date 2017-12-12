@@ -27,35 +27,35 @@
 						<c:forEach items="${requestScope.lvo.list}" var="i">
 						<c:choose>
 							<c:when test="${isAdmin}">
-							<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
-								<td>${i.iqno}</td>
-								<td>${i.title}</td>
-								<td>${i.id}</td>
-								<td>${i.regdate}</td>
-							</tr>
+								<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
+									<td>${i.iqno}</td>
+									<td>${i.title}</td>
+									<td>${i.id}</td>
+									<td>${i.regdate}</td>
+								</tr>
 							</c:when>
 							<c:when test="${user =='user' && i.security=='private'}">
-							<tr  style="cursor: pointer;"  <%-- onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}' --%>">
-								<td>${i.iqno}</td>
-								<td>비밀글입니다.</td>
-								<td>${i.id}</td>
-								<td>${i.regdate}</td>
-							</tr>
+								<tr  style="cursor: pointer;">
+									<td>${i.iqno}</td>
+									<td>비밀글입니다.</td>
+									<td>${i.id}</td>
+									<td>${i.regdate}</td>
+								</tr>
 							</c:when>
 							<c:when test="${i.security=='private' && i.id != mvo.id && isMember}">
-							<tr>
-								<td>${i.iqno}</td>
-								<td>비밀글입니다.</td>
-								<td>${i.id}</td>
-								<td>${i.regdate}</td>
-							</tr>
+								<tr>
+									<td>${i.iqno}</td>
+									<td>비밀글입니다.</td>
+									<td>${i.id}</td>
+									<td>${i.regdate}</td>
+								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr  style="cursor: pointer;"  onclick="location.href='${pageContext.request.contextPath}/inquiryDetail.do?iqno=${i.iqno}'">
-								<td>${i.iqno}</td>
-								<td>${i.title}</td>
-								<td>${i.id}</td>
-								<td>${i.regdate}</td>
+									<td>${i.iqno}</td>
+									<td>${i.title}</td>
+									<td>${i.id}</td>
+									<td>${i.regdate}</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

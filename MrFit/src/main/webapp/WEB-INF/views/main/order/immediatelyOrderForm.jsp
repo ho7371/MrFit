@@ -3,14 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
+<script type="text/javascript">
 function kakaoPay(){
+	alert('결제할 금액 : '+$("#totalpricehidden").val());
 	alert("이름 : "+$("#name").val()+" 번호 : "+$("#phone").val()+" 배송지 : "+ $("#destination").val()+" 이메일 : "+$("#memberEmail").text());
 	IMP.request_pay({
 	    pg : 'kakao',
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : 1000,
+	    amount : $("#totalpricehidden").val(),
 	    buyer_email : $("#memberEmail").text(),
 	    buyer_name : $("#name").val(),
 	    buyer_tel : $("#phone").val(),
@@ -33,9 +35,11 @@ function kakaoPay(){
 		    		//기타 필요한 데이터가 있으면 추가 전달
 	    		}
 	    	}).done(function(data) {
-	    		alert('결제 완료');
 	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	    		if ( everythings_fine ) {
+	    		alert("uid:"+rsp.imp_uid+" / merchantuid:"+rsp.merchant_uid+" / paid_amount:"+rsp.paid_amount+" / status:"+rsp.status);
+	    		
+	    		if ( rsp.status == 'paid' && rsp.paid_amount == $("#totalpricehidden").val() ) {
+	    			alert('결제완료 : 결제 금액 == 주문 금액');
 	    			var msg = '결제가 완료되었습니다.';
 	    			msg += '\n고유ID : ' + rsp.imp_uid;
 	    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
@@ -48,6 +52,7 @@ function kakaoPay(){
 	    		} else {
 	    			//[3] 아직 제대로 결제가 되지 않았습니다.
 	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+	    			alert('결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.');
 	    		}
 	    		
 	    	});
@@ -64,10 +69,6 @@ function kakaoPay(){
 		IMP.init('imp55065335'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		alert('IMP 결제 객체가 초기화됨');
     // 작업이 저장되지 않았을 경우에는 안내 메시지와 확인 창을 보여준다.
-/* 		var totalprice = 0;
-		<c:forEach items="${requestScope.ovoList}" var="list">
-			totalprice += ${list.totalprice}
-		</c:forEach> */
 		var totalprice=$("#checkTotalprice").val();
 		/* $("#totalprice").text("총 상품금액 : "+totalprice); */
 		$("#pointCharge").change(function() {
@@ -302,28 +303,6 @@ function kakaoPay(){
 		          			<td>· 가장 빠른 모바일 결제</td>
 		          		</tr>
 		          	</table>
-		          	<!-- <table class="cart-header" id ="payMethodTable2">
-		          		<tr>
-		          			<td>
-		          			· 안심클릭 및 인터넷안전결제(IPS)서비스로 128bit SSL로 암호화된 결제 창이 새로 뜹니다. <br>
-							· 결제후, 카드명세서에 [KCP.CO.KR]로 표시되며, 카드 정보는 상점에 남지 않습니다.
-							</td>
-		          		</tr>
-		          	</table>
-		          	<table class="cart-header" id ="payMethodTable3">
-		          		<tr>
-		          			<td>
-		          			★ 11월 한정 혜택1. 생애 첫결제 7,000원 할인 (신한/하나/롯데/NH 35,000원 결제시) <Br>
-   							★ 11월 한정 혜택2. 1,500원 할인 (신한/하나/롯데/NH 2만원 이상 결제시, 기간 內 2회 제공) <br>
-  							 (“★”프로모션은 예산 소진 시 자동 종료) <br>
-							1) 생애 첫 결제 시 3,500원 쿠폰 제공(단, 10,000원 이상 결제 시) <br>
-							2) PAYCO 슈퍼세이브 : 최대 10,000p 적립, 등급별 라운지 혜택 제공 <br>
-							   [슈퍼세이브 자세히보기]   <Br>
-							3) PAYCO 포인트(유상충전)로 결제 시 3% 상시 할인 <br>  
-							휴대폰과 카드 명의자가 동일해야 결제 가능하며, 결제금액 제한은 없습니다.
-		          			</td>
-		          		</tr>
-		          	</table> -->
 		         </div>
 	          </div>	          
 	         <div align="right" class = "in-check">

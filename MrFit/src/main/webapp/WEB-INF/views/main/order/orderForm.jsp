@@ -310,28 +310,6 @@ function kakaoPay(){
 		          			<td>· 가장 빠른 모바일 결제</td>
 		          		</tr>
 		          	</table>
-		          	<!-- <table class="cart-header" id ="payMethodTable2">
-		          		<tr>
-		          			<td>
-		          			· 안심클릭 및 인터넷안전결제(IPS)서비스로 128bit SSL로 암호화된 결제 창이 새로 뜹니다. <br>
-							· 결제후, 카드명세서에 [KCP.CO.KR]로 표시되며, 카드 정보는 상점에 남지 않습니다.
-							</td>
-		          		</tr>
-		          	</table>
-		          	<table class="cart-header" id ="payMethodTable3">
-		          		<tr>
-		          			<td>
-		          			★ 11월 한정 혜택1. 생애 첫결제 7,000원 할인 (신한/하나/롯데/NH 35,000원 결제시) <Br>
-   							★ 11월 한정 혜택2. 1,500원 할인 (신한/하나/롯데/NH 2만원 이상 결제시, 기간 內 2회 제공) <br>
-  							 (“★”프로모션은 예산 소진 시 자동 종료) <br>
-							1) 생애 첫 결제 시 3,500원 쿠폰 제공(단, 10,000원 이상 결제 시) <br>
-							2) PAYCO 슈퍼세이브 : 최대 10,000p 적립, 등급별 라운지 혜택 제공 <br>
-							   [슈퍼세이브 자세히보기]   <Br>
-							3) PAYCO 포인트(유상충전)로 결제 시 3% 상시 할인 <br>  
-							휴대폰과 카드 명의자가 동일해야 결제 가능하며, 결제금액 제한은 없습니다.
-		          			</td>
-		          		</tr>
-		          	</table> -->
 		         </div>
 	          </div>	          
 	         <div align="right" class = "in-check">

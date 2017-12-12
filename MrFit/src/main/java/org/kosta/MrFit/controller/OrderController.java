@@ -70,13 +70,13 @@ public class OrderController {
 	@Secured("ROLE_MEMBER")
 	@Transactional
 	@RequestMapping("registerCart.do")
-	public String registerCart(HttpServletRequest request,ProductVO prodeuctVO) {
+	public String registerCart(HttpServletRequest request,ProductVO productVO) {
 		OrderVO ovo = new OrderVO(); 											//registerCart 생성을 위해 사용하는 객체들 생성 주문,주문상품,주문상품리스트,회원~
 		OrderProductVO opvo = new OrderProductVO();
 		List<OrderProductVO> opList = new ArrayList<OrderProductVO>();
 		ProductDetailVO pdvo=new ProductDetailVO();
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();//member security적용
-		System.out.println("   	OrderController/registerCart()/진행 pno : "+prodeuctVO.getPno());
+		System.out.println("   	OrderController/registerCart()/진행 pno : "+productVO.getPno());
 		int cartCount = orderService.findMyCartCount(mvo.getId());				// 장바구니에서 상품 담기 장바구니 상태의 주문이 있는지 확인
 		int quantity =Integer.parseInt( request.getParameter("quantity")); 		// 상품 수량 기입 reqeust
 		int price =quantity* Integer.parseInt(request.getParameter("price"));	// 수량*request상품가격 => 총상품가격 (변수명바꿀지?)		

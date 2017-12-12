@@ -283,11 +283,6 @@ public class MemberController {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("    MemberController/updateMemberAction()/진행1 - Spring Security 세션 수정 전 회원정보: "+pvo);
 		memberService.updateMember(memberVO);		//회원 정보를 DB에 셋팅
-		pvo.setPassword(memberVO.getPassword());	//회원 정보를 객체에 셋팅
-		pvo.setName(memberVO.getName());
-		pvo.setPhone(memberVO.getPhone());
-		pvo.setAddress(memberVO.getAddress());
-		pvo.setEmail(memberVO.getEmail());
 		return "member/update_result.tiles";
 	}
 	/**[정현][회원탈퇴]

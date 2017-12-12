@@ -2,33 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<script>
-	$(document).ready(function(c) {
-		$('.close1').on('click', function(c) {
-			$('.cart-header').fadeOut('slow', function(c) {
-				$('.cart-header').remove();
-			});
-		});
-	});
-</script>
-<script>
-	$(document).ready(function(c) {
-		$('.close2').on('click', function(c) {
-			$('.cart-header1').fadeOut('slow', function(c) {
-				$('.cart-header1').remove();
-			});
-		});
-	});
-</script>
-<script>
-	$(document).ready(function(c) {
-		$('.close3').on('click', function(c) {
-			$('.cart-header2').fadeOut('slow', function(c) {
-				$('.cart-header2').remove();
-			});
-		});
-	});
-</script>
 
 <!--start-ckeckout-->
 <div class="ckeckout">
